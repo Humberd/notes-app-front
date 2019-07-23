@@ -11,22 +11,32 @@ import { NoteTagsComponent } from './notes-list/note-entity/note-tags/note-tags.
 import { MatChipsModule } from '@angular/material/chips';
 import { TagsListComponent } from './tags-list/tags-list.component';
 import { MatListModule } from '@angular/material/list';
+import { SearchBarComponent } from './search-bar/search-bar.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     HttpClientModule,
+    ReactiveFormsModule,
     MatCardModule,
     MatChipsModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule
   ],
   declarations: [
     NotesComponent,
     NotesListComponent,
     NoteEntityComponent,
     NoteTagsComponent,
-    TagsListComponent
+    TagsListComponent,
+    SearchBarComponent
   ]
 })
 export class NotesModule { }

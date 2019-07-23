@@ -4,5 +4,20 @@
 
   display: grid;
   grid-template-columns: 200px 1fr;
+  grid-template-areas:
+    "search search"
+    "tags notes";
   grid-column-gap: 20px;
+}
+
+.search-bar {
+  grid-area: search;
+}
+
+.tags-list {
+  grid-area: tags;
+}
+
+.notes-list {
+  grid-area: notes;
 }
