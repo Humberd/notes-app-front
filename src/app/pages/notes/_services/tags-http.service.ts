@@ -6,7 +6,7 @@ import { TagDto } from '../_models/tags';
 @Injectable({
   providedIn: 'root'
 })
-export class TagsService {
+export class TagsHttpService {
 
   constructor(private http: HttpClient) {
   }
