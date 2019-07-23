@@ -1,12 +1,23 @@
-<mat-icon class="icon">search</mat-icon>
+<div class="search">
+  <mat-icon class="icon">search</mat-icon>
 
-<mat-form-field class="search-input"
-                floatLabel="never"
->
-
-  <input matInput
-         placeholder="Find your note"
-         [formControl]="searchInputControl"
+  <mat-form-field class="search-input"
+                  floatLabel="never"
   >
 
-</mat-form-field>
+    <input matInput
+           placeholder="Find your note"
+           [formControl]="searchInputControl"
+    >
+
+  </mat-form-field>
+
+</div>
+
+<button mat-raised-button
+        color="primary"
+>
+  <mat-icon>add</mat-icon>
+
+  New
+</button>

@@ -1,15 +1,22 @@
 :host {
   display: flex;
   align-items: center;
+}
+
+.search {
   padding: 16px;
 
-}
+  flex: 1;
+  display: flex;
+  align-items: center;
 
-.icon {
-  margin-right: 20px;
-}
+  .icon {
+    margin-right: 20px;
+  }
 
-.search-input {
-  width: 100%;
+  .search-input {
+    width: 100%;
+
+  }
 
 }
