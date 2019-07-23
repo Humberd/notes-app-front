@@ -6,17 +6,23 @@ import { routes } from './notes.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { NoteEntityComponent } from './notes-list/note-entity/note-entity.component';
+import { MatCardModule } from '@angular/material/card';
+import { NoteTagsComponent } from './notes-list/note-entity/note-tags/note-tags.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    HttpClientModule
+    HttpClientModule,
+    MatCardModule,
+    MatChipsModule,
   ],
   declarations: [
     NotesComponent,
     NotesListComponent,
-    NoteEntityComponent
+    NoteEntityComponent,
+    NoteTagsComponent
   ]
 })
 export class NotesModule { }
