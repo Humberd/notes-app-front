@@ -2,6 +2,9 @@
 
   <button mat-list-item
           *ngFor="let tag of tags"
+          class="tag-action"
+          [class.selected]="searchService.isTagInQuery(tag)"
+          (click)="searchService.toggleTagInQuery(tag)"
   >
     <span class="tag-action-content">
       <span>{{tag.displayName}}</span>

@@ -1,6 +1,14 @@
-.tag-action-content {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
+.tag-action {
+
+  &.selected {
+    background-color: #b3daff;
+  }
+
+  .tag-action-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+  }
 }

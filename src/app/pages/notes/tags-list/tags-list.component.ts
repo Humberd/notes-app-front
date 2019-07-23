@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TagsHttpService } from '../_services/tags-http.service';
 import { TagDto } from '../_models/tags';
+import { SearchService } from '../_services/search.service';
 
 @Component({
   selector: 'app-tags-list',
@@ -10,7 +11,9 @@ import { TagDto } from '../_models/tags';
 export class TagsListComponent implements OnInit {
   tags: TagDto[];
 
-  constructor(private tagsHttpService: TagsHttpService) { }
+  constructor(private tagsHttpService: TagsHttpService,
+              public searchService: SearchService) {
+  }
 
   ngOnInit() {
     this.tagsHttpService.readAll()
