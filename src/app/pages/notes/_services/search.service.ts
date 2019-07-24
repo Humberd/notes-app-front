@@ -1,29 +1,24 @@
 import { Injectable } from '@angular/core';
 import { TagDto } from '../_models/tags';
-import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SearchService {
-  private tags: TagDto[] = [];
-  tags$ = new Subject<TagDto[]>();
-
-  private text: string;
-  text$ = new Subject<string>();
+  tags$ = new BehaviorSubject<TagDto[]>([]);
+  text$ = new BehaviorSubject<string>('');
 
   addTagToQuery(tag: TagDto) {
-    this.tags.push(tag);
-    this.tags$.next(this.tags);
+    this.tags$.next([...this.tags$.value, tag]);
   }
 
   removeTagFromQuery(tag: TagDto) {
-    this.tags = this.tags.filter(value => value.id !== tag.id);
-    this.tags$.next(this.tags);
+    this.tags$.next(this.tags$.value.filter(value => value.id !== tag.id));
   }
 
   isTagInQuery(tag: TagDto): boolean {
-    return !!this.tags.find(value => value.id === tag.id);
+    return !!this.tags$.value.find(value => value.id === tag.id);
   }
 
   toggleTagInQuery(tag: TagDto) {
@@ -35,8 +30,7 @@ export class SearchService {
   }
 
   updateTextQuery(text) {
-    this.text = text;
-    this.text$.next(this.text);
+    this.text$.next(text);
   }
 
 }

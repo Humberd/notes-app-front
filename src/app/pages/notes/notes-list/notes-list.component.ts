@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NotesHttpService } from '../_services/notes-http.service';
 import { NoteDto } from '../_models/notes';
+import { SearchService } from '../_services/search.service';
+import { switchMap } from 'rxjs/operators';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-notes-list',
@@ -10,11 +13,15 @@ import { NoteDto } from '../_models/notes';
 export class NotesListComponent implements OnInit {
   notes: NoteDto[];
 
-  constructor(private notesHttpService: NotesHttpService) {
+  constructor(private notesHttpService: NotesHttpService,
+              private searchService: SearchService) {
   }
 
   ngOnInit() {
-    this.notesHttpService.readAll()
+    combineLatest(this.searchService.tags$, this.searchService.text$)
+      .pipe(
+        switchMap(([tags, query]) => this.notesHttpService.readAll(tags.map(it => it.id), query))
+      )
       .subscribe(notes => this.notes = notes);
   }
 

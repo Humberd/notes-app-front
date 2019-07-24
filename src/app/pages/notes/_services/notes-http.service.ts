@@ -15,7 +15,11 @@ export class NotesHttpService {
     return this.http.post('http://localhost:8080/notes', body);
   }
 
-  readAll(): Observable<NoteDto[]> {
-    return this.http.get<NoteDto[]>('http://localhost:8080/notes');
+  readAll(tags: string[], query: string): Observable<NoteDto[]> {
+    return this.http.get<NoteDto[]>('http://localhost:8080/notes', {
+      params: {
+        tags, query
+      }
+    });
   }
 }
