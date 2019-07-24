@@ -1,10 +1,11 @@
 :host {
   display: flex;
   align-items: center;
+  background-color: #fff;
 }
 
 .search {
-  padding: 16px;
+  padding: 0 16px;
 
   flex: 1;
   display: flex;
