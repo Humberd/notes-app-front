@@ -3,9 +3,10 @@
   <mat-card-subtitle>22.03.2015</mat-card-subtitle>
 
   <mat-card-content>
-    <p>
-      {{note.content}}
-    </p>
+    <app-editor class="content"
+                [content]="note.content"
+                [isEditor]="false"
+    ></app-editor>
 
     <app-note-tags [tags]="note.tags"></app-note-tags>
   </mat-card-content>

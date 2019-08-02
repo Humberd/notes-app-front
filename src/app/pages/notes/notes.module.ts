@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { EditorModule } from '../../shared/editor/editor.module';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
-    MatButtonModule
+    MatButtonModule,
+    EditorModule
   ],
   declarations: [
     NotesComponent,
