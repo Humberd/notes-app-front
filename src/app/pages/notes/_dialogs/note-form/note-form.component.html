@@ -1,0 +1,23 @@
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Title"
+    [formControl]="formDefinition.title"
+  >
+</mat-form-field>
+
+<app-editor
+  content=""
+  [isEditor]="true"
+  placeholder="What's in your mind?"
+  [formControl]="formDefinition.content"
+>
+
+</app-editor>
+
+<mat-form-field>
+  <input
+    matInput
+    placeholder="Tags"
+  >
+</mat-form-field>

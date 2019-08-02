@@ -5,6 +5,7 @@ import { NotesDialogService } from './notes-dialog.service';
 import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from '../../../shared/editor/editor.module';
+import { NoteFormComponent } from './note-form/note-form.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { EditorModule } from '../../../shared/editor/editor.module';
     MatButtonModule
   ],
   declarations: [
-    CreateNoteComponent
+    CreateNoteComponent,
+    NoteFormComponent
   ],
   entryComponents: [
     CreateNoteComponent

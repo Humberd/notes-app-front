@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
-import { FormControl, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { NotesHttpService } from '../../_services/notes-http.service';
+import { NoteFormValues } from '../note-form/note-form.component';
 
 interface CreateNoteFormValues {
-  title: string;
-  content: string;
-  tags: string[];
+  form: NoteFormValues;
 }
 
 @Component({
@@ -24,17 +23,15 @@ export class CreateNoteComponent extends FormRootController<CreateNoteFormValues
 
   getFormDefinition(): FormControllerConfig<CreateNoteFormValues> {
     return {
-      title: new FormControl('', Validators.required),
-      content: new FormControl(''),
-      tags: new FormControl([])
+      form: new FormGroup({}),
     };
   }
 
   protected submitAction(values: CreateNoteFormValues): Observable<any> {
     return this.notesHttpService.create({
-      title: values.title,
-      content: values.content,
-      tags: values.tags
+      title: values.form.title,
+      content: values.form.content,
+      tags: values.form.tags
     });
   }
 
