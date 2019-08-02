@@ -18,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorModule } from '../../shared/editor/editor.module';
+import { NotesDialogsModule } from './_dialogs/notes-dialogs.module';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { EditorModule } from '../../shared/editor/editor.module';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    EditorModule
+    EditorModule,
+    NotesDialogsModule
   ],
   declarations: [
     NotesComponent,
