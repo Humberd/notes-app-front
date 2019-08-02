@@ -1,6 +1,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, NgZone, ViewChild } from '@angular/core';
 import EditorLib from 'tui-editor';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Destroy$ } from '@ng-boost/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 // import Viewer = tuiEditor.Viewer;
 // import Editor = tuiEditor.Editor;
 
@@ -17,13 +20,12 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/f
   ]
 })
 export class EditorComponent implements AfterViewInit, ControlValueAccessor {
+  @Destroy$() private readonly destroy$ = new Subject();
   @Input() content: string;
   @Input() isEditor = false;
   @Input() placeholder: string;
 
   @Input() formControl: FormControl;
-
-  private editor: any;
 
   @ViewChild('editorSection', {static: true}) editorSection: ElementRef;
 
@@ -33,25 +35,31 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {
-      this.editor = EditorLib.factory({
+      const editor = EditorLib.factory({
         el: this.editorSection.nativeElement,
         initialEditType: 'markdown',
         previewStyle: 'vertical',
-        initialValue: this.content,
+        initialValue: this.content || (this.formControl && this.formControl.value),
         viewer: !this.isEditor,
         placeholder: this.placeholder,
       });
 
-      // if (this.editor instanceof Editor) {
-      const editor = this.editor;
-      this.editor.on('change', () => {
+      editor.on('change', () => {
         this.zone.run(() => {
-          this.formControl.setValue(editor.getValue());
+          if (this.formControl) {
+            this.formControl.setValue((editor as any).getValue());
+          }
           this.cdr.markForCheck();
         });
       });
-      // }
 
+      if (this.formControl) {
+        this.formControl.valueChanges
+          .pipe(
+            takeUntil(this.destroy$)
+          )
+          .subscribe(newValue => editor.setValue(newValue));
+      }
     });
   }
 

@@ -2,10 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CreateNoteComponent } from './create-note/create-note.component';
 import { NotesDialogService } from './notes-dialog.service';
-import { MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule } from '@angular/material';
+import {
+  MatAutocompleteModule,
+  MatButtonModule,
+  MatChipsModule,
+  MatDialogModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatInputModule
+} from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EditorModule } from '../../../shared/editor/editor.module';
 import { NoteFormComponent } from './note-form/note-form.component';
+import { TagsAutocompleteComponent } from './note-form/tags-autocomplete/tags-autocomplete.component';
 
 
 @NgModule({
@@ -16,11 +25,15 @@ import { NoteFormComponent } from './note-form/note-form.component';
     MatInputModule,
     ReactiveFormsModule,
     EditorModule,
-    MatButtonModule
+    MatButtonModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule
   ],
   declarations: [
     CreateNoteComponent,
-    NoteFormComponent
+    NoteFormComponent,
+    TagsAutocompleteComponent
   ],
   entryComponents: [
     CreateNoteComponent
