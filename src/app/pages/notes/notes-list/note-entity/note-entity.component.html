@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-title>{{note.title}}</mat-card-title>
-  <mat-card-subtitle>22.03.2015</mat-card-subtitle>
+  <mat-card-subtitle>{{note.createdAt | date}}</mat-card-subtitle>
 
   <mat-card-content>
     <app-editor class="content"

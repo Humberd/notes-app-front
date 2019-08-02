@@ -27,7 +27,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       )
       .subscribe(value => this.searchService.updateTextQuery(value));
 
-    this.notesDialogService.openCreateDialog();
+    // this.notesDialogService.openCreateDialog();
 
   }
 
