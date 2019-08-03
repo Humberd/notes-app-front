@@ -19,7 +19,9 @@ export class NoteOptionsComponent {
   }
 
   editNote() {
-    this.notesDialogService.openEditDialog(this.note);
+    this.notesDialogService.openEditDialog(this.note)
+      .afterClosed()
+      .subscribe(() => this.notesRefresherService.refresh());
   }
 
 }

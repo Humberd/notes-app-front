@@ -4,6 +4,7 @@ import { FormControl } from '@angular/forms';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { NotesDialogService } from '../_dialogs/notes-dialog.service';
+import { NotesRefresherService } from '../_services/notes-refresher.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -16,7 +17,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   constructor(
     private searchService: SearchService,
-    public notesDialogService: NotesDialogService
+    private notesDialogService: NotesDialogService,
+    private notesRefresherService: NotesRefresherService
   ) {
 
   }
@@ -30,12 +32,15 @@ export class SearchBarComponent implements OnInit, OnDestroy {
       .subscribe(
         value => this.searchService.updateTextQuery(value));
 
-    // this.notesDialogService.openCreateDialog();
-
   }
 
   ngOnDestroy(): void {
     this.$destroy.next();
   }
 
+  createNewNote() {
+    this.notesDialogService.openCreateDialog()
+      .afterClosed()
+      .subscribe(() => this.notesRefresherService.refresh());
+  }
 }
