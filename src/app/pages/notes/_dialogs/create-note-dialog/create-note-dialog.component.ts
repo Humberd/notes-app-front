@@ -10,11 +10,10 @@ interface CreateNoteFormValues {
 }
 
 @Component({
-  selector: 'app-create-note',
-  templateUrl: './create-note.component.html',
-  styleUrls: ['./create-note.component.scss']
+  templateUrl: './create-note-dialog.component.html',
+  styleUrls: ['./create-note-dialog.component.scss']
 })
-export class CreateNoteComponent extends FormRootController<CreateNoteFormValues> {
+export class CreateNoteDialogComponent extends FormRootController<CreateNoteFormValues> {
 
   constructor(private notesHttpService: NotesHttpService) {
     super();

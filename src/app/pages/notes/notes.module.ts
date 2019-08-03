@@ -19,6 +19,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { EditorModule } from '../../shared/editor/editor.module';
 import { NotesDialogsModule } from './_dialogs/notes-dialogs.module';
+import { NoteOptionsComponent } from './notes-list/note-entity/note-options/note-options.component';
+import { MatMenuModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -34,7 +36,8 @@ import { NotesDialogsModule } from './_dialogs/notes-dialogs.module';
     MatIconModule,
     MatButtonModule,
     EditorModule,
-    NotesDialogsModule
+    NotesDialogsModule,
+    MatMenuModule
   ],
   declarations: [
     NotesComponent,
@@ -42,7 +45,8 @@ import { NotesDialogsModule } from './_dialogs/notes-dialogs.module';
     NoteEntityComponent,
     NoteTagsComponent,
     TagsListComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    NoteOptionsComponent
   ]
 })
 export class NotesModule { }

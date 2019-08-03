@@ -24,9 +24,9 @@ export class NoteFormComponent extends FormController<NoteFormValues> {
 
   getFormDefinition(): FormControllerConfig<NoteFormValues> {
     return {
-      title: new FormControl('', Validators.required),
-      content: new FormControl(''),
-      tags: new FormControl([])
+      title: new FormControl(this.initialValues.title || '', Validators.required),
+      content: new FormControl(this.initialValues.content || ''),
+      tags: new FormControl(this.initialValues.tags || [])
     };
   }
 

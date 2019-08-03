@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material';
-import { CreateNoteComponent } from './create-note/create-note.component';
+import { CreateNoteDialogComponent } from './create-note-dialog/create-note-dialog.component';
+import { EditNoteDialogComponent, EditNoteDialogData } from './edit-note-dialog/edit-note-dialog.component';
 
 @Injectable()
 export class NotesDialogService {
@@ -13,6 +14,10 @@ export class NotesDialogService {
   }
 
   openCreateDialog() {
-    return this.dialogService.open(CreateNoteComponent, {...this.defaultConfig});
+    return this.dialogService.open(CreateNoteDialogComponent, {...this.defaultConfig});
+  }
+
+  openEditDialog(data: EditNoteDialogData) {
+    return this.dialogService.open(EditNoteDialogComponent, {...this.defaultConfig, data});
   }
 }
