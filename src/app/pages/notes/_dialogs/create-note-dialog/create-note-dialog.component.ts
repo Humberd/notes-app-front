@@ -16,15 +16,17 @@ interface CreateNoteFormValues {
 })
 export class CreateNoteDialogComponent extends FormRootController<CreateNoteFormValues> {
 
-  constructor(private notesHttpService: NotesHttpService,
-              private matDialogRef: MatDialogRef<any>) {
+  constructor(
+    private notesHttpService: NotesHttpService,
+    private matDialogRef: MatDialogRef<any>
+  ) {
     super();
   }
 
 
   getFormDefinition(): FormControllerConfig<CreateNoteFormValues> {
     return {
-      form: new FormGroup({}),
+      form: new FormGroup({})
     };
   }
 

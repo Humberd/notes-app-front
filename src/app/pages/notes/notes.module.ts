@@ -49,4 +49,5 @@ import { MatMenuModule } from '@angular/material';
     NoteOptionsComponent
   ]
 })
-export class NotesModule { }
+export class NotesModule {
+}

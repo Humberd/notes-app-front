@@ -36,8 +36,11 @@ export class NoteFormComponent extends FormController<NoteFormValues> {
 
     this.tagsHttpService.readAll()
       .pipe(
-        map(tags => tags.map(it => it.displayName))
+        map(
+          tags => tags.map(
+            it => it.displayName))
       )
-      .subscribe(tagNames => this.tagNames = tagNames);
+      .subscribe(
+        tagNames => this.tagNames = tagNames);
   }
 }

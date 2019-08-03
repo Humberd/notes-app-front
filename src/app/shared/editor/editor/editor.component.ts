@@ -29,8 +29,10 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
 
   @ViewChild('editorSection', {static: true}) editorSection: ElementRef;
 
-  constructor(private cdr: ChangeDetectorRef,
-              private zone: NgZone) {
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private zone: NgZone
+  ) {
   }
 
   ngAfterViewInit(): void {
@@ -41,7 +43,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
         previewStyle: 'vertical',
         initialValue: this.content || (this.formControl && this.formControl.value),
         viewer: !this.isEditor,
-        placeholder: this.placeholder,
+        placeholder: this.placeholder
       });
 
       editor.on('change', () => {
@@ -58,7 +60,8 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
           .pipe(
             takeUntil(this.destroy$)
           )
-          .subscribe(newValue => editor.setValue(newValue));
+          .subscribe(
+            newValue => editor.setValue(newValue));
       }
     });
   }

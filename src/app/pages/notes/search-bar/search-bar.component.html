@@ -1,22 +1,25 @@
 <div class="search">
   <mat-icon class="icon">search</mat-icon>
 
-  <mat-form-field class="search-input"
-                  floatLabel="never"
+  <mat-form-field
+    class="search-input"
+    floatLabel="never"
   >
 
-    <input matInput
-           placeholder="Find your note"
-           [formControl]="searchInputControl"
+    <input
+      matInput
+      placeholder="Find your note"
+      [formControl]="searchInputControl"
     >
 
   </mat-form-field>
 
 </div>
 
-<button mat-raised-button
-        color="primary"
-        (click)="notesDialogService.openCreateDialog()"
+<button
+  mat-raised-button
+  color="primary"
+  (click)="notesDialogService.openCreateDialog()"
 >
   <mat-icon>add</mat-icon>
 

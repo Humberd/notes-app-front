@@ -21,23 +21,25 @@ export type EditNoteDialogData = NoteDto;
 export class EditNoteDialogComponent extends FormRootController<EditNoteDialogFormValues> {
   noteFormInitialValues: NoteFormValues;
 
-  constructor(private notesHttpService: NotesHttpService,
-              private matDialogRef: MatDialogRef<any>,
-              @Inject(MAT_DIALOG_DATA) private dialogData?: EditNoteDialogData,
+  constructor(
+    private notesHttpService: NotesHttpService,
+    private matDialogRef: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) private dialogData?: EditNoteDialogData
   ) {
     super();
 
     this.noteFormInitialValues = {
       title: this.dialogData.title,
       content: this.dialogData.content,
-      tags: this.dialogData.tags.map(it => it.displayName)
+      tags: this.dialogData.tags.map(
+        it => it.displayName)
     };
   }
 
 
   getFormDefinition(): FormControllerConfig<EditNoteDialogFormValues> {
     return {
-      form: new FormGroup({}),
+      form: new FormGroup({})
     };
   }
 

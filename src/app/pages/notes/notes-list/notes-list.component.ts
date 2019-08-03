@@ -12,7 +12,10 @@ export class NotesListComponent {
   constructor(public notesRefresherService: NotesRefresherService) {
   }
 
-  trackBy(index: number, note: NoteDto) {
+  trackBy(
+    index: number,
+    note: NoteDto
+  ) {
     return note.id;
   }
 

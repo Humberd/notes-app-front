@@ -1,25 +1,29 @@
 <h2 mat-dialog-title>Edit Note</h2>
 
-<form [formGroup]="rootForm"
-      (ngSubmit)="submit()"
+<form
+  [formGroup]="rootForm"
+  (ngSubmit)="submit()"
 >
   <mat-dialog-content>
-    <app-note-form [formGroupTemplate]="formDefinition.form"
-                   [initialValues]="noteFormInitialValues"
+    <app-note-form
+      [formGroupTemplate]="formDefinition.form"
+      [initialValues]="noteFormInitialValues"
     ></app-note-form>
 
   </mat-dialog-content>
 
   <mat-dialog-actions align="end">
-    <button mat-button
-            type="button"
-            mat-dialog-close
+    <button
+      mat-button
+      type="button"
+      mat-dialog-close
     >
       Cancel
     </button>
-    <button mat-raised-button
-            type="submit"
-            color="primary"
+    <button
+      mat-raised-button
+      type="submit"
+      color="primary"
     >
       Update
     </button>

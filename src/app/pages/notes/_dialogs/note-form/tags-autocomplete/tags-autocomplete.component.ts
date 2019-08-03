@@ -48,19 +48,22 @@ export class TagsAutocompleteComponent implements OnInit, ControlValueAccessor {
   ngOnInit(): void {
     this.filteredTags = this.allTags$
       .pipe(
-        switchMap(allTags => this.inputCtrl.valueChanges
-          .pipe(
-            startWith(this.inputCtrl.value),
-            map((currentInput) => {
-              const selectedTags: string[] = this.formControl.value;
-              const notUsedTags = allTags.filter(it => !selectedTags.includes(it));
-              if (!currentInput) {
-                return notUsedTags;
-              }
+        switchMap(
+          allTags => this.inputCtrl.valueChanges
+            .pipe(
+              startWith(this.inputCtrl.value),
+              map((currentInput) => {
+                const selectedTags: string[] = this.formControl.value;
+                const notUsedTags = allTags.filter(
+                  it => !selectedTags.includes(it));
+                if (!currentInput) {
+                  return notUsedTags;
+                }
 
-              return notUsedTags.filter(it => it.includes(currentInput));
-            }),
-          )
+                return notUsedTags.filter(
+                  it => it.includes(currentInput));
+              })
+            )
         )
       );
   }
@@ -94,7 +97,8 @@ export class TagsAutocompleteComponent implements OnInit, ControlValueAccessor {
   remove(tag: string): void {
     const currentTags: string[] = [...this.formControl.value];
 
-    this.formControl.patchValue(currentTags.filter(it => it !== tag));
+    this.formControl.patchValue(currentTags.filter(
+      it => it !== tag));
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {

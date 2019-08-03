@@ -14,11 +14,13 @@ export class SearchService {
   }
 
   removeTagFromQuery(tag: TagDto) {
-    this.tags$.next(this.tags$.value.filter(value => value.id !== tag.id));
+    this.tags$.next(this.tags$.value.filter(
+      value => value.id !== tag.id));
   }
 
   isTagInQuery(tag: TagDto): boolean {
-    return !!this.tags$.value.find(value => value.id === tag.id);
+    return !!this.tags$.value.find(
+      value => value.id === tag.id);
   }
 
   toggleTagInQuery(tag: TagDto) {

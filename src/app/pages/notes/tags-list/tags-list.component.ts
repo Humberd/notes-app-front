@@ -11,13 +11,16 @@ import { SearchService } from '../_services/search.service';
 export class TagsListComponent implements OnInit {
   tags: TagDto[];
 
-  constructor(private tagsHttpService: TagsHttpService,
-              public searchService: SearchService) {
+  constructor(
+    private tagsHttpService: TagsHttpService,
+    public searchService: SearchService
+  ) {
   }
 
   ngOnInit() {
     this.tagsHttpService.readAll()
-      .subscribe(tags => this.tags = tags);
+      .subscribe(
+        tags => this.tags = tags);
   }
 
 }
