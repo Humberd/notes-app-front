@@ -24,7 +24,7 @@ import { map, startWith, switchMap } from 'rxjs/operators';
   ]
 })
 export class TagsAutocompleteComponent implements OnInit, ControlValueAccessor {
-  selectable = true;
+  selectable = false;
   removable = true;
   addOnBlur = true;
   separatorKeysCodes: number[] = [ENTER, COMMA];

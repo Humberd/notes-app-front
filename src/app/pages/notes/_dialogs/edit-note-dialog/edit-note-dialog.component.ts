@@ -4,7 +4,7 @@ import { NoteFormValues } from '../note-form/note-form.component';
 import { NotesHttpService } from '../../_services/notes-http.service';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { NoteDto } from '../../_models/notes';
 
 interface EditNoteDialogFormValues {
@@ -22,7 +22,8 @@ export class EditNoteDialogComponent extends FormRootController<EditNoteDialogFo
   noteFormInitialValues: NoteFormValues;
 
   constructor(private notesHttpService: NotesHttpService,
-              @Inject(MAT_DIALOG_DATA) private dialogData?: EditNoteDialogData
+              private matDialogRef: MatDialogRef<any>,
+              @Inject(MAT_DIALOG_DATA) private dialogData?: EditNoteDialogData,
   ) {
     super();
 
@@ -46,6 +47,10 @@ export class EditNoteDialogComponent extends FormRootController<EditNoteDialogFo
       content: values.form.content,
       tags: values.form.tags
     });
+  }
+
+  protected onSuccess(success: any): void {
+    this.matDialogRef.close();
   }
 
 }

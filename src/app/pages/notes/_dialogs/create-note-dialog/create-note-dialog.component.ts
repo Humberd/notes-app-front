@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { NotesHttpService } from '../../_services/notes-http.service';
 import { NoteFormValues } from '../note-form/note-form.component';
+import { MatDialogRef } from '@angular/material';
 
 interface CreateNoteFormValues {
   form: NoteFormValues;
@@ -15,7 +16,8 @@ interface CreateNoteFormValues {
 })
 export class CreateNoteDialogComponent extends FormRootController<CreateNoteFormValues> {
 
-  constructor(private notesHttpService: NotesHttpService) {
+  constructor(private notesHttpService: NotesHttpService,
+              private matDialogRef: MatDialogRef<any>) {
     super();
   }
 
@@ -34,4 +36,7 @@ export class CreateNoteDialogComponent extends FormRootController<CreateNoteForm
     });
   }
 
+  protected onSuccess(success: any): void {
+    this.matDialogRef.close();
+  }
 }
