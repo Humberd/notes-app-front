@@ -6,13 +6,25 @@
   >
 </mat-form-field>
 
-<app-editor
-  [isEditor]="true"
-  placeholder="What's in your mind?"
-  [formControl]="formDefinition.content"
->
+<!--<app-editor-->
+<!--  class="editor"-->
+<!--  [isEditor]="true"-->
+<!--  placeholder="What's in your mind?"-->
+<!--  [formControl]="formDefinition.content"-->
+<!--&gt;-->
 
-</app-editor>
+<!--</app-editor>-->
+
+<mat-form-field>
+  <textarea
+    matInput
+    placeholder="What's in your mind?"
+    [formControl]="formDefinition.content"
+    [rows]="8"
+  >
+
+  </textarea>
+</mat-form-field>
 
 <app-tags-autocomplete [formControl]="formDefinition.tags"
                        [allTags]="tagNames"
