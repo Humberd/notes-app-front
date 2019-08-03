@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { NoteDto } from '../../../_models/notes';
 import { NotesDialogService } from '../../../_dialogs/notes-dialog.service';
+import { NotesRefresherService } from '../../../_services/notes-refresher.service';
 
 @Component({
   selector: 'app-note-options',
@@ -10,7 +11,10 @@ import { NotesDialogService } from '../../../_dialogs/notes-dialog.service';
 export class NoteOptionsComponent {
   @Input() note: NoteDto;
 
-  constructor(private notesDialogService: NotesDialogService) {
+  constructor(
+    private notesDialogService: NotesDialogService,
+    private notesRefresherService: NotesRefresherService
+  ) {
 
   }
 
