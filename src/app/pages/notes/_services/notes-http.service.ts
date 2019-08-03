@@ -22,6 +22,10 @@ export class NotesHttpService {
     return this.http.put(`http://localhost:8080/notes/${id}`, body);
   }
 
+  delete(id: number) {
+    return this.http.delete(`http://localhost:8080/notes/${id}`);
+  }
+
   readAll(
     tags: string[],
     query: string

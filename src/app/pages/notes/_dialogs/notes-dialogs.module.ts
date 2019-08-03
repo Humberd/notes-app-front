@@ -16,6 +16,7 @@ import { EditorModule } from '../../../shared/editor/editor.module';
 import { NoteFormComponent } from './note-form/note-form.component';
 import { TagsAutocompleteComponent } from './note-form/tags-autocomplete/tags-autocomplete.component';
 import { EditNoteDialogComponent } from './edit-note-dialog/edit-note-dialog.component';
+import { DeleteNoteDialogComponent } from './delete-note-dialog/delete-note-dialog.component';
 
 
 @NgModule({
@@ -35,11 +36,13 @@ import { EditNoteDialogComponent } from './edit-note-dialog/edit-note-dialog.com
     CreateNoteDialogComponent,
     NoteFormComponent,
     TagsAutocompleteComponent,
-    EditNoteDialogComponent
+    EditNoteDialogComponent,
+    DeleteNoteDialogComponent
   ],
   entryComponents: [
     CreateNoteDialogComponent,
-    EditNoteDialogComponent
+    EditNoteDialogComponent,
+    DeleteNoteDialogComponent
   ],
   providers: [
     NotesDialogService

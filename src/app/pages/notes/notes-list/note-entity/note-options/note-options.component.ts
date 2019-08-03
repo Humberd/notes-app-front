@@ -24,4 +24,9 @@ export class NoteOptionsComponent {
       .subscribe(() => this.notesRefresherService.refresh());
   }
 
+  deleteNote() {
+    this.notesDialogService.openDeleteDialog(this.note)
+      .afterClosed()
+      .subscribe(() => this.notesRefresherService.refresh());
+  }
 }
