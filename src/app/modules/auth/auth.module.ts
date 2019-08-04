@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Oauth2AuthorizedComponent } from './oauth2-authorized/oauth2-authorized.component';
 import { RouterModule } from '@angular/router';
 import { routes } from './auth.routes';
+import { AuthDialogsModule } from './_dialogs/auth-dialogs.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(routes)
+    RouterModule.forChild(routes),
+    AuthDialogsModule
   ],
-  declarations: [Oauth2AuthorizedComponent]
+  declarations: []
 })
 export class AuthModule {
 }

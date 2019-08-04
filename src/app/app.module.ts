@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from './shared/navbar/navbar.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @NgModule({
   imports: [
@@ -14,7 +15,8 @@ import { NavbarModule } from './shared/navbar/navbar.module';
     BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    NavbarModule
+    NavbarModule,
+    AuthModule
   ],
   declarations: [
     AppComponent
