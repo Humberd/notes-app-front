@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Oauth2Service } from '../../oauth2.service';
+import { MatDialogRef } from '@angular/material';
 
 @Component({
   selector: 'app-login-dialog',
@@ -8,10 +9,17 @@ import { Oauth2Service } from '../../oauth2.service';
 })
 export class LoginDialogComponent implements OnInit {
 
-  constructor(public oauth2Service: Oauth2Service) {
+  constructor(
+    public oauth2Service: Oauth2Service,
+    private matDialogRef: MatDialogRef<any>
+  ) {
   }
 
   ngOnInit() {
   }
 
+  loginWithGoogle() {
+    this.oauth2Service.googleLogin()
+      .then(() => this.matDialogRef.close());
+  }
 }

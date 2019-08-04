@@ -26,7 +26,7 @@ export class AuthService extends AbstractAuthService {
   }
 
   logout() {
-
+    this.markAsLoggedOut();
   }
 
 }

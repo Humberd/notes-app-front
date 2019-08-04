@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { AuthService } from './auth.service';
 
@@ -12,7 +12,10 @@ export interface Oauth2LoginEvent {
 })
 export class Oauth2Service {
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private ngZone: NgZone
+  ) {
   }
 
   googleLogin() {
@@ -29,14 +32,24 @@ export class Oauth2Service {
       `menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=${width}, height=${height}, top=${top}, left=${left}`
     );
 
-    window.addEventListener('message', (ev) => {
-      const eventData: Oauth2LoginEvent = JSON.parse(ev.data);
-      if (eventData.type !== 'jwt') {
-        return;
-      }
+    return new Promise((
+      resolve,
+      reject
+    ) => {
+      window.addEventListener('message', (ev) => {
+        const eventData: Oauth2LoginEvent = JSON.parse(ev.data);
+        if (eventData.type !== 'jwt') {
+          return;
+        }
 
-      this.authService.login(eventData.value);
+        this.ngZone.run(() => {
+          this.authService.login(eventData.value);
 
-    }, {once: true});
+          resolve();
+
+        });
+
+      }, {once: true});
+    });
   }
 }

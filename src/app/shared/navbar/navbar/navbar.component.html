@@ -2,13 +2,13 @@
   <span>NotesApp</span>
 
   <div class="to-right">
-    <a
+    <button
       mat-button
       (click)="authDialogsService.openLoginDialog()"
       *ngIf="!(authService.authUserStatus$ | async)"
     >
       Login
-    </a>
+    </button>
 
     <button
       mat-button
@@ -19,7 +19,10 @@
     </button>
 
     <mat-menu #userOptions>
-      <button mat-menu-item>
+      <button
+        mat-menu-item
+        (click)="authService.logout()"
+      >
         <mat-icon fontIcon="accessibility"></mat-icon>
 
         Logout
