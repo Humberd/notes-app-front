@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CreateNoteDto, NoteDto } from '../_models/notes';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -12,25 +13,25 @@ export class NotesHttpService {
   }
 
   create(body: CreateNoteDto) {
-    return this.http.post('http://localhost:8080/notes', body);
+    return this.http.post(`${environment.serverApi}/notes`, body);
   }
 
   update(
     id: number,
     body: CreateNoteDto
   ) {
-    return this.http.put(`http://localhost:8080/notes/${id}`, body);
+    return this.http.put(`${environment.serverApi}/notes/${id}`, body);
   }
 
   delete(id: number) {
-    return this.http.delete(`http://localhost:8080/notes/${id}`);
+    return this.http.delete(`${environment.serverApi}/notes/${id}`);
   }
 
   readAll(
     tags: string[],
     query: string
   ): Observable<NoteDto[]> {
-    return this.http.get<NoteDto[]>('http://localhost:8080/notes', {
+    return this.http.get<NoteDto[]>(`${environment.serverApi}/notes`, {
       params: {
         tags, query
       }

@@ -8,6 +8,7 @@ import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { NavbarModule } from './shared/navbar/navbar.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { AuthModule } from './modules/auth/auth.module';
     RouterModule.forRoot(routes),
     HttpClientModule,
     NavbarModule,
-    AuthModule
+    AuthModule,
+    MatIconModule
   ],
   declarations: [
     AppComponent

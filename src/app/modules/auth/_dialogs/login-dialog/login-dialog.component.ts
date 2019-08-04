@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Oauth2Service } from '../../oauth2.service';
 
 @Component({
   selector: 'app-login-dialog',
@@ -7,7 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(public oauth2Service: Oauth2Service) {
+  }
 
   ngOnInit() {
   }

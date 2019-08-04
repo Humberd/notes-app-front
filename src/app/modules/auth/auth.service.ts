@@ -1,18 +1,28 @@
 import { Injectable } from '@angular/core';
 import { AbstractAuthService } from './abstract-auth.service';
-import { AuthDialogsService } from './_dialogs/auth-dialogs.service';
+
+export interface JwtContent {
+  email: string;
+  sub: string;
+  jti: string;
+  exp: number;
+  iat: number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService extends AbstractAuthService {
 
-  constructor(private authDialogsService: AuthDialogsService) {
-    super();
-  }
+  login(jwt: string) {
+    const b64Payload = jwt.split('.')[1];
+    const result: JwtContent = JSON.parse(atob(b64Payload));
 
-  login() {
-    this.authDialogsService.openLoginDialog();
+    this.markAsLoggedIn({
+      email: result.email,
+      id: Number(result.sub),
+      jwt
+    });
   }
 
   logout() {

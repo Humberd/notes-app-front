@@ -2,7 +2,10 @@
 
 <mat-dialog-content>
 
-  <button class="sign-in-with-google">
+  <button
+    class="sign-in-with-google"
+    (click)="oauth2Service.googleLogin()"
+  >
     <svg
       aria-hidden="true"
       class=" iconGoogle"

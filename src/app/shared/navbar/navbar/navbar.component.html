@@ -4,7 +4,7 @@
   <div class="to-right">
     <a
       mat-button
-      (click)="authService.login()"
+      (click)="authDialogsService.openLoginDialog()"
       *ngIf="!(authService.authUserStatus$ | async)"
     >
       Login
@@ -20,7 +20,7 @@
 
     <mat-menu #userOptions>
       <button mat-menu-item>
-        <mat-icon fontIcon="sign-out"></mat-icon>
+        <mat-icon fontIcon="accessibility"></mat-icon>
 
         Logout
       </button>
