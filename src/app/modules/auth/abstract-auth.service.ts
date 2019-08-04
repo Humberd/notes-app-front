@@ -14,6 +14,7 @@ export enum AuthUserStatus {
 }
 
 export abstract class AbstractAuthService {
+  static readonly STORAGE_KEY = 'note-app-jwt';
   @Destroy$() private readonly destroy$ = new Subject();
   // tslint:disable-next-line:variable-name
   protected readonly _authUserStatus$ = new BehaviorSubject<AuthUser | AuthUserStatus>(AuthUserStatus.NOT_INITIATED);
@@ -44,20 +45,26 @@ export abstract class AbstractAuthService {
   }
 
   constructor() {
-    const STORAGE_KEY = 'note-app-jwt';
+    const rawStorageValue = localStorage.getItem(AbstractAuthService.STORAGE_KEY);
+
+    if (typeof rawStorageValue === 'string') {
+      this.login(rawStorageValue);
+    }
 
     this._authUserStatus$
       .pipe(takeUntil(this.destroy$))
       .subscribe((status: AuthUser | AuthUserStatus) => {
         if (!status) {
-          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(AbstractAuthService.STORAGE_KEY);
           return;
         }
 
         const authUser = status as AuthUser;
-        localStorage.setItem(STORAGE_KEY, authUser.jwt);
+        localStorage.setItem(AbstractAuthService.STORAGE_KEY, authUser.jwt);
       });
   }
+
+  abstract login(jwt: string);
 
 
   markAsLoggedIn(userData: AuthUser) {
