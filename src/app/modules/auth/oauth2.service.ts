@@ -19,7 +19,7 @@ export class Oauth2Service {
   }
 
   googleLogin() {
-    const url = `${environment.serverApi}/oauth2/authorization/google`;
+    const url = `${environment.fullServerApi}/oauth2/authorization/google`;
 
     const width = 450;
     const height = 730;

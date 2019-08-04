@@ -28,20 +28,25 @@ export abstract class AbstractAuthService {
   readonly authUser$: Observable<AuthUser> = this.authUserStatus$
     .pipe(
       filter(
-        it => it !== AuthUserStatus.NOT_INITIATED && it !== AuthUserStatus.LOGGED_OUT)
+        it => this.loggedIn(it))
     ) as Observable<AuthUser>;
 
   get authUser(): AuthUser {
     return this._authUserStatus$.value as AuthUser;
   }
 
-  isLoggedIn$: Observable<boolean> = this.authUser$
+  isLoggedIn$: Observable<boolean> = this.authUserStatus$
     .pipe(
-      map(Boolean)
+      map(
+        it => this.loggedIn(it))
     );
 
   get isLoggedIn(): boolean {
-    return this.authUserStatus !== AuthUserStatus.LOGGED_OUT && this.authUserStatus !== AuthUserStatus.NOT_INITIATED;
+    return this.loggedIn(this.authUserStatus);
+  }
+
+  private loggedIn(user: AuthUser | AuthUserStatus): boolean {
+    return user !== AuthUserStatus.NOT_INITIATED && user !== AuthUserStatus.LOGGED_OUT;
   }
 
   constructor() {
