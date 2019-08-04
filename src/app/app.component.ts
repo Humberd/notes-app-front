@@ -40,3 +40,4 @@ export class AppComponent {
 }
 
 // https://codinglatte.com/amp/posts/angular/sign-in-with-google-angular/
+// https://developers.google.com/identity/sign-in/android/backend-auth
