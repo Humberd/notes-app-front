@@ -5,25 +5,25 @@
     <button
       mat-button
       (click)="authDialogsService.openLoginDialog()"
-      *ngIf="!(authService.authUserStatus$ | async)"
+      *ngIf="!(authService.isLoggedIn$ | async)"
     >
       Login
     </button>
 
     <button
       mat-button
-      *ngIf="authService.authUserStatus$ | async as authUser"
+      *ngIf="authService.isLoggedIn$ | async"
       [matMenuTriggerFor]="userOptions"
     >
-      {{authUser.email}}
+      {{(authService.authUser$ | async).email}}
     </button>
 
-    <mat-menu #userOptions>
+    <mat-menu xPosition="before" #userOptions>
       <button
         mat-menu-item
         (click)="authService.logout()"
       >
-        <mat-icon fontIcon="accessibility"></mat-icon>
+        <mat-icon>exit_to_app</mat-icon>
 
         Logout
       </button>

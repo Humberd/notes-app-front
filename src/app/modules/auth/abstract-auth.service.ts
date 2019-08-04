@@ -1,6 +1,6 @@
 import { Destroy$ } from '@ng-boost/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 
 export interface AuthUser {
   id: number;
@@ -34,6 +34,15 @@ export abstract class AbstractAuthService {
     return this._authUserStatus$.value as AuthUser;
   }
 
+  isLoggedIn$: Observable<boolean> = this.authUser$
+    .pipe(
+      map(Boolean)
+    );
+
+  get isLoggedIn(): boolean {
+    return this.authUserStatus !== AuthUserStatus.LOGGED_OUT && this.authUserStatus !== AuthUserStatus.NOT_INITIATED;
+  }
+
   constructor() {
     const STORAGE_KEY = 'note-app-jwt';
 
@@ -50,10 +59,6 @@ export abstract class AbstractAuthService {
       });
   }
 
-
-  isLoggedIn(): boolean {
-    return this.authUserStatus !== AuthUserStatus.LOGGED_OUT && this.authUserStatus !== AuthUserStatus.NOT_INITIATED;
-  }
 
   markAsLoggedIn(userData: AuthUser) {
     this._authUserStatus$.next(userData);
