@@ -5,8 +5,26 @@
     <a
       mat-button
       (click)="authService.login()"
+      *ngIf="!(authService.authUserStatus$ | async)"
     >
       Login
     </a>
+
+    <button
+      mat-button
+      *ngIf="authService.authUserStatus$ | async as authUser"
+      [matMenuTriggerFor]="userOptions"
+    >
+      {{authUser.email}}
+    </button>
+
+    <mat-menu #userOptions>
+      <button mat-menu-item>
+        <mat-icon fontIcon="sign-out"></mat-icon>
+
+        Logout
+      </button>
+    </mat-menu>
+
   </div>
 </mat-toolbar>

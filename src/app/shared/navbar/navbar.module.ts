@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
-import { MatButtonModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatIconModule,
+  MatListModule,
+  MatMenuModule,
+  MatOptionModule,
+  MatToolbarModule
+} from '@angular/material';
 
 
 @NgModule({
@@ -9,7 +16,11 @@ import { MatButtonModule, MatToolbarModule } from '@angular/material';
   imports: [
     CommonModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatListModule,
+    MatOptionModule,
+    MatIconModule,
+    MatMenuModule
   ],
   exports: [NavbarComponent]
 })
