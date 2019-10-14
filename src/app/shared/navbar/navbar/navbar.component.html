@@ -18,7 +18,10 @@
       {{(authService.authUser$ | async).email}}
     </button>
 
-    <mat-menu xPosition="before" #userOptions>
+    <mat-menu
+      xPosition="before"
+      #userOptions
+    >
       <button
         mat-menu-item
         (click)="authService.logout()"

@@ -5,10 +5,10 @@ import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
   ],
   declarations: [EditorComponent],
-  exports: [EditorComponent]
+  exports: [EditorComponent],
 })
 export class EditorModule {
 }

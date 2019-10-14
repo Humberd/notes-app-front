@@ -15,9 +15,9 @@ import { takeUntil } from 'rxjs/operators';
     {
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => EditorComponent),
-      multi: true
-    }
-  ]
+      multi: true,
+    },
+  ],
 })
 export class EditorComponent implements AfterViewInit, ControlValueAccessor {
   @Destroy$() private readonly destroy$ = new Subject();
@@ -31,7 +31,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private zone: NgZone
+    private zone: NgZone,
   ) {
   }
 
@@ -43,7 +43,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
         previewStyle: 'vertical',
         initialValue: this.content || (this.formControl && this.formControl.value),
         viewer: !this.isEditor,
-        placeholder: this.placeholder
+        placeholder: this.placeholder,
       });
 
       editor.on('change', () => {
@@ -58,7 +58,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
       if (this.formControl) {
         this.formControl.valueChanges
           .pipe(
-            takeUntil(this.destroy$)
+            takeUntil(this.destroy$),
           )
           .subscribe(
             newValue => editor.setValue(newValue));
