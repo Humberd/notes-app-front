@@ -18,5 +18,5 @@
 <ng-template #pillContent>
   <mat-icon class="icon">{{icon}}</mat-icon>
   <span class="name">{{name}}</span>
-  <span class="counter">{{counter}}</span>
+  <span class="counter">{{counter !== undefined ? counter : ''}}</span>
 </ng-template>
