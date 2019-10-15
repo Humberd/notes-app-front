@@ -7,11 +7,28 @@ html, body {
   height: 100%;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
   color: var(--textColor-primary);
   background-color: var(--backgroundColor-primary);
+}
+
+button, a {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background-color: inherit;
+  color: inherit;
+  border: none;
 }
 
 :root {
@@ -20,4 +37,6 @@ body {
 
   --backgroundColor-primary: #272822;
   --backgroundColor-secondary: #373831;
+
+  --textColor-accent: #1ec38b;
 }

@@ -1,0 +1,50 @@
+.list-item {
+  font-size: 14px;
+  height: 36px;
+  padding: 0 20px;
+  width: 100%;
+  user-select: none;
+
+  color: var(--textColor-secondary);
+
+  display: flex;
+  align-items: center;
+
+  $transition: all 0.1s linear;
+
+  transition: $transition;
+
+  &:hover {
+    background-color: var(--backgroundColor-secondary);
+
+    .name {
+      color: var(--textColor-primary);
+    }
+  }
+
+  &.active {
+    background-color: var(--backgroundColor-secondary);
+
+    .icon,
+    .counter {
+      color: var(--textColor-accent);
+    }
+
+    .name {
+      color: var(--textColor-primary);
+    }
+  }
+
+  & > * {
+    transition: $transition;
+  }
+
+  .icon {
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  .counter {
+    margin-left: auto;
+  }
+}
