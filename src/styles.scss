@@ -1,4 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
+@import "assets/styles/reset";
+
 html, body {
   margin: 0;
   padding: 0;
@@ -6,11 +7,17 @@ html, body {
   height: 100%;
 }
 
-html, body {
-  height: 100%;
-}
 
 body {
-  margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  color: var(--textColor-primary);
+  background-color: var(--backgroundColor-primary);
+}
+
+:root {
+  --textColor-primary: #f8f8f2;
+  --textColor-secondary: #939395;
+
+  --backgroundColor-primary: #272822;
+  --backgroundColor-secondary: #373831;
 }
