@@ -9,8 +9,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
+import { BoostMatIconModule } from '@ng-boost/material';
 import { AuthModule } from './core/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { APP_BASE_HREF } from '@angular/common';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -33,8 +35,16 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     AuthModule,
     BrowserAnimationsModule,
+    BoostMatIconModule.forRoot({
+      iconPaths: [''],
+    }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_BASE_HREF,
+      useValue: '',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

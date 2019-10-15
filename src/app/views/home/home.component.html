@@ -1,0 +1,30 @@
+<article
+  class="panel"
+  mwlResizable
+  [style.width.px]="generalPanelWidth"
+  [resizeEdges]="{right: true}"
+  [resizeCursorPrecision]="resizeAreaWidth"
+  [validateResize]="generalPanelValidator"
+  (resizing)="generalPanelResizeEnd($event)"
+  (resizeEnd)="generalPanelResizeEnd($event)"
+>
+
+  <app-general-list></app-general-list>
+
+</article>
+
+<article
+  class="panel"
+  mwlResizable
+  [style.width.px]="notesPanelWidth"
+  [resizeEdges]="{right: true}"
+  [resizeCursorPrecision]="resizeAreaWidth"
+  [validateResize]="notesPanelValidator"
+  (resizing)="notesPanelResizeEnd($event)"
+  (resizeEnd)="notesPanelResizeEnd($event)"
+>
+
+  panel 2
+
+</article>
+

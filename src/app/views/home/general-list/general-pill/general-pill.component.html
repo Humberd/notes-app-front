@@ -1,0 +1,22 @@
+<a
+  class="list-item"
+  *ngIf="href"
+  [routerLink]="href"
+  routerLinkActive="active"
+>
+  <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
+</a>
+
+<button
+  class="list-item"
+  *ngIf="!href"
+  (click)="action.emit()"
+>
+  <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
+</button>
+
+<ng-template #pillContent>
+  <mat-icon class="icon">{{icon}}</mat-icon>
+  <span class="name">{{name}}</span>
+  <span class="counter">{{counter !== undefined ? counter : ''}}</span>
+</ng-template>

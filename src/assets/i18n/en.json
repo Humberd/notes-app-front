@@ -1,7 +1,9 @@
 {
-  "PAGES": {
-    "HOME": {
-      "TITLE": "App works !"
-    }
+  "common": {
+    "all_notes": "All Notes",
+    "starred": "Starred",
+    "trash": "Trash",
+    "tag": "Tag",
+    "tags": "Tags"
   }
 }

@@ -44,6 +44,8 @@
     "@angular/forms": "^8.0.0 || ^9.0.0-0",
     "@angular/material": "^8.2.3",
     "@ng-boost/core": "0.0.1-beta.19",
+    "@ng-boost/material": "0.0.1-beta.19",
+    "angular-resizable-element": "^3.2.6",
     "hammerjs": "^2.0.8",
     "tui-editor": "^1.4.7"
   },
