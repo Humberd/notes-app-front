@@ -1,0 +1,10 @@
+:host {
+  height: 100%;
+  display: flex;
+
+  .general-panel {
+    border-right: 1px solid var(--backgroundColor-secondary);
+  }
+
+
+}

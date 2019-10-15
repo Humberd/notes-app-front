@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ResizeEvent } from 'angular-resizable-element';
 
 @Component({
   selector: 'app-home',
@@ -6,12 +7,15 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+  generalPanelMinWidth = 100;
+  generalPanelWidth = 200;
 
-  constructor() {
+  generalPanelValidator = (resizeEvent: ResizeEvent) => {
+    return resizeEvent.rectangle.width >= this.generalPanelMinWidth;
+  };
+
+  generalPanelResizeEnd(event: ResizeEvent) {
+    this.generalPanelWidth = event.rectangle.width;
   }
-
-  ngOnInit() {
-  }
-
 }

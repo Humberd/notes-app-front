@@ -1,1 +1,13 @@
-<p>home works!</p>
+<article
+  class="general-panel"
+  mwlResizable
+  [style.width.px]="generalPanelWidth"
+  [resizeEdges]="{right: true}"
+  [validateResize]="generalPanelValidator"
+  (resizing)="generalPanelResizeEnd($event)"
+  (resizeEnd)="generalPanelResizeEnd($event)"
+>
+
+  panel
+
+</article>
