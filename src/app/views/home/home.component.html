@@ -1,4 +1,4 @@
-<article
+<aside
   class="panel"
   mwlResizable
   [style.width.px]="generalPanelWidth"
@@ -11,9 +11,9 @@
 
   <app-general-list></app-general-list>
 
-</article>
+</aside>
 
-<article
+<aside
   class="panel"
   mwlResizable
   [style.width.px]="notesPanelWidth"
@@ -24,7 +24,7 @@
   (resizeEnd)="notesPanelResizeEnd($event)"
 >
 
-  panel 2
+  <app-notes-list></app-notes-list>
 
-</article>
+</aside>
 

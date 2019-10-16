@@ -11,9 +11,7 @@
   align-items: center;
   overflow: hidden;
 
-  $transition: all 0.1s linear;
-
-  transition: $transition;
+  transition: var(--transition-basic);
 
   &:hover {
     background-color: var(--backgroundColor-secondary);
@@ -37,7 +35,7 @@
   }
 
   & > * {
-    transition: $transition;
+    transition: var(--transition-basic);
   }
 
   .icon {

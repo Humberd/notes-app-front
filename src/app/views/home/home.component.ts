@@ -11,10 +11,10 @@ export class HomeComponent {
   readonly resizeAreaWidth = 7;
 
   generalPanelMinWidth = 100;
-  generalPanelWidth = 200;
+  generalPanelWidth = 250;
 
   notesPanelMinWidth = 100;
-  notesPanelWidth = 200;
+  notesPanelWidth = 300;
 
   generalPanelValidator = (resizeEvent: ResizeEvent) => {
     return resizeEvent.rectangle.width >= this.generalPanelMinWidth;
