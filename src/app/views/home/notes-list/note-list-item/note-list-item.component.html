@@ -1,0 +1,19 @@
+<a class="wrapper">
+  <div class="content">
+    <h5 class="title">{{note.title}}</h5>
+    <p class="mid-content">
+      {{note.updatedAt | date}}
+    </p>
+
+    <p class="tags">
+      <span
+        class="tag"
+        *ngFor="let tag of note.tags"
+        [style.background-color]="tag.color"
+      >
+        #{{tag.name}}
+      </span>
+    </p>
+
+  </div>
+</a>
