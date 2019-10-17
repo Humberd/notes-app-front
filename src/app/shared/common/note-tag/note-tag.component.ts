@@ -15,6 +15,6 @@ import { Tag } from '../../../models/note';
 export class NoteTagComponent {
   @Input() tag: Tag;
   @Input() removable: boolean;
-  @Output() removed = new EventEmitter();
+  @Output() removed = new EventEmitter<Tag>();
 
 }

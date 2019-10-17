@@ -1,5 +1,23 @@
 :host {
   background-color: var(--backgroundColor-secondary);
-  padding: 4px;
+  padding: 4px 6px;
   margin-right: 8px;
+  user-select: none;
+
+  display: inline-flex;
+}
+
+.close-icon-button {
+  display: inline-flex;
+  margin-left: 5px;
+
+  &:hover, &:focus {
+    background-color: rgb(255, 255, 255, 0.1);
+  }
+
+  .close-icon {
+    width: unset;
+    height: unset;
+    font-size: inherit;
+  }
 }

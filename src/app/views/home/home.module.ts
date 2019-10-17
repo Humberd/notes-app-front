@@ -11,6 +11,8 @@ import { GeneralPillComponent } from './general-list/general-pill/general-pill.c
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { NoteListItemComponent } from './notes-list/note-list-item/note-list-item.component';
 import { AppCommonModule } from '../../shared/common/app-common.module';
+import { NoteContainerComponent } from './note-container/note-container.component';
+import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
 
 @NgModule({
   imports: [
@@ -27,6 +29,8 @@ import { AppCommonModule } from '../../shared/common/app-common.module';
     GeneralPillComponent,
     NotesListComponent,
     NoteListItemComponent,
+    NoteContainerComponent,
+    TagsBarComponent,
   ],
 })
 export class HomeModule {

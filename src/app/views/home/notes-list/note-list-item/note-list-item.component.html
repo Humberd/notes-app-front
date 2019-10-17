@@ -5,7 +5,7 @@
       {{note.updatedAt | date}}
     </p>
 
-    <p class="tags">
+    <ul class="tags">
       <ng-container *ngIf="note.tags.length > 0; else noTags">
         <app-note-tag
           class="tag"
@@ -17,7 +17,7 @@
       <ng-template #noTags>
         <span class="no-tags">{{'common.no_tags' | translate}}</span>
       </ng-template>
-    </p>
+    </ul>
 
   </div>
 </a>
