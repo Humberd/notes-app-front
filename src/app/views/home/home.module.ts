@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material';
 import { GeneralPillComponent } from './general-list/general-pill/general-pill.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { NoteListItemComponent } from './notes-list/note-list-item/note-list-item.component';
+import { AppCommonModule } from '../../shared/common/app-common.module';
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { NoteListItemComponent } from './notes-list/note-list-item/note-list-ite
     ResizableModule,
     TranslateModule,
     MatIconModule,
+    AppCommonModule,
   ],
   declarations: [
     HomeComponent,

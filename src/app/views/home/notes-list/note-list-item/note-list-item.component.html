@@ -6,13 +6,17 @@
     </p>
 
     <p class="tags">
-      <span
-        class="tag"
-        *ngFor="let tag of note.tags"
-        [style.background-color]="tag.color"
-      >
-        #{{tag.name}}
-      </span>
+      <ng-container *ngIf="note.tags.length > 0; else noTags">
+        <app-note-tag
+          class="tag"
+          *ngFor="let tag of note.tags"
+          [tag]="tag"
+        ></app-note-tag>
+      </ng-container>
+
+      <ng-template #noTags>
+        <span class="no-tags">No tags</span>
+      </ng-template>
     </p>
 
   </div>

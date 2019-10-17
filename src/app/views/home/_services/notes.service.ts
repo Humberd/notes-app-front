@@ -40,6 +40,14 @@ export class NotesService {
         createdAt: new Date(),
         updatedAt: new Date(),
       },
+      {
+        id: '3',
+        title: 'Foobar',
+        content: 'Something else',
+        tags: [],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
     ]);
   }
 }
