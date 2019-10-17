@@ -4,7 +4,10 @@
     "starred": "Starred",
     "trash": "Trash",
     "tag": "Tag",
-    "tags": "Tags",
-    "no_tags": "No tags"
+    "tags": "Tags"
+  },
+  "tags": {
+    "no_tags": "No tags",
+    "add_tag": "Add tag"
   }
 }
