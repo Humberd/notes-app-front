@@ -13,12 +13,9 @@
         color: var(--textColor-primary);
       }
 
-      .tags {
+      .tags .tag {
         color: var(--textColor-primary);
-
-        .tag {
-          background-color: var(--backgroundColor-tertiary);
-        }
+        background-color: var(--backgroundColor-tertiary);
       }
     }
 
@@ -44,13 +41,15 @@
 
     .tags {
       font-size: 11px;
+      line-height: 19px;
       color: var(--textColor-secondary);
       transition: var(--transition-basic);
 
-      .tag {
-        background-color: var(--backgroundColor-secondary);
-        padding: 4px;
-        margin-right: 8px;
+      display: flex;
+      flex-wrap: wrap;
+
+      .no-tags {
+        font-style: italic;
       }
     }
   }

@@ -5,15 +5,19 @@
       {{note.updatedAt | date}}
     </p>
 
-    <p class="tags">
-      <span
-        class="tag"
-        *ngFor="let tag of note.tags"
-        [style.background-color]="tag.color"
-      >
-        #{{tag.name}}
-      </span>
-    </p>
+    <ul class="tags">
+      <ng-container *ngIf="note.tags.length > 0; else noTags">
+        <app-note-tag
+          class="tag"
+          *ngFor="let tag of note.tags"
+          [tag]="tag"
+        ></app-note-tag>
+      </ng-container>
+
+      <ng-template #noTags>
+        <span class="no-tags">{{'tags.no_tags' | translate}}</span>
+      </ng-template>
+    </ul>
 
   </div>
 </a>

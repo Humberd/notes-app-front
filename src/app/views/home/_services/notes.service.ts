@@ -15,7 +15,11 @@ export class NotesService {
       {
         id: '1',
         title: 'Welcome to BoostNote!',
-        content: 'Something',
+        content: `# Welcome to Joplin! 🗒️
+
+Joplin is a free, open source note taking and to-do application, which helps you write and organise your notes, and synchronise them between your devices. The notes are searchable, can be copied, tagged and modified either from the applications directly or from your own text editor. The notes are in [Markdown format](https://joplinapp.org/#markdown). Joplin is available as a **💻 desktop**, **📱 mobile** and **🔡 terminal** application.
+
+The notes in this notebook give an overview of what Joplin can do and how to use it. In general, the three applications share roughly the same functionalities; any differences will be clearly indicated.`,
         tags: [
           {
             name: 'test',
@@ -37,6 +41,14 @@ export class NotesService {
             name: 'gibraltar',
           },
         ],
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      },
+      {
+        id: '3',
+        title: 'Foobar',
+        content: 'Something else',
+        tags: [],
         createdAt: new Date(),
         updatedAt: new Date(),
       },

@@ -5,5 +5,9 @@
     "trash": "Trash",
     "tag": "Tag",
     "tags": "Tags"
+  },
+  "tags": {
+    "no_tags": "No tags",
+    "add_tag": "Add tag"
   }
 }

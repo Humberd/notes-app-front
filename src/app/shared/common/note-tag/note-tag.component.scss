@@ -1,0 +1,28 @@
+:host {
+  background-color: var(--backgroundColor-secondary);
+  padding: 0 6px;
+  margin-right: 8px;
+  user-select: none;
+
+  display: inline-flex;
+
+  &.removable {
+    padding-right: 0;
+  }
+}
+
+.close-icon-button {
+  display: inline-flex;
+  margin-left: 3px;
+  padding: 0 6px;
+
+  &:hover, &:focus {
+    background-color: rgb(255, 255, 255, 0.1);
+  }
+
+  .close-icon {
+    width: unset;
+    height: unset;
+    font-size: inherit;
+  }
+}
