@@ -1,4 +1,15 @@
 :host {
   padding: 25px;
-  display: block;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+app-tags-bar {
+  margin-bottom: 20px;
+}
+
+app-note-content {
+  flex: 1;
 }

@@ -13,6 +13,8 @@ import { NoteListItemComponent } from './notes-list/note-list-item/note-list-ite
 import { AppCommonModule } from '../../shared/common/app-common.module';
 import { NoteContainerComponent } from './note-container/note-container.component';
 import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
+import { NoteContentComponent } from './note-container/note-content/note-content.component';
+import { EditorModule } from '../../shared/editor/editor.module';
 
 @NgModule({
   imports: [
@@ -22,6 +24,7 @@ import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
     TranslateModule,
     MatIconModule,
     AppCommonModule,
+    EditorModule,
   ],
   declarations: [
     HomeComponent,
@@ -31,6 +34,7 @@ import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
     NoteListItemComponent,
     NoteContainerComponent,
     TagsBarComponent,
+    NoteContentComponent,
   ],
 })
 export class HomeModule {
