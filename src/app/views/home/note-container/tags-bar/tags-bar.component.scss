@@ -1,8 +1,18 @@
 :host {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .tag {
   font-size: 15px;
   line-height: 24px;
+}
+
+form {
+  flex: 1;
+
+  input.new-tag {
+    width: 100%;
+    min-width: 150px;
+  }
 }
