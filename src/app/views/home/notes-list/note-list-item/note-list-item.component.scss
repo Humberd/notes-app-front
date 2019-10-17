@@ -44,6 +44,9 @@
       color: var(--textColor-secondary);
       transition: var(--transition-basic);
 
+      display: flex;
+      flex-wrap: wrap;
+
       .no-tags {
         font-style: italic;
       }
