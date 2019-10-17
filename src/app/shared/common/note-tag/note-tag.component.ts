@@ -10,6 +10,7 @@ import { Tag } from '../../../models/note';
   host: {
     '[style.background-color]': 'tag.color',
     role: 'list-item',
+    '[class.removable]': 'removable',
   },
 })
 export class NoteTagComponent {
