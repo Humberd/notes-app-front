@@ -10,7 +10,7 @@ export class GeneralPillComponent {
   @Input() icon: string;
   @Input() name: string;
   @Input() counter: number;
-  @Input() href?: string | string[];
+  @Input() href?: any;
   @Output() action = new EventEmitter();
 
 }

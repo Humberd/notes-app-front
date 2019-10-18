@@ -5,6 +5,7 @@
   .panel {
     border-right: 1px solid var(--backgroundColor-secondary);
     padding-right: 4px;
+    overflow-y: auto;
   }
 
   .main {
