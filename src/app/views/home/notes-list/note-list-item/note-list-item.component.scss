@@ -21,6 +21,22 @@
 
   }
 
+  &.active-route {
+    background-color: var(--backgroundColor-secondary);
+
+    .content {
+      .title {
+        color: var(--textColor-accent);
+      }
+
+      .tags .tag {
+        color: var(--textColor-primary);
+        background-color: var(--backgroundColor-tertiary);
+      }
+
+    }
+  }
+
   .content {
     padding: 15px 0;
     border-bottom: 1px solid var(--backgroundColor-secondary);

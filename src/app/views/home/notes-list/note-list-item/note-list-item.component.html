@@ -1,4 +1,8 @@
-<a class="wrapper">
+<a
+  class="wrapper"
+  [routerLink]="[note.id]"
+  routerLinkActive="active-route"
+>
   <div class="content">
     <h5 class="title">{{note.title}}</h5>
     <p class="mid-content">
