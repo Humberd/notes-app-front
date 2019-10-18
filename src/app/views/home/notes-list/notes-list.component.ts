@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { NotesService } from '../_services/notes.service';
+import { NotesService } from '../../../core/notes/notes.service';
 
 @Component({
   selector: 'app-notes-list',

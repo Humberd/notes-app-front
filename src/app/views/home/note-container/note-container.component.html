@@ -1,3 +1,5 @@
-<app-tags-bar [tags]="note.tags"></app-tags-bar>
+<ng-container *ngIf="currentNote$ | async as note">
+  <app-tags-bar [tags]="note.tags"></app-tags-bar>
 
-<app-note-content [note]="note"></app-note-content>
+  <app-note-content [note]="note"></app-note-content>
+</ng-container>

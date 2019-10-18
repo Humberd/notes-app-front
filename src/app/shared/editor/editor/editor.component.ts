@@ -21,7 +21,17 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class EditorComponent implements AfterViewInit, ControlValueAccessor {
   @Destroy$() private readonly destroy$ = new Subject();
-  @Input() content: string;
+  private editor: tuiEditor.Editor | tuiEditor.Viewer;
+  private _content: string;
+  @Input()
+  set content(value: string) {
+    this._content = value;
+
+    if (this.editor) {
+      this.editor.setValue(value);
+    }
+  }
+
   @Input() isEditor = false;
   @Input() placeholder: string;
 
@@ -37,19 +47,19 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {
-      const editor = EditorLib.factory({
+      this.editor = EditorLib.factory({
         el: this.editorSection.nativeElement,
         initialEditType: 'markdown',
         previewStyle: 'vertical',
-        initialValue: this.content || (this.formControl && this.formControl.value),
+        initialValue: this._content || (this.formControl && this.formControl.value),
         viewer: !this.isEditor,
         placeholder: this.placeholder,
       });
 
-      editor.on('change', () => {
+      this.editor.on('change', () => {
         this.zone.run(() => {
           if (this.formControl) {
-            this.formControl.setValue((editor as any).getValue());
+            this.formControl.setValue((this.editor as any).getValue());
           }
           this.cdr.markForCheck();
         });
@@ -60,8 +70,7 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
           .pipe(
             takeUntil(this.destroy$),
           )
-          .subscribe(
-            newValue => editor.setValue(newValue));
+          .subscribe(newValue => this.editor.setValue(newValue));
       }
     });
   }
