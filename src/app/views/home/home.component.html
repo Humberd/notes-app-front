@@ -28,8 +28,12 @@
 
 </aside>
 
-<main class="main">
+<main
+  class="main"
+  [style.width]="'calc(100% - '+generalPanelWidth+'px - '+notesPanelWidth+'px)'"
+>
 
   <router-outlet></router-outlet>
   <!--  <app-note-container></app-note-container>-->
 </main>
+
