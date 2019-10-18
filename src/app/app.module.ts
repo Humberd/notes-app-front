@@ -13,6 +13,8 @@ import { BoostMatIconModule } from '@ng-boost/material';
 import { AuthModule } from './core/auth/auth.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_BASE_HREF } from '@angular/common';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { EditorModule } from './shared/editor/editor.module';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -38,6 +40,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     BoostMatIconModule.forRoot({
       iconPaths: [''],
     }),
+    MonacoEditorModule.forRoot(),
+    EditorModule,
   ],
   providers: [
     {

@@ -1,4 +1,7 @@
-<section
+<ngx-monaco-editor
   class="editor"
-  #editorSection
-></section>
+  [options]="editorOptions"
+  [ngModel]="content"
+  (onInit)="editorInitialized()"
+></ngx-monaco-editor>
+

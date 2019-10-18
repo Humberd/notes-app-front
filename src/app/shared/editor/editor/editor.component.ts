@@ -1,11 +1,8 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, NgZone, ViewChild } from '@angular/core';
-import EditorLib from 'tui-editor';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Destroy$ } from '@ng-boost/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-// import Viewer = tuiEditor.Viewer;
-// import Editor = tuiEditor.Editor;
+import { Component, forwardRef, Input, ViewChild } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { EditorComponent } from 'ngx-monaco-editor';
+import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
+import ICodeEditor = monaco.editor.ICodeEditor;
 
 @Component({
   selector: 'app-editor',
@@ -14,66 +11,26 @@ import { takeUntil } from 'rxjs/operators';
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => EditorComponent),
+      useExisting: forwardRef(() => AppEditorComponent),
       multi: true,
     },
   ],
 })
-export class EditorComponent implements AfterViewInit, ControlValueAccessor {
-  @Destroy$() private readonly destroy$ = new Subject();
-  private editor: tuiEditor.Editor | tuiEditor.Viewer;
-  private _content: string;
-  @Input()
-  set content(value: string) {
-    this._content = value;
-
-    if (this.editor) {
-      this.editor.setValue(value);
-    }
-  }
+export class AppEditorComponent implements ControlValueAccessor {
+  @Input() content: string;
 
   @Input() isEditor = false;
   @Input() placeholder: string;
 
-  @Input() formControl: FormControl;
+  editorOptions: IEditorConstructionOptions = {
+    theme: 'vs-dark',
+    language: 'markdown',
+    wordWrap: 'on',
+    automaticLayout: true,
+  };
 
-  @ViewChild('editorSection', {static: true}) editorSection: ElementRef;
+  @ViewChild(EditorComponent, {static: true}) editorComponent: EditorComponent;
 
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private zone: NgZone,
-  ) {
-  }
-
-  ngAfterViewInit(): void {
-    this.zone.runOutsideAngular(() => {
-      this.editor = EditorLib.factory({
-        el: this.editorSection.nativeElement,
-        initialEditType: 'markdown',
-        previewStyle: 'vertical',
-        initialValue: this._content || (this.formControl && this.formControl.value),
-        viewer: !this.isEditor,
-        placeholder: this.placeholder,
-      });
-
-      this.editor.on('change', () => {
-        this.zone.run(() => {
-          if (this.formControl) {
-            this.formControl.setValue((this.editor as any).getValue());
-          }
-          this.cdr.markForCheck();
-        });
-      });
-
-      if (this.formControl) {
-        this.formControl.valueChanges
-          .pipe(
-            takeUntil(this.destroy$),
-          )
-          .subscribe(newValue => this.editor.setValue(newValue));
-      }
-    });
-  }
 
   registerOnChange(fn: any): void {
   }
@@ -87,4 +44,9 @@ export class EditorComponent implements AfterViewInit, ControlValueAccessor {
   writeValue(obj: any): void {
   }
 
+  editorInitialized() {
+    const editor: ICodeEditor = this.editorComponent['_editor'];
+    console.log(editor);
+    console.log(editor.getLayoutInfo());
+  }
 }
