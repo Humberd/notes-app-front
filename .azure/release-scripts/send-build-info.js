@@ -4,6 +4,9 @@ const path = require('path');
 
 const buildStartTime = fs.readFileSync('./buildStartTime.txt', 'utf8').trim();
 const buildEndTime = fs.readFileSync('./buildEndTime.txt', 'utf8').trim();
+const nodeModulesSize = fs.readFileSync('./nodeModulesSize.txt', 'utf8').trim();
+const commitId = fs.readFileSync('./commitId.txt', 'utf8').trim();
+const buildId = fs.readFileSync('./buildId.txt', 'utf8').trim();
 
 (async () => {
 
@@ -14,6 +17,9 @@ const buildEndTime = fs.readFileSync('./buildEndTime.txt', 'utf8').trim();
     buildStartTime: buildStartTime,
     buildEndTime: buildEndTime,
     buildSize: allDistFiles.reduce((previousValue, currentValue) => currentValue.size + previousValue, 0),
+    nodeModulesSize: nodeModulesSize,
+    commitId: commitId,
+    buildId: buildId,
     filesCount: allDistFiles.length,
   };
 
