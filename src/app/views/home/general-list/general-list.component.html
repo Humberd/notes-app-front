@@ -2,27 +2,27 @@
   icon="note"
   [name]="'common.all_notes' | translate"
   [counter]="0"
-  href="../all"
+  [href]="replaceNoteTypeInPathFor('all')"
 ></app-general-pill>
 
 <app-general-pill
   icon="star"
   [name]="'common.starred' | translate"
   [counter]="0"
-  href="../starred"
+  [href]="replaceNoteTypeInPathFor('starred')"
 ></app-general-pill>
 
 <app-general-pill
   icon="delete"
   [name]="'common.trash' | translate"
   [counter]="0"
-  href="../trash"
+  [href]="replaceNoteTypeInPathFor('trash')"
 ></app-general-pill>
 
 
 <section class="tags">
 
-  <h5 class="header">Tags</h5>
+  <h5 class="header">{{'common.tags' | translate}}</h5>
 
   <app-general-pill
     icon="tag"
