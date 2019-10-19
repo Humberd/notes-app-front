@@ -1,11 +1,13 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
+import { NoteTypeRouteParam } from './_services/note-type-route-param';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  viewProviders: [NoteTypeRouteParam],
 })
 export class HomeComponent {
   readonly resizeAreaWidth = 7;
