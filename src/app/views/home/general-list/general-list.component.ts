@@ -30,7 +30,7 @@ export class GeneralListComponent implements OnInit {
       .subscribe(() => this.cdr.markForCheck());
   }
 
-  replaceNoteTypeInPathFor(path: string): string {
+  replaceNoteTypeInPathWith(path: string): string {
     const urlSegments = this.router.url.split('/');
     const noteTypeIndex = urlSegments.findIndex(value => value === this.noteTypeRouteParam.value);
     if (noteTypeIndex < 0) {
