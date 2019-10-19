@@ -1,5 +1,9 @@
-<ng-container *ngIf="currentNote$ | async as note">
+<ng-container *ngIf="currentNote$ | async as note; else noteNotExist">
   <app-tags-bar [tags]="note.tags"></app-tags-bar>
 
   <app-note-content [note]="note"></app-note-content>
 </ng-container>
+
+<ng-template #noteNotExist>
+  Note does not exist
+</ng-template>

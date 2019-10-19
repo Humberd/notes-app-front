@@ -2,7 +2,6 @@ import { Component, forwardRef, Input, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EditorComponent } from 'ngx-monaco-editor';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
-import ICodeEditor = monaco.editor.ICodeEditor;
 
 @Component({
   selector: 'app-editor',
@@ -45,8 +44,5 @@ export class AppEditorComponent implements ControlValueAccessor {
   }
 
   editorInitialized() {
-    const editor: ICodeEditor = this.editorComponent['_editor'];
-    console.log(editor);
-    console.log(editor.getLayoutInfo());
   }
 }

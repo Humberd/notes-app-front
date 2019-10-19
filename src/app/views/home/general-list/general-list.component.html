@@ -2,25 +2,27 @@
   icon="note"
   [name]="'common.all_notes' | translate"
   [counter]="0"
-  [href]="[{outlets: {filter: ['fff']}}]"
+  [href]="replaceNoteTypeInPathWith('all')"
 ></app-general-pill>
 
 <app-general-pill
   icon="star"
   [name]="'common.starred' | translate"
   [counter]="0"
+  [href]="replaceNoteTypeInPathWith('starred')"
 ></app-general-pill>
 
 <app-general-pill
   icon="delete"
   [name]="'common.trash' | translate"
   [counter]="0"
+  [href]="replaceNoteTypeInPathWith('trash')"
 ></app-general-pill>
 
 
 <section class="tags">
 
-  <h5 class="header">Tags</h5>
+  <h5 class="header">{{'common.tags' | translate}}</h5>
 
   <app-general-pill
     icon="tag"

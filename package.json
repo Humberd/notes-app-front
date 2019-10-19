@@ -36,7 +36,8 @@
     "test": "npm run postinstall:web && ng test",
     "e2e": "npm run build:prod && mocha --timeout 300000 --require ts-node/register e2e/**/*.spec.ts",
     "version": "conventional-changelog -i CHANGELOG.md -s -r 0 && git add CHANGELOG.md",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "bump-ng-boost": "npm i @ng-boost/core@latest @ng-boost/material@latest"
   },
   "dependencies": {
     "@angular/animations": "^8.2.11",
@@ -52,8 +53,8 @@
     "@angular/platform-browser": "8.2.11",
     "@angular/platform-browser-dynamic": "8.2.11",
     "@angular/router": "8.2.11",
-    "@ng-boost/core": "0.0.1-beta.19",
-    "@ng-boost/material": "0.0.1-beta.19",
+    "@ng-boost/core": "0.0.1-beta.20",
+    "@ng-boost/material": "0.0.1-beta.20",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
     "angular-resizable-element": "^3.2.6",
