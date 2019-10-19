@@ -31,7 +31,7 @@ export class NoteContainerComponent implements OnInit {
       .pipe(
         switchMap(noteId => this.notesService.notes$
           .pipe(
-            map(notes => notes.find(note => note.id === noteId) || notes[0]),
+            map(notes => notes.find(note => note.id === noteId)),
           ),
         ),
       );
