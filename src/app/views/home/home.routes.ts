@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, UrlSegment } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { NoteContainerComponent } from './note-container/note-container.component';
 import { allowedNoteTypes, noteTypeParamName } from './_services/note-type-route-param';
@@ -7,7 +7,7 @@ import { NoteContainerEmptyComponent } from './note-container-empty/note-contain
 export const routes: Routes = [
   {
     component: HomeComponent,
-    matcher: noteTypeMatcher(),
+    matcher: noteTypeMatcher,
     children: [
       {
         path: ':noteId',
@@ -29,22 +29,20 @@ export const routes: Routes = [
 /**
  * Allows :noteType param only to be one of [allowedNoteTypes]
  */
-function noteTypeMatcher() {
-  return segments => {
-    if (segments.length === 0) {
-      return null;
-    }
+export function noteTypeMatcher(segments: UrlSegment[]) {
+  if (segments.length === 0) {
+    return null;
+  }
 
-    const noteTypeSegment = segments[0];
-    if (!allowedNoteTypes.includes(noteTypeSegment.path as any)) {
-      return null;
-    }
+  const noteTypeSegment = segments[0];
+  if (!allowedNoteTypes.includes(noteTypeSegment.path as any)) {
+    return null;
+  }
 
-    return {
-      consumed: [noteTypeSegment],
-      posParams: {
-        [noteTypeParamName]: noteTypeSegment,
-      },
-    };
+  return {
+    consumed: [noteTypeSegment],
+    posParams: {
+      [noteTypeParamName]: noteTypeSegment,
+    },
   };
 }
