@@ -27,7 +27,7 @@ export const routes: Routes = [
 ];
 
 /**
- * Allows :noteType param to be one of [allowedNoteTypes]
+ * Allows :noteType param only to be one of [allowedNoteTypes]
  */
 function noteTypeMatcher() {
   return segments => {
