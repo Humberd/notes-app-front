@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { NoteTypeRouteParam } from '../_services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
@@ -15,7 +15,6 @@ export class GeneralListComponent implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private router: Router,
     private noteTypeRouteParam: NoteTypeRouteParam,
     private cdr: ChangeDetectorRef,
