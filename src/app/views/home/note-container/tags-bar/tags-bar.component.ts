@@ -32,18 +32,20 @@ export class TagsBarComponent implements OnInit {
     this.availableTags$ = this.tagsRefresherService.data$
       .pipe(
         map(tags => tags.map(tag => tag.name)),
-        switchMap(tags => this.newTagControl.valueChanges
+        switchMap(allTagNames => this.newTagControl.valueChanges
           .pipe(
             startWith(''),
             map((newTagName: string) => newTagName.toLowerCase()),
-            map(newTagName => tags.filter(tag => tag.toLowerCase().includes(newTagName))),
+            // filter tags that matches what user currently has in the input
+            map(newTagNameLc => allTagNames.filter(tagName => tagName.toLowerCase().includes(newTagNameLc))),
+            // filter tags that are already selected
+            map(matchingTagNames => matchingTagNames.filter(tagName => this.note.tags.every(it => it.name !== tagName))),
           ),
         ),
       );
   }
 
   createNewTag() {
-    console.log(this.note);
     this.indexedDbLayerService
       .update(this.note.id, {
         title: this.note.title,
