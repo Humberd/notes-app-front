@@ -11,6 +11,7 @@ export class GeneralPillComponent {
   @Input() name: string;
   @Input() counter: number;
   @Input() href?: any;
+  @Input() isHrefActive?: boolean;
   @Output() action = new EventEmitter();
 
 }

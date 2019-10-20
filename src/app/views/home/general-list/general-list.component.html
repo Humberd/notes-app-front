@@ -3,6 +3,7 @@
   [name]="'common.all_notes' | translate"
   [counter]="0"
   [href]="replaceNoteTypeInPathWith('all')"
+  [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'all'"
 ></app-general-pill>
 
 <app-general-pill
@@ -10,6 +11,7 @@
   [name]="'common.starred' | translate"
   [counter]="0"
   [href]="replaceNoteTypeInPathWith('starred')"
+  [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'starred'"
 ></app-general-pill>
 
 <app-general-pill
@@ -17,6 +19,7 @@
   [name]="'common.trash' | translate"
   [counter]="0"
   [href]="replaceNoteTypeInPathWith('trash')"
+  [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'trash'"
 ></app-general-pill>
 
 

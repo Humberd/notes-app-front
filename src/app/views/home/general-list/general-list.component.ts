@@ -16,7 +16,7 @@ export class GeneralListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private noteTypeRouteParam: NoteTypeRouteParam,
+    public noteTypeRouteParam: NoteTypeRouteParam,
     private cdr: ChangeDetectorRef,
   ) {
   }
