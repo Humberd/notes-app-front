@@ -1,5 +1,5 @@
 import { Component, forwardRef, Input, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EditorComponent } from 'ngx-monaco-editor';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
@@ -16,10 +16,8 @@ import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
   ],
 })
 export class AppEditorComponent implements ControlValueAccessor {
-  @Input() content: string;
-
-  @Input() isEditor = false;
   @Input() placeholder: string;
+  @Input() formControl: FormControl;
 
   editorOptions: IEditorConstructionOptions = {
     theme: 'vs-dark',
@@ -43,6 +41,4 @@ export class AppEditorComponent implements ControlValueAccessor {
   writeValue(obj: any): void {
   }
 
-  editorInitialized() {
-  }
 }
