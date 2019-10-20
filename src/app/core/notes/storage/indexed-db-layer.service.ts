@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NotesLayer } from '../notes-layer';
 import { Observable } from 'rxjs';
-import { Note, NoteCreate, NoteUpdate, Tag } from '../../../models/note';
+import { Note, NoteCreate, NoteTag, NoteUpdate, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { map, switchMap } from 'rxjs/operators';
@@ -16,6 +16,22 @@ export class IndexedDbLayerService implements NotesLayer {
     return Math.random().toString(36).substr(2, 9);
   }
 
+  private uniqueTags(tags: NoteTag[]): NoteTag[] {
+    const result: NoteTag[] = [];
+    const trackmap = new Map<string, boolean>();
+    for (const item of tags) {
+      if (!trackmap.has(item.name)) {
+        trackmap.set(item.name, true);    // set any value to Map
+        result.push({
+          name: item.name,
+          color: item.color,
+        });
+      }
+    }
+
+    return result;
+  }
+
   async connect() {
     return this.db.connect();
   }
@@ -23,7 +39,7 @@ export class IndexedDbLayerService implements NotesLayer {
   add(note: NoteCreate): Observable<Note> {
     return this.db.add({
       id: this.randomId(),
-      tags: note.tags,
+      tags: this.uniqueTags(note.tags),
       title: note.title,
       content: note.content,
       createdAt: new Date(),
@@ -77,7 +93,7 @@ export class IndexedDbLayerService implements NotesLayer {
       .pipe(
         switchMap(dbNote => this.db.update({
           ...dbNote,
-          tags: note.tags,
+          tags: this.uniqueTags(note.tags),
           title: note.title,
           content: note.content,
           updatedAt: new Date(),
