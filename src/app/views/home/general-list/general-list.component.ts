@@ -38,7 +38,7 @@ export class GeneralListComponent implements OnInit {
     }
 
     urlSegments[noteTypeIndex] = path;
-    return urlSegments.join('/');
+    return urlSegments.join('/').split('?')[0];
   }
 
 }

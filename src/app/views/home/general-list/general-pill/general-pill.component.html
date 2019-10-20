@@ -3,6 +3,7 @@
   *ngIf="href"
   [routerLink]="href"
   [class.active-route]="isHrefActive"
+  queryParamsHandling="preserve"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
 </a>
