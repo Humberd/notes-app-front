@@ -47,6 +47,10 @@
       margin-bottom: 15px;
       color: var(--textColor-secondary);
       transition: var(--transition-basic);
+
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
     }
 
     .mid-content {

@@ -56,6 +56,7 @@ export class IndexedDbLayerService implements NotesLayer {
               throw Error(`Note type ${type} is not supported`);
           }
         }),
+        map(notes => notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())),
       );
   }
 
@@ -67,6 +68,7 @@ export class IndexedDbLayerService implements NotesLayer {
           tags: note.tags,
           title: note.title,
           content: note.content,
+          updatedAt: new Date(),
         })),
       );
   }
@@ -77,6 +79,7 @@ export class IndexedDbLayerService implements NotesLayer {
         switchMap(note => this.db.update({
           ...note,
           isDeleted: true,
+          updatedAt: new Date(),
         })),
       );
   }
@@ -87,6 +90,7 @@ export class IndexedDbLayerService implements NotesLayer {
         switchMap(note => this.db.update({
           ...note,
           isDeleted: false,
+          updatedAt: new Date(),
         })),
       );
   }
@@ -97,6 +101,7 @@ export class IndexedDbLayerService implements NotesLayer {
         switchMap(note => this.db.update({
           ...note,
           isStarred: true,
+          updatedAt: new Date(),
         })),
       );
   }
@@ -107,6 +112,7 @@ export class IndexedDbLayerService implements NotesLayer {
         switchMap(note => this.db.update({
           ...note,
           isStarred: false,
+          updatedAt: new Date(),
         })),
       );
   }

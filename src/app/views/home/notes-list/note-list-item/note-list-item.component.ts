@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Note } from '../../../../models/note';
 
 @Component({
@@ -7,13 +7,13 @@ import { Note } from '../../../../models/note';
   styleUrls: ['./note-list-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteListItemComponent implements OnInit {
-  @Input() note: Note;
+export class NoteListItemComponent {
+  note: Note;
 
-  constructor() {
-  }
-
-  ngOnInit() {
+  @Input()
+  set note2(note: Note) {
+    console.log(note.title);
+    this.note = note;
   }
 
 }

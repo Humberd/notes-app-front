@@ -16,6 +16,7 @@ import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
 import { NoteContentComponent } from './note-container/note-content/note-content.component';
 import { EditorModule } from '../../shared/editor/editor.module';
 import { NoteContainerEmptyComponent } from './note-container-empty/note-container-empty.component';
+import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.component';
 
 @NgModule({
   imports: [
@@ -37,6 +38,7 @@ import { NoteContainerEmptyComponent } from './note-container-empty/note-contain
     TagsBarComponent,
     NoteContentComponent,
     NoteContainerEmptyComponent,
+    NoteSearchBarComponent,
   ],
 })
 export class HomeModule {

@@ -1,7 +1,7 @@
 <ng-container *ngIf="(notesRefresher.data$ | async)?.length; else noNotesAvailable">
   <app-note-list-item
-    *ngFor="let note of notesRefresher.data$ | async"
-    [note]="note"
+    *ngFor="let note of notesRefresher.data$ | async; trackBy: trackBy"
+    [note2]="note"
   ></app-note-list-item>
 </ng-container>
 

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppEditorComponent } from './editor/editor.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MonacoEditorModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   declarations: [AppEditorComponent],
   exports: [AppEditorComponent],

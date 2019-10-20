@@ -24,4 +24,15 @@ export class NotesRefresherService extends ClientSidePageableDataRefresher<Note>
       );
   }
 
+  updateRef(note: Note) {
+    const noteIndex = this.data.findIndex(value => value.id === note.id);
+    if (noteIndex < 0) {
+      console.warn('note doesnt exist', note);
+      return;
+    }
+    const newData = [...this.data];
+    newData.splice(noteIndex, 1, note);
+    this._data$.next(newData);
+  }
+
 }

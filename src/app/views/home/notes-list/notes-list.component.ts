@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '@ng-boost/core';
 import { NotesRefresherService } from '../_services/notes-refresher.service';
+import { Note } from '../../../models/note';
 
 @Component({
   selector: 'app-notes-list',
@@ -15,6 +16,10 @@ export class NotesListComponent {
   constructor(
     public notesRefresher: NotesRefresherService,
   ) {
+  }
+
+  trackBy(index: number, item: Note) {
+    return item.id;
   }
 
 }
