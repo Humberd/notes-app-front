@@ -46,11 +46,17 @@ export class TagsBarComponent implements OnInit {
   }
 
   createNewTag() {
+    const newTagName = this.newTagControl.value;
+    if (this.note.tags.some(tag => tag.name === newTagName)) {
+      console.log('Tag already exists');
+      return;
+    }
+
     this.indexedDbLayerService
       .update(this.note.id, {
         title: this.note.title,
         content: this.note.content,
-        tags: [...this.note.tags, {name: this.newTagControl.value}],
+        tags: [...this.note.tags, {name: newTagName}],
       })
       .subscribe(newNote => {
         this.tagsRefresherService.refresh();
