@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NotesService } from '../../../core/notes/notes.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '@ng-boost/core';
+import { NotesRefresherService } from '../_services/notes-refresher.service';
 
 @Component({
   selector: 'app-note-container-empty',
@@ -15,14 +15,14 @@ export class NoteContainerEmptyComponent implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
 
   constructor(
-    private notesService: NotesService,
+    private notesRefresher: NotesRefresherService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit() {
-    this.notesService.notes$
+    this.notesRefresher.data$
       .pipe(
         takeUntil(this.destroy$),
       )

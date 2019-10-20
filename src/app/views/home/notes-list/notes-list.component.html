@@ -1,4 +1,4 @@
 <app-note-list-item
-  *ngFor="let note of notesService.notes$ | async"
+  *ngFor="let note of notesRefresher.data$ | async"
   [note]="note"
 ></app-note-list-item>

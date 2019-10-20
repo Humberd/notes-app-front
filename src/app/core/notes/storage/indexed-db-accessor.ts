@@ -1,8 +1,7 @@
-import { Note, NoteCreate, NoteUpdate } from '../../../models/note';
+import { Note } from '../../../models/note';
 import { Observable } from 'rxjs';
-import { NotesStorage } from '../notes-storage';
 
-export class IndexedDbStorage implements NotesStorage {
+export class IndexedDbAccessor {
   private db: IDBDatabase;
 
   constructor() {
@@ -17,7 +16,7 @@ export class IndexedDbStorage implements NotesStorage {
 
     dbRequest.onupgradeneeded = ev => {
       this.db = dbRequest.result;
-      this.db.createObjectStore('notes', {keyPath: 'id', autoIncrement: true});
+      this.db.createObjectStore('notes', {keyPath: 'id', autoIncrement: false});
     };
   }
 
@@ -75,7 +74,7 @@ export class IndexedDbStorage implements NotesStorage {
     });
   }
 
-  add(note: NoteCreate): Observable<Note> {
+  add(note: Note): Observable<Note> {
     return new Observable<Note>(subscriber => {
       const tx = this.db.transaction('notes', 'readwrite');
       const store = tx.objectStore('notes');
@@ -93,7 +92,7 @@ export class IndexedDbStorage implements NotesStorage {
     });
   }
 
-  update(note: NoteUpdate): Observable<Note> {
+  update(note: Note): Observable<Note> {
     return new Observable<Note>(subscriber => {
       const tx = this.db.transaction('notes', 'readwrite');
       const store = tx.objectStore('notes');

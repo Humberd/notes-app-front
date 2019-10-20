@@ -1,11 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NotesService } from '../../../core/notes/notes.service';
-import { map, switchMap } from 'rxjs/operators';
-import { Destroy$ } from '@ng-boost/core';
-import { Observable, Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Note } from '../../../models/note';
-import { ActivatedRoute } from '@angular/router';
 import { NoteIdRouteParam } from '../_services/note-id-route-param';
+import { IndexedDbLayerService } from '../../../core/notes/storage/indexed-db-layer.service';
 
 @Component({
   selector: 'app-note-container',
@@ -15,13 +13,10 @@ import { NoteIdRouteParam } from '../_services/note-id-route-param';
   viewProviders: [NoteIdRouteParam],
 })
 export class NoteContainerComponent implements OnInit {
-  @Destroy$() private readonly destroy$ = new Subject();
-
   currentNote$: Observable<Note>;
 
   constructor(
-    private notesService: NotesService,
-    private activatedRoute: ActivatedRoute,
+    private indexedDb: IndexedDbLayerService,
     private noteIdRouteParam: NoteIdRouteParam,
   ) {
   }
@@ -29,10 +24,7 @@ export class NoteContainerComponent implements OnInit {
   ngOnInit() {
     this.currentNote$ = this.noteIdRouteParam.value$
       .pipe(
-        switchMap(noteId => this.notesService.notes$
-          .pipe(
-            map(notes => notes.find(note => note.id === noteId)),
-          ),
+        switchMap(noteId => this.indexedDb.read(noteId),
         ),
       );
   }
