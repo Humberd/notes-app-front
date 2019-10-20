@@ -56,6 +56,7 @@ export class IndexedDbLayerService implements NotesLayer {
               throw Error(`Note type ${type} is not supported`);
           }
         }),
+        map(notes => notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())),
       );
   }
 
