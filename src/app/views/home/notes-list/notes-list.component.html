@@ -1,4 +1,4 @@
-<ng-container *ngIf="(notesRefresher.data$ | async).length; else noNotesAvailable">
+<ng-container *ngIf="(notesRefresher.data$ | async)?.length; else noNotesAvailable">
   <app-note-list-item
     *ngFor="let note of notesRefresher.data$ | async"
     [note]="note"
