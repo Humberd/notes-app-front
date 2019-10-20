@@ -24,8 +24,7 @@ export class NoteContainerComponent implements OnInit {
   ngOnInit() {
     this.currentNote$ = this.noteIdRouteParam.value$
       .pipe(
-        switchMap(noteId => this.indexedDb.read(noteId),
-        ),
+        switchMap(noteId => this.indexedDb.read(noteId)),
       );
   }
 

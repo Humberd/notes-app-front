@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 import { NoteTypeRouteParam } from './_services/note-type-route-param';
 import { NotesRefresherService } from './_services/notes-refresher.service';
+import { IndexedDbLayerService } from '../../core/notes/storage/indexed-db-layer.service';
 
 @Component({
   selector: 'app-home',
@@ -22,10 +23,14 @@ export class HomeComponent implements OnInit {
   notesPanelMinWidth = 100;
   notesPanelWidth = 300;
 
-  constructor(private notesRefresherService: NotesRefresherService) {
+  constructor(
+    private notesRefresherService: NotesRefresherService,
+    private indexedDbLayerService: IndexedDbLayerService,
+  ) {
   }
 
   ngOnInit(): void {
+    this.indexedDbLayerService.connect();
     this.notesRefresherService.start();
   }
 

@@ -16,6 +16,10 @@ export class IndexedDbLayerService implements NotesLayer {
     return Math.random().toString(36).substr(2, 9);
   }
 
+  async connect() {
+    return this.db.connect();
+  }
+
   add(note: NoteCreate): Observable<Note> {
     return this.db.add({
       id: this.randomId(),
