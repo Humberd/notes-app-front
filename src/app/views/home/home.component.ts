@@ -3,6 +3,8 @@ import { ResizeEvent } from 'angular-resizable-element';
 import { NoteTypeRouteParam } from './_services/note-type-route-param';
 import { NotesRefresherService } from './_services/notes-refresher.service';
 import { IndexedDbLayerService } from '../../core/notes/storage/indexed-db-layer.service';
+import { NotesSearchService } from './_services/notes-search.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -12,6 +14,7 @@ import { IndexedDbLayerService } from '../../core/notes/storage/indexed-db-layer
   viewProviders: [
     NoteTypeRouteParam,
     NotesRefresherService,
+    NotesSearchService,
   ],
 })
 export class HomeComponent implements OnInit {
@@ -26,12 +29,15 @@ export class HomeComponent implements OnInit {
   constructor(
     private notesRefresherService: NotesRefresherService,
     private indexedDbLayerService: IndexedDbLayerService,
+    private notesSearchService: NotesSearchService,
+    private activatedRoute: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
     this.indexedDbLayerService.connect();
     this.notesRefresherService.start();
+    this.notesSearchService.start(this.activatedRoute);
   }
 
   generalPanelValidator = (resizeEvent: ResizeEvent) => {

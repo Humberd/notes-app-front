@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Tag } from '../../../../models/note';
 
 @Component({
@@ -7,16 +7,10 @@ import { Tag } from '../../../../models/note';
   styleUrls: ['./tags-bar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsBarComponent implements OnInit {
+export class TagsBarComponent {
   @Input() tags: Tag[];
   @Input() removable: boolean;
   @Output() removed = new EventEmitter<Tag>();
   @Output() added = new EventEmitter<string>();
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
 
 }

@@ -1,12 +1,13 @@
 <input
   class="search"
   type="text"
+  [formControl]="searchControl"
   [placeholder]="'common.search' | translate"
 >
 
 <button
   class="new"
-  (click)="createNew()"
+  (click)="createNewNote()"
 >
   {{'common.new' | translate}}
 </button>

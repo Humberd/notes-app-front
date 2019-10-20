@@ -17,6 +17,7 @@ import { NoteContentComponent } from './note-container/note-content/note-content
 import { EditorModule } from '../../shared/editor/editor.module';
 import { NoteContainerEmptyComponent } from './note-container-empty/note-container-empty.component';
 import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -27,6 +28,8 @@ import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.compon
     MatIconModule,
     AppCommonModule,
     EditorModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   declarations: [
     HomeComponent,
