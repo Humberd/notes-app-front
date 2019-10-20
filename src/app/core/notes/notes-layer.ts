@@ -7,7 +7,7 @@ export interface NotesLayer {
 
   read(noteId: string): Observable<Note>;
 
-  readList(type: NoteType): Observable<Note[]>;
+  readList(type: NoteType, searchQuery: string): Observable<Note[]>;
 
   update(noteId: string, note: NoteUpdate): Observable<Note>;
 

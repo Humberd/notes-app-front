@@ -41,7 +41,7 @@ export class IndexedDbLayerService implements NotesLayer {
     return this.db.read(noteId);
   }
 
-  readList(type: NoteType): Observable<Note[]> {
+  readList(type: NoteType, searchQuery: string): Observable<Note[]> {
     return this.db.readAll()
       .pipe(
         map(notes => {
@@ -56,6 +56,18 @@ export class IndexedDbLayerService implements NotesLayer {
               throw Error(`Note type ${type} is not supported`);
           }
         }),
+        map(notes => notes.filter(note => {
+          if (!searchQuery) {
+            return true;
+          }
+
+          const titleLc = note.title.toLowerCase();
+          const contentLc = note.content.toLowerCase();
+          const searchQueryLc = searchQuery.toLowerCase();
+          const tagsLc = note.tags.map(tag => tag.name.toLowerCase());
+
+          return titleLc.includes(searchQueryLc) || contentLc.includes(searchQueryLc) || tagsLc.some(tag => tag.includes(searchQueryLc));
+        })),
         map(notes => notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())),
       );
   }

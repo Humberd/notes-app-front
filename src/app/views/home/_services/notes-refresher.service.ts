@@ -20,7 +20,7 @@ export class NotesRefresherService extends ClientSidePageableDataRefresher<Note>
   protected getPageableDataSource(pageOptions: PageOptions): Observable<Note[]> | Refresher<any, Note[]> {
     return this.noteTypeRouteParam.value$
       .pipe(
-        switchMap(noteType => this.indexedDbLayerService.readList(noteType)),
+        switchMap(noteType => this.indexedDbLayerService.readList(noteType, '')),
       );
   }
 
