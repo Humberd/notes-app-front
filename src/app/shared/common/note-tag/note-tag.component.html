@@ -4,6 +4,7 @@
   class="close-icon-button"
   *ngIf="removable"
   aria-label="Remove tag"
+  (click)="removed.emit(tag)"
 >
   <mat-icon class="close-icon">
     close

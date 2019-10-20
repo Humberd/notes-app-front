@@ -5,6 +5,7 @@ import { NotesRefresherService } from './_services/notes-refresher.service';
 import { IndexedDbLayerService } from '../../core/notes/storage/indexed-db-layer.service';
 import { NotesSearchService } from './_services/notes-search.service';
 import { ActivatedRoute } from '@angular/router';
+import { TagsRefresherService } from './_services/tags-refresher.service';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +16,7 @@ import { ActivatedRoute } from '@angular/router';
     NoteTypeRouteParam,
     NotesRefresherService,
     NotesSearchService,
+    TagsRefresherService,
   ],
 })
 export class HomeComponent implements OnInit {
@@ -31,6 +33,7 @@ export class HomeComponent implements OnInit {
     private indexedDbLayerService: IndexedDbLayerService,
     private notesSearchService: NotesSearchService,
     private activatedRoute: ActivatedRoute,
+    private tagsRefresherService: TagsRefresherService,
   ) {
   }
 
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
     this.indexedDbLayerService.connect();
     this.notesRefresherService.start();
     this.notesSearchService.start(this.activatedRoute);
+    this.tagsRefresherService.start();
   }
 
   generalPanelValidator = (resizeEvent: ResizeEvent) => {

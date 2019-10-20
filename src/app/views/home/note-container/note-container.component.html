@@ -1,5 +1,5 @@
 <ng-container *ngIf="currentNote$ | async as note; else noteNotExist">
-  <app-tags-bar [tags]="note.tags"></app-tags-bar>
+  <app-tags-bar [note]="note"></app-tags-bar>
 
   <app-note-content [note]="note"></app-note-content>
 </ng-container>

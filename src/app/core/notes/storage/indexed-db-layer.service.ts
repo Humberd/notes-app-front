@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { NotesLayer } from '../notes-layer';
 import { Observable } from 'rxjs';
-import { Note, NoteCreate, NoteUpdate } from '../../../models/note';
+import { Note, NoteCreate, NoteUpdate, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { map, switchMap } from 'rxjs/operators';
@@ -129,5 +129,22 @@ export class IndexedDbLayerService implements NotesLayer {
       );
   }
 
+  readTagsList(): Observable<Tag[]> {
+    return this.readList('all', '')
+      .pipe(
+        map(notes => notes.reduce((acc, note) => {
+          note.tags.forEach(tag => {
+            acc[tag.name] = acc[tag.name] || 1;
+          });
+
+          return acc;
+        }, {})),
+        map(tagsCounterObj => Object.entries(tagsCounterObj)),
+        map(tagsCounterEntries => tagsCounterEntries.map(([key, value]) => ({
+          name: key,
+          notesCount: value,
+        } as Tag))),
+      );
+  }
 
 }
