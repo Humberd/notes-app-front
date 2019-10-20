@@ -5,12 +5,21 @@ export interface Note {
   content: string;
   createdAt: Date;
   updatedAt: Date;
-  isDeleted?: boolean;
+  isDeleted: boolean;
+  isStarred: boolean;
 }
 
-export type NoteCreate = Omit<Note, 'id'>;
+export interface NoteCreate {
+  tags: Tag[];
+  title: string;
+  content: string;
+}
 
-export type NoteUpdate = Note;
+export interface NoteUpdate {
+  tags: Tag[];
+  title: string;
+  content: string;
+}
 
 export interface Tag {
   name: string;

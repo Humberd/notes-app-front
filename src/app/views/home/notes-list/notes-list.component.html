@@ -1,4 +1,10 @@
-<app-note-list-item
-  *ngFor="let note of notesService.notes$ | async"
-  [note]="note"
-></app-note-list-item>
+<ng-container *ngIf="(notesRefresher.data$ | async)?.length; else noNotesAvailable">
+  <app-note-list-item
+    *ngFor="let note of notesRefresher.data$ | async"
+    [note]="note"
+  ></app-note-list-item>
+</ng-container>
+
+<ng-template #noNotesAvailable>
+  There are no notes.
+</ng-template>

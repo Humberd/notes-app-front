@@ -1,9 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NotesService } from '../../../core/notes/notes.service';
-import { NoteTypeRouteParam } from '../_services/note-type-route-param';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '@ng-boost/core';
-import { takeUntil } from 'rxjs/operators';
+import { NotesRefresherService } from '../_services/notes-refresher.service';
 
 @Component({
   selector: 'app-notes-list',
@@ -11,23 +9,12 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./notes-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotesListComponent implements OnInit {
+export class NotesListComponent {
   @Destroy$() private readonly destroy$ = new Subject();
 
   constructor(
-    public notesService: NotesService,
-    private noteTypeRouteParam: NoteTypeRouteParam,
+    public notesRefresher: NotesRefresherService,
   ) {
-  }
-
-  ngOnInit(): void {
-    this.noteTypeRouteParam.value$
-      .pipe(
-        takeUntil(this.destroy$),
-      )
-      .subscribe(note => {
-
-      });
   }
 
 }
