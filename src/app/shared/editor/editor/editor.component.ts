@@ -1,6 +1,5 @@
-import { Component, forwardRef, Input, ViewChild } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EditorComponent } from 'ngx-monaco-editor';
+import { ChangeDetectionStrategy, Component, forwardRef, Input, NgZone } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
 @Component({
@@ -14,11 +13,11 @@ import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
       multi: true,
     },
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppEditorComponent implements ControlValueAccessor {
   @Input() placeholder: string;
-  @Input() formControl: FormControl;
-
+  content: string;
   editorOptions: IEditorConstructionOptions = {
     theme: 'vs-dark',
     language: 'markdown',
@@ -26,10 +25,15 @@ export class AppEditorComponent implements ControlValueAccessor {
     automaticLayout: true,
   };
 
-  @ViewChild(EditorComponent, {static: true}) editorComponent: EditorComponent;
+  propagateChange = (_: any) => {
+  };
 
+  constructor(private ngZone: NgZone) {
+
+  }
 
   registerOnChange(fn: any): void {
+    this.propagateChange = fn;
   }
 
   registerOnTouched(fn: any): void {
@@ -39,6 +43,15 @@ export class AppEditorComponent implements ControlValueAccessor {
   }
 
   writeValue(obj: any): void {
+    this.content = obj;
   }
 
+  onEditorValueChange(newContent: string) {
+    // Monaco editor is run outside Angular zone.
+    // This is a fix to manually handle change propagation in formControl
+    // https://github.com/atularen/ngx-monaco-editor/pull/135
+    this.ngZone.run(() => {
+      this.propagateChange(newContent);
+    });
+  }
 }

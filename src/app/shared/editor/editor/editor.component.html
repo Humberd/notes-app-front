@@ -1,6 +1,7 @@
 <ngx-monaco-editor
   class="editor"
   [options]="editorOptions"
-  [formControl]="formControl"
+  [ngModel]="content"
+  (ngModelChange)="onEditorValueChange($event)"
 ></ngx-monaco-editor>
 
