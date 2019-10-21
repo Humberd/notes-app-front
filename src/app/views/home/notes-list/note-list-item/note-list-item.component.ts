@@ -8,12 +8,6 @@ import { Note } from '../../../../models/note';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteListItemComponent {
-  note: Note;
-
-  @Input()
-  set note2(note: Note) {
-    console.log(note.title);
-    this.note = note;
-  }
+  @Input() note: Note;
 
 }
