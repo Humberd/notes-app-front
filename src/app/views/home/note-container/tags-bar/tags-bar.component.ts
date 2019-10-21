@@ -45,6 +45,10 @@ export class TagsBarComponent implements OnInit {
       );
   }
 
+  trackBy(index: number, item: NoteTag) {
+    return item.name;
+  }
+
   createNewTag() {
     const newTagName = this.newTagControl.value;
     if (this.note.tags.some(tag => tag.name === newTagName)) {
