@@ -150,7 +150,7 @@ export class IndexedDbLayerService implements NotesLayer {
       .pipe(
         map(notes => notes.reduce((acc, note) => {
           note.tags.forEach(tag => {
-            acc[tag.name] = acc[tag.name] || 1;
+            acc[tag.name] = (acc[tag.name] || 0) + 1;
           });
 
           return acc;
