@@ -1,4 +1,4 @@
-<ng-container *ngIf="currentNote$ | async as note; else noteNotExist">
+<ng-container *ngIf="currentNoteRefresher.data$ | async as note; else noteNotExist">
   <app-tags-bar [note]="note"></app-tags-bar>
 
   <app-note-content [note]="note"></app-note-content>

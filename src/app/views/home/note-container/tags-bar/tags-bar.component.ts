@@ -6,6 +6,7 @@ import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
+import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
 
 @Component({
   selector: 'app-tags-bar',
@@ -24,6 +25,7 @@ export class TagsBarComponent implements OnInit {
     private tagsRefresherService: TagsRefresherService,
     private indexedDbLayerService: IndexedDbLayerService,
     private notesRefresherService: NotesRefresherService,
+    private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
   }
@@ -63,6 +65,7 @@ export class TagsBarComponent implements OnInit {
         tags: [...this.note.tags, {name: newTagName}],
       })
       .subscribe(newNote => {
+        this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
         this.notesRefresherService.updateRef(newNote);
         this.newTagControl.reset('');
@@ -77,6 +80,7 @@ export class TagsBarComponent implements OnInit {
         tags: this.note.tags.filter(it => it.name !== tag.name),
       })
       .subscribe(newNote => {
+        this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
         this.notesRefresherService.updateRef(newNote);
       });
