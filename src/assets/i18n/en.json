@@ -6,7 +6,11 @@
     "tag": "Tag",
     "tags": "Tags",
     "new": "New",
-    "search": "Search"
+    "search": "Search",
+    "delete": "Delete",
+    "clone": "Clone",
+    "star": "Star",
+    "unstar": "Unstar"
   },
   "tags": {
     "no_tags": "No tags",
