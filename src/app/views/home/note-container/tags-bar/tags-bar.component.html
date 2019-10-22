@@ -2,16 +2,29 @@
 
   <app-note-tag
     class="tag"
-    *ngFor="let tag of tags"
+    *ngFor="let tag of note.tags; trackBy: trackBy"
     [tag]="tag"
     [removable]="true"
+    (removed)="removeTag($event)"
   ></app-note-tag>
 
 </ul>
 
-<form>
+<form (ngSubmit)="createNewTag()">
   <input
     class="new-tag"
+    [formControl]="newTagControl"
     [placeholder]="'tags.add_tag' | translate"
+    [matAutocomplete]="autocomplete"
   />
+
+  <mat-autocomplete
+    [autoActiveFirstOption]="true"
+    #autocomplete
+  >
+    <mat-option
+      *ngFor="let option of availableTags$ | async"
+      [value]="option"
+    >{{option}}</mat-option>
+  </mat-autocomplete>
 </form>

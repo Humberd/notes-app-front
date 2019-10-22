@@ -29,7 +29,9 @@
 
   <app-general-pill
     icon="tag"
-    name="programming"
+    *ngFor="let tag of tagsRefresherService.data$ | async"
+    [name]="tag.name"
+    [counter]="tag.notesCount"
   ></app-general-pill>
 
 </section>

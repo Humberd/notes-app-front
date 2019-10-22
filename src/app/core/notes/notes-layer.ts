@@ -1,4 +1,4 @@
-import { Note, NoteCreate, NoteUpdate } from '../../models/note';
+import { Note, NoteCreate, NoteUpdate, Tag } from '../../models/note';
 import { Observable } from 'rxjs';
 import { NoteType } from '../../views/home/_services/note-type-route-param';
 
@@ -20,5 +20,7 @@ export interface NotesLayer {
   delete(noteId: string): Observable<Note>;
 
   undelete(noteId: string): Observable<Note>;
+
+  readTagsList(): Observable<Tag[]>;
 
 }

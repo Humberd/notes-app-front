@@ -1,6 +1,6 @@
 export interface Note {
   id: string;
-  tags: Tag[];
+  tags: NoteTag[];
   title: string;
   content: string;
   createdAt: Date;
@@ -10,18 +10,24 @@ export interface Note {
 }
 
 export interface NoteCreate {
-  tags: Tag[];
+  tags: NoteTag[];
   title: string;
   content: string;
 }
 
 export interface NoteUpdate {
-  tags: Tag[];
+  tags: NoteTag[];
   title: string;
   content: string;
 }
 
-export interface Tag {
+export interface NoteTag {
   name: string;
   color?: string;
+}
+
+export interface Tag {
+  name: string;
+  // todo: add global colors
+  notesCount: number;
 }

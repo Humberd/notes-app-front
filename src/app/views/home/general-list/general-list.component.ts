@@ -4,6 +4,7 @@ import { NoteTypeRouteParam } from '../_services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
+import { TagsRefresherService } from '../_services/tags-refresher.service';
 
 @Component({
   selector: 'app-general-list',
@@ -18,6 +19,7 @@ export class GeneralListComponent implements OnInit {
     private router: Router,
     public noteTypeRouteParam: NoteTypeRouteParam,
     private cdr: ChangeDetectorRef,
+    public tagsRefresherService: TagsRefresherService,
   ) {
   }
 

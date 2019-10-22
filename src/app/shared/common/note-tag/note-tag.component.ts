@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Tag } from '../../../models/note';
+import { NoteTag } from '../../../models/note';
 
 @Component({
   selector: 'app-note-tag',
@@ -14,8 +14,8 @@ import { Tag } from '../../../models/note';
   },
 })
 export class NoteTagComponent {
-  @Input() tag: Tag;
+  @Input() tag: NoteTag;
   @Input() removable: boolean;
-  @Output() removed = new EventEmitter<Tag>();
+  @Output() removed = new EventEmitter<NoteTag>();
 
 }
