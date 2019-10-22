@@ -2,6 +2,7 @@
   class="wrapper"
   [routerLink]="[note.id]"
   routerLinkActive="active-route"
+  [appContextMenuTriggerFor]="menu"
 >
   <div class="content">
     <h5 class="title">{{note.title || ('notes.title_placeholder' | translate)}}</h5>
@@ -25,3 +26,25 @@
 
   </div>
 </a>
+
+<mat-menu #menu>
+  <button mat-menu-item>{{'common.clone' | translate}}</button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted && !note.isStarred"
+  >
+    {{'common.star' | translate}}
+  </button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted && note.isStarred"
+  >
+    {{'common.unstar' | translate}}
+  </button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted"
+  >
+    {{'common.delete' | translate}}
+  </button>
+</mat-menu>
