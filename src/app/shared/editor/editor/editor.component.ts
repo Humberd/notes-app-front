@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, NgZone } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
@@ -28,7 +28,10 @@ export class AppEditorComponent implements ControlValueAccessor {
   propagateChange = (_: any) => {
   };
 
-  constructor(private ngZone: NgZone) {
+  constructor(
+    private ngZone: NgZone,
+    private cdr: ChangeDetectorRef,
+  ) {
 
   }
 
@@ -44,6 +47,7 @@ export class AppEditorComponent implements ControlValueAccessor {
 
   writeValue(obj: any): void {
     this.content = obj;
+    this.cdr.markForCheck();
   }
 
   onEditorValueChange(newContent: string) {
