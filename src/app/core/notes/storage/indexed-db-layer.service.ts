@@ -160,6 +160,7 @@ export class IndexedDbLayerService implements NotesLayer {
           name: key,
           notesCount: value,
         } as Tag))),
+        map(tagsList => tagsList.sort((a, b) => b.notesCount - a.notesCount)),
       );
   }
 
