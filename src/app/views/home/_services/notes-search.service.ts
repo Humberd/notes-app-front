@@ -40,10 +40,9 @@ export class NotesSearchService {
     }
 
     this.setQuery(query);
-    console.log(query);
 
     this.routerUtilsService.updateQueryParams({
       [NOTES_SEARCH_QUERY_PARAM]: query || null,
-    }).then(console.log);
+    });
   }
 }

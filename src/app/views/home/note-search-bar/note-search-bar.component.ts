@@ -6,7 +6,7 @@ import { NotesSearchService } from '../_services/notes-search.service';
 import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-note-search-bar',
@@ -31,7 +31,6 @@ export class NoteSearchBarComponent implements OnInit {
     this.notesSearchService.query$
       .pipe(
         takeUntil(this.destroy$),
-        tap(console.log),
       )
       .subscribe(serviceQuery => this.searchControl.setValue(serviceQuery));
 

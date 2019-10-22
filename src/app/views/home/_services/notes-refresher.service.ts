@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { ClientSidePageableDataRefresher, NEVER_REFRESH, PageOptions, Refresher } from '@ng-boost/core';
 import { Note } from '../../../models/note';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { IndexedDbLayerService } from '../../../core/notes/storage/indexed-db-layer.service';
 import { NoteTypeRouteParam } from './note-type-route-param';
 import { switchMap } from 'rxjs/operators';
+import { NotesSearchService } from './notes-search.service';
 
 @Injectable()
 export class NotesRefresherService extends ClientSidePageableDataRefresher<Note> {
   constructor(
     private indexedDbLayerService: IndexedDbLayerService,
     private noteTypeRouteParam: NoteTypeRouteParam,
+    private notesSearchService: NotesSearchService,
   ) {
     super({
       period: NEVER_REFRESH,
@@ -18,9 +20,12 @@ export class NotesRefresherService extends ClientSidePageableDataRefresher<Note>
   }
 
   protected getPageableDataSource(pageOptions: PageOptions): Observable<Note[]> | Refresher<any, Note[]> {
-    return this.noteTypeRouteParam.value$
+    return combineLatest(
+      this.noteTypeRouteParam.value$,
+      this.notesSearchService.query$,
+    )
       .pipe(
-        switchMap(noteType => this.indexedDbLayerService.readList(noteType, '')),
+        switchMap(([noteType, query]) => this.indexedDbLayerService.readList(noteType, query)),
       );
   }
 
