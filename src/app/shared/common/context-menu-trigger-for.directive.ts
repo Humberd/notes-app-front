@@ -37,7 +37,6 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger {
     return new OverlayConfig({
       // @ts-ignore
       positionStrategy: this._overlay.position()
-      // @ts-ignore
         .flexibleConnectedTo(this.currentClickCoords)
         .withLockedPosition()
         .withTransformOriginOn('.mat-menu-panel, .mat-mdc-menu-panel'),
