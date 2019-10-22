@@ -28,5 +28,23 @@
 </a>
 
 <mat-menu #menu>
-  <mat-option>HELLO</mat-option>
+  <button mat-menu-item>{{'common.clone' | translate}}</button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted && !note.isStarred"
+  >
+    {{'common.star' | translate}}
+  </button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted && note.isStarred"
+  >
+    {{'common.unstar' | translate}}
+  </button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted"
+  >
+    {{'common.delete' | translate}}
+  </button>
 </mat-menu>
