@@ -35,7 +35,7 @@ export class NoteOptionsController {
           }),
       },
       {
-        icon: 'star',
+        icon: 'star_border',
         labelTK: 'common.star',
         showWhen: note => !note.isDeleted && !note.isStarred,
         action: note => this.indexedDbLayerService.star(note.id)
@@ -44,7 +44,7 @@ export class NoteOptionsController {
           }),
       },
       {
-        icon: 'star_border',
+        icon: 'star',
         labelTK: 'common.unstar',
         showWhen: note => !note.isDeleted && note.isStarred,
         action: note => this.indexedDbLayerService.unstar(note.id)
