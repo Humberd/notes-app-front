@@ -36,50 +36,65 @@
 </a>
 
 <mat-menu #menu>
-  <button
-    mat-menu-item
-    *ngIf="!note.isDeleted"
-    (click)="duplicateNote()"
-  >
-    {{'common.duplicate' | translate}}
-  </button>
-  <button
-    mat-menu-item
-    *ngIf="!note.isDeleted && !note.isStarred"
-    (click)="starNote()"
-  >
-    {{'common.star' | translate}}
-  </button>
-  <button
-    mat-menu-item
-    *ngIf="!note.isDeleted && note.isStarred"
-    (click)="unstarNote()"
-  >
-    {{'common.unstar' | translate}}
-  </button>
-  <button
-    mat-menu-item
-    *ngIf="!note.isDeleted"
-    (click)="deleteNote()"
-  >
-    {{'common.delete' | translate}}
-  </button>
+  <ng-container *ngIf="!note.isDeleted">
+    <button
+      mat-menu-item
+      (click)="duplicateNote()"
+    >
+      <mat-icon>file_copy</mat-icon>
+      {{'common.duplicate' | translate}}
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="!note.isStarred"
+      (click)="starNote()"
+    >
+      <mat-icon>star</mat-icon>
+      {{'common.star' | translate}}
+    </button>
+    <button
+      mat-menu-item
+      *ngIf="note.isStarred"
+      (click)="unstarNote()"
+    >
+      <mat-icon>star_border</mat-icon>
+      {{'common.unstar' | translate}}
+    </button>
 
-  <button
-    mat-menu-item
+    <mat-divider></mat-divider>
+
+    <button
+      mat-menu-item
+      (click)="deleteNote()"
+    >
+      <mat-icon>delete</mat-icon>
+      {{'common.delete' | translate}}
+    </button>
+
+  </ng-container>
+
+  <ng-container
     *ngIf="note.isDeleted"
-    (click)="restoreNote()"
   >
-    {{'common.restore' | translate}}
-  </button>
 
-  <button
-    mat-menu-item
-    *ngIf="note.isDeleted"
-    (click)="deleteNotePermanently()"
-  >
-    {{'common.delete_permanently' | translate}}
-  </button>
+    <button
+      mat-menu-item
+      (click)="restoreNote()"
+    >
+      <mat-icon>restore_from_trash</mat-icon>
+      {{'common.restore' | translate}}
+    </button>
 
+    <mat-divider></mat-divider>
+
+    <button
+      mat-menu-item
+      (click)="deleteNotePermanently()"
+    >
+      <mat-icon color="warn">delete_forever</mat-icon>
+      {{'common.delete_permanently' | translate}}
+    </button>
+
+  </ng-container>
 
 </mat-menu>

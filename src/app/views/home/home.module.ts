@@ -6,7 +6,7 @@ import { routes } from './home.routes';
 import { ResizableModule } from 'angular-resizable-element';
 import { GeneralListComponent } from './general-list/general-list.component';
 import { TranslateModule } from '@ngx-translate/core';
-import { MatAutocompleteModule, MatButtonModule, MatIconModule, MatMenuModule } from '@angular/material';
+import { MatAutocompleteModule, MatButtonModule, MatDividerModule, MatIconModule, MatMenuModule } from '@angular/material';
 import { GeneralPillComponent } from './general-list/general-pill/general-pill.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { NoteListItemComponent } from './notes-list/note-list-item/note-list-item.component';
@@ -33,6 +33,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatAutocompleteModule,
     MatMenuModule,
     MatButtonModule,
+    MatDividerModule,
   ],
   declarations: [
     HomeComponent,
