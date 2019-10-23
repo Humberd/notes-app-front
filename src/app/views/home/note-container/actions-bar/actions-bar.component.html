@@ -5,7 +5,7 @@
     <button
       class="action"
       (click)="noteOption.action(note)"
-      [title]="noteOption.labelTK | translate"
+      [matTooltip]="noteOption.labelTK | translate"
     >
       <mat-icon [color]="noteOption.iconColor">{{noteOption.icon}}</mat-icon>
     </button>
