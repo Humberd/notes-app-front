@@ -18,6 +18,7 @@ import { EditorModule } from '../../shared/editor/editor.module';
 import { NoteContainerEmptyComponent } from './note-container-empty/note-container-empty.component';
 import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.component';
 
 @NgModule({
   imports: [
@@ -46,6 +47,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NoteContentComponent,
     NoteContainerEmptyComponent,
     NoteSearchBarComponent,
+    ActionsBarComponent,
   ],
 })
 export class HomeModule {

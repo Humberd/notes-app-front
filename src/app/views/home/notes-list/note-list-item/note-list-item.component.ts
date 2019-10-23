@@ -3,6 +3,7 @@ import { Note } from '../../../../models/note';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
+import { NoteOption, NoteOptionsController } from '../../../../shared/common/note-options/note-options';
 
 @Component({
   selector: 'app-note-list-item',
@@ -13,55 +14,20 @@ import { TagsRefresherService } from '../../_services/tags-refresher.service';
 export class NoteListItemComponent {
   @Input() note: Note;
 
+  noteOptions: NoteOption[];
+
   constructor(
     private notesRefresherService: NotesRefresherService,
     private indexedDbLayerService: IndexedDbLayerService,
     private tagsRefresherService: TagsRefresherService,
   ) {
+    const noteOptionsController = new NoteOptionsController(notesRefresherService, indexedDbLayerService, tagsRefresherService);
 
+    this.noteOptions = noteOptionsController.getOptions();
   }
 
-  starNote() {
-    this.indexedDbLayerService.star(this.note.id)
-      .subscribe(newNote => {
-        this.notesRefresherService.refresh();
-      });
+  trackBy(index: number, item: NoteOption) {
+    return item.icon;
   }
 
-  unstarNote() {
-    this.indexedDbLayerService.unstar(this.note.id)
-      .subscribe(newNote => {
-        this.notesRefresherService.refresh();
-      });
-  }
-
-  deleteNote() {
-    this.indexedDbLayerService.delete(this.note.id)
-      .subscribe(newNote => {
-        this.notesRefresherService.refresh();
-      });
-  }
-
-  restoreNote() {
-    this.indexedDbLayerService.undelete(this.note.id)
-      .subscribe(newNote => {
-        this.notesRefresherService.refresh();
-      });
-  }
-
-  deleteNotePermanently() {
-    this.indexedDbLayerService.forceDelete(this.note.id)
-      .subscribe(() => {
-        this.notesRefresherService.refresh();
-        this.tagsRefresherService.refresh();
-      });
-  }
-
-  duplicateNote() {
-    this.indexedDbLayerService.duplicate(this.note.id)
-      .subscribe(newNote => {
-        this.notesRefresherService.refresh();
-        this.tagsRefresherService.refresh();
-      });
-  }
 }
