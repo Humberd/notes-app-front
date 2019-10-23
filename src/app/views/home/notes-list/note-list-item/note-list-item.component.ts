@@ -56,4 +56,12 @@ export class NoteListItemComponent {
         this.tagsRefresherService.refresh();
       });
   }
+
+  duplicateNote() {
+    this.indexedDbLayerService.duplicate(this.note.id)
+      .subscribe(newNote => {
+        this.notesRefresherService.refresh();
+        this.tagsRefresherService.refresh();
+      });
+  }
 }

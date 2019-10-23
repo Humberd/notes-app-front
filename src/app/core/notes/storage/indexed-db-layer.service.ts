@@ -185,6 +185,18 @@ export class IndexedDbLayerService implements NotesLayer {
       );
   }
 
+  duplicate(noteId: string): Observable<Note> {
+    return this.read(noteId)
+      .pipe(
+        switchMap(note => this.add({
+            title: note.title,
+            content: note.content,
+            tags: note.tags,
+          }),
+        ),
+      );
+  }
+
   readTagsList(): Observable<Tag[]> {
     return this.readList('all', '')
       .pipe(

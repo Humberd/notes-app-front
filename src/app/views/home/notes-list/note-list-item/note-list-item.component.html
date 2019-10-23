@@ -36,7 +36,13 @@
 </a>
 
 <mat-menu #menu>
-  <button mat-menu-item>{{'common.duplicate' | translate}}</button>
+  <button
+    mat-menu-item
+    *ngIf="!note.isDeleted"
+    (click)="duplicateNote()"
+  >
+    {{'common.duplicate' | translate}}
+  </button>
   <button
     mat-menu-item
     *ngIf="!note.isDeleted && !note.isStarred"
