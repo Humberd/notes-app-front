@@ -40,12 +40,14 @@
   <button
     mat-menu-item
     *ngIf="!note.isDeleted && !note.isStarred"
+    (click)="starNote()"
   >
     {{'common.star' | translate}}
   </button>
   <button
     mat-menu-item
     *ngIf="!note.isDeleted && note.isStarred"
+    (click)="unstarNote()"
   >
     {{'common.unstar' | translate}}
   </button>
