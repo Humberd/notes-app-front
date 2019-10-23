@@ -41,10 +41,23 @@
     padding: 15px 0;
     border-bottom: 1px solid var(--backgroundColor-secondary);
 
+    header {
+      margin-bottom: 15px;
+
+      display: flex;
+
+      .starred-icon {
+        font-size: 19px;
+        height: 19px;
+        width: 19px;
+        margin-left: 5px;
+      }
+    }
+
     .title {
       font-size: 15px;
+      line-height: 20px;
       font-weight: 700;
-      margin-bottom: 15px;
       color: var(--textColor-secondary);
       transition: var(--transition-basic);
 
@@ -52,7 +65,7 @@
       overflow: hidden;
       white-space: nowrap;
 
-      display: inline-block;
+      flex: 1;
     }
 
     .mid-content {

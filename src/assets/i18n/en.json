@@ -8,7 +8,9 @@
     "new": "New",
     "search": "Search",
     "delete": "Delete",
-    "clone": "Clone",
+    "delete_permanently": "Delete Permanently",
+    "restore": "Restore",
+    "duplicate": "Duplicate",
     "star": "Star",
     "unstar": "Unstar"
   },
