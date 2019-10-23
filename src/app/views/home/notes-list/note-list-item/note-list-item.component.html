@@ -5,7 +5,15 @@
   [appContextMenuTriggerFor]="menu"
 >
   <div class="content">
-    <h5 class="title">{{note.title || ('notes.title_placeholder' | translate)}}</h5>
+    <header>
+      <h5 class="title">{{note.title || ('notes.title_placeholder' | translate)}}</h5>
+      <mat-icon
+        *ngIf="note.isStarred"
+        color="accent"
+        class="starred-icon"
+      >star
+      </mat-icon>
+    </header>
     <p class="mid-content">
       {{note.updatedAt | date}}
     </p>
