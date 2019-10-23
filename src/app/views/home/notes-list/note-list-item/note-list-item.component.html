@@ -36,7 +36,7 @@
 </a>
 
 <mat-menu #menu>
-  <button mat-menu-item>{{'common.clone' | translate}}</button>
+  <button mat-menu-item>{{'common.duplicate' | translate}}</button>
   <button
     mat-menu-item
     *ngIf="!note.isDeleted && !note.isStarred"
@@ -54,7 +54,26 @@
   <button
     mat-menu-item
     *ngIf="!note.isDeleted"
+    (click)="deleteNote()"
   >
     {{'common.delete' | translate}}
   </button>
+
+  <button
+    mat-menu-item
+    *ngIf="note.isDeleted"
+    (click)="restoreNote()"
+  >
+    {{'common.restore' | translate}}
+  </button>
+
+  <button
+    mat-menu-item
+    *ngIf="note.isDeleted"
+    (click)="deleteNotePermanently()"
+  >
+    {{'common.delete_permanently' | translate}}
+  </button>
+
+
 </mat-menu>

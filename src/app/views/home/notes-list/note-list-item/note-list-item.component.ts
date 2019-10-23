@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Note } from '../../../../models/note';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
+import { TagsRefresherService } from '../../_services/tags-refresher.service';
 
 @Component({
   selector: 'app-note-list-item',
@@ -15,6 +16,7 @@ export class NoteListItemComponent {
   constructor(
     private notesRefresherService: NotesRefresherService,
     private indexedDbLayerService: IndexedDbLayerService,
+    private tagsRefresherService: TagsRefresherService,
   ) {
 
   }
@@ -30,6 +32,28 @@ export class NoteListItemComponent {
     this.indexedDbLayerService.unstar(this.note.id)
       .subscribe(newNote => {
         this.notesRefresherService.refresh();
+      });
+  }
+
+  deleteNote() {
+    this.indexedDbLayerService.delete(this.note.id)
+      .subscribe(newNote => {
+        this.notesRefresherService.refresh();
+      });
+  }
+
+  restoreNote() {
+    this.indexedDbLayerService.undelete(this.note.id)
+      .subscribe(newNote => {
+        this.notesRefresherService.refresh();
+      });
+  }
+
+  deleteNotePermanently() {
+    this.indexedDbLayerService.forceDelete(this.note.id)
+      .subscribe(() => {
+        this.notesRefresherService.refresh();
+        this.tagsRefresherService.refresh();
       });
   }
 }
