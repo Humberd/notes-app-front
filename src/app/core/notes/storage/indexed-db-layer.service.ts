@@ -145,6 +145,46 @@ export class IndexedDbLayerService implements NotesLayer {
       );
   }
 
+  updateContent(noteId: string, title: string, content: string): Observable<Note> {
+    return this.read(noteId)
+      .pipe(
+        switchMap(note => this.db.update({
+          ...note,
+          title,
+          content,
+          updatedAt: new Date(),
+        })),
+      );
+  }
+
+  addTag(noteId: string, tagName: string): Observable<Note> {
+    return this.read(noteId)
+      .pipe(
+        switchMap(note => {
+          const newTags = [...note.tags, {name: tagName}];
+          return this.db.update({
+            ...note,
+            tags: this.uniqueTags(newTags),
+            updatedAt: new Date(),
+          });
+        }),
+      );
+  }
+
+  removeTag(noteId: string, tagName: string): Observable<Note> {
+    return this.read(noteId)
+      .pipe(
+        switchMap(note => {
+          const newTags = note.tags.filter(tag => tag.name !== tagName);
+          return this.db.update({
+            ...note,
+            tags: this.uniqueTags(newTags),
+            updatedAt: new Date(),
+          });
+        }),
+      );
+  }
+
   readTagsList(): Observable<Tag[]> {
     return this.readList('all', '')
       .pipe(
