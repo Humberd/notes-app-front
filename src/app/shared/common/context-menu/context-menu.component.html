@@ -1,0 +1,19 @@
+<mat-menu>
+  <ng-container *ngFor="let option of options; trackBy: trackBy">
+
+    <ng-container *ngIf="option.showWhen(item)">
+
+      <mat-divider *ngIf="option.dividerAbove"></mat-divider>
+      <button
+        mat-menu-item
+        (click)="option.action(item)"
+      >
+        <mat-icon [color]="option.iconColor">{{option.icon}}</mat-icon>
+        {{option.labelTK | translate}}
+      </button>
+
+    </ng-container>
+
+  </ng-container>
+
+</mat-menu>

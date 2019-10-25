@@ -16,7 +16,9 @@
   },
   "tags": {
     "no_tags": "No tags",
-    "add_tag": "Add tag"
+    "add_tag": "Add tag",
+    "edit_name": "Edit name",
+    "edit_color": "Edit color"
   },
   "notes": {
     "title_placeholder": "Empty note"

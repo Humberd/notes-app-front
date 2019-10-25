@@ -29,6 +29,7 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger {
 
   _handleClick(event: MouseEvent): void {
     event.preventDefault();
+    event.stopPropagation();
     this.currentClickCoords.x = event.x;
     this.currentClickCoords.y = event.y;
     super._handleClick(event);
