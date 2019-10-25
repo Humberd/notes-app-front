@@ -2,7 +2,7 @@
   class="wrapper"
   [routerLink]="[note.id]"
   routerLinkActive="active-route"
-  [appContextMenuTriggerFor]="menu"
+  [appContextMenuTriggerFor]="contextMenu.matMenu"
 >
   <div class="content">
     <header>
@@ -35,22 +35,8 @@
   </div>
 </a>
 
-<mat-menu #menu>
-  <ng-container *ngFor="let noteOption of noteOptions; trackBy: trackBy">
-
-    <ng-container *ngIf="noteOption.showWhen(note)">
-
-      <mat-divider *ngIf="noteOption.dividerAbove"></mat-divider>
-      <button
-        mat-menu-item
-        (click)="noteOption.action(note)"
-      >
-        <mat-icon [color]="noteOption.iconColor">{{noteOption.icon}}</mat-icon>
-        {{noteOption.labelTK | translate}}
-      </button>
-
-    </ng-container>
-
-  </ng-container>
-
-</mat-menu>
+<app-context-menu
+    #contextMenu
+    [options]="noteOptions"
+    [item]="note"
+></app-context-menu>

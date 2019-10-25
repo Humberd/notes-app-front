@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NoteTag } from '../../../models/note';
+import { OptionConfig } from '../optionConfig';
+import { TagOptions } from '../tag-options/tag-options';
 
 @Component({
   selector: 'app-note-tag',
@@ -17,5 +19,11 @@ export class NoteTagComponent {
   @Input() tag: NoteTag;
   @Input() removable: boolean;
   @Output() removed = new EventEmitter<NoteTag>();
+
+  tagOptions: OptionConfig<NoteTag>[];
+
+  constructor() {
+    this.tagOptions = new TagOptions().getOptions();
+  }
 
 }

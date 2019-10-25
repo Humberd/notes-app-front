@@ -1,4 +1,6 @@
-#{{tag.name}}
+<span
+  [appContextMenuTriggerFor]="contextMenu.matMenu"
+>#{{tag.name}}</span>
 
 <button
   class="close-icon-button"
@@ -11,3 +13,8 @@
   </mat-icon>
 </button>
 
+<app-context-menu
+    #contextMenu
+    [options]="tagOptions"
+    [item]="tag"
+></app-context-menu>

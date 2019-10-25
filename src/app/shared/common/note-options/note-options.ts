@@ -2,16 +2,7 @@ import { NotesRefresherService } from '../../../views/home/_services/notes-refre
 import { IndexedDbLayerService } from '../../../core/notes/storage/indexed-db-layer.service';
 import { TagsRefresherService } from '../../../views/home/_services/tags-refresher.service';
 import { Note } from '../../../models/note';
-import { ThemePalette } from '@angular/material';
-
-export interface NoteOption {
-  icon: string;
-  iconColor?: ThemePalette;
-  labelTK: string;
-  showWhen: (note: Note) => boolean;
-  action: (note: Note) => any;
-  dividerAbove?: boolean;
-}
+import { OptionConfig } from '../optionConfig';
 
 export class NoteOptionsController {
   constructor(
@@ -22,7 +13,7 @@ export class NoteOptionsController {
 
   }
 
-  getOptions(): NoteOption[] {
+  getOptions(): OptionConfig<Note>[] {
     return [
       {
         icon: 'file_copy',
