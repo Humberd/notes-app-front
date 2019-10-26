@@ -59,11 +59,7 @@ export class TagsBarComponent implements OnInit {
     }
 
     this.dataAccessService
-      .update(this.note.id, {
-        title: this.note.title,
-        content: this.note.content,
-        tags: [...this.note.tags, {name: newTagName}],
-      })
+      .addTag(this.note.id, newTagName)
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
@@ -74,11 +70,7 @@ export class TagsBarComponent implements OnInit {
 
   removeTag(tag: NoteTag) {
     this.dataAccessService
-      .update(this.note.id, {
-        title: this.note.title,
-        content: this.note.content,
-        tags: this.note.tags.filter(it => it.name !== tag.name),
-      })
+      .removeTag(this.note.id, tag.name)
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();

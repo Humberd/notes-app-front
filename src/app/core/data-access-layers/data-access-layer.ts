@@ -1,4 +1,4 @@
-import { Note, NoteCreate, NoteUpdate, Tag } from '../../models/note';
+import { Note, Tag } from '../../models/note';
 import { Observable } from 'rxjs';
 import { NoteType } from '../../views/home/_services/note-type-route-param';
 
@@ -7,13 +7,11 @@ export interface DataAccessLayer {
 
   disconnect(): Promise<any>;
 
-  add(note: NoteCreate): Observable<Note>;
+  add(): Observable<Note>;
 
   read(noteId: string): Observable<Note>;
 
   readList(type: NoteType, searchQuery: string): Observable<Note[]>;
-
-  update(noteId: string, note: NoteUpdate): Observable<Note>;
 
   forceDelete(noteId: string): Observable<void>;
 

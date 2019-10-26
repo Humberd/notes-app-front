@@ -1,6 +1,6 @@
-export interface Note {
+export interface IndexedDbNoteStructure {
   id: string;
-  tags: NoteTag[];
+  tags: string[];
   title: string;
   content: string;
   createdAt: Date;
@@ -9,14 +9,8 @@ export interface Note {
   isStarred: boolean;
 }
 
-export interface NoteTag {
+export interface IndexedDbTagStructure {
   id: string;
   name: string;
   color?: string;
-}
-
-export interface Tag {
-  name: string;
-  color?: string;
-  notesCount: number;
 }

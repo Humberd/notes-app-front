@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DataAccessLayer } from './data-access-layer';
-import { Note, NoteCreate, NoteUpdate, Tag } from '../../models/note';
+import { Note, Tag } from '../../models/note';
 import { Observable } from 'rxjs';
-import { IndexedDbLayerService } from './indexed-db/indexed-db-layer.service';
+import { IndexedDbLayer } from './indexed-db/indexed-db.layer';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ export class DataAccessService implements DataAccessLayer {
   private impl: DataAccessLayer;
 
   constructor() {
-    this.setImpl(new IndexedDbLayerService());
+    this.setImpl(new IndexedDbLayer());
   }
 
   async setImpl(impl: DataAccessLayer) {
@@ -32,8 +32,8 @@ export class DataAccessService implements DataAccessLayer {
     return this.impl.disconnect();
   }
 
-  add(note: NoteCreate): Observable<Note> {
-    return this.impl.add(note);
+  add(): Observable<Note> {
+    return this.impl.add();
   }
 
   addTag(noteId: string, tagName: string): Observable<Note> {
@@ -78,10 +78,6 @@ export class DataAccessService implements DataAccessLayer {
 
   unstar(noteId: string): Observable<Note> {
     return this.impl.unstar(noteId);
-  }
-
-  update(noteId: string, note: NoteUpdate): Observable<Note> {
-    return this.impl.update(noteId, note);
   }
 
   updateContent(noteId: string, title: string, content: string): Observable<Note> {

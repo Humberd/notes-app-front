@@ -1,6 +1,7 @@
-import { Note } from '../../../models/note';
-import { Observable, ReplaySubject } from 'rxjs';
-import { switchMap, take } from 'rxjs/operators';
+import { Note, NoteTag } from '../../../models/note';
+import { Observable, OperatorFunction, ReplaySubject } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
+import { IndexedDbNoteStructure, IndexedDbTagStructure } from './indexed-db-structure';
 
 type ConnectionStatus = 'CONNECTED' | 'DISCONNECTED';
 
@@ -18,7 +19,7 @@ export class IndexedDbAccessor {
 
 
     return new Promise((resolve, reject) => {
-      const dbRequest = window.indexedDB.open('NotesAppDatabase', 1);
+      const dbRequest = window.indexedDB.open('NotesAppDatabase', 2);
       dbRequest.onsuccess = ev => {
         this.db$.next(dbRequest.result);
         resolve();
@@ -31,6 +32,7 @@ export class IndexedDbAccessor {
       dbRequest.onupgradeneeded = ev => {
         const db = dbRequest.result;
         db.createObjectStore('notes', {keyPath: 'id', autoIncrement: false});
+        db.createObjectStore('tags', {keyPath: 'id', autoIncrement: false});
       };
     });
   }
@@ -62,7 +64,27 @@ export class IndexedDbAccessor {
       );
   }
 
-  delete(noteId: string): Observable<void> {
+  private toExternalNotes(): OperatorFunction<IndexedDbNoteStructure[], Note[]> {
+    return switchMap(internalNotes =>
+      this.readAllTags()
+        .pipe(
+          map(allTags => {
+            console.trace(internalNotes);
+            const allTagsMap = allTags.reduce((acc, value) => {
+              acc[value.id] = value;
+              return acc;
+            }, {});
+
+            return internalNotes.map(internalNote => ({
+              ...internalNote,
+              tags: internalNote.tags.map(tagId => ({...allTagsMap[tagId]})),
+            }));
+          }),
+        ),
+    );
+  }
+
+  deleteNote(noteId: string): Observable<void> {
     return this.whenDb(db =>
       new Observable<void>(subscriber => {
         const tx = db.transaction('notes', 'readwrite');
@@ -81,9 +103,9 @@ export class IndexedDbAccessor {
       }));
   }
 
-  read(noteId: string): Observable<Note> {
+  readNote(noteId: string): Observable<Note> {
     return this.whenDb(db =>
-      new Observable<Note>(subscriber => {
+      new Observable<IndexedDbNoteStructure>(subscriber => {
         const tx = db.transaction('notes', 'readonly');
         const store = tx.objectStore('notes');
 
@@ -97,13 +119,18 @@ export class IndexedDbAccessor {
           subscriber.next(request.result);
           subscriber.complete();
         };
-      }),
+      })
+        .pipe(
+          map(internalNote => [internalNote]),
+          this.toExternalNotes(),
+          map(notes => notes[0]),
+        ),
     );
   }
 
-  readAll(): Observable<Note[]> {
+  readAllNotes(): Observable<Note[]> {
     return this.whenDb(db =>
-      new Observable<Note[]>(subscriber => {
+      new Observable<IndexedDbNoteStructure[]>(subscriber => {
         const tx = db.transaction('notes', 'readonly');
         const store = tx.objectStore('notes');
 
@@ -117,13 +144,16 @@ export class IndexedDbAccessor {
           subscriber.next(request.result);
           subscriber.complete();
         };
-      }),
+      })
+        .pipe(
+          this.toExternalNotes(),
+        ),
     );
   }
 
-  add(note: Note): Observable<Note> {
+  addNote(note: IndexedDbNoteStructure): Observable<Note> {
     return this.whenDb(db =>
-      new Observable<Note>(subscriber => {
+      new Observable<string>(subscriber => {
         const tx = db.transaction('notes', 'readwrite');
         const store = tx.objectStore('notes');
 
@@ -134,16 +164,19 @@ export class IndexedDbAccessor {
         };
 
         tx.oncomplete = ev => {
-          subscriber.next({...note, id: String(request.result)});
+          subscriber.next(String(request.result));
           subscriber.complete();
         };
-      }),
+      })
+        .pipe(
+          switchMap(noteId => this.readNote(noteId)),
+        ),
     );
   }
 
-  update(note: Note): Observable<Note> {
+  updateNote(note: IndexedDbNoteStructure): Observable<Note> {
     return this.whenDb(db =>
-      new Observable<Note>(subscriber => {
+      new Observable<string>(subscriber => {
         const tx = db.transaction('notes', 'readwrite');
         const store = tx.objectStore('notes');
 
@@ -154,7 +187,76 @@ export class IndexedDbAccessor {
         };
 
         tx.oncomplete = ev => {
-          subscriber.next({...note, id: String(request.result)});
+          subscriber.next(String(request.result));
+          subscriber.complete();
+        };
+      })
+        .pipe(
+          switchMap(noteId => this.readNote(noteId)),
+        ),
+    );
+  }
+
+  readAllTags(): Observable<NoteTag[]> {
+    return this.whenDb(db =>
+      new Observable<IndexedDbTagStructure[]>(subscriber => {
+        const tx = db.transaction('tags', 'readonly');
+        const store = tx.objectStore('tags');
+
+        const request = store.getAll();
+
+        tx.onerror = ev => {
+          subscriber.error(ev);
+        };
+
+        tx.oncomplete = ev => {
+          subscriber.next(request.result);
+          subscriber.complete();
+        };
+      })
+        .pipe(
+          map(internalTags => internalTags),
+        ),
+    );
+  }
+
+  addTag(tag: IndexedDbTagStructure): Observable<NoteTag> {
+    return this.whenDb(db =>
+      new Observable<string>(subscriber => {
+        const tx = db.transaction('tags', 'readonly');
+        const store = tx.objectStore('tags');
+
+        const request = store.add(tag);
+
+        tx.onerror = ev => {
+          subscriber.error(ev);
+        };
+
+        tx.oncomplete = ev => {
+          subscriber.next(String(request.result));
+          subscriber.complete();
+        };
+      })
+        .pipe(
+          switchMap(tagId => this.readTag(tagId)),
+        ),
+    );
+  }
+
+  readTag(tagId: string): Observable<NoteTag> {
+    return this.whenDb(db =>
+      new Observable<IndexedDbTagStructure>(subscriber => {
+        const tx = db.transaction('tags', 'readonly');
+        const store = tx.objectStore('tags');
+
+        const request = store.get(tagId);
+
+        tx.onerror = ev => {
+          subscriber.error(ev);
+        };
+
+        tx.oncomplete = ev => {
+          subscriber.next(request.result);
           subscriber.complete();
         };
       }),
