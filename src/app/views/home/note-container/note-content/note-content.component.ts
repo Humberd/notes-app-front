@@ -4,8 +4,8 @@ import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
-import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
+import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
 
 @Component({
   selector: 'app-note-content',
@@ -26,7 +26,7 @@ export class NoteContentComponent implements OnInit {
   }
 
   constructor(
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesRefresherService: NotesRefresherService,
   ) {
   }
@@ -37,7 +37,7 @@ export class NoteContentComponent implements OnInit {
         takeUntil(this.destroy$),
         filter(it => it !== this._note.content),
         // debounceTime(1000),
-        switchMap(newContent => this.indexedDbLayerService.update(this._note.id, {
+        switchMap(newContent => this.dataAccessService.update(this._note.id, {
             content: newContent,
             title: this.getTitle(newContent),
             tags: this._note.tags,

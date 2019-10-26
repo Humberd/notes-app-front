@@ -2,9 +2,9 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Note } from '../../../../models/note';
 import { NoteOptionsController } from '../../../../shared/common/note-options/note-options';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
-import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { OptionConfig } from '../../../../shared/common/optionConfig';
+import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
 
 @Component({
   selector: 'app-actions-bar',
@@ -19,10 +19,10 @@ export class ActionsBarComponent {
 
   constructor(
     private notesRefresherService: NotesRefresherService,
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private tagsRefresherService: TagsRefresherService,
   ) {
-    const noteOptionsController = new NoteOptionsController(notesRefresherService, indexedDbLayerService, tagsRefresherService);
+    const noteOptionsController = new NoteOptionsController(notesRefresherService, dataAccessService, tagsRefresherService);
 
     this.noteOptions = noteOptionsController.getOptions();
   }

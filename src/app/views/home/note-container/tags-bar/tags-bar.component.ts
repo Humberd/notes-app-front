@@ -4,9 +4,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
+import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
 
 @Component({
   selector: 'app-tags-bar',
@@ -23,7 +23,7 @@ export class TagsBarComponent implements OnInit {
 
   constructor(
     private tagsRefresherService: TagsRefresherService,
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesRefresherService: NotesRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
@@ -58,7 +58,7 @@ export class TagsBarComponent implements OnInit {
       return;
     }
 
-    this.indexedDbLayerService
+    this.dataAccessService
       .update(this.note.id, {
         title: this.note.title,
         content: this.note.content,
@@ -73,7 +73,7 @@ export class TagsBarComponent implements OnInit {
   }
 
   removeTag(tag: NoteTag) {
-    this.indexedDbLayerService
+    this.dataAccessService
       .update(this.note.id, {
         title: this.note.title,
         content: this.note.content,

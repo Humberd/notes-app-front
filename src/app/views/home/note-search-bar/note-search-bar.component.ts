@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { IndexedDbLayerService } from '../../../core/notes/storage/indexed-db-layer.service';
 import { NotesRefresherService } from '../_services/notes-refresher.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotesSearchService } from '../_services/notes-search.service';
@@ -7,6 +6,7 @@ import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
 
 @Component({
   selector: 'app-note-search-bar',
@@ -19,7 +19,7 @@ export class NoteSearchBarComponent implements OnInit {
   searchControl = new FormControl();
 
   constructor(
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesRefresherService: NotesRefresherService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -42,7 +42,7 @@ export class NoteSearchBarComponent implements OnInit {
   }
 
   createNewNote() {
-    this.indexedDbLayerService
+    this.dataAccessService
       .add({
         content: '',
         title: '',

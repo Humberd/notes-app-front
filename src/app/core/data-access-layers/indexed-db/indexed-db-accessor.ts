@@ -21,6 +21,19 @@ export class IndexedDbAccessor {
     };
   }
 
+  async disconnect() {
+    return this.whenDb(db =>
+      new Observable<void>(subscriber => {
+        db.onclose = ev => {
+          subscriber.next();
+          subscriber.complete();
+        };
+
+        db.close();
+      }))
+      .toPromise();
+  }
+
   private whenDb<T>(fun: (db: IDBDatabase) => Observable<T>) {
     return this.db$
       .pipe(

@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 import { NoteTypeRouteParam } from './_services/note-type-route-param';
 import { NotesRefresherService } from './_services/notes-refresher.service';
-import { IndexedDbLayerService } from '../../core/notes/storage/indexed-db-layer.service';
 import { NotesSearchService } from './_services/notes-search.service';
 import { ActivatedRoute } from '@angular/router';
 import { TagsRefresherService } from './_services/tags-refresher.service';
+import { DataAccessService } from '../../core/data-access-layers/data-access.service';
 
 @Component({
   selector: 'app-home',
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private notesRefresherService: NotesRefresherService,
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesSearchService: NotesSearchService,
     private activatedRoute: ActivatedRoute,
     private tagsRefresherService: TagsRefresherService,
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.indexedDbLayerService.connect();
+    this.dataAccessService.connect();
     this.notesRefresherService.start();
     this.notesSearchService.start(this.activatedRoute);
     this.tagsRefresherService.start();

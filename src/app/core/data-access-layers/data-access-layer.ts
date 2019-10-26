@@ -2,7 +2,11 @@ import { Note, NoteCreate, NoteUpdate, Tag } from '../../models/note';
 import { Observable } from 'rxjs';
 import { NoteType } from '../../views/home/_services/note-type-route-param';
 
-export interface NotesLayer {
+export interface DataAccessLayer {
+  connect(): Promise<any>;
+
+  disconnect(): Promise<any>;
+
   add(note: NoteCreate): Observable<Note>;
 
   read(noteId: string): Observable<Note>;
@@ -22,5 +26,13 @@ export interface NotesLayer {
   undelete(noteId: string): Observable<Note>;
 
   readTagsList(): Observable<Tag[]>;
+
+  updateContent(noteId: string, title: string, content: string): Observable<Note>;
+
+  addTag(noteId: string, tagName: string): Observable<Note>;
+
+  removeTag(noteId: string, tagName: string): Observable<Note>;
+
+  duplicate(noteId: string): Observable<Note>;
 
 }

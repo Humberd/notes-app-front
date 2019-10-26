@@ -1,15 +1,11 @@
-import { Injectable } from '@angular/core';
-import { NotesLayer } from '../notes-layer';
+import { DataAccessLayer } from '../data-access-layer';
 import { Observable } from 'rxjs';
 import { Note, NoteCreate, NoteTag, NoteUpdate, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { map, switchMap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class IndexedDbLayerService implements NotesLayer {
+export class IndexedDbLayerService implements DataAccessLayer {
   private db = new IndexedDbAccessor();
 
   private randomId(): string {
@@ -34,6 +30,10 @@ export class IndexedDbLayerService implements NotesLayer {
 
   async connect() {
     return this.db.connect();
+  }
+
+  async disconnect() {
+    return this.db.disconnect();
   }
 
   add(note: NoteCreate): Observable<Note> {
