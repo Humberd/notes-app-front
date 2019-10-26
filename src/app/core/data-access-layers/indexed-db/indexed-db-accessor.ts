@@ -2,26 +2,46 @@ import { Note } from '../../../models/note';
 import { Observable, ReplaySubject } from 'rxjs';
 import { switchMap, take } from 'rxjs/operators';
 
+type ConnectionStatus = 'CONNECTED' | 'DISCONNECTED';
+
 export class IndexedDbAccessor {
   private db$ = new ReplaySubject<IDBDatabase>(1);
+  private connectionStatus: ConnectionStatus;
 
-  async connect() {
-    const dbRequest = window.indexedDB.open('NotesAppDatabase', 1);
-    dbRequest.onsuccess = ev => {
-      this.db$.next(dbRequest.result);
-    };
+  connect(): Promise<any> {
+    if (this.connectionStatus === 'CONNECTED') {
+      console.log('IndexedDB already connected');
+      return Promise.resolve();
+    }
 
-    dbRequest.onerror = ev => {
-      throw new Error('IndexedDb Storage cannot be opened');
-    };
+    this.connectionStatus = 'CONNECTED';
 
-    dbRequest.onupgradeneeded = ev => {
-      const db = dbRequest.result;
-      db.createObjectStore('notes', {keyPath: 'id', autoIncrement: false});
-    };
+
+    return new Promise((resolve, reject) => {
+      const dbRequest = window.indexedDB.open('NotesAppDatabase', 1);
+      dbRequest.onsuccess = ev => {
+        this.db$.next(dbRequest.result);
+        resolve();
+      };
+
+      dbRequest.onerror = ev => {
+        reject(`IndexedDb Storage cannot be opened, ${ev}`);
+      };
+
+      dbRequest.onupgradeneeded = ev => {
+        const db = dbRequest.result;
+        db.createObjectStore('notes', {keyPath: 'id', autoIncrement: false});
+      };
+    });
   }
 
-  async disconnect() {
+  disconnect() {
+    if (this.connectionStatus === 'DISCONNECTED') {
+      console.log('IndexedDB already disconnected');
+      return Promise.resolve();
+    }
+    this.connectionStatus = 'DISCONNECTED';
+
     return this.whenDb(db =>
       new Observable<void>(subscriber => {
         db.onclose = ev => {
