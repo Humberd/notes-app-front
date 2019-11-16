@@ -1,20 +1,12 @@
 import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { allowedNoteTypes, noteTypeParamName } from './_services/note-type-route-param';
-import { NoteContainerEmptyComponent } from './note-container-empty/note-container-empty.component';
 import { noteIdParamName } from './_services/note-id-route-param';
 
 export const routes: Routes = [
   {
     component: HomeComponent,
     matcher: noteTypeMatcher,
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: NoteContainerEmptyComponent,
-      },
-    ],
   },
   {
     path: '**',
