@@ -37,30 +37,32 @@ export class IndexedDbAccessor {
     });
   }
 
-  disconnect() {
+  disconnect(): Promise<any> {
     if (this.connectionStatus === 'DISCONNECTED') {
       console.log('IndexedDB already disconnected');
       return Promise.resolve();
     }
     this.connectionStatus = 'DISCONNECTED';
 
-    return this.whenDb(db =>
-      new Observable<void>(subscriber => {
-        db.onclose = ev => {
-          subscriber.next();
-          subscriber.complete();
-        };
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<void>(subscriber => {
+            db.onclose = ev => {
+              subscriber.next();
+              subscriber.complete();
+            };
 
-        db.close();
-      }))
+            db.close();
+          })),
+      )
       .toPromise();
   }
 
-  private whenDb<T>(fun: (db: IDBDatabase) => Observable<T>) {
+  private whenDb(): Observable<IDBDatabase> {
     return this.db$
       .pipe(
         take(1),
-        switchMap(db => fun(db)),
       );
   }
 
@@ -85,182 +87,232 @@ export class IndexedDbAccessor {
   }
 
   deleteNote(noteId: string): Observable<void> {
-    return this.whenDb(db =>
-      new Observable<void>(subscriber => {
-        const tx = db.transaction('notes', 'readwrite');
-        const store = tx.objectStore('notes');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<void>(subscriber => {
+            const tx = db.transaction('notes', 'readwrite');
+            const store = tx.objectStore('notes');
 
-        store.delete(noteId);
+            store.delete(noteId);
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next();
-          subscriber.complete();
-        };
-      }));
+            tx.oncomplete = ev => {
+              subscriber.next();
+              subscriber.complete();
+            };
+          }),
+        ),
+      );
   }
 
   readNote(noteId: string): Observable<Note> {
-    return this.whenDb(db =>
-      new Observable<IndexedDbNoteStructure>(subscriber => {
-        const tx = db.transaction('notes', 'readonly');
-        const store = tx.objectStore('notes');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<IndexedDbNoteStructure>(subscriber => {
+            const tx = db.transaction('notes', 'readonly');
+            const store = tx.objectStore('notes');
 
-        const request = store.get(noteId);
+            const request = store.get(noteId);
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(request.result);
-          subscriber.complete();
-        };
-      })
-        .pipe(
-          map(internalNote => [internalNote]),
-          this.toExternalNotes(),
-          map(notes => notes[0]),
+            tx.oncomplete = ev => {
+              subscriber.next(request.result);
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              map(internalNote => [internalNote]),
+              this.toExternalNotes(),
+              map(notes => notes[0]),
+            ),
         ),
-    );
+      );
   }
 
   readAllNotes(): Observable<Note[]> {
-    return this.whenDb(db =>
-      new Observable<IndexedDbNoteStructure[]>(subscriber => {
-        const tx = db.transaction('notes', 'readonly');
-        const store = tx.objectStore('notes');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<IndexedDbNoteStructure[]>(subscriber => {
+            const tx = db.transaction('notes', 'readonly');
+            const store = tx.objectStore('notes');
 
-        const request = store.getAll();
+            const request = store.getAll();
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(request.result);
-          subscriber.complete();
-        };
-      })
-        .pipe(
-          this.toExternalNotes(),
+            tx.oncomplete = ev => {
+              subscriber.next(request.result);
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              this.toExternalNotes(),
+            ),
         ),
-    );
+      );
   }
 
   addNote(note: IndexedDbNoteStructure): Observable<Note> {
-    return this.whenDb(db =>
-      new Observable<string>(subscriber => {
-        const tx = db.transaction('notes', 'readwrite');
-        const store = tx.objectStore('notes');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<string>(subscriber => {
+            const tx = db.transaction('notes', 'readwrite');
+            const store = tx.objectStore('notes');
 
-        const request = store.add(note);
+            const request = store.add(note);
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(String(request.result));
-          subscriber.complete();
-        };
-      })
-        .pipe(
-          switchMap(noteId => this.readNote(noteId)),
+            tx.oncomplete = ev => {
+              subscriber.next(String(request.result));
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              switchMap(noteId => this.readNote(noteId)),
+            ),
         ),
-    );
+      );
   }
 
   updateNote(note: IndexedDbNoteStructure): Observable<Note> {
-    return this.whenDb(db =>
-      new Observable<string>(subscriber => {
-        const tx = db.transaction('notes', 'readwrite');
-        const store = tx.objectStore('notes');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<string>(subscriber => {
+            const tx = db.transaction('notes', 'readwrite');
+            const store = tx.objectStore('notes');
 
-        const request = store.put(note);
+            const request = store.put(note);
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(String(request.result));
-          subscriber.complete();
-        };
-      })
-        .pipe(
-          switchMap(noteId => this.readNote(noteId)),
+            tx.oncomplete = ev => {
+              subscriber.next(String(request.result));
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              switchMap(noteId => this.readNote(noteId)),
+            ),
         ),
-    );
+      );
   }
 
   readAllTags(): Observable<NoteTag[]> {
-    return this.whenDb(db =>
-      new Observable<IndexedDbTagStructure[]>(subscriber => {
-        const tx = db.transaction('tags', 'readonly');
-        const store = tx.objectStore('tags');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<IndexedDbTagStructure[]>(subscriber => {
+            const tx = db.transaction('tags', 'readonly');
+            const store = tx.objectStore('tags');
 
-        const request = store.getAll();
+            const request = store.getAll();
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(request.result);
-          subscriber.complete();
-        };
-      })
-        .pipe(
-          map(internalTags => internalTags),
+            tx.oncomplete = ev => {
+              subscriber.next(request.result);
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              map(internalTags => internalTags),
+            ),
         ),
-    );
+      );
   }
 
   addTag(tag: IndexedDbTagStructure): Observable<NoteTag> {
-    return this.whenDb(db =>
-      new Observable<string>(subscriber => {
-        const tx = db.transaction('tags', 'readonly');
-        const store = tx.objectStore('tags');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<string>(subscriber => {
+            const tx = db.transaction('tags', 'readwrite');
+            const store = tx.objectStore('tags');
 
-        const request = store.add(tag);
+            const request = store.add(tag);
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(String(request.result));
-          subscriber.complete();
-        };
-      })
-        .pipe(
-          switchMap(tagId => this.readTag(tagId)),
+            tx.oncomplete = ev => {
+              subscriber.next(String(request.result));
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              switchMap(tagId => this.readTag(tagId)),
+            ),
         ),
-    );
+      );
+  }
+
+  updateTag(tag: IndexedDbTagStructure): Observable<NoteTag> {
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<string>(subscriber => {
+            const tx = db.transaction('tags', 'readwrite');
+            const store = tx.objectStore('tags');
+
+            const request = store.put(tag);
+
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
+
+            tx.oncomplete = ev => {
+              subscriber.next(String(request.result));
+              subscriber.complete();
+            };
+          })
+            .pipe(
+              switchMap(tagId => this.readTag(tagId)),
+            ),
+        ),
+      );
   }
 
   readTag(tagId: string): Observable<NoteTag> {
-    return this.whenDb(db =>
-      new Observable<IndexedDbTagStructure>(subscriber => {
-        const tx = db.transaction('tags', 'readonly');
-        const store = tx.objectStore('tags');
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<IndexedDbTagStructure>(subscriber => {
+            const tx = db.transaction('tags', 'readonly');
+            const store = tx.objectStore('tags');
 
-        const request = store.get(tagId);
+            const request = store.get(tagId);
 
-        tx.onerror = ev => {
-          subscriber.error(ev);
-        };
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
 
-        tx.oncomplete = ev => {
-          subscriber.next(request.result);
-          subscriber.complete();
-        };
-      }),
-    );
+            tx.oncomplete = ev => {
+              subscriber.next(request.result);
+              subscriber.complete();
+            };
+          }),
+        ),
+      );
   }
-
 }

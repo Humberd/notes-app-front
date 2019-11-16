@@ -3,7 +3,7 @@ export interface IndexedDbNoteStructure {
   tags: string[];
   title: string;
   content: string;
-  createdAt: Date;
+  readonly createdAt: Date;
   updatedAt: Date;
   isDeleted: boolean;
   isStarred: boolean;

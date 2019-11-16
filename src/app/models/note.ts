@@ -20,3 +20,9 @@ export interface Tag {
   color?: string;
   notesCount: number;
 }
+
+export interface NoteUpdate {
+  tagNames: string[];
+  title: string;
+  content: string;
+}

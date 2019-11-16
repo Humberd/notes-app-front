@@ -43,11 +43,7 @@ export class NoteSearchBarComponent implements OnInit {
 
   createNewNote() {
     this.dataAccessService
-      .add({
-        content: '',
-        title: '',
-        tags: [],
-      })
+      .add()
       .subscribe(note => {
         this.router.navigate([note.id], {relativeTo: this.activatedRoute});
         this.notesRefresherService.refresh();

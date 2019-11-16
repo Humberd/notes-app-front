@@ -1,12 +1,12 @@
 import { OptionConfig } from '../optionConfig';
-import { Tag } from '../../../models/note';
+import { NoteTag } from '../../../models/note';
 
 export class TagOptions {
   constructor() {
 
   }
 
-  getOptions(): OptionConfig<Tag>[] {
+  getOptions(): OptionConfig<NoteTag>[] {
     return [
       {
         icon: 'edit',

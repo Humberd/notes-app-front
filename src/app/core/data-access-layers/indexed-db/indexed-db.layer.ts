@@ -1,5 +1,5 @@
 import { DataAccessLayer } from '../data-access-layer';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
 import { Note, NoteTag, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
@@ -12,7 +12,7 @@ export class IndexedDbLayer implements DataAccessLayer {
     return Math.random().toString(36).substr(2, 9);
   }
 
-  private uniqueTags(tags: NoteTag[]): string[] {
+  private uniqueTagIds(tags: NoteTag[]): string[] {
     return [...new Set(tags.map(tag => tag.id))];
   }
 
@@ -81,7 +81,7 @@ export class IndexedDbLayer implements DataAccessLayer {
       .pipe(
         switchMap(note => this.db.updateNote({
           ...note,
-          tags: this.uniqueTags(note.tags),
+          tags: this.uniqueTagIds(note.tags),
           isDeleted: true,
           updatedAt: new Date(),
         })),
@@ -93,7 +93,7 @@ export class IndexedDbLayer implements DataAccessLayer {
       .pipe(
         switchMap(note => this.db.updateNote({
           ...note,
-          tags: this.uniqueTags(note.tags),
+          tags: this.uniqueTagIds(note.tags),
           isDeleted: false,
           updatedAt: new Date(),
         })),
@@ -105,7 +105,7 @@ export class IndexedDbLayer implements DataAccessLayer {
       .pipe(
         switchMap(note => this.db.updateNote({
           ...note,
-          tags: this.uniqueTags(note.tags),
+          tags: this.uniqueTagIds(note.tags),
           isStarred: true,
           updatedAt: new Date(),
         })),
@@ -117,7 +117,7 @@ export class IndexedDbLayer implements DataAccessLayer {
       .pipe(
         switchMap(note => this.db.updateNote({
           ...note,
-          tags: this.uniqueTags(note.tags),
+          tags: this.uniqueTagIds(note.tags),
           isStarred: false,
           updatedAt: new Date(),
         })),
@@ -131,7 +131,7 @@ export class IndexedDbLayer implements DataAccessLayer {
           ...note,
           title,
           content,
-          tags: this.uniqueTags(note.tags),
+          tags: this.uniqueTagIds(note.tags),
           updatedAt: new Date(),
         })),
       );
@@ -150,7 +150,7 @@ export class IndexedDbLayer implements DataAccessLayer {
               switchMap(note =>
                 this.db.updateNote({
                   ...note,
-                  tags: [...this.uniqueTags(note.tags), tag.id],
+                  tags: [...this.uniqueTagIds(note.tags), tag.id],
                   updatedAt: new Date(),
                 }),
               ),
@@ -166,7 +166,7 @@ export class IndexedDbLayer implements DataAccessLayer {
           const newTags = note.tags.filter(tag => tag.name !== tagName);
           return this.db.updateNote({
             ...note,
-            tags: this.uniqueTags(newTags),
+            tags: this.uniqueTagIds(newTags),
             updatedAt: new Date(),
           });
         }),
@@ -176,11 +176,15 @@ export class IndexedDbLayer implements DataAccessLayer {
   duplicate(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.add({
-            title: note.title,
-            content: note.content,
-            tags: note.tags,
-          }),
+        switchMap(baseNote => this.add()
+          .pipe(
+            switchMap(newNote => this.updateContent(newNote.id, baseNote.title, baseNote.content)),
+            switchMap(newNote => forkJoin(...baseNote.tags.map(tag => this.addTag(newNote.id, tag.name)))
+              .pipe(
+                switchMap(() => this.read(newNote.id)),
+              ),
+            ),
+          ),
         ),
       );
   }

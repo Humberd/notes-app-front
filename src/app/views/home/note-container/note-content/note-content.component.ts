@@ -37,12 +37,7 @@ export class NoteContentComponent implements OnInit {
         takeUntil(this.destroy$),
         filter(it => it !== this._note.content),
         // debounceTime(1000),
-        switchMap(newContent => this.dataAccessService.update(this._note.id, {
-            content: newContent,
-            title: this.getTitle(newContent),
-            tags: this._note.tags,
-          }),
-        ),
+        switchMap(newContent => this.dataAccessService.updateContent(this._note.id, this.getTitle(newContent), newContent)),
       )
       .subscribe(newNote => {
         this.notesRefresherService.updateRef(newNote);
