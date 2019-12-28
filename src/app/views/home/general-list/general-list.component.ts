@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { NoteTypeRouteParam } from '../_services/note-type-route-param';
+import { NoteType, NoteTypeRouteParam } from '../_services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { TagsRefresherService } from '../_services/tags-refresher.service';
+import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
 
 @Component({
   selector: 'app-general-list',
@@ -20,6 +21,7 @@ export class GeneralListComponent implements OnInit {
     public noteTypeRouteParam: NoteTypeRouteParam,
     private cdr: ChangeDetectorRef,
     public tagsRefresherService: TagsRefresherService,
+    private appRoutingHelperService: AppRoutingHelperService,
   ) {
   }
 
@@ -32,15 +34,8 @@ export class GeneralListComponent implements OnInit {
       .subscribe(() => this.cdr.markForCheck());
   }
 
-  replaceNoteTypeInPathWith(path: string): string {
-    const urlSegments = this.router.url.split('/');
-    const noteTypeIndex = urlSegments.findIndex(value => value === this.noteTypeRouteParam.value);
-    if (noteTypeIndex < 0) {
-      return `../${path}`;
-    }
-
-    urlSegments[noteTypeIndex] = path;
-    return urlSegments.join('/').split('?')[0];
+  replaceNoteTypeInPathWith(path: NoteType): string {
+    return this.appRoutingHelperService.replaceNoteTypeInPath(path, this.noteTypeRouteParam.value);
   }
 
 }

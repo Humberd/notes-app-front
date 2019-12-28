@@ -2,10 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 import { NoteTypeRouteParam } from './_services/note-type-route-param';
 import { NotesRefresherService } from './_services/notes-refresher.service';
-import { IndexedDbLayerService } from '../../core/notes/storage/indexed-db-layer.service';
 import { NotesSearchService } from './_services/notes-search.service';
 import { ActivatedRoute } from '@angular/router';
 import { TagsRefresherService } from './_services/tags-refresher.service';
+import { DataAccessService } from '../../core/data-access-layers/data-access.service';
+import { NoteIdRouteParam } from './_services/note-id-route-param';
+import { CurrentNoteRefresherService } from './_services/current-note-refresher.service';
 
 @Component({
   selector: 'app-home',
@@ -14,9 +16,11 @@ import { TagsRefresherService } from './_services/tags-refresher.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [
     NoteTypeRouteParam,
+    NoteIdRouteParam,
     NotesRefresherService,
     NotesSearchService,
     TagsRefresherService,
+    CurrentNoteRefresherService,
   ],
 })
 export class HomeComponent implements OnInit {
@@ -30,18 +34,20 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private notesRefresherService: NotesRefresherService,
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesSearchService: NotesSearchService,
     private activatedRoute: ActivatedRoute,
     private tagsRefresherService: TagsRefresherService,
+    private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
   }
 
   ngOnInit(): void {
-    this.indexedDbLayerService.connect();
+    this.dataAccessService.connect();
     this.notesRefresherService.start();
     this.notesSearchService.start(this.activatedRoute);
     this.tagsRefresherService.start();
+    this.currentNoteRefresherService.start();
   }
 
   generalPanelValidator = (resizeEvent: ResizeEvent) => {

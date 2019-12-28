@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { IndexedDbLayerService } from '../../../core/notes/storage/indexed-db-layer.service';
 import { NotesRefresherService } from '../_services/notes-refresher.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { NotesSearchService } from '../_services/notes-search.service';
 import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
+import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
 
 @Component({
   selector: 'app-note-search-bar',
@@ -19,11 +20,11 @@ export class NoteSearchBarComponent implements OnInit {
   searchControl = new FormControl();
 
   constructor(
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesRefresherService: NotesRefresherService,
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private notesSearchService: NotesSearchService,
+    private appRoutingHelperService: AppRoutingHelperService,
   ) {
   }
 
@@ -42,14 +43,10 @@ export class NoteSearchBarComponent implements OnInit {
   }
 
   createNewNote() {
-    this.indexedDbLayerService
-      .add({
-        content: '',
-        title: '',
-        tags: [],
-      })
+    this.dataAccessService
+      .add()
       .subscribe(note => {
-        this.router.navigate([note.id], {relativeTo: this.activatedRoute});
+        this.router.navigateByUrl(this.appRoutingHelperService.replaceNoteIdInPath(note.id));
         this.notesRefresherService.refresh();
       });
   }

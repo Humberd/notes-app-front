@@ -1,14 +1,18 @@
 import { NotesRefresherService } from '../../../views/home/_services/notes-refresher.service';
-import { IndexedDbLayerService } from '../../../core/notes/storage/indexed-db-layer.service';
 import { TagsRefresherService } from '../../../views/home/_services/tags-refresher.service';
 import { Note } from '../../../models/note';
 import { OptionConfig } from '../optionConfig';
+import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
+import { CurrentNoteRefresherService } from '../../../views/home/_services/current-note-refresher.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class NoteOptionsController {
   constructor(
     private notesRefresherService: NotesRefresherService,
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private tagsRefresherService: TagsRefresherService,
+    private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
   }
@@ -19,7 +23,7 @@ export class NoteOptionsController {
         icon: 'file_copy',
         labelTK: 'common.duplicate',
         showWhen: note => !note.isDeleted,
-        action: note => this.indexedDbLayerService.duplicate(note.id)
+        action: note => this.dataAccessService.duplicate(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
             this.tagsRefresherService.refresh();
@@ -29,18 +33,24 @@ export class NoteOptionsController {
         icon: 'star_border',
         labelTK: 'common.star',
         showWhen: note => !note.isDeleted && !note.isStarred,
-        action: note => this.indexedDbLayerService.star(note.id)
+        action: note => this.dataAccessService.star(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
+            if (this.currentNoteRefresherService.data.id === newNote.id) {
+              this.currentNoteRefresherService.refresh();
+            }
           }),
       },
       {
         icon: 'star',
         labelTK: 'common.unstar',
         showWhen: note => !note.isDeleted && note.isStarred,
-        action: note => this.indexedDbLayerService.unstar(note.id)
+        action: note => this.dataAccessService.unstar(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
+            if (this.currentNoteRefresherService.data.id === newNote.id) {
+              this.currentNoteRefresherService.refresh();
+            }
           }),
       },
       {
@@ -48,7 +58,7 @@ export class NoteOptionsController {
         labelTK: 'common.delete',
         dividerAbove: true,
         showWhen: note => !note.isDeleted,
-        action: note => this.indexedDbLayerService.delete(note.id)
+        action: note => this.dataAccessService.delete(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
           }),
@@ -57,7 +67,7 @@ export class NoteOptionsController {
         icon: 'restore_from_trash',
         labelTK: 'common.restore',
         showWhen: note => note.isDeleted,
-        action: note => this.indexedDbLayerService.undelete(note.id)
+        action: note => this.dataAccessService.undelete(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
           }),
@@ -68,7 +78,7 @@ export class NoteOptionsController {
         labelTK: 'common.delete_permanently',
         dividerAbove: true,
         showWhen: note => note.isDeleted,
-        action: note => this.indexedDbLayerService.forceDelete(note.id)
+        action: note => this.dataAccessService.forceDelete(note.id)
           .subscribe(() => {
             this.notesRefresherService.refresh();
             this.tagsRefresherService.refresh();

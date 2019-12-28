@@ -4,9 +4,9 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { IndexedDbLayerService } from '../../../../core/notes/storage/indexed-db-layer.service';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
+import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
 
 @Component({
   selector: 'app-tags-bar',
@@ -23,7 +23,7 @@ export class TagsBarComponent implements OnInit {
 
   constructor(
     private tagsRefresherService: TagsRefresherService,
-    private indexedDbLayerService: IndexedDbLayerService,
+    private dataAccessService: DataAccessService,
     private notesRefresherService: NotesRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
@@ -58,12 +58,8 @@ export class TagsBarComponent implements OnInit {
       return;
     }
 
-    this.indexedDbLayerService
-      .update(this.note.id, {
-        title: this.note.title,
-        content: this.note.content,
-        tags: [...this.note.tags, {name: newTagName}],
-      })
+    this.dataAccessService
+      .addTag(this.note.id, newTagName)
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
@@ -73,12 +69,8 @@ export class TagsBarComponent implements OnInit {
   }
 
   removeTag(tag: NoteTag) {
-    this.indexedDbLayerService
-      .update(this.note.id, {
-        title: this.note.title,
-        content: this.note.content,
-        tags: this.note.tags.filter(it => it.name !== tag.name),
-      })
+    this.dataAccessService
+      .removeTag(this.note.id, tag.name)
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();

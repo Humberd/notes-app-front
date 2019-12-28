@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NoteIdRouteParam } from '../_services/note-id-route-param';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CurrentNoteRefresherService } from '../_services/current-note-refresher.service';
 
 @Component({
@@ -7,19 +6,11 @@ import { CurrentNoteRefresherService } from '../_services/current-note-refresher
   templateUrl: './note-container.component.html',
   styleUrls: ['./note-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [
-    NoteIdRouteParam,
-    CurrentNoteRefresherService,
-  ],
 })
-export class NoteContainerComponent implements OnInit {
+export class NoteContainerComponent {
   constructor(
     public currentNoteRefresher: CurrentNoteRefresherService,
   ) {
-  }
-
-  ngOnInit() {
-    this.currentNoteRefresher.start();
   }
 
 }

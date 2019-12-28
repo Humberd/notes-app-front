@@ -1,47 +1,35 @@
-import { Injectable } from '@angular/core';
-import { NotesLayer } from '../notes-layer';
-import { Observable } from 'rxjs';
-import { Note, NoteCreate, NoteTag, NoteUpdate, Tag } from '../../../models/note';
+import { DataAccessLayer } from '../data-access-layer';
+import { forkJoin, Observable, of } from 'rxjs';
+import { Note, NoteTag, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { map, switchMap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class IndexedDbLayerService implements NotesLayer {
+export class IndexedDbLayer implements DataAccessLayer {
   private db = new IndexedDbAccessor();
 
   private randomId(): string {
     return Math.random().toString(36).substr(2, 9);
   }
 
-  private uniqueTags(tags: NoteTag[]): NoteTag[] {
-    const result: NoteTag[] = [];
-    const trackmap = new Map<string, boolean>();
-    for (const item of tags) {
-      if (!trackmap.has(item.name)) {
-        trackmap.set(item.name, true);    // set any value to Map
-        result.push({
-          name: item.name,
-          color: item.color,
-        });
-      }
-    }
-
-    return result;
+  private uniqueTagIds(tags: NoteTag[]): string[] {
+    return [...new Set(tags.map(tag => tag.id))];
   }
 
   async connect() {
     return this.db.connect();
   }
 
-  add(note: NoteCreate): Observable<Note> {
-    return this.db.add({
+  async disconnect() {
+    return this.db.disconnect();
+  }
+
+  add(): Observable<Note> {
+    return this.db.addNote({
       id: this.randomId(),
-      tags: this.uniqueTags(note.tags),
-      title: note.title,
-      content: note.content,
+      tags: [],
+      title: '',
+      content: '',
       createdAt: new Date(),
       updatedAt: new Date(),
       isDeleted: false,
@@ -50,15 +38,15 @@ export class IndexedDbLayerService implements NotesLayer {
   }
 
   forceDelete(noteId: string): Observable<void> {
-    return this.db.delete(noteId);
+    return this.db.deleteNote(noteId);
   }
 
   read(noteId: string): Observable<Note> {
-    return this.db.read(noteId);
+    return this.db.readNote(noteId);
   }
 
   readList(type: NoteType, searchQuery: string): Observable<Note[]> {
-    return this.db.readAll()
+    return this.db.readAllNotes()
       .pipe(
         map(notes => {
           switch (type) {
@@ -84,28 +72,16 @@ export class IndexedDbLayerService implements NotesLayer {
 
           return titleLc.includes(searchQueryLc) || contentLc.includes(searchQueryLc) || tagsLc.some(tag => tag.includes(searchQueryLc));
         })),
-        map(notes => notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())),
-      );
-  }
-
-  update(noteId: string, note: NoteUpdate): Observable<Note> {
-    return this.read(noteId)
-      .pipe(
-        switchMap(dbNote => this.db.update({
-          ...dbNote,
-          tags: this.uniqueTags(note.tags),
-          title: note.title,
-          content: note.content,
-          updatedAt: new Date(),
-        })),
+        map(notes => notes.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())),
       );
   }
 
   delete(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.db.update({
+        switchMap(note => this.db.updateNote({
           ...note,
+          tags: this.uniqueTagIds(note.tags),
           isDeleted: true,
           updatedAt: new Date(),
         })),
@@ -115,8 +91,9 @@ export class IndexedDbLayerService implements NotesLayer {
   undelete(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.db.update({
+        switchMap(note => this.db.updateNote({
           ...note,
+          tags: this.uniqueTagIds(note.tags),
           isDeleted: false,
           updatedAt: new Date(),
         })),
@@ -126,8 +103,9 @@ export class IndexedDbLayerService implements NotesLayer {
   star(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.db.update({
+        switchMap(note => this.db.updateNote({
           ...note,
+          tags: this.uniqueTagIds(note.tags),
           isStarred: true,
           updatedAt: new Date(),
         })),
@@ -137,8 +115,9 @@ export class IndexedDbLayerService implements NotesLayer {
   unstar(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.db.update({
+        switchMap(note => this.db.updateNote({
           ...note,
+          tags: this.uniqueTagIds(note.tags),
           isStarred: false,
           updatedAt: new Date(),
         })),
@@ -148,26 +127,43 @@ export class IndexedDbLayerService implements NotesLayer {
   updateContent(noteId: string, title: string, content: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.db.update({
+        switchMap(note => this.db.updateNote({
           ...note,
           title,
           content,
+          tags: this.uniqueTagIds(note.tags),
           updatedAt: new Date(),
         })),
       );
   }
 
   addTag(noteId: string, tagName: string): Observable<Note> {
-    return this.read(noteId)
+    return this.db
+      .readAllTags()
       .pipe(
-        switchMap(note => {
-          const newTags = [...note.tags, {name: tagName}];
-          return this.db.update({
-            ...note,
-            tags: this.uniqueTags(newTags),
-            updatedAt: new Date(),
+        switchMap(allTags => {
+          const existingTag = allTags.find(tag => tag.name === tagName);
+          if (existingTag) {
+            return of(existingTag);
+          }
+
+          return this.db.addTag({
+            id: this.randomId(),
+            name: tagName,
           });
         }),
+        switchMap(tag =>
+          this.read(noteId)
+            .pipe(
+              switchMap(note =>
+                this.db.updateNote({
+                  ...note,
+                  tags: [...this.uniqueTagIds(note.tags), tag.id],
+                  updatedAt: new Date(),
+                }),
+              ),
+            ),
+        ),
       );
   }
 
@@ -176,9 +172,9 @@ export class IndexedDbLayerService implements NotesLayer {
       .pipe(
         switchMap(note => {
           const newTags = note.tags.filter(tag => tag.name !== tagName);
-          return this.db.update({
+          return this.db.updateNote({
             ...note,
-            tags: this.uniqueTags(newTags),
+            tags: this.uniqueTagIds(newTags),
             updatedAt: new Date(),
           });
         }),
@@ -188,31 +184,41 @@ export class IndexedDbLayerService implements NotesLayer {
   duplicate(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
-        switchMap(note => this.add({
-            title: note.title,
-            content: note.content,
-            tags: note.tags,
-          }),
+        switchMap(baseNote => this.add()
+          .pipe(
+            switchMap(newNote => this.updateContent(newNote.id, baseNote.title, baseNote.content)),
+            switchMap(newNote => forkJoin(...baseNote.tags.map(tag => this.addTag(newNote.id, tag.name)))
+              .pipe(
+                switchMap(() => this.read(newNote.id)),
+              ),
+            ),
+          ),
         ),
       );
   }
 
   readTagsList(): Observable<Tag[]> {
-    return this.readList('all', '')
+    return this.db
+      .readAllTags()
       .pipe(
-        map(notes => notes.reduce((acc, note) => {
-          note.tags.forEach(tag => {
-            acc[tag.name] = (acc[tag.name] || 0) + 1;
-          });
+        switchMap(dbTags => {
+          return this.readList('all', '')
+            .pipe(
+              map(notes => notes.reduce((acc, note) => {
+                note.tags.forEach(tag => {
+                  acc[tag.id] = (acc[tag.id] || 0) + 1;
+                });
 
-          return acc;
-        }, {})),
-        map(tagsCounterObj => Object.entries(tagsCounterObj)),
-        map(tagsCounterEntries => tagsCounterEntries.map(([key, value]) => ({
-          name: key,
-          notesCount: value,
-        } as Tag))),
-        map(tagsList => tagsList.sort((a, b) => b.notesCount - a.notesCount)),
+                return acc;
+              }, {})),
+              map(countedNotes => dbTags.map(it => ({
+                id: it.id,
+                name: it.name,
+                color: it.color,
+                notesCount: countedNotes[it.id] || 0,
+              }))),
+            );
+        }),
       );
   }
 

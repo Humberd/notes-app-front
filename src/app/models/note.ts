@@ -9,25 +9,16 @@ export interface Note {
   isStarred: boolean;
 }
 
-export interface NoteCreate {
-  tags: NoteTag[];
-  title: string;
-  content: string;
-}
-
-export interface NoteUpdate {
-  tags: NoteTag[];
-  title: string;
-  content: string;
-}
-
 export interface NoteTag {
+  id: string;
   name: string;
   color?: string;
 }
 
 export interface Tag {
+  id: string;
   name: string;
-  // todo: add global colors
+  color?: string;
   notesCount: number;
 }
+
