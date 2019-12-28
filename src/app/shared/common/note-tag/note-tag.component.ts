@@ -1,19 +1,19 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { NoteTag } from '../../../models/note';
 import { OptionConfig } from '../optionConfig';
-import { TagOptions } from '../tag-options/tag-options';
+import { TagOptionsController } from '../tag-options/tag-options';
 
 @Component({
   selector: 'app-note-tag',
   templateUrl: './note-tag.component.html',
   styleUrls: ['./note-tag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  // tslint:disable-next-line:no-host-metadata-property
   host: {
     '[style.background-color]': 'tag.color',
     role: 'list-item',
     '[class.removable]': 'removable',
   },
+  providers: [TagOptionsController],
 })
 export class NoteTagComponent {
   @Input() tag: NoteTag;
@@ -22,8 +22,8 @@ export class NoteTagComponent {
 
   tagOptions: OptionConfig<NoteTag>[];
 
-  constructor() {
-    this.tagOptions = new TagOptions().getOptions();
+  constructor(tagOptionsController: TagOptionsController) {
+    this.tagOptions = tagOptionsController.getOptions();
   }
 
 }
