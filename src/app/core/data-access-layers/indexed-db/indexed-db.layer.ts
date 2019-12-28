@@ -72,7 +72,7 @@ export class IndexedDbLayer implements DataAccessLayer {
 
           return titleLc.includes(searchQueryLc) || contentLc.includes(searchQueryLc) || tagsLc.some(tag => tag.includes(searchQueryLc));
         })),
-        map(notes => notes.sort((a, b) => b.updatedAt.getTime() - a.updatedAt.getTime())),
+        map(notes => notes.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())),
       );
   }
 
