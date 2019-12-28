@@ -3,12 +3,16 @@ import { TagsRefresherService } from '../../../views/home/_services/tags-refresh
 import { Note } from '../../../models/note';
 import { OptionConfig } from '../optionConfig';
 import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
+import { CurrentNoteRefresherService } from '../../../views/home/_services/current-note-refresher.service';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class NoteOptionsController {
   constructor(
     private notesRefresherService: NotesRefresherService,
     private dataAccessService: DataAccessService,
     private tagsRefresherService: TagsRefresherService,
+    private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
   }
@@ -32,6 +36,9 @@ export class NoteOptionsController {
         action: note => this.dataAccessService.star(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
+            if (this.currentNoteRefresherService.data.id === newNote.id) {
+              this.currentNoteRefresherService.refresh();
+            }
           }),
       },
       {
@@ -41,6 +48,9 @@ export class NoteOptionsController {
         action: note => this.dataAccessService.unstar(note.id)
           .subscribe(newNote => {
             this.notesRefresherService.refresh();
+            if (this.currentNoteRefresherService.data.id === newNote.id) {
+              this.currentNoteRefresherService.refresh();
+            }
           }),
       },
       {

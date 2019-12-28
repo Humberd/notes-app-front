@@ -21,8 +21,3 @@ export interface Tag {
   notesCount: number;
 }
 
-export interface NoteUpdate {
-  tagNames: string[];
-  title: string;
-  content: string;
-}
