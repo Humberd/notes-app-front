@@ -129,7 +129,7 @@ export class IndexedDbAccessor {
             };
           })
             .pipe(
-              map(internalNote => [internalNote]),
+              map(internalNote => internalNote ? [internalNote] : []),
               this.toExternalNotes(),
               map(notes => notes[0]),
             ),

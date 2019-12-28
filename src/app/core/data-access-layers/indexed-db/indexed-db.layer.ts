@@ -190,21 +190,27 @@ export class IndexedDbLayer implements DataAccessLayer {
   }
 
   readTagsList(): Observable<Tag[]> {
-    return this.readList('all', '')
+    return this.db
+      .readAllTags()
       .pipe(
-        map(notes => notes.reduce((acc, note) => {
-          note.tags.forEach(tag => {
-            acc[tag.name] = (acc[tag.name] || 0) + 1;
-          });
+        switchMap(dbTags => {
+          return this.readList('all', '')
+            .pipe(
+              map(notes => notes.reduce((acc, note) => {
+                note.tags.forEach(tag => {
+                  acc[tag.id] = (acc[tag.id] || 0) + 1;
+                });
 
-          return acc;
-        }, {})),
-        map(tagsCounterObj => Object.entries(tagsCounterObj)),
-        map(tagsCounterEntries => tagsCounterEntries.map(([key, value]) => ({
-          name: key,
-          notesCount: value,
-        } as Tag))),
-        map(tagsList => tagsList.sort((a, b) => b.notesCount - a.notesCount)),
+                return acc;
+              }, {})),
+              map(countedNotes => dbTags.map(it => ({
+                id: it.id,
+                name: it.name,
+                color: it.color,
+                notesCount: countedNotes[it.id] || 0,
+              }))),
+            );
+        }),
       );
   }
 
