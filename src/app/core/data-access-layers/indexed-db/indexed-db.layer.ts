@@ -1,5 +1,5 @@
 import { DataAccessLayer } from '../data-access-layer';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { Note, NoteTag, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
@@ -139,11 +139,19 @@ export class IndexedDbLayer implements DataAccessLayer {
 
   addTag(noteId: string, tagName: string): Observable<Note> {
     return this.db
-      .addTag({
-        id: this.randomId(),
-        name: tagName,
-      })
+      .readAllTags()
       .pipe(
+        switchMap(allTags => {
+          const existingTag = allTags.find(tag => tag.name === tagName);
+          if (existingTag) {
+            return of(existingTag);
+          }
+
+          return this.db.addTag({
+            id: this.randomId(),
+            name: tagName,
+          });
+        }),
         switchMap(tag =>
           this.read(noteId)
             .pipe(
