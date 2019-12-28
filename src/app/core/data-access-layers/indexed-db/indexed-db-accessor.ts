@@ -71,7 +71,7 @@ export class IndexedDbAccessor {
       this.readAllTags()
         .pipe(
           map(allTags => {
-            console.trace(internalNotes);
+            // console.trace(internalNotes);
             const allTagsMap = allTags.reduce((acc, value) => {
               acc[value.id] = value;
               return acc;

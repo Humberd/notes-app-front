@@ -5,6 +5,7 @@ import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { NoteOptionsController } from '../../../../shared/common/note-options/note-options';
 import { OptionConfig } from '../../../../shared/common/optionConfig';
 import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
+import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
 
 @Component({
   selector: 'app-note-list-item',
@@ -21,10 +22,15 @@ export class NoteListItemComponent {
     private notesRefresherService: NotesRefresherService,
     private dataAccessService: DataAccessService,
     private tagsRefresherService: TagsRefresherService,
+    private appRoutingHelperService: AppRoutingHelperService,
   ) {
     const noteOptionsController = new NoteOptionsController(notesRefresherService, dataAccessService, tagsRefresherService);
 
     this.noteOptions = noteOptionsController.getOptions();
+  }
+
+  replaceNoteId(): string {
+    return this.appRoutingHelperService.replaceNoteIdInPath(this.note.id);
   }
 
 }
