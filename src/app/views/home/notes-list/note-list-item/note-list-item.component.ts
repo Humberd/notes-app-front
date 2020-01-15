@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Note } from '../../../../models/note';
 import { NoteOptionsController } from '../../../../shared/common/note-options/note-options';
 import { OptionConfig } from '../../../../shared/common/optionConfig';
 import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
+import { Note } from '../../../../domains/note/models/note.model';
 
 @Component({
   selector: 'app-note-list-item',

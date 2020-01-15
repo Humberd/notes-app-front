@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ClientSidePageableDataRefresher, NEVER_REFRESH, PageOptions, Refresher } from '@ng-boost/core';
-import { Tag } from '../../../models/note';
 import { Observable } from 'rxjs';
 import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
+import { Tag } from '../../../domains/tag/models/tag.model';
 
 @Injectable()
 export class TagsRefresherService extends ClientSidePageableDataRefresher<Tag> {

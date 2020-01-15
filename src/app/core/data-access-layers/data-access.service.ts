@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { DataAccessLayer } from './data-access-layer';
-import { Note, Tag } from '../../models/note';
 import { Observable } from 'rxjs';
 import { IndexedDbLayer } from './indexed-db/indexed-db.layer';
+import { Note } from '../../domains/note/models/note.model';
+import { Tag } from '../../domains/tag/models/tag.model';
 
 @Injectable({
   providedIn: 'root',

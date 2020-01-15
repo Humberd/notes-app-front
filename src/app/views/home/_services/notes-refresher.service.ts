@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ClientSidePageableDataRefresher, NEVER_REFRESH, PageOptions, Refresher } from '@ng-boost/core';
-import { Note } from '../../../models/note';
 import { combineLatest, Observable } from 'rxjs';
 import { NoteTypeRouteParam } from './note-type-route-param';
 import { switchMap } from 'rxjs/operators';
 import { NotesSearchService } from './notes-search.service';
 import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
+import { Note } from '../../../domains/note/models/note.model';
 
 @Injectable()
 export class NotesRefresherService extends ClientSidePageableDataRefresher<Note> {

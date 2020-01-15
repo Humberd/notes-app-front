@@ -1,7 +1,8 @@
-import { Note, NoteTag } from '../../../models/note';
 import { Observable, OperatorFunction, ReplaySubject } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { IndexedDbNoteStructure, IndexedDbTagStructure } from './indexed-db-structure';
+import { Note } from '../../../domains/note/models/note.model';
+import { NoteTag } from '../../../domains/note/models/note-tag.model';
 
 type ConnectionStatus = 'CONNECTED' | 'DISCONNECTED';
 

@@ -1,6 +1,7 @@
 import { OptionConfig } from '../optionConfig';
-import { NoteTag, Tag } from '../../../models/note';
 import { Injectable } from '@angular/core';
+import { NoteTag } from '../../../domains/note/models/note-tag.model';
+import { Tag } from '../../../domains/tag/models/tag.model';
 
 @Injectable()
 export class TagOptionsController {

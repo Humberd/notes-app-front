@@ -8,7 +8,7 @@ import { TagsRefresherService } from '../_services/tags-refresher.service';
 import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
 import { TagOptionsController } from '../../../shared/common/tag-options/tag-options';
 import { OptionConfig } from '../../../shared/common/optionConfig';
-import { Tag } from '../../../models/note';
+import { Tag } from '../../../domains/tag/models/tag.model';
 
 @Component({
   selector: 'app-general-list',

@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_BASE_HREF } from '@angular/common';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { EditorModule } from './shared/editor/editor.module';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -42,6 +43,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
     MonacoEditorModule.forRoot(),
     EditorModule,
+    ColorPickerModule,
   ],
   providers: [
     {

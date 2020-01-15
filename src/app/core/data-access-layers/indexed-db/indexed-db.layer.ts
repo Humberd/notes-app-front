@@ -1,9 +1,11 @@
 import { DataAccessLayer } from '../data-access-layer';
 import { forkJoin, Observable, of } from 'rxjs';
-import { Note, NoteTag, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { map, switchMap } from 'rxjs/operators';
+import { Note } from '../../../domains/note/models/note.model';
+import { NoteTag } from '../../../domains/note/models/note-tag.model';
+import { Tag } from '../../../domains/tag/models/tag.model';
 
 export class IndexedDbLayer implements DataAccessLayer {
   private db = new IndexedDbAccessor();

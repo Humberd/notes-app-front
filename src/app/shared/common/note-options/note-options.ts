@@ -1,10 +1,10 @@
 import { NotesRefresherService } from '../../../views/home/_services/notes-refresher.service';
 import { TagsRefresherService } from '../../../views/home/_services/tags-refresher.service';
-import { Note } from '../../../models/note';
 import { OptionConfig } from '../optionConfig';
 import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
 import { CurrentNoteRefresherService } from '../../../views/home/_services/current-note-refresher.service';
 import { Injectable } from '@angular/core';
+import { Note } from '../../../domains/note/models/note.model';
 
 @Injectable()
 export class NoteOptionsController {

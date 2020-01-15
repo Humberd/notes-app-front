@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Note } from '../../../../models/note';
 import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { filter, switchMap, takeUntil } from 'rxjs/operators';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
+import { Note } from '../../../../domains/note/models/note.model';
 
 @Component({
   selector: 'app-note-content',

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { Destroy$ } from '@ng-boost/core';
 import { NotesRefresherService } from '../_services/notes-refresher.service';
-import { Note } from '../../../models/note';
+import { Note } from '../../../domains/note/models/note.model';
 
 @Component({
   selector: 'app-notes-list',

@@ -1,3 +1,5 @@
+import { NoteTag } from './note-tag.model';
+
 export interface Note {
   id: string;
   tags: NoteTag[];
@@ -8,17 +10,3 @@ export interface Note {
   isDeleted: boolean;
   isStarred: boolean;
 }
-
-export interface NoteTag {
-  id: string;
-  name: string;
-  color?: string;
-}
-
-export interface Tag {
-  id: string;
-  name: string;
-  color?: string;
-  notesCount: number;
-}
-
