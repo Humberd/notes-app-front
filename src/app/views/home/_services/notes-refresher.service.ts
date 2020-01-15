@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { ClientSidePageableDataRefresher, NEVER_REFRESH, PageOptions, Refresher } from '@ng-boost/core';
-import { Note } from '../../../models/note';
 import { combineLatest, Observable } from 'rxjs';
 import { NoteTypeRouteParam } from './note-type-route-param';
 import { switchMap } from 'rxjs/operators';
 import { NotesSearchService } from './notes-search.service';
-import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
+import { Note } from '../../../domains/note/models/note';
+import { NotesService } from '../../../domains/note/services/notes.service';
 
 @Injectable()
 export class NotesRefresherService extends ClientSidePageableDataRefresher<Note> {
   constructor(
-    private dataAccessService: DataAccessService,
+    private notesService: NotesService,
     private noteTypeRouteParam: NoteTypeRouteParam,
     private notesSearchService: NotesSearchService,
   ) {
@@ -25,7 +25,10 @@ export class NotesRefresherService extends ClientSidePageableDataRefresher<Note>
       this.notesSearchService.query$,
     )
       .pipe(
-        switchMap(([noteType, query]) => this.dataAccessService.readList(noteType, query)),
+        switchMap(([noteType, query]) => this.notesService.readList({
+          type: noteType,
+          searchQuery: query,
+        })),
       );
   }
 

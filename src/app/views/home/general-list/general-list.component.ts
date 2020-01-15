@@ -6,23 +6,30 @@ import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { TagsRefresherService } from '../_services/tags-refresher.service';
 import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
+import { TagOptionsController } from '../../../shared/common/tag-options/tag-options';
+import { OptionConfig } from '../../../shared/common/optionConfig';
+import { Tag } from '../../../domains/tag/models/tag.model';
 
 @Component({
   selector: 'app-general-list',
   templateUrl: './general-list.component.html',
   styleUrls: ['./general-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TagOptionsController],
 })
 export class GeneralListComponent implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
+  tagOptions: OptionConfig<Tag>[];
 
   constructor(
     private router: Router,
-    public noteTypeRouteParam: NoteTypeRouteParam,
     private cdr: ChangeDetectorRef,
-    public tagsRefresherService: TagsRefresherService,
     private appRoutingHelperService: AppRoutingHelperService,
+    private tagOptionsController: TagOptionsController,
+    public tagsRefresherService: TagsRefresherService,
+    public noteTypeRouteParam: NoteTypeRouteParam,
   ) {
+    this.tagOptions = this.tagOptionsController.getOptions();
   }
 
   ngOnInit() {

@@ -1,12 +1,25 @@
-import { DataAccessLayer } from '../data-access-layer';
 import { forkJoin, Observable, of } from 'rxjs';
-import { Note, NoteTag, Tag } from '../../../models/note';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { map, switchMap } from 'rxjs/operators';
+import { Note } from '../../../domains/note/models/note';
+import { NoteTag } from '../../../domains/note/models/note-tag';
+import { Tag } from '../../../domains/tag/models/tag.model';
+import { Injectable, OnDestroy } from '@angular/core';
 
-export class IndexedDbLayer implements DataAccessLayer {
+@Injectable({
+  providedIn: 'root',
+})
+export class IndexedDbLayerService implements OnDestroy {
   private db = new IndexedDbAccessor();
+
+  constructor() {
+    this.db.connect();
+  }
+
+  ngOnDestroy(): void {
+    this.db.disconnect();
+  }
 
   private randomId(): string {
     return Math.random().toString(36).substr(2, 9);
@@ -14,14 +27,6 @@ export class IndexedDbLayer implements DataAccessLayer {
 
   private uniqueTagIds(tags: NoteTag[]): string[] {
     return [...new Set(tags.map(tag => tag.id))];
-  }
-
-  async connect() {
-    return this.db.connect();
-  }
-
-  async disconnect() {
-    return this.db.disconnect();
   }
 
   add(): Observable<Note> {

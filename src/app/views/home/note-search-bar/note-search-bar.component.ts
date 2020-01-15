@@ -6,8 +6,8 @@ import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DataAccessService } from '../../../core/data-access-layers/data-access.service';
 import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
+import { NotesService } from '../../../domains/note/services/notes.service';
 
 @Component({
   selector: 'app-note-search-bar',
@@ -20,7 +20,7 @@ export class NoteSearchBarComponent implements OnInit {
   searchControl = new FormControl();
 
   constructor(
-    private dataAccessService: DataAccessService,
+    private notesService: NotesService,
     private notesRefresherService: NotesRefresherService,
     private router: Router,
     private notesSearchService: NotesSearchService,
@@ -43,8 +43,7 @@ export class NoteSearchBarComponent implements OnInit {
   }
 
   createNewNote() {
-    this.dataAccessService
-      .add()
+    this.notesService.create()
       .subscribe(note => {
         this.router.navigateByUrl(this.appRoutingHelperService.replaceNoteIdInPath(note.id));
         this.notesRefresherService.refresh();

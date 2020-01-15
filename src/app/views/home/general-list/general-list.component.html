@@ -27,12 +27,21 @@
 
   <h5 class="header">{{'common.tags' | translate}}</h5>
 
-  <app-general-pill
-    icon="tag"
-    *ngFor="let tag of tagsRefresherService.data$ | async"
-    [name]="tag.name"
-    [counter]="tag.notesCount"
-  ></app-general-pill>
+  <ng-container *ngFor="let tag of tagsRefresherService.data$ | async">
+    <app-general-pill
+      icon="tag"
+      [name]="tag.name"
+      [counter]="tag.notesCount"
+      [appContextMenuTriggerFor]="contextMenu.matMenu"
+    ></app-general-pill>
+
+    <app-context-menu
+      #contextMenu
+      [options]="tagOptions"
+      [item]="tag"
+    ></app-context-menu>
+
+  </ng-container>
 
 </section>
 

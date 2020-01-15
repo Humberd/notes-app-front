@@ -1,12 +1,12 @@
 import { OptionConfig } from '../optionConfig';
-import { NoteTag } from '../../../models/note';
+import { Injectable } from '@angular/core';
+import { NoteTag } from '../../../domains/note/models/note-tag';
+import { Tag } from '../../../domains/tag/models/tag.model';
 
-export class TagOptions {
-  constructor() {
+@Injectable()
+export class TagOptionsController {
 
-  }
-
-  getOptions(): OptionConfig<NoteTag>[] {
+  getOptions(): OptionConfig<NoteTag | Tag>[] {
     return [
       {
         icon: 'edit',

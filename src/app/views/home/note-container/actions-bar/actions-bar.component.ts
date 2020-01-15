@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Note } from '../../../../models/note';
 import { NoteOptionsController } from '../../../../shared/common/note-options/note-options';
 import { OptionConfig } from '../../../../shared/common/optionConfig';
+import { Note } from '../../../../domains/note/models/note';
 
 @Component({
   selector: 'app-actions-bar',
