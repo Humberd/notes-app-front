@@ -1,13 +1,9 @@
 import { Observable } from 'rxjs';
 import { NoteType } from '../../views/home/_services/note-type-route-param';
-import { Note } from '../../domains/note/models/note.model';
+import { Note } from '../../domains/note/models/note';
 import { Tag } from '../../domains/tag/models/tag.model';
 
 export interface DataAccessLayer {
-  connect(): Promise<any>;
-
-  disconnect(): Promise<any>;
-
   add(): Observable<Note>;
 
   read(noteId: string): Observable<Note>;

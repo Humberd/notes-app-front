@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataAccessLayer } from './data-access-layer';
 import { Observable } from 'rxjs';
-import { IndexedDbLayer } from './indexed-db/indexed-db.layer';
-import { Note } from '../../domains/note/models/note.model';
+import { Note } from '../../domains/note/models/note';
 import { Tag } from '../../domains/tag/models/tag.model';
 
 @Injectable({
@@ -11,27 +10,6 @@ import { Tag } from '../../domains/tag/models/tag.model';
 export class DataAccessService implements DataAccessLayer {
 
   private impl: DataAccessLayer;
-
-  constructor() {
-    this.setImpl(new IndexedDbLayer());
-  }
-
-  async setImpl(impl: DataAccessLayer) {
-    if (this.impl) {
-      await this.impl.disconnect();
-    }
-    this.impl = impl;
-
-    return this.impl.connect();
-  }
-
-  async connect() {
-    return this.impl.connect();
-  }
-
-  async disconnect() {
-    return this.impl.disconnect();
-  }
 
   add(): Observable<Note> {
     return this.impl.add();

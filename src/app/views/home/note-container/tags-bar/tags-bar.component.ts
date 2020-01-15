@@ -6,8 +6,8 @@ import { map, startWith, switchMap } from 'rxjs/operators';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
 import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
-import { Note } from '../../../../domains/note/models/note.model';
-import { NoteTag } from '../../../../domains/note/models/note-tag.model';
+import { Note } from '../../../../domains/note/models/note';
+import { NoteTag } from '../../../../domains/note/models/note-tag';
 
 @Component({
   selector: 'app-tags-bar',

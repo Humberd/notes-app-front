@@ -1,4 +1,4 @@
-import { NoteTag } from './note-tag.model';
+import { NoteTag } from './note-tag';
 
 export interface Note {
   id: string;

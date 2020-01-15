@@ -1,6 +1,6 @@
 import { OptionConfig } from '../optionConfig';
 import { Injectable } from '@angular/core';
-import { NoteTag } from '../../../domains/note/models/note-tag.model';
+import { NoteTag } from '../../../domains/note/models/note-tag';
 import { Tag } from '../../../domains/tag/models/tag.model';
 
 @Injectable()
