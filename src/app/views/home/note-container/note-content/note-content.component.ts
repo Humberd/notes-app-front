@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
-import { filter, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { Note } from '../../../../domains/note/models/note';
 import { NotesService } from '../../../../domains/note/services/notes.service';
@@ -36,7 +36,7 @@ export class NoteContentComponent implements OnInit {
       .pipe(
         takeUntil(this.destroy$),
         filter(it => it !== this._note.content),
-        // debounceTime(1000),
+        debounceTime(1000),
         switchMap(newContent => this.notesService.update(this._note.id, {
           title: this.getTitle(newContent),
           content: newContent,

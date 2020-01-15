@@ -9,5 +9,7 @@ export interface TagsRepository {
 
   readList(): Observable<Tag[]>;
 
+  watchList(): Observable<Tag[]>;
+
   delete(body: TagDeleteRequest): Observable<any>;
 }

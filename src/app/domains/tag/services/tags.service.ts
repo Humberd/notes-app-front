@@ -22,6 +22,10 @@ export class TagsService {
     return this.repository.readList();
   }
 
+  watchList(): Observable<Tag[]> {
+    return this.repository.watchList();
+  }
+
   delete(body: TagDeleteRequest): Observable<any> {
     return this.repository.delete(body);
   }

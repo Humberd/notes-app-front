@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { NotesRefresherService } from '../_services/notes-refresher.service';
 import { Router } from '@angular/router';
 import { NotesSearchService } from '../_services/notes-search.service';
 import { FormControl } from '@angular/forms';
@@ -21,7 +20,6 @@ export class NoteSearchBarComponent implements OnInit {
 
   constructor(
     private notesService: NotesService,
-    private notesRefresherService: NotesRefresherService,
     private router: Router,
     private notesSearchService: NotesSearchService,
     private appRoutingHelperService: AppRoutingHelperService,
@@ -46,8 +44,6 @@ export class NoteSearchBarComponent implements OnInit {
     this.notesService.create()
       .subscribe(note => {
         this.router.navigateByUrl(this.appRoutingHelperService.replaceNoteIdInPath(note.id));
-        this.notesRefresherService.refresh();
       });
   }
-
 }

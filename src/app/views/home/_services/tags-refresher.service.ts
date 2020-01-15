@@ -14,6 +14,6 @@ export class TagsRefresherService extends ClientSidePageableDataRefresher<Tag> {
   }
 
   protected getPageableDataSource(pageOptions: PageOptions): Observable<Tag[]> | Refresher<any, Tag[]> {
-    return this.tagsService.readList();
+    return this.tagsService.watchList();
   }
 }
