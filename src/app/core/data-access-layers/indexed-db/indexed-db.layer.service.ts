@@ -250,8 +250,17 @@ export class IndexedDbLayerService implements OnDestroy {
               }))),
             );
         }),
-        tap(() => this.dataChanged$.next()),
       );
+  }
+
+  watchTagsList(): Observable<Tag[]> {
+    return merge(
+      this.readTagsList(),
+      this.dataChanged$
+        .pipe(
+          switchMap(() => this.readTagsList()),
+        ),
+    );
   }
 
 }

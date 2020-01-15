@@ -23,6 +23,10 @@ export class TagsIndexedDbRepositoryService implements TagsRepository {
     return this.indexedDbLayer.readTagsList();
   }
 
+  watchList(): Observable<Tag[]> {
+    return this.indexedDbLayer.watchTagsList();
+  }
+
   delete(body: TagDeleteRequest): Observable<any> {
     return this.indexedDbLayer.removeTag(body.noteId, body.name);
   }

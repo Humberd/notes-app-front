@@ -79,7 +79,6 @@ export class TagsBarComponent implements OnInit {
     })
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
-        this.tagsRefresherService.refresh();
         this.newTagControl.reset('');
       });
   }
@@ -91,7 +90,6 @@ export class TagsBarComponent implements OnInit {
     })
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
-        this.tagsRefresherService.refresh();
       });
   }
 

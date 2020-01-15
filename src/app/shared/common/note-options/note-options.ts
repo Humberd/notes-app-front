@@ -1,4 +1,3 @@
-import { TagsRefresherService } from '../../../views/home/_services/tags-refresher.service';
 import { OptionConfig } from '../optionConfig';
 import { CurrentNoteRefresherService } from '../../../views/home/_services/current-note-refresher.service';
 import { Injectable } from '@angular/core';
@@ -9,7 +8,6 @@ import { NotesService } from '../../../domains/note/services/notes.service';
 export class NoteOptionsController {
   constructor(
     private notesService: NotesService,
-    private tagsRefresherService: TagsRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
@@ -22,9 +20,7 @@ export class NoteOptionsController {
         labelTK: 'common.duplicate',
         showWhen: note => !note.isDeleted,
         action: note => this.notesService.duplicate(note.id)
-          .subscribe(newNote => {
-            this.tagsRefresherService.refresh();
-          }),
+          .subscribe(),
       },
       {
         icon: 'star_border',
@@ -70,9 +66,7 @@ export class NoteOptionsController {
         dividerAbove: true,
         showWhen: note => note.isDeleted,
         action: note => this.notesService.forceDelete(note.id)
-          .subscribe(() => {
-            this.tagsRefresherService.refresh();
-          }),
+          .subscribe(),
       },
     ];
   }
