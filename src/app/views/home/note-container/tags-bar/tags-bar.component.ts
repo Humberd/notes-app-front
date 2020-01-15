@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
@@ -15,10 +15,28 @@ import { TagsService } from '../../../../domains/tag/services/tags.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagsBarComponent implements OnInit {
-  @Input() note: Note;
+  // tslint:disable-next-line:variable-name
+  private _note: Note;
+  @Input()
+  set note(note: Note) {
+    const previousNote = this._note;
+    this._note = note;
+
+    const noteChanged = previousNote && note && previousNote.id !== note.id;
+    if (noteChanged) {
+      this.noteChanged$.next();
+    }
+  }
+
+  get note(): Note {
+    return this._note;
+  }
+
   @Input() removable: boolean;
 
-  newTagControl = new FormControl();
+  private readonly noteChanged$ = new BehaviorSubject<void>(null);
+
+  newTagControl = new FormControl('');
   availableTags$: Observable<string[]>;
 
   constructor(
@@ -30,13 +48,11 @@ export class TagsBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.availableTags$ = this.tagsRefresherService.data$
+    this.availableTags$ = this.noteChanged$
       .pipe(
-        map(tags => tags.map(tag => tag.name)),
-        switchMap(allTagNames => this.newTagControl.valueChanges
+        switchMap(() => this.getAllTagsNames$()),
+        switchMap(allTagNames => this.getInputLcValue$()
           .pipe(
-            startWith(''),
-            map((newTagName: string) => newTagName.toLowerCase()),
             // filter tags that matches what user currently has in the input
             map(newTagNameLc => allTagNames.filter(tagName => tagName.toLowerCase().includes(newTagNameLc))),
             // filter tags that are already selected
@@ -79,4 +95,18 @@ export class TagsBarComponent implements OnInit {
       });
   }
 
+  private getInputLcValue$(): Observable<string> {
+    return this.newTagControl.valueChanges
+      .pipe(
+        startWith(this.newTagControl.value as string),
+        map((newTagName: string) => newTagName.toLowerCase()),
+      );
+  }
+
+  private getAllTagsNames$(): Observable<string[]> {
+    return this.tagsRefresherService.data$
+      .pipe(
+        map(tags => tags.map(tag => tag.name)),
+      );
+  }
 }
