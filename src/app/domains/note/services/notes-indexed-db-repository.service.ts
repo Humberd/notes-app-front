@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IndexedDbLayer } from '../../../core/data-access-layers/indexed-db/indexed-db.layer';
+import { IndexedDbLayerService } from '../../../core/data-access-layers/indexed-db/indexed-db.layer.service';
 import { Observable } from 'rxjs';
 import { Note } from '../models/note';
 import { NoteReadListRequest } from '../models/note.read-list-request';
@@ -11,7 +11,7 @@ import { NotesRepository } from '../models/notes.repository';
 })
 export class NotesIndexedDbRepositoryService implements NotesRepository {
 
-  constructor(private indexedDbLayer: IndexedDbLayer) {
+  constructor(private indexedDbLayer: IndexedDbLayerService) {
   }
 
   create(): Observable<Note> {

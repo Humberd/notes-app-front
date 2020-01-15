@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IndexedDbLayer } from '../../../core/data-access-layers/indexed-db/indexed-db.layer';
+import { IndexedDbLayerService } from '../../../core/data-access-layers/indexed-db/indexed-db.layer.service';
 import { TagCreateRequest } from '../models/tag.create-request';
 import { Observable } from 'rxjs';
 import { Note } from '../../note/models/note';
@@ -12,7 +12,7 @@ import { TagsRepository } from '../models/tags.repository';
 })
 export class TagsIndexedDbRepositoryService implements TagsRepository {
 
-  constructor(private indexedDbLayer: IndexedDbLayer) {
+  constructor(private indexedDbLayer: IndexedDbLayerService) {
   }
 
   create(body: TagCreateRequest): Observable<Note> {

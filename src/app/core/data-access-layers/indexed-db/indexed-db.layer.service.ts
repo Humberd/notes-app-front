@@ -1,4 +1,3 @@
-import { DataAccessLayer } from '../data-access-layer';
 import { forkJoin, Observable, of } from 'rxjs';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
@@ -11,7 +10,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class IndexedDbLayer implements DataAccessLayer, OnDestroy {
+export class IndexedDbLayerService implements OnDestroy {
   private db = new IndexedDbAccessor();
 
   constructor() {
