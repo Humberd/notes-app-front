@@ -1,7 +1,7 @@
-import { forkJoin, Observable, of } from 'rxjs';
+import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { NoteType } from '../../../views/home/_services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { Note } from '../../../domains/note/models/note';
 import { NoteTag } from '../../../domains/note/models/note-tag';
 import { Tag } from '../../../domains/tag/models/tag.model';
@@ -12,6 +12,8 @@ import { Injectable, OnDestroy } from '@angular/core';
 })
 export class IndexedDbLayerService implements OnDestroy {
   private db = new IndexedDbAccessor();
+
+  readonly dataChanged$ = new Subject<void>();
 
   constructor() {
     this.db.connect();
@@ -39,11 +41,17 @@ export class IndexedDbLayerService implements OnDestroy {
       updatedAt: new Date(),
       isDeleted: false,
       isStarred: false,
-    });
+    })
+      .pipe(
+        tap(() => this.dataChanged$.next()),
+      );
   }
 
   forceDelete(noteId: string): Observable<void> {
-    return this.db.deleteNote(noteId);
+    return this.db.deleteNote(noteId)
+      .pipe(
+        tap(() => this.dataChanged$.next()),
+      );
   }
 
   read(noteId: string): Observable<Note> {
@@ -81,6 +89,16 @@ export class IndexedDbLayerService implements OnDestroy {
       );
   }
 
+  watchNotesList(type: NoteType, searchQuery: string): Observable<Note[]> {
+    return merge(
+      this.readList(type, searchQuery),
+      this.dataChanged$
+        .pipe(
+          switchMap(() => this.readList(type, searchQuery)),
+        ),
+    );
+  }
+
   delete(noteId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
@@ -90,6 +108,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isDeleted: true,
           updatedAt: new Date(),
         })),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -102,6 +121,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isDeleted: false,
           updatedAt: new Date(),
         })),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -114,6 +134,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isStarred: true,
           updatedAt: new Date(),
         })),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -126,6 +147,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isStarred: false,
           updatedAt: new Date(),
         })),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -139,6 +161,7 @@ export class IndexedDbLayerService implements OnDestroy {
           tags: this.uniqueTagIds(note.tags),
           updatedAt: new Date(),
         })),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -169,6 +192,7 @@ export class IndexedDbLayerService implements OnDestroy {
               ),
             ),
         ),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -183,6 +207,7 @@ export class IndexedDbLayerService implements OnDestroy {
             updatedAt: new Date(),
           });
         }),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -199,6 +224,7 @@ export class IndexedDbLayerService implements OnDestroy {
             ),
           ),
         ),
+        tap(() => this.dataChanged$.next()),
       );
   }
 
@@ -224,6 +250,7 @@ export class IndexedDbLayerService implements OnDestroy {
               }))),
             );
         }),
+        tap(() => this.dataChanged$.next()),
       );
   }
 

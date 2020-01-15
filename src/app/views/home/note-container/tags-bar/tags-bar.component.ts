@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
 import { Note } from '../../../../domains/note/models/note';
 import { NoteTag } from '../../../../domains/note/models/note-tag';
@@ -25,7 +24,6 @@ export class TagsBarComponent implements OnInit {
   constructor(
     private tagsRefresherService: TagsRefresherService,
     private tagsService: TagsService,
-    private notesRefresherService: NotesRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
@@ -66,7 +64,6 @@ export class TagsBarComponent implements OnInit {
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
-        this.notesRefresherService.updateRef(newNote);
         this.newTagControl.reset('');
       });
   }
@@ -79,7 +76,6 @@ export class TagsBarComponent implements OnInit {
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
-        this.notesRefresherService.updateRef(newNote);
       });
   }
 

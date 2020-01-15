@@ -10,6 +10,8 @@ export interface NotesRepository {
 
   readList(params: NoteReadListRequest): Observable<Note[]>;
 
+  watchList(params: NoteReadListRequest): Observable<Note[]>;
+
   update(noteId: string, body: NoteUpdateRequest): Observable<Note>;
 
   delete(noteId: string): Observable<any>;

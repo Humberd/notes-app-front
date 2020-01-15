@@ -25,7 +25,7 @@ export class NotesRefresherService extends ClientSidePageableDataRefresher<Note>
       this.notesSearchService.query$,
     )
       .pipe(
-        switchMap(([noteType, query]) => this.notesService.readList({
+        switchMap(([noteType, query]) => this.notesService.watchList({
           type: noteType,
           searchQuery: query,
         })),

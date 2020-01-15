@@ -26,6 +26,10 @@ export class NotesIndexedDbRepositoryService implements NotesRepository {
     return this.indexedDbLayer.readList(params.type, params.searchQuery);
   }
 
+  watchList(params: NoteReadListRequest): Observable<Note[]> {
+    return this.indexedDbLayer.watchNotesList(params.type, params.searchQuery);
+  }
+
   update(noteId: string, body: NoteUpdateRequest): Observable<Note> {
     return this.indexedDbLayer.updateContent(noteId, body.title, body.content);
   }
