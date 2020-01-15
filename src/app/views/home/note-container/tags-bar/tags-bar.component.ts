@@ -5,9 +5,9 @@ import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
-import { DataAccessService } from '../../../../core/data-access-layers/data-access.service';
 import { Note } from '../../../../domains/note/models/note';
 import { NoteTag } from '../../../../domains/note/models/note-tag';
+import { TagsService } from '../../../../domains/tag/services/tags.service';
 
 @Component({
   selector: 'app-tags-bar',
@@ -24,7 +24,7 @@ export class TagsBarComponent implements OnInit {
 
   constructor(
     private tagsRefresherService: TagsRefresherService,
-    private dataAccessService: DataAccessService,
+    private tagsService: TagsService,
     private notesRefresherService: NotesRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
@@ -59,8 +59,10 @@ export class TagsBarComponent implements OnInit {
       return;
     }
 
-    this.dataAccessService
-      .addTag(this.note.id, newTagName)
+    this.tagsService.create({
+      noteId: this.note.id,
+      name: newTagName,
+    })
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
@@ -70,8 +72,10 @@ export class TagsBarComponent implements OnInit {
   }
 
   removeTag(tag: NoteTag) {
-    this.dataAccessService
-      .removeTag(this.note.id, tag.name)
+    this.tagsService.delete({
+      noteId: this.note.id,
+      name: tag.name,
+    })
       .subscribe(newNote => {
         this.currentNoteRefresherService.refresh();
         this.tagsRefresherService.refresh();
