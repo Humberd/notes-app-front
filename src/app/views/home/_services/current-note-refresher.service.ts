@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { NEVER_REFRESH, Refresher, SimpleDataRefresher } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { NoteIdRouteParam } from './note-id-route-param';
-import { switchMap } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { Note } from '../../../domains/note/models/note';
 import { NotesService } from '../../../domains/note/services/notes.service';
 
@@ -21,7 +21,8 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<Note> {
   protected getDataSource(): Observable<Note> | Refresher<any, Note> {
     return this.noteIdRouteParam.value$
       .pipe(
-        switchMap(noteId => this.notesService.read(noteId)),
+        filter(value => !!value),
+        switchMap(noteId => this.notesService.watch(noteId)),
       );
   }
 

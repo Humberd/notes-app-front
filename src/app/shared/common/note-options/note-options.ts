@@ -1,5 +1,4 @@
 import { OptionConfig } from '../optionConfig';
-import { CurrentNoteRefresherService } from '../../../views/home/_services/current-note-refresher.service';
 import { Injectable } from '@angular/core';
 import { Note } from '../../../domains/note/models/note';
 import { NotesService } from '../../../domains/note/services/notes.service';
@@ -8,7 +7,6 @@ import { NotesService } from '../../../domains/note/services/notes.service';
 export class NoteOptionsController {
   constructor(
     private notesService: NotesService,
-    private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
   }
@@ -27,22 +25,14 @@ export class NoteOptionsController {
         labelTK: 'common.star',
         showWhen: note => !note.isDeleted && !note.isStarred,
         action: note => this.notesService.star(note.id)
-          .subscribe(newNote => {
-            if (this.currentNoteRefresherService.data.id === newNote.id) {
-              this.currentNoteRefresherService.refresh();
-            }
-          }),
+          .subscribe(),
       },
       {
         icon: 'star',
         labelTK: 'common.unstar',
         showWhen: note => !note.isDeleted && note.isStarred,
         action: note => this.notesService.unstar(note.id)
-          .subscribe(newNote => {
-            if (this.currentNoteRefresherService.data.id === newNote.id) {
-              this.currentNoteRefresherService.refresh();
-            }
-          }),
+          .subscribe(),
       },
       {
         icon: 'delete',
