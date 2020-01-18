@@ -30,22 +30,25 @@ export function noteTypeMatcher(segments: UrlSegment[]): UrlMatchResult {
     return null;
   }
 
-  const matchResult = {
-    consumed: [noteTypeSegment],
-    posParams: {
-      [noteTypeParamName]: noteTypeSegment,
-    },
-  };
-
   if (segments.length === 1) {
-    console.log('segment is 1', matchResult);
-    return matchResult;
+    return {
+      consumed: [noteTypeSegment],
+      posParams: {
+        [noteTypeParamName]: noteTypeSegment,
+      },
+    };
   }
 
   const noteIdSegment = segments[1];
 
-  matchResult.consumed.push(noteIdSegment);
-  matchResult.posParams[noteIdParamName] = noteIdSegment;
-
-  return matchResult;
+  return {
+    consumed: [
+      noteTypeSegment,
+      noteIdSegment,
+    ],
+    posParams: {
+      [noteTypeParamName]: noteTypeSegment,
+      [noteIdParamName]: noteIdSegment,
+    },
+  };
 }
