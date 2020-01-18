@@ -22,7 +22,6 @@ import { NoteContainerComponent } from './note-container/note-container.componen
 import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
 import { NoteContentComponent } from './note-container/note-content/note-content.component';
 import { EditorModule } from '../../shared/editor/editor.module';
-import { NoteContainerEmptyComponent } from './note-container-empty/note-container-empty.component';
 import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.component';
@@ -53,7 +52,6 @@ import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.co
     NoteContainerComponent,
     TagsBarComponent,
     NoteContentComponent,
-    NoteContainerEmptyComponent,
     NoteSearchBarComponent,
     ActionsBarComponent,
   ],
