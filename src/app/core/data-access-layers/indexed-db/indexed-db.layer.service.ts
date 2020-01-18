@@ -209,6 +209,14 @@ export class IndexedDbLayerService implements OnDestroy {
       );
   }
 
+  updateTag(id: string, name: string, colorHex?: string): Observable<NoteTag> {
+    return this.db.updateTag({
+      id,
+      name,
+      colorHex,
+    });
+  }
+
   removeTag(noteId: string, tagId: string): Observable<Note> {
     return this.read(noteId)
       .pipe(
@@ -274,7 +282,7 @@ export class IndexedDbLayerService implements OnDestroy {
               map(countedNotes => dbTags.map(it => ({
                 id: it.id,
                 name: it.name,
-                color: it.color,
+                color: it.colorHex,
                 notesCount: countedNotes[it.id] || 0,
               }))),
             );
@@ -291,5 +299,4 @@ export class IndexedDbLayerService implements OnDestroy {
         ),
     );
   }
-
 }

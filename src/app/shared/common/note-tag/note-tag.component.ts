@@ -9,7 +9,7 @@ import { NoteTag } from '../../../domains/note/models/note-tag';
   styleUrls: ['./note-tag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '[style.background-color]': 'tag.color',
+    '[style.background-color]': 'tag.colorHex',
     role: 'list-item',
     '[class.removable]': 'removable',
   },
