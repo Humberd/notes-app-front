@@ -21,7 +21,7 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<Note> {
   protected getDataSource(): Observable<Note> | Refresher<any, Note> {
     return this.noteIdRouteParam.value$
       .pipe(
-        switchMap(noteId => this.notesService.read(noteId)),
+        switchMap(noteId => this.notesService.watch(noteId)),
       );
   }
 

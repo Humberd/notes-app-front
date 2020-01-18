@@ -8,6 +8,8 @@ export interface NotesRepository {
 
   read(noteId: string): Observable<Note>;
 
+  watch(noteId: string): Observable<Note>;
+
   readList(params: NoteReadListRequest): Observable<Note[]>;
 
   watchList(params: NoteReadListRequest): Observable<Note[]>;

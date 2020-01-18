@@ -21,6 +21,10 @@ export class NotesService {
     return this.repository.read(noteId);
   }
 
+  watch(noteId: string): Observable<Note> {
+    return this.repository.watch(noteId);
+  }
+
   readList(params: NoteReadListRequest): Observable<Note[]> {
     return this.repository.readList(params);
   }

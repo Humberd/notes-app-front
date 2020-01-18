@@ -3,7 +3,6 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TagsRefresherService } from '../../_services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { CurrentNoteRefresherService } from '../../_services/current-note-refresher.service';
 import { Note } from '../../../../domains/note/models/note';
 import { NoteTag } from '../../../../domains/note/models/note-tag';
 import { TagsService } from '../../../../domains/tag/services/tags.service';
@@ -42,7 +41,6 @@ export class TagsBarComponent implements OnInit {
   constructor(
     private tagsRefresherService: TagsRefresherService,
     private tagsService: TagsService,
-    private currentNoteRefresherService: CurrentNoteRefresherService,
   ) {
 
   }
@@ -77,8 +75,7 @@ export class TagsBarComponent implements OnInit {
       noteId: this.note.id,
       name: newTagName,
     })
-      .subscribe(newNote => {
-        this.currentNoteRefresherService.refresh();
+      .subscribe(() => {
         this.newTagControl.reset('');
       });
   }
@@ -88,9 +85,7 @@ export class TagsBarComponent implements OnInit {
       noteId: this.note.id,
       name: tag.name,
     })
-      .subscribe(newNote => {
-        this.currentNoteRefresherService.refresh();
-      });
+      .subscribe();
   }
 
   private getInputLcValue$(): Observable<string> {
