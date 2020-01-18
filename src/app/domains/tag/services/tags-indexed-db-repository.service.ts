@@ -28,7 +28,7 @@ export class TagsIndexedDbRepositoryService implements TagsRepository {
   }
 
   delete(body: TagDeleteRequest): Observable<any> {
-    return this.indexedDbLayer.removeTag(body.noteId, body.name);
+    return this.indexedDbLayer.removeTag(body.noteId, body.tagId);
   }
 
 }

@@ -1,4 +1,4 @@
 export interface TagDeleteRequest {
   noteId: string;
-  name: string;
+  tagId: string;
 }
