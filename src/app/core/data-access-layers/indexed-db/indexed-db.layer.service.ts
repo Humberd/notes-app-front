@@ -220,6 +220,22 @@ export class IndexedDbLayerService implements OnDestroy {
             updatedAt: new Date(),
           });
         }),
+        switchMap(updatedNote => this.readTagsList()
+          .pipe(
+            switchMap(tags => {
+              const potentialTag = tags.find(it => it.name === tagName);
+              if (!potentialTag) {
+                return of(tags);
+              }
+
+              if (potentialTag.notesCount !== 0) {
+                return of(tags);
+              }
+
+              return this.db.removeTag(potentialTag.id);
+            }),
+            map(() => updatedNote),
+          )),
         tap(() => this.dataChanged$.next(noteId)),
       );
   }

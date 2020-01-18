@@ -294,6 +294,29 @@ export class IndexedDbAccessor {
       );
   }
 
+  removeTag(tagId: string): Observable<void> {
+    return this.whenDb()
+      .pipe(
+        switchMap(db =>
+          new Observable<void>(subscriber => {
+            const tx = db.transaction('tags', 'readwrite');
+            const store = tx.objectStore('tags');
+
+            store.delete(tagId);
+
+            tx.onerror = ev => {
+              subscriber.error(ev);
+            };
+
+            tx.oncomplete = ev => {
+              subscriber.next();
+              subscriber.complete();
+            };
+          }),
+        ),
+      );
+  }
+
   readTag(tagId: string): Observable<NoteTag> {
     return this.whenDb()
       .pipe(
