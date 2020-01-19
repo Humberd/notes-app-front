@@ -1,19 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppEditorComponent } from './editor/editor.component';
+import { EditorComponent } from './components/editor/editor.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
+  declarations: [EditorComponent],
   imports: [
     CommonModule,
     MonacoEditorModule,
-    FormsModule,
     ReactiveFormsModule,
   ],
-  declarations: [AppEditorComponent],
-  exports: [AppEditorComponent],
+  exports: [EditorComponent],
 })
 export class EditorModule {
 }

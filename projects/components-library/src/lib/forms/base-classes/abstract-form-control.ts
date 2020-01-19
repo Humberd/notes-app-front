@@ -1,5 +1,5 @@
-import { AbstractControlValueAccessor } from 'components-library/lib/forms/base-classes/abstract-control-value-accessor';
 import { Input } from '@angular/core';
+import { AbstractControlValueAccessor } from '@ng-boost/core';
 
 let formControlCounter = 0;
 

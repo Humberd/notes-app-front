@@ -19,11 +19,11 @@ import { AppCommonModule } from '../../shared/common/app-common.module';
 import { NoteContainerComponent } from './note-container/note-container.component';
 import { TagsBarComponent } from './note-container/tags-bar/tags-bar.component';
 import { NoteContentComponent } from './note-container/note-content/note-content.component';
-import { EditorModule } from '../../shared/editor/editor.module';
 import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.component';
 import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
+import { EditorModule } from 'components-library/lib/editor/editor.module';
 
 @NgModule({
   imports: [
@@ -33,7 +33,6 @@ import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
     TranslateModule,
     MatIconModule,
     AppCommonModule,
-    EditorModule,
     ReactiveFormsModule,
     FormsModule,
     MatAutocompleteModule,
@@ -42,6 +41,7 @@ import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
     MatDividerModule,
     MatTooltipModule,
     TagDialogsModule,
+    EditorModule,
   ],
   declarations: [
     HomeComponent,

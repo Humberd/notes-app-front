@@ -6,6 +6,7 @@ import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { NotesRefresherService } from '../../_services/notes-refresher.service';
 import { Note } from '../../../../domains/note/models/note';
 import { NotesService } from '../../../../domains/note/services/notes.service';
+import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
 @Component({
   selector: 'app-note-content',
@@ -15,6 +16,12 @@ import { NotesService } from '../../../../domains/note/services/notes.service';
 })
 export class NoteContentComponent implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
+  readonly editorOptions: IEditorConstructionOptions = {
+    theme: 'vs-dark',
+    language: 'markdown',
+    wordWrap: 'on',
+    automaticLayout: true,
+  };
   noteContentControl = new FormControl();
 
   // tslint:disable-next-line:variable-name

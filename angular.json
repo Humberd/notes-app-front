@@ -205,7 +205,7 @@
   "defaultProject": "angular-electron",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss",
+      "style": "scss",
       "changeDetection": "OnPush",
       "spec": false
     }
