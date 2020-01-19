@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { Note } from '../../note/models/note';
 import { Tag } from '../models/tag.model';
 import { TagDeleteRequest } from '../models/tag.delete-request';
+import { TagUpdateRequest } from '../models/tag.update-request';
+import { NoteTag } from '../../note/models/note-tag';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +26,10 @@ export class TagsService {
 
   watchList(): Observable<Tag[]> {
     return this.repository.watchList();
+  }
+
+  update(id: string, body: TagUpdateRequest): Observable<NoteTag> {
+    return this.repository.update(id, body);
   }
 
   delete(body: TagDeleteRequest): Observable<any> {

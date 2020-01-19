@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EditTagDialogComponent } from '../components/edit-tag-dialog/edit-tag-dialog.component';
+import { TagEditDialogComponent } from '../components/edit-tag-dialog/tag-edit-dialog.component';
+import { TagEditDialogData } from '../components/edit-tag-dialog/models/tag-edit-dialog-data';
 
 @Injectable()
 export class TagDialogsService {
@@ -8,7 +9,7 @@ export class TagDialogsService {
   constructor(private dialog: MatDialog) {
   }
 
-  openEditTagDialog() {
-    return this.dialog.open(EditTagDialogComponent);
+  openEditTagDialog(data: TagEditDialogData) {
+    return this.dialog.open(TagEditDialogComponent, {data});
   }
 }

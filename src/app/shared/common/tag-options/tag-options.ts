@@ -16,7 +16,9 @@ export class TagOptionsController {
         icon: 'edit',
         labelTK: 'common.edit',
         showWhen: tag => true,
-        action: tag => this.tagDialogsService.openEditTagDialog(),
+        action: tag => this.tagDialogsService.openEditTagDialog({
+          ...tag,
+        }),
       },
     ];
   }

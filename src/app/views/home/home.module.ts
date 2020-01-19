@@ -40,8 +40,8 @@ import { EditorModule } from 'components-library/lib/editor/editor.module';
     MatButtonModule,
     MatDividerModule,
     MatTooltipModule,
-    TagDialogsModule,
     EditorModule,
+    TagDialogsModule,
   ],
   declarations: [
     HomeComponent,

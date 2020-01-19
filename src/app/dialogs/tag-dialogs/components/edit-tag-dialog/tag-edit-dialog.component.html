@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>{{'tags.edit_tag' | translate}}</h1>
+
+<form
+  [formGroup]="rootForm"
+  (ngSubmit)="submit()"
+>
+  <mat-dialog-content>
+    <app-tag-edit-form
+      [formGroupTemplate]="formDefinition.form"
+      [initialValues]="dialogData"
+    ></app-tag-edit-form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button
+      mat-button
+      mat-dialog-close
+    >{{'common.cancel' | translate}}</button>
+    <button
+      mat-button
+      type="submit"
+      color="accent"
+    >{{'common.save' | translate}}</button>
+  </mat-dialog-actions>
+
+</form>
