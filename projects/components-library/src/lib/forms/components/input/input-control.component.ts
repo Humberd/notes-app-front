@@ -1,23 +1,20 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-
-let inputCounter = 0;
+import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractFormControl } from 'components-library/lib/forms/base-classes/abstract-form-control';
 
 @Component({
   selector: 'lib-input-control',
   templateUrl: './input-control.component.html',
   styleUrls: ['./input-control.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => InputControlComponent),
+      multi: true,
+    },
+  ],
 })
-export class InputControlComponent implements OnInit {
-  @Input() label: string;
-  @Input() placeholder: string;
-
-  readonly id = `input-${++inputCounter}`;
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+export class InputControlComponent extends AbstractFormControl<string> {
 
 }

@@ -1,6 +1,7 @@
 <lib-input-control
   class="name"
   [label]="'common.name' | translate"
+  [formControl]="formDefinition.name"
 ></lib-input-control>
 
 <div class="preview">
@@ -24,8 +25,8 @@
   <span
     [cpToggle]="true"
     cpDialogDisplay="inline"
-    [colorPicker]="formDefinition.colorHex.value"
     cpAlphaChannel="disabled"
+    [colorPicker]="formDefinition.colorHex.value"
     (colorPickerChange)="formDefinition.colorHex.setValue($event)"
   >
   </span>
