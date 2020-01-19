@@ -1,0 +1,33 @@
+<lib-input-control
+  class="name"
+  [label]="'common.name' | translate"
+></lib-input-control>
+
+
+<div class="preview">
+  <label libLabel>
+    {{'common.preview' | translate}}
+  </label>
+  <app-note-tag
+    class="tag-preview"
+    [removable]="true"
+    [contextMenuDisabled]="true"
+    [tag]="{
+      id: '1',
+      name: 'hello'
+    }"
+  ></app-note-tag>
+</div>
+
+
+<div
+  class="picker"
+>
+  <span
+    [cpToggle]="true"
+    cpDialogDisplay="inline"
+    [(colorPicker)]="colorPicker"
+  >
+  </span>
+</div>
+

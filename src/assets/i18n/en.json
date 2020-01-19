@@ -15,7 +15,9 @@
     "unstar": "Unstar",
     "edit": "Edit",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "preview": "Preview",
+    "name": "Name"
   },
   "tags": {
     "no_tags": "No tags",

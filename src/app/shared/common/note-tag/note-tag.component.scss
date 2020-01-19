@@ -5,6 +5,8 @@
   user-select: none;
 
   display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
 
   &.removable {
     padding-right: 0;
@@ -13,8 +15,9 @@
 
 .close-icon-button {
   display: inline-flex;
-  margin-left: 3px;
-  padding: 0 6px;
+  margin-left: var(--space-xsm);
+  padding: 0 var(--space-sm);
+  align-self: stretch;
 
   &:hover, &:focus {
     background-color: rgb(255, 255, 255, 0.1);

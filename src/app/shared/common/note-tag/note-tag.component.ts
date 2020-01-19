@@ -18,8 +18,9 @@ import { NoteTag } from '../../../domains/note/models/note-tag';
 export class NoteTagComponent {
   @Input() tag: NoteTag;
   @Input() removable: boolean;
-  @Output() removed = new EventEmitter<NoteTag>();
+  @Input() contextMenuDisabled: boolean;
 
+  @Output() removed = new EventEmitter<NoteTag>();
   tagOptions: OptionConfig<NoteTag>[];
 
   constructor(tagOptionsController: TagOptionsController) {

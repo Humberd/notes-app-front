@@ -5,6 +5,7 @@ import { EditTagDialogComponent } from './components/edit-tag-dialog/edit-tag-di
 import { MatDialogModule } from '@angular/material/dialog';
 import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
+import { TagEditFormModule } from '../../forms/tag/tag-edit-form/tag-edit-form.module';
 
 @NgModule({
   imports: [
@@ -12,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     TranslateModule,
     MatButtonModule,
+    TagEditFormModule,
   ],
   providers: [
     TagDialogsService,

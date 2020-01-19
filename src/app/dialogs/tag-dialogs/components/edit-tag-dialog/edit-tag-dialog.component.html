@@ -1,9 +1,7 @@
 <h1 mat-dialog-title>{{'tags.edit_tag' | translate}}</h1>
 
 <mat-dialog-content>
-  <p>
-    Hello
-  </p>
+  <app-tag-edit-form></app-tag-edit-form>
 </mat-dialog-content>
 
 <mat-dialog-actions>
@@ -14,6 +12,5 @@
   <button
     mat-raised-button
     [mat-dialog-close]="'ok'"
-    color="accent"
   >{{'common.save' | translate}}</button>
 </mat-dialog-actions>

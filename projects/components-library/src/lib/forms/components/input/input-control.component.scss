@@ -1,0 +1,12 @@
+input {
+  background-color: var(--backgroundColor-tertiary);
+  border: none;
+  color: var(--textColor-primary);
+  font-size: 15px;
+  line-height: 24px;
+  padding: 0 10px;
+
+  &::placeholder {
+    color: var(--textColor-secondary);
+  }
+}
