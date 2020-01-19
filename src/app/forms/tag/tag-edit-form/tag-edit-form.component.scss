@@ -1,6 +1,8 @@
 :host {
   display: grid;
-  grid-template-areas: "name picker" "preview picker";
+  grid-template-areas: "name picker" "preview picker" "spacer picker";
+  grid-column-gap: var(--space-md);
+  grid-row-gap: var(--space-xl);
 }
 
 .name {

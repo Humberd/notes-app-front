@@ -4,13 +4,14 @@
   <app-tag-edit-form></app-tag-edit-form>
 </mat-dialog-content>
 
-<mat-dialog-actions>
+<mat-dialog-actions align="end">
   <button
     mat-button
     mat-dialog-close
   >{{'common.cancel' | translate}}</button>
   <button
-    mat-raised-button
+    mat-button
     [mat-dialog-close]="'ok'"
+    color="accent"
   >{{'common.save' | translate}}</button>
 </mat-dialog-actions>
