@@ -6,6 +6,8 @@ import { Note } from '../../note/models/note';
 import { TagDeleteRequest } from '../models/tag.delete-request';
 import { Tag } from '../models/tag.model';
 import { TagsRepository } from '../models/tags.repository';
+import { TagUpdateRequest } from '../models/tag.update-request';
+import { NoteTag } from '../../note/models/note-tag';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +21,10 @@ export class TagsIndexedDbRepositoryService implements TagsRepository {
     return this.indexedDbLayer.addTag(body.noteId, body.name);
   }
 
+  update(id: string, body: TagUpdateRequest): Observable<NoteTag> {
+    return this.indexedDbLayer.updateTag(id, body.name, body.colorHex);
+  }
+
   readList(): Observable<Tag[]> {
     return this.indexedDbLayer.readTagsList();
   }
@@ -28,7 +34,7 @@ export class TagsIndexedDbRepositoryService implements TagsRepository {
   }
 
   delete(body: TagDeleteRequest): Observable<any> {
-    return this.indexedDbLayer.removeTag(body.noteId, body.name);
+    return this.indexedDbLayer.removeTag(body.noteId, body.tagId);
   }
 
 }

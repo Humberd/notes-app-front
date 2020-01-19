@@ -83,7 +83,7 @@ export class TagsBarComponent implements OnInit {
   removeTag(tag: NoteTag) {
     this.tagsService.delete({
       noteId: this.note.id,
-      name: tag.name,
+      tagId: tag.id,
     })
       .subscribe();
   }

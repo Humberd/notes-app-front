@@ -12,5 +12,5 @@ export interface IndexedDbNoteStructure {
 export interface IndexedDbTagStructure {
   id: string;
   name: string;
-  color?: string;
+  colorHex?: string;
 }
