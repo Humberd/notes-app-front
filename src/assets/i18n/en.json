@@ -27,5 +27,8 @@
   },
   "notes": {
     "title_placeholder": "Empty note"
+  },
+  "validators": {
+    "color_hex": "Color is not in a HEX format"
   }
 }
