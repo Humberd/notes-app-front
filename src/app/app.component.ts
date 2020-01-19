@@ -10,7 +10,7 @@ import { ElectronService } from './core/electron/electron.service';
 })
 export class AppComponent {
   constructor(
-    public electronService: ElectronService,
+    private electronService: ElectronService,
     private translate: TranslateService,
   ) {
     translate.setDefaultLang('en');
