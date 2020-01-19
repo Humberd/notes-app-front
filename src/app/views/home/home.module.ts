@@ -6,14 +6,12 @@ import { routes } from './home.routes';
 import { ResizableModule } from 'angular-resizable-element';
 import { GeneralListComponent } from './general-list/general-list.component';
 import { TranslateModule } from '@ngx-translate/core';
-import {
-  MatAutocompleteModule,
-  MatButtonModule,
-  MatDividerModule,
-  MatIconModule,
-  MatMenuModule,
-  MatTooltipModule,
-} from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { GeneralPillComponent } from './general-list/general-pill/general-pill.component';
 import { NotesListComponent } from './notes-list/notes-list.component';
 import { NoteListItemComponent } from './notes-list/note-list-item/note-list-item.component';

@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { MatMenu, MatMenuTrigger } from '@angular/material';
+import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { OverlayConfig } from '@angular/cdk/overlay';
 
 @Directive({

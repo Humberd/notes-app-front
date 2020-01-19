@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { OptionConfig } from '../optionConfig';
-import { MatMenu } from '@angular/material';
+import { MatMenu } from '@angular/material/menu';
 
 @Component({
   selector: 'app-context-menu',
