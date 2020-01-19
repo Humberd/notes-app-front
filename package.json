@@ -53,7 +53,7 @@
     "@angular/platform-browser": "9.0.0-rc.9",
     "@angular/platform-browser-dynamic": "9.0.0-rc.9",
     "@angular/router": "9.0.0-rc.9",
-    "@ng-boost/core": "^0.9.0-beta.1",
+    "@ng-boost/core": "file:../ng-boost/dist/core",
     "@ng-boost/material": "^0.9.0-beta.1",
     "@ngx-translate/core": "11.0.1",
     "@ngx-translate/http-loader": "4.0.0",
