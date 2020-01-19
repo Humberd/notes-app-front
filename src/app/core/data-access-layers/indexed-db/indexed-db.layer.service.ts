@@ -214,7 +214,10 @@ export class IndexedDbLayerService implements OnDestroy {
       id,
       name,
       colorHex,
-    });
+    })
+      .pipe(
+        tap(() => this.dataChanged$.next()),
+      );
   }
 
   removeTag(noteId: string, tagId: string): Observable<Note> {

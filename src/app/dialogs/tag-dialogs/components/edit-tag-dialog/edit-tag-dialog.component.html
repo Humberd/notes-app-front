@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>{{'tags.edit_tag' | translate}}</h1>
+
+<mat-dialog-content>
+  <p>
+    Hello
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-button
+    mat-dialog-close
+  >{{'common.cancel' | translate}}</button>
+  <button
+    mat-raised-button
+    [mat-dialog-close]="'ok'"
+    color="accent"
+  >{{'common.save' | translate}}</button>
+</mat-dialog-actions>

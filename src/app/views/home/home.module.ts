@@ -25,6 +25,7 @@ import { EditorModule } from '../../shared/editor/editor.module';
 import { NoteSearchBarComponent } from './note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.component';
+import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.co
     MatButtonModule,
     MatDividerModule,
     MatTooltipModule,
+    TagDialogsModule,
   ],
   declarations: [
     HomeComponent,
