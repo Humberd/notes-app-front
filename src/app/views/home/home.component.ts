@@ -7,7 +7,6 @@ import { ActivatedRoute } from '@angular/router';
 import { TagsRefresherService } from './_services/tags-refresher.service';
 import { NoteIdRouteParam } from './_services/note-id-route-param';
 import { CurrentNoteRefresherService } from './_services/current-note-refresher.service';
-import { TagDialogsService } from '../../dialogs/tag-dialogs/services/tag-dialogs.service';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +37,6 @@ export class HomeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private tagsRefresherService: TagsRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
-    private tagDialogsService: TagDialogsService,
   ) {
   }
 
@@ -47,8 +45,6 @@ export class HomeComponent implements OnInit {
     this.notesSearchService.start(this.activatedRoute);
     this.tagsRefresherService.start();
     this.currentNoteRefresherService.start();
-
-    this.tagDialogsService.openEditTagDialog();
   }
 
   generalPanelValidator = (resizeEvent: ResizeEvent) => {
