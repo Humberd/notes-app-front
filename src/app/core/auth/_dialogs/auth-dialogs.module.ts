@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import { MatDialogModule } from '@angular/material';
+import { MatDialogModule } from '@angular/material/dialog';
 import { AuthDialogsService } from './auth-dialogs.service';
 
 
