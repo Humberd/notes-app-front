@@ -1,0 +1,17 @@
+<label
+  *ngIf="label"
+  libLabel
+  [htmlFor]="id"
+>
+  {{label}}
+</label>
+
+<div>
+  <input
+    [attr.id]="id"
+    [placeholder]="placeholder || ''"
+    [formControl]="formControl"
+  />
+
+  <p *ngIf="false">error message</p>
+</div>

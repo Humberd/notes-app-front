@@ -1,0 +1,35 @@
+<lib-input-control
+  class="name"
+  [label]="'common.name' | translate"
+  [formControl]="formDefinition.name"
+></lib-input-control>
+
+<div class="preview">
+  <label libLabel>
+    {{'common.preview' | translate}}
+  </label>
+  <app-note-tag
+    class="tag-preview"
+    [removable]="true"
+    [contextMenuDisabled]="true"
+    [tag]="{
+      id: '1',
+      name: 'hello',
+      colorHex: formDefinition.colorHex.value
+    }"
+  ></app-note-tag>
+</div>
+
+
+<div class="picker">
+  <span
+    [cpToggle]="true"
+    cpDialogDisplay="inline"
+    cpAlphaChannel="disabled"
+    [colorPicker]="formDefinition.colorHex.value"
+    (colorPickerChange)="formDefinition.colorHex.setValue($event)"
+  >
+  </span>
+</div>
+
+<pre>{{rootForm.value | json}}</pre>

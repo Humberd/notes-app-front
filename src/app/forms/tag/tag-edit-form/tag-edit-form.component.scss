@@ -1,0 +1,26 @@
+:host {
+  display: grid;
+  grid-template-areas: "name picker" "preview picker" "spacer picker";
+  grid-column-gap: var(--space-md);
+  grid-row-gap: var(--space-xl);
+}
+
+.name {
+  grid-area: name;
+}
+
+.preview {
+  grid-area: preview;
+  display: flex;
+  flex-direction: column;
+
+  .tag-preview {
+    height: 30px;
+  }
+}
+
+.picker {
+  grid-area: picker;
+}
+
+

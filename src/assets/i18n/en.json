@@ -12,15 +12,23 @@
     "restore": "Restore",
     "duplicate": "Duplicate",
     "star": "Star",
-    "unstar": "Unstar"
+    "unstar": "Unstar",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "save": "Save",
+    "preview": "Preview",
+    "name": "Name"
   },
   "tags": {
     "no_tags": "No tags",
     "add_tag": "Add tag",
-    "edit_name": "Edit name",
+    "edit_tag": "Edit tag",
     "edit_color": "Edit color"
   },
   "notes": {
     "title_placeholder": "Empty note"
+  },
+  "validators": {
+    "color_hex": "Color is not in a HEX format"
   }
 }

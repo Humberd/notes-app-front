@@ -22,12 +22,18 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger {
     this.menu = menu;
   }
 
+  @Input() contextMenuDisabled = false;
+
   private currentClickCoords: { x: number, y: number } = {
     x: 0,
     y: 0,
   };
 
   _handleClick(event: MouseEvent): void {
+    if (this.contextMenuDisabled) {
+      return;
+    }
+
     event.preventDefault();
     event.stopPropagation();
     this.currentClickCoords.x = event.x;
