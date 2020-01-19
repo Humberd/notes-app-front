@@ -4,6 +4,17 @@
   [formControl]="formDefinition.name"
 ></lib-input-control>
 
+<div class="picker">
+  <span
+    [cpToggle]="true"
+    cpDialogDisplay="inline"
+    cpAlphaChannel="disabled"
+    [colorPicker]="formDefinition.colorHex.value"
+    (colorPickerChange)="formDefinition.colorHex.setValue($event)"
+  >
+  </span>
+</div>
+
 <div class="preview">
   <label libLabel>
     {{'common.preview' | translate}}
@@ -18,18 +29,6 @@
       colorHex: formDefinition.colorHex.value
     }"
   ></app-note-tag>
-</div>
-
-
-<div class="picker">
-  <span
-    [cpToggle]="true"
-    cpDialogDisplay="inline"
-    cpAlphaChannel="disabled"
-    [colorPicker]="formDefinition.colorHex.value"
-    (colorPickerChange)="formDefinition.colorHex.setValue($event)"
-  >
-  </span>
 </div>
 
 <pre>{{rootForm.value | json}}</pre>
