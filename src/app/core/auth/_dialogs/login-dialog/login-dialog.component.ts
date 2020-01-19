@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Oauth2Service } from '../../_services/oauth2.service';
-import { MatDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-login-dialog',

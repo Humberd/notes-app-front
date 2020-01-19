@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NoteTagComponent } from './note-tag/note-tag.component';
-import { MatDividerModule, MatIconModule, MatMenuModule } from '@angular/material';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { ContextMenuTriggerForDirective } from './context-menu/context-menu-trigger-for.directive';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { TranslateModule } from '@ngx-translate/core';
