@@ -1,7 +1,7 @@
 import { Directive, Input, OnInit } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
 import { OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { delay, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { delayWhen, map, switchMap, takeUntil, tap } from 'rxjs/operators';
 import { fromEvent, Subject } from 'rxjs';
 import { Destroy$ } from '@ng-boost/core';
 
@@ -41,18 +41,19 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger implements On
           event.preventDefault();
           this.closeMenu();
 
-          const elementUnderBackdropToPropagateTheEvent = document.elementFromPoint(event.clientX, event.clientY);
-          if (!elementUnderBackdropToPropagateTheEvent) {
-            console.log('not found');
+          const elementUnderBackdropToPropagateTheEventTo = document.elementFromPoint(event.clientX, event.clientY);
+          if (!elementUnderBackdropToPropagateTheEventTo) {
 
             throw Error('elem not found');
           }
 
           const clonedEvent = new MouseEvent('contextmenu', event);
 
-          return {event: clonedEvent, target: elementUnderBackdropToPropagateTheEvent};
+          return {target: elementUnderBackdropToPropagateTheEventTo, event: clonedEvent};
         }),
-        delay(100),
+        /* We have to wait until the existing closing menu animation ends, otherwise
+        *  we have some animation glitches. */
+        delayWhen(() => (this.menu as MatMenu)._animationDone),
         tap(({event, target}) => target.dispatchEvent(event)),
         takeUntil(this.destroy$),
       )
