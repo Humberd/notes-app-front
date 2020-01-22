@@ -5,12 +5,7 @@ import { OverlayConfig } from '@angular/cdk/overlay';
 @Directive({
   selector: `[appContextMenuTriggerFor]`,
   host: {
-    class: 'mat-menu-trigger',
-    'aria-haspopup': 'true',
-    '[attr.aria-expanded]': 'menuOpen || null',
-    '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
-    '(mousedown)': '_handleMousedown($event)',
-    '(contextmenu)': '_handleClick($event)',
+    '(contextmenu)': '_handleClick($event, true)',
   },
   exportAs: 'appContextMenuTrigger',
 })
@@ -28,7 +23,11 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger {
     y: 0,
   };
 
-  _handleClick(event: MouseEvent): void {
+  _handleClick(event: MouseEvent, wasContextMenu?: boolean): void {
+    if (!wasContextMenu) {
+      return;
+    }
+
     if (this.contextMenuDisabled) {
       return;
     }
