@@ -1,19 +1,25 @@
 :host {
   background-color: var(--backgroundColor-secondary);
-  padding: 0 6px;
-  margin-right: 8px;
+  padding: 0 var(--space-sm);
+  margin-right: var(--space-sm);
   user-select: none;
 
   display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
 
   &.removable {
     padding-right: 0;
   }
 }
 
-.close-icon-button {
+.container {
+  width: 100%;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+button.close-icon {
   display: inline-flex;
   margin-left: var(--space-xsm);
   padding: 0 var(--space-sm);

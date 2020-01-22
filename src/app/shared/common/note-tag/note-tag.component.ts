@@ -27,4 +27,9 @@ export class NoteTagComponent {
     this.tagOptions = tagOptionsController.getOptions();
   }
 
+  onRemove(event: MouseEvent) {
+    event.stopPropagation();
+    this.removed.emit(this.tag);
+  }
+
 }

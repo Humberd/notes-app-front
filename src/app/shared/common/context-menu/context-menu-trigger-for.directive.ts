@@ -8,8 +8,7 @@ import { OverlayConfig } from '@angular/cdk/overlay';
     class: 'mat-menu-trigger',
     'aria-haspopup': 'true',
     '[attr.aria-expanded]': 'menuOpen || null',
-    // todo: add when MatMenuPanel has a panelId property in Angular 9.0
-    // '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
+    '[attr.aria-controls]': 'menuOpen ? menu.panelId : null',
     '(mousedown)': '_handleMousedown($event)',
     '(contextmenu)': '_handleClick($event)',
   },
