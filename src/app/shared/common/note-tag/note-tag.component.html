@@ -1,23 +1,27 @@
-<span
+<div
+  class="container"
   [appContextMenuTriggerFor]="contextMenu.matMenu"
   [contextMenuDisabled]="contextMenuDisabled"
 >
-  #{{tag.name}}
+  <span>
+    #{{tag.name}}
+  </span>
 
-  <app-context-menu
-    #contextMenu
-    [options]="tagOptions"
-    [item]="tag"
-  ></app-context-menu>
-</span>
+  <button
+    class="close-icon"
+    *ngIf="removable"
+    aria-label="Remove tag"
+    (click)="onRemove($event)"
+  >
+    <mat-icon class="close-icon">
+      close
+    </mat-icon>
+  </button>
 
-<button
-  class="close-icon-button"
-  *ngIf="removable"
-  aria-label="Remove tag"
-  (click)="removed.emit(tag)"
->
-  <mat-icon class="close-icon">
-    close
-  </mat-icon>
-</button>
+</div>
+
+<app-context-menu
+  #contextMenu
+  [options]="tagOptions"
+  [item]="tag"
+></app-context-menu>
