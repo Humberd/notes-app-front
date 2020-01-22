@@ -1,6 +1,9 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { MatMenu, MatMenuTrigger } from '@angular/material/menu';
-import { OverlayConfig } from '@angular/cdk/overlay';
+import { OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { delay, map, switchMap, takeUntil, tap } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { Destroy$ } from '@ng-boost/core';
 
 @Directive({
   selector: `[appContextMenuTriggerFor]`,
@@ -10,7 +13,9 @@ import { OverlayConfig } from '@angular/cdk/overlay';
   exportAs: 'appContextMenuTrigger',
 })
 // @ts-ignore
-export class ContextMenuTriggerForDirective extends MatMenuTrigger {
+export class ContextMenuTriggerForDirective extends MatMenuTrigger implements OnInit {
+  @Destroy$() private readonly destroy$ = new Subject();
+
   @Input('appContextMenuTriggerFor')
   set trigger(menu: MatMenu) {
     this.menu = menu;
@@ -22,6 +27,37 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger {
     x: 0,
     y: 0,
   };
+
+  ngOnInit(): void {
+    this.menuOpened
+      .pipe(
+        switchMap(() => {
+          // @ts-ignore
+          const overlayRef: OverlayRef = this._overlayRef;
+          return fromEvent(overlayRef.backdropElement, 'contextmenu');
+        }),
+        map((event: MouseEvent) => {
+          // don't show context menu on the backdrop
+          event.preventDefault();
+          this.closeMenu();
+
+          const elementUnderBackdropToPropagateTheEvent = document.elementFromPoint(event.clientX, event.clientY);
+          if (!elementUnderBackdropToPropagateTheEvent) {
+            console.log('not found');
+
+            throw Error('elem not found');
+          }
+
+          const clonedEvent = new MouseEvent('contextmenu', event);
+
+          return {event: clonedEvent, target: elementUnderBackdropToPropagateTheEvent};
+        }),
+        delay(100),
+        tap(({event, target}) => target.dispatchEvent(event)),
+        takeUntil(this.destroy$),
+      )
+      .subscribe();
+  }
 
   _handleClick(event: MouseEvent, wasContextMenu?: boolean): void {
     if (!wasContextMenu) {
@@ -53,6 +89,5 @@ export class ContextMenuTriggerForDirective extends MatMenuTrigger {
       direction: this._dir,
     });
   }
-
 
 }
