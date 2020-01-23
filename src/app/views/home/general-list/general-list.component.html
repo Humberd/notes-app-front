@@ -1,7 +1,7 @@
 <app-general-pill
   icon="note"
   [name]="'common.all_notes' | translate"
-  [counter]="0"
+  [counter]="(notesStatsRefresherService.data$ | async)?.allCount"
   [href]="replaceNoteTypeInPathWith('all')"
   [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'all'"
 ></app-general-pill>
@@ -9,7 +9,7 @@
 <app-general-pill
   icon="star"
   [name]="'common.starred' | translate"
-  [counter]="0"
+  [counter]="(notesStatsRefresherService.data$ | async)?.starredCount"
   [href]="replaceNoteTypeInPathWith('starred')"
   [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'starred'"
 ></app-general-pill>
@@ -17,7 +17,7 @@
 <app-general-pill
   icon="delete"
   [name]="'common.trash' | translate"
-  [counter]="0"
+  [counter]="(notesStatsRefresherService.data$ | async)?.deletedCount"
   [href]="replaceNoteTypeInPathWith('trash')"
   [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'trash'"
 ></app-general-pill>

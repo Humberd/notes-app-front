@@ -6,8 +6,10 @@ import { Note } from '../../../domains/note/models/note';
 import { NoteTag } from '../../../domains/note/models/note-tag';
 import { Tag } from '../../../domains/tag/models/tag.model';
 import { Injectable, OnDestroy } from '@angular/core';
+import { NotesStats } from '../../../domains/notes-stats/models/notes-stats';
 
 type NoteId = string;
+type TagId = string;
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +17,8 @@ type NoteId = string;
 export class IndexedDbLayerService implements OnDestroy {
   private db = new IndexedDbAccessor();
 
-  readonly dataChanged$ = new Subject<NoteId>();
+  readonly noteChanged$ = new Subject<NoteId>();
+  readonly tagChanged$ = new Subject<TagId>();
 
   constructor() {
     this.db.connect();
@@ -45,14 +48,14 @@ export class IndexedDbLayerService implements OnDestroy {
       isStarred: false,
     })
       .pipe(
-        tap(note => this.dataChanged$.next(note.id)),
+        tap(note => this.noteChanged$.next(note.id)),
       );
   }
 
   forceDelete(noteId: string): Observable<void> {
     return this.db.deleteNote(noteId)
       .pipe(
-        tap(() => this.dataChanged$.next(noteId)),
+        tap(() => this.noteChanged$.next(noteId)),
       );
   }
 
@@ -60,7 +63,7 @@ export class IndexedDbLayerService implements OnDestroy {
     return this.db.readNote(noteId);
   }
 
-  readList(type: NoteType, searchQuery: string): Observable<Note[]> {
+  readList(type: NoteType, searchQuery?: string): Observable<Note[]> {
     return this.db.readAllNotes()
       .pipe(
         map(notes => {
@@ -94,7 +97,11 @@ export class IndexedDbLayerService implements OnDestroy {
   watchNotesList(type: NoteType, searchQuery: string): Observable<Note[]> {
     return merge(
       this.readList(type, searchQuery),
-      this.dataChanged$
+      this.noteChanged$
+        .pipe(
+          switchMap(() => this.readList(type, searchQuery)),
+        ),
+      this.tagChanged$
         .pipe(
           switchMap(() => this.readList(type, searchQuery)),
         ),
@@ -104,9 +111,13 @@ export class IndexedDbLayerService implements OnDestroy {
   watchNote(noteId: string): Observable<Note> {
     return merge(
       this.read(noteId),
-      this.dataChanged$
+      this.noteChanged$
         .pipe(
           filter(noteIdChanged => noteId === noteIdChanged),
+          switchMap(() => this.read(noteId)),
+        ),
+      this.tagChanged$
+        .pipe(
           switchMap(() => this.read(noteId)),
         ),
     );
@@ -121,7 +132,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isDeleted: true,
           updatedAt: new Date(),
         })),
-        tap(() => this.dataChanged$.next(noteId)),
+        tap(() => this.noteChanged$.next(noteId)),
       );
   }
 
@@ -134,7 +145,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isDeleted: false,
           updatedAt: new Date(),
         })),
-        tap(() => this.dataChanged$.next(noteId)),
+        tap(() => this.noteChanged$.next(noteId)),
       );
   }
 
@@ -147,7 +158,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isStarred: true,
           updatedAt: new Date(),
         })),
-        tap(() => this.dataChanged$.next(noteId)),
+        tap(() => this.noteChanged$.next(noteId)),
       );
   }
 
@@ -160,7 +171,7 @@ export class IndexedDbLayerService implements OnDestroy {
           isStarred: false,
           updatedAt: new Date(),
         })),
-        tap(() => this.dataChanged$.next(noteId)),
+        tap(() => this.noteChanged$.next(noteId)),
       );
   }
 
@@ -174,7 +185,7 @@ export class IndexedDbLayerService implements OnDestroy {
           tags: this.uniqueTagIds(note.tags),
           updatedAt: new Date(),
         })),
-        tap(() => this.dataChanged$.next()),
+        tap(() => this.noteChanged$.next()),
       );
   }
 
@@ -191,7 +202,10 @@ export class IndexedDbLayerService implements OnDestroy {
           return this.db.addTag({
             id: this.randomId(),
             name: tagName,
-          });
+          })
+            .pipe(
+              tap(() => this.tagChanged$.next(noteId)),
+            );
         }),
         switchMap(tag =>
           this.read(noteId)
@@ -203,9 +217,9 @@ export class IndexedDbLayerService implements OnDestroy {
                   updatedAt: new Date(),
                 }),
               ),
+              tap(() => this.noteChanged$.next(noteId)),
             ),
         ),
-        tap(() => this.dataChanged$.next(noteId)),
       );
   }
 
@@ -216,7 +230,7 @@ export class IndexedDbLayerService implements OnDestroy {
       colorHex,
     })
       .pipe(
-        tap(() => this.dataChanged$.next()),
+        tap(() => this.tagChanged$.next(id)),
       );
   }
 
@@ -247,7 +261,10 @@ export class IndexedDbLayerService implements OnDestroy {
             }),
             map(() => updatedNote),
           )),
-        tap(() => this.dataChanged$.next(noteId)),
+        tap(() => {
+          this.tagChanged$.next(tagId);
+          this.noteChanged$.next(noteId);
+        }),
       );
   }
 
@@ -264,7 +281,10 @@ export class IndexedDbLayerService implements OnDestroy {
             ),
           ),
         ),
-        tap(newNote => this.dataChanged$.next(newNote.id)),
+        tap(newNote => {
+          this.tagChanged$.next();
+          this.noteChanged$.next(newNote.id);
+        }),
       );
   }
 
@@ -296,9 +316,30 @@ export class IndexedDbLayerService implements OnDestroy {
   watchTagsList(): Observable<Tag[]> {
     return merge(
       this.readTagsList(),
-      this.dataChanged$
+      this.tagChanged$
         .pipe(
           switchMap(() => this.readTagsList()),
+        ),
+    );
+  }
+
+  readNotesStats(): Observable<NotesStats> {
+    return this.readList('all')
+      .pipe(
+        map(notes => ({
+          allCount: notes.length,
+          deletedCount: notes.filter(it => it.isDeleted).length,
+          starredCount: notes.filter(it => it.isStarred).length,
+        })),
+      );
+  }
+
+  watchNotesStats(): Observable<NotesStats> {
+    return merge(
+      this.readNotesStats(),
+      this.noteChanged$
+        .pipe(
+          switchMap(() => this.readNotesStats()),
         ),
     );
   }

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { TagsRefresherService } from './_services/tags-refresher.service';
 import { NoteIdRouteParam } from './_services/note-id-route-param';
 import { CurrentNoteRefresherService } from './_services/current-note-refresher.service';
+import { NotesStatsRefresherService } from './_services/notes-stats-refresher.service';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,7 @@ import { CurrentNoteRefresherService } from './_services/current-note-refresher.
     NotesSearchService,
     TagsRefresherService,
     CurrentNoteRefresherService,
+    NotesStatsRefresherService,
   ],
 })
 export class HomeComponent implements OnInit {
@@ -37,6 +39,7 @@ export class HomeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private tagsRefresherService: TagsRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
+    private notesStatsRefresherService: NotesStatsRefresherService,
   ) {
   }
 
@@ -45,6 +48,7 @@ export class HomeComponent implements OnInit {
     this.notesSearchService.start(this.activatedRoute);
     this.tagsRefresherService.start();
     this.currentNoteRefresherService.start();
+    this.notesStatsRefresherService.start();
   }
 
   generalPanelValidator = (resizeEvent: ResizeEvent) => {

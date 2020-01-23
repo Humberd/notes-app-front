@@ -9,6 +9,7 @@ import { AppRoutingHelperService } from '../../../shared/common/_services/app-ro
 import { TagOptionsController } from '../../../shared/common/tag-options/tag-options';
 import { OptionConfig } from '../../../shared/common/optionConfig';
 import { Tag } from '../../../domains/tag/models/tag.model';
+import { NotesStatsRefresherService } from '../_services/notes-stats-refresher.service';
 
 @Component({
   selector: 'app-general-list',
@@ -28,6 +29,7 @@ export class GeneralListComponent implements OnInit {
     private tagOptionsController: TagOptionsController,
     public tagsRefresherService: TagsRefresherService,
     public noteTypeRouteParam: NoteTypeRouteParam,
+    public notesStatsRefresherService: NotesStatsRefresherService,
   ) {
     this.tagOptions = this.tagOptionsController.getOptions();
   }
