@@ -24,6 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './note-container/actions-bar/actions-bar.component';
 import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
 import { EditorModule } from 'components-library/lib/editor/editor.module';
+import { BoostMatContextMenuModule } from '@ng-boost/material';
 
 @NgModule({
   imports: [
@@ -42,6 +43,7 @@ import { EditorModule } from 'components-library/lib/editor/editor.module';
     MatTooltipModule,
     EditorModule,
     TagDialogsModule,
+    BoostMatContextMenuModule,
   ],
   declarations: [
     HomeComponent,
