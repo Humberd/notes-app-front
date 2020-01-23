@@ -324,14 +324,11 @@ export class IndexedDbLayerService implements OnDestroy {
   }
 
   readNotesStats(): Observable<NotesStats> {
-    return this.readList('all')
-      .pipe(
-        map(notes => ({
-          allCount: notes.length,
-          deletedCount: notes.filter(it => it.isDeleted).length,
-          starredCount: notes.filter(it => it.isStarred).length,
-        })),
-      );
+    return forkJoin({
+      allCount: this.readList('all').pipe(map(it => it.length)),
+      deletedCount: this.readList('trash').pipe(map(it => it.length)),
+      starredCount: this.readList('starred').pipe(map(it => it.length)),
+    });
   }
 
   watchNotesStats(): Observable<NotesStats> {
