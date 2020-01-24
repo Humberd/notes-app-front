@@ -1,6 +1,11 @@
-/// <reference lib="webworker" />
+// <reference lib="webworker" /> doesnt work
+
+// @ts-ignore
+importScripts('/web-worker-scripts/marked.min.js');
 
 addEventListener('message', ({data}) => {
-  const response = `worker response to ${data}`;
-  postMessage(response);
+  // @ts-ignore
+  const result = marked(data);
+  // @ts-ignore
+  postMessage(result);
 });

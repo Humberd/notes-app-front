@@ -36,6 +36,11 @@
                 "glob": "**/*",
                 "input": "node_modules/ngx-monaco-editor/assets/monaco",
                 "output": "./assets/monaco/"
+              },
+              {
+                "glob": "marked.min.js",
+                "input": "node_modules/marked",
+                "output": "./web-worker-scripts/"
               }
             ],
             "styles": [
