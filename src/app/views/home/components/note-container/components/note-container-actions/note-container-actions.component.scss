@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+}
+
+button.action {
+
+  &:not(:first-child) {
+    margin-left: 5px;
+  }
+
+}

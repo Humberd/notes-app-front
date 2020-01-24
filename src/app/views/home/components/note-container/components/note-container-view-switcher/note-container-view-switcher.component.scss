@@ -1,0 +1,10 @@
+:host {
+  display: flex;
+}
+
+.separator {
+  display: inline-block;
+  height: 100%;
+  width: 1px;
+  background-color: var(--textColor-secondary);
+}

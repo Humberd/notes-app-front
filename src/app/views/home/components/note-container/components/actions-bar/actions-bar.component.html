@@ -1,15 +1,4 @@
-<ng-container *ngFor="let noteOption of noteOptions; trackBy: trackBy">
 
-  <ng-container *ngIf="noteOption.showWhen(note)">
+<app-note-container-view-switcher [note]="note"></app-note-container-view-switcher>
 
-    <button
-      class="action"
-      (click)="noteOption.action(note)"
-      [matTooltip]="noteOption.labelTK | translate"
-    >
-      <mat-icon [color]="noteOption.iconColor">{{noteOption.icon}}</mat-icon>
-    </button>
-
-  </ng-container>
-
-</ng-container>
+<app-note-container-actions [note]="note"></app-note-container-actions>

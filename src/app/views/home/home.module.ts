@@ -25,6 +25,9 @@ import { ActionsBarComponent } from './components/note-container/components/acti
 import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
 import { EditorModule } from 'components-library/lib/editor/editor.module';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
+import { ButtonsModule } from 'components-library/lib/buttons/buttons.module';
+import { NoteContainerActionsComponent } from './components/note-container/components/note-container-actions/note-container-actions.component';
+import { NoteContainerViewSwitcherComponent } from './components/note-container/components/note-container-view-switcher/note-container-view-switcher.component';
 
 @NgModule({
   imports: [
@@ -44,6 +47,7 @@ import { BoostMatContextMenuModule } from '@ng-boost/material';
     EditorModule,
     TagDialogsModule,
     BoostMatContextMenuModule,
+    ButtonsModule,
   ],
   declarations: [
     HomeComponent,
@@ -56,6 +60,8 @@ import { BoostMatContextMenuModule } from '@ng-boost/material';
     NoteContentComponent,
     NoteSearchBarComponent,
     ActionsBarComponent,
+    NoteContainerActionsComponent,
+    NoteContainerViewSwitcherComponent,
   ],
 })
 export class HomeModule {

@@ -8,6 +8,7 @@ import { TagsRefresherService } from './services/tags-refresher.service';
 import { NoteIdRouteParam } from './services/note-id-route-param';
 import { CurrentNoteRefresherService } from './services/current-note-refresher.service';
 import { NotesStatsRefresherService } from './services/notes-stats-refresher.service';
+import { NoteViewSwitcherService } from './services/note-view-switcher.service';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { NotesStatsRefresherService } from './services/notes-stats-refresher.ser
     TagsRefresherService,
     CurrentNoteRefresherService,
     NotesStatsRefresherService,
+    NoteViewSwitcherService,
   ],
 })
 export class HomeComponent implements OnInit {
@@ -40,6 +42,7 @@ export class HomeComponent implements OnInit {
     private tagsRefresherService: TagsRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
     private notesStatsRefresherService: NotesStatsRefresherService,
+    private noteViewSwitcherService: NoteViewSwitcherService,
   ) {
   }
 
