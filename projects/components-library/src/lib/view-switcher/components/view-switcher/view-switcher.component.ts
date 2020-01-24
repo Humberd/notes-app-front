@@ -7,7 +7,7 @@ import { ViewSwitcherConfig } from 'components-library/lib/view-switcher/models/
   templateUrl: './view-switcher.component.html',
   styleUrls: ['./view-switcher.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [ViewSwitcherService],
+  providers: [ViewSwitcherService],
 })
 export class ViewSwitcherComponent {
   @Input()
