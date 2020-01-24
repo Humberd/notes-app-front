@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Note } from '../../../../../../domains/note/models/note';
 
 @Component({
   selector: 'app-note-content-preview',
@@ -6,12 +7,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./note-content-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteContentPreviewComponent implements OnInit {
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+export class NoteContentPreviewComponent {
+  @Input() note: Note;
 
 }

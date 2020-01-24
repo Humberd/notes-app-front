@@ -1,12 +1,16 @@
 :host {
   height: 100%;
   display: flex;
+  position: relative;
+  padding-top: 50px;
 }
 
 .content-code {
-  flex: 1;
+  min-width: 100px;
+
+  border-right: 1px solid var(--backgroundColor-secondary);
+  padding-right: 4px;
 }
 
 .content-preview {
-  flex: 1;
 }

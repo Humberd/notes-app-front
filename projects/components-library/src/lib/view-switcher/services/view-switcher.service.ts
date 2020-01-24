@@ -9,6 +9,10 @@ export class ViewSwitcherService {
   private readonly _selectedView$ = new BehaviorSubject<string>('code');
   readonly selectedView$ = this._selectedView$.asObservable();
 
+  get selectedView(): string {
+    return this._selectedView$.value;
+  }
+
   select(id: string) {
     this._selectedView$.next(id);
   }
