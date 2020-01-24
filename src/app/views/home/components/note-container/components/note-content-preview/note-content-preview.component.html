@@ -1,1 +1,6 @@
-<pre style="overflow: hidden">{{note.content}}</pre>
+<div
+  style="overflow: hidden"
+  [innerHTML]="note.content | markdownPreview | async"
+>
+
+</div>

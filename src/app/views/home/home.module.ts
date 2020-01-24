@@ -30,6 +30,7 @@ import { NoteContainerActionsComponent } from './components/note-container/compo
 import { ViewSwitcherModule } from 'components-library/lib/view-switcher/view-switcher.module';
 import { NoteContentPreviewComponent } from './components/note-container/components/note-content-preview/note-content-preview.component';
 import { NoteContentComponent } from './components/note-container/components/note-content/note-content.component';
+import { MarkdownPreviewModule } from '../../shared/markdown-preview/markdown-preview.module';
 
 @NgModule({
   imports: [
@@ -51,6 +52,7 @@ import { NoteContentComponent } from './components/note-container/components/not
     BoostMatContextMenuModule,
     ButtonsModule,
     ViewSwitcherModule,
+    MarkdownPreviewModule,
   ],
   declarations: [
     HomeComponent,
