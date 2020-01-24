@@ -1,5 +1,5 @@
 import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { NoteType } from '../../../views/home/_services/note-type-route-param';
+import { NoteType } from '../../../views/home/services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { Note } from '../../../domains/note/models/note';

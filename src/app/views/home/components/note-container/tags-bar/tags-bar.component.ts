@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { TagsRefresherService } from '../../_services/tags-refresher.service';
+import { TagsRefresherService } from '../../../services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { Note } from '../../../../domains/note/models/note';
-import { NoteTag } from '../../../../domains/note/models/note-tag';
-import { TagsService } from '../../../../domains/tag/services/tags.service';
+import { Note } from '../../../../../domains/note/models/note';
+import { NoteTag } from '../../../../../domains/note/models/note-tag';
+import { TagsService } from '../../../../../domains/tag/services/tags.service';
 
 @Component({
   selector: 'app-tags-bar',

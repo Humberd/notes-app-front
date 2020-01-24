@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
-import { NoteTypeRouteParam } from './_services/note-type-route-param';
-import { NotesRefresherService } from './_services/notes-refresher.service';
-import { NotesSearchService } from './_services/notes-search.service';
+import { NoteTypeRouteParam } from './services/note-type-route-param';
+import { NotesRefresherService } from './services/notes-refresher.service';
+import { NotesSearchService } from './services/notes-search.service';
 import { ActivatedRoute } from '@angular/router';
-import { TagsRefresherService } from './_services/tags-refresher.service';
-import { NoteIdRouteParam } from './_services/note-id-route-param';
-import { CurrentNoteRefresherService } from './_services/current-note-refresher.service';
-import { NotesStatsRefresherService } from './_services/notes-stats-refresher.service';
+import { TagsRefresherService } from './services/tags-refresher.service';
+import { NoteIdRouteParam } from './services/note-id-route-param';
+import { CurrentNoteRefresherService } from './services/current-note-refresher.service';
+import { NotesStatsRefresherService } from './services/notes-stats-refresher.service';
 
 @Component({
   selector: 'app-home',

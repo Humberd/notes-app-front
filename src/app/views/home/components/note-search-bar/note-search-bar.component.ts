@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NotesSearchService } from '../_services/notes-search.service';
+import { NotesSearchService } from '../../services/notes-search.service';
 import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
-import { NotesService } from '../../../domains/note/services/notes.service';
+import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
+import { NotesService } from '../../../../domains/note/services/notes.service';
 
 @Component({
   selector: 'app-note-search-bar',

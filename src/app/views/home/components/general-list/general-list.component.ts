@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { NoteType, NoteTypeRouteParam } from '../_services/note-type-route-param';
+import { NoteType, NoteTypeRouteParam } from '../../services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
-import { TagsRefresherService } from '../_services/tags-refresher.service';
-import { AppRoutingHelperService } from '../../../shared/common/_services/app-routing-helper.service';
-import { TagOptionsController } from '../../../shared/common/tag-options/tag-options';
-import { OptionConfig } from '../../../shared/common/optionConfig';
-import { Tag } from '../../../domains/tag/models/tag.model';
-import { NotesStatsRefresherService } from '../_services/notes-stats-refresher.service';
+import { TagsRefresherService } from '../../services/tags-refresher.service';
+import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
+import { TagOptionsController } from '../../../../shared/common/tag-options/tag-options';
+import { OptionConfig } from '../../../../shared/common/optionConfig';
+import { Tag } from '../../../../domains/tag/models/tag.model';
+import { NotesStatsRefresherService } from '../../services/notes-stats-refresher.service';
 
 @Component({
   selector: 'app-general-list',
