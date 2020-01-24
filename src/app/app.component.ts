@@ -15,6 +15,7 @@ export class AppComponent {
   ) {
     translate.setDefaultLang('en');
     console.log('AppConfig', environment);
+    this.worker();
 
     if (electronService.isElectron) {
       console.log(process.env);
@@ -24,5 +25,14 @@ export class AppComponent {
     } else {
       console.log('Mode web');
     }
+  }
+
+  private worker() {
+    const worker = new Worker('./shared/markdown-preview.worker', {type: 'module'});
+    worker.onmessage = ({data}) => {
+      console.log(data);
+    };
+
+    worker.postMessage('HELLO');
   }
 }
