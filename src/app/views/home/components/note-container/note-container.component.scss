@@ -1,5 +1,5 @@
-:host {
-  padding: 15px 25px;
+.container {
+  padding: var(--space-md) var(--space-l);
   height: 100%;
 
   display: flex;
@@ -7,7 +7,7 @@
 }
 
 app-tags-bar {
-  margin-bottom: 20px;
+  margin-bottom: var(--space-md);
 }
 
 app-note-content {
