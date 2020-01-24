@@ -3,9 +3,9 @@ import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
-import { NotesRefresherService } from '../../../services/notes-refresher.service';
-import { Note } from '../../../../../domains/note/models/note';
-import { NotesService } from '../../../../../domains/note/services/notes.service';
+import { NotesRefresherService } from '../../../../services/notes-refresher.service';
+import { Note } from '../../../../../../domains/note/models/note';
+import { NotesService } from '../../../../../../domains/note/services/notes.service';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
 @Component({
