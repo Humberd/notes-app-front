@@ -18,7 +18,7 @@ import { NoteListItemComponent } from './components/notes-list/note-list-item/no
 import { AppCommonModule } from '../../shared/common/app-common.module';
 import { NoteContainerComponent } from './components/note-container/note-container.component';
 import { TagsBarComponent } from './components/note-container/components/tags-bar/tags-bar.component';
-import { NoteContentComponent } from './components/note-container/components/note-content/note-content.component';
+import { NoteContentCodeComponent } from './components/note-container/components/note-content-code/note-content-code.component';
 import { NoteSearchBarComponent } from './components/note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './components/note-container/components/actions-bar/actions-bar.component';
@@ -28,6 +28,8 @@ import { BoostMatContextMenuModule } from '@ng-boost/material';
 import { ButtonsModule } from 'components-library/lib/buttons/buttons.module';
 import { NoteContainerActionsComponent } from './components/note-container/components/note-container-actions/note-container-actions.component';
 import { ViewSwitcherModule } from 'components-library/lib/view-switcher/view-switcher.module';
+import { NoteContentPreviewComponent } from './components/note-container/components/note-content-preview/note-content-preview.component';
+import { NoteContentComponent } from './components/note-container/components/note-content/note-content.component';
 
 @NgModule({
   imports: [
@@ -58,10 +60,12 @@ import { ViewSwitcherModule } from 'components-library/lib/view-switcher/view-sw
     NoteListItemComponent,
     NoteContainerComponent,
     TagsBarComponent,
-    NoteContentComponent,
+    NoteContentCodeComponent,
     NoteSearchBarComponent,
     ActionsBarComponent,
     NoteContainerActionsComponent,
+    NoteContentPreviewComponent,
+    NoteContentComponent,
   ],
 })
 export class HomeModule {

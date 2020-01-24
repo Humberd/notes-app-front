@@ -1,4 +1,13 @@
-<lib-editor
-  [options]="editorOptions"
-  [formControl]="noteContentControl"
-></lib-editor>
+<ng-container *ngIf="viewSwitcherService.selectedView$ | async as selectedView">
+  <app-note-content-code
+    class="content-code"
+    *ngIf="selectedView === 'code' || selectedView === 'split'"
+    [note]="note"
+  ></app-note-content-code>
+
+  <app-note-content-preview
+    class="content-preview"
+    *ngIf="selectedView === 'split' || selectedView === 'preview'"
+  ></app-note-content-preview>
+
+</ng-container>
