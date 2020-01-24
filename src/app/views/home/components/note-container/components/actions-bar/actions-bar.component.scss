@@ -1,6 +1,9 @@
 :host {
-  margin-bottom: 15px;
+  margin-bottom: var(--space-md);
   display: flex;
   justify-content: flex-end;
 }
 
+.view-switcher {
+  margin-right: var(--space-xl);
+}
