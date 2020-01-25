@@ -29,7 +29,9 @@
     "no_tags": "No tags",
     "add_tag": "Add tag",
     "edit_tag": "Edit tag",
-    "edit_color": "Edit color"
+    "edit_color": "Edit color",
+    "delete_tag_dialog_title": "Delete tag",
+    "delete_tag_dialog_content": "You are going to delete {{value}} from ALL of the existing notes. Are you sure?"
   },
   "notes": {
     "title_placeholder": "Empty note"

@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{dialogData.title}}</h1>
+
+<mat-dialog-content>
+  <p>
+    {{dialogData.content}}
+  </p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close
+  >{{'common.cancel' | translate}}</button>
+  <button
+    mat-button
+    [color]="dialogData.actionButtonColor"
+    (click)="confirm()"
+  >{{dialogData.actionButton}}</button>
+</mat-dialog-actions>
+
