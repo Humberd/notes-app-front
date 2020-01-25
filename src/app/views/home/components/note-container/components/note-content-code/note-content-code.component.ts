@@ -27,9 +27,12 @@ export class NoteContentCodeComponent implements OnInit {
   // tslint:disable-next-line:variable-name
   private _note: Note;
   @Input()
-  set note(note: Note) {
-    this._note = note;
-    this.noteContentControl.setValue(note.content);
+  set note(newNote: Note) {
+    if (this._note?.id !== newNote.id) {
+      this.noteContentControl.setValue(newNote.content);
+    }
+
+    this._note = newNote;
   }
 
   constructor(
