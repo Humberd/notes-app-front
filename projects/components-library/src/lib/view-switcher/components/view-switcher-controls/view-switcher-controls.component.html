@@ -1,0 +1,17 @@
+<ng-container
+  *ngFor="let viewType of noteViewSwitcherService.availableViews; let last = last"
+>
+  <button
+    libIconButton
+    [matTooltip]="viewType.labelTK | translate"
+    (click)="noteViewSwitcherService.select(viewType.id)"
+  >
+    <mat-icon [color]="(noteViewSwitcherService.selectedView$ | async) === viewType.id ? 'accent': undefined">{{viewType.icon}}</mat-icon>
+  </button>
+
+  <div
+    *ngIf="!last"
+    class="separator"
+  ></div>
+
+</ng-container>

@@ -1,4 +1,28 @@
-<lib-editor
-  [options]="editorOptions"
-  [formControl]="noteContentControl"
-></lib-editor>
+<ng-container *ngIf="viewSwitcherService.selectedView$ | async as selectedView">
+  <app-note-content-code
+    *ngIf="selectedView === 'code' || selectedView === 'split'"
+    class="content-code"
+    [note]="note"
+    mwlResizable
+    [style.width]="getCodePanelSize()"
+    [resizeEdges]="{right: true}"
+    [resizeCursorPrecision]="resizeAreaWidth"
+    [validateResize]="codePanelValidator"
+    (resizing)="codePanelResizeEnd($event)"
+    (resizeEnd)="codePanelResizeEnd($event)"
+  ></app-note-content-code>
+
+  <app-note-content-preview
+    *ngIf="selectedView === 'split' || selectedView === 'preview'"
+    class="content-preview"
+    [note]="note"
+    [style.width]="getPreviewPanelSize()"
+    [style.max-width]="getPreviewPanelSize()"
+  ></app-note-content-preview>
+
+</ng-container>
+
+<div style="position: absolute; top: 0;left: 0;">
+  <div>code: {{getCodePanelSize()}}</div>
+  <div>preview: {{getPreviewPanelSize()}}</div>
+</div>

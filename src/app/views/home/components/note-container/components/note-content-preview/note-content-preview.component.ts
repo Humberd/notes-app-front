@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Note } from '../../../../../../domains/note/models/note';
 
 @Component({
-  selector: 'app-actions-bar',
-  templateUrl: './actions-bar.component.html',
-  styleUrls: ['./actions-bar.component.scss'],
+  selector: 'app-note-content-preview',
+  templateUrl: './note-content-preview.component.html',
+  styleUrls: ['./note-content-preview.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ActionsBarComponent {
+export class NoteContentPreviewComponent {
   @Input() note: Note;
 
 }

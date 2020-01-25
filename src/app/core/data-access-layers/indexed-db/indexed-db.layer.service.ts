@@ -185,7 +185,7 @@ export class IndexedDbLayerService implements OnDestroy {
           tags: this.uniqueTagIds(note.tags),
           updatedAt: new Date(),
         })),
-        tap(() => this.noteChanged$.next()),
+        tap(() => this.noteChanged$.next(noteId)),
       );
   }
 

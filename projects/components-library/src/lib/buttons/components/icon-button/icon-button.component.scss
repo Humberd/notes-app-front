@@ -1,0 +1,16 @@
+:host {
+  color: var(--textColor-secondary);
+  height: 32px;
+  width: 32px;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: var(--transition-basic);
+
+  &:hover, &:focus {
+    background-color: var(--backgroundColor-tertiary);
+    color: var(--textColor-primary);
+  }
+}

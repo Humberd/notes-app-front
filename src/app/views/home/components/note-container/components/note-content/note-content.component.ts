@@ -1,12 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Destroy$ } from '@ng-boost/core';
-import { Subject } from 'rxjs';
-import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
-import { NotesRefresherService } from '../../../../services/notes-refresher.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Note } from '../../../../../../domains/note/models/note';
-import { NotesService } from '../../../../../../domains/note/services/notes.service';
-import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
+import { ViewSwitcherService } from 'components-library/lib/view-switcher/services/view-switcher.service';
+import { ResizeEvent } from 'angular-resizable-element';
 
 @Component({
   selector: 'app-note-content',
@@ -14,48 +9,47 @@ import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
   styleUrls: ['./note-content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteContentComponent implements OnInit {
-  @Destroy$() private readonly destroy$ = new Subject();
-  readonly editorOptions: IEditorConstructionOptions = {
-    theme: 'vs-dark',
-    language: 'markdown',
-    wordWrap: 'on',
-    automaticLayout: true,
+export class NoteContentComponent {
+  @Input() note: Note;
+
+  resizeAreaWidth = 7;
+  codePanelMinWidth = 100;
+  codePanelWidth: number;
+
+  constructor(public viewSwitcherService: ViewSwitcherService) {
+  }
+
+  codePanelValidator = (resizeEvent: ResizeEvent) => {
+    console.log('resizing');
+    return resizeEvent.rectangle.width >= this.codePanelMinWidth;
   };
-  noteContentControl = new FormControl();
 
-  // tslint:disable-next-line:variable-name
-  private _note: Note;
-  @Input()
-  set note(note: Note) {
-    this._note = note;
-    this.noteContentControl.setValue(note.content);
+  codePanelResizeEnd(event: ResizeEvent) {
+    this.codePanelWidth = event.rectangle.width;
   }
 
-  constructor(
-    private notesService: NotesService,
-    private notesRefresherService: NotesRefresherService,
-  ) {
+  getCodePanelSize(): string {
+    if (this.viewSwitcherService.selectedView === 'code') {
+      return '100%';
+    }
+
+    if (!Number.isNaN(this.codePanelWidth) && !this.codePanelWidth) {
+      return '50%';
+    }
+
+    return `${this.codePanelWidth}px`;
   }
 
-  ngOnInit(): void {
-    this.noteContentControl.valueChanges
-      .pipe(
-        takeUntil(this.destroy$),
-        filter(it => it !== this._note.content),
-        debounceTime(1000),
-        switchMap(newContent => this.notesService.update(this._note.id, {
-          title: this.getTitle(newContent),
-          content: newContent,
-        })),
-      )
-      .subscribe(newNote => {
-        this.notesRefresherService.updateRef(newNote);
-      });
-  }
+  getPreviewPanelSize(): string {
+    if (this.viewSwitcherService.selectedView === 'preview') {
+      return '100%';
+    }
 
-  private getTitle(content: string): string {
-    return content.trimLeft().split('\n')[0].trim();
+    if (!Number.isNaN(this.codePanelWidth) && !this.codePanelWidth) {
+      return '50%';
+    }
+
+    return `calc(100%-${this.codePanelWidth}px)`;
   }
 
 }

@@ -17,7 +17,9 @@
     "cancel": "Cancel",
     "save": "Save",
     "preview": "Preview",
-    "name": "Name"
+    "name": "Name",
+    "raw": "Raw",
+    "split": "Split"
   },
   "tags": {
     "no_tags": "No tags",

@@ -1,26 +1,9 @@
 :host {
-  margin-bottom: 15px;
+  margin-bottom: var(--space-md);
   display: flex;
   justify-content: flex-end;
 }
 
-button.action {
-  color: var(--textColor-secondary);
-  height: 32px;
-  width: 32px;
-
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-
-  transition: var(--transition-basic);
-
-  &:not(:first-child) {
-    margin-left: 5px;
-  }
-
-  &:hover, &:focus {
-    background-color: var(--backgroundColor-tertiary);
-    color: var(--textColor-primary);
-  }
+.view-switcher {
+  margin-right: var(--space-xl);
 }

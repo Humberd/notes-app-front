@@ -1,10 +1,14 @@
-<ng-container *ngIf="currentNoteRefresher.data$ | async as note; else noteNotExist">
+<lib-view-switcher
+  class="container"
+  *ngIf="currentNoteRefresher.data$ | async as note; else noteNotExist"
+  [config]="viewSwitcherConfig"
+>
   <app-actions-bar [note]="note"></app-actions-bar>
 
   <app-tags-bar [note]="note"></app-tags-bar>
 
   <app-note-content [note]="note"></app-note-content>
-</ng-container>
+</lib-view-switcher>
 
 <ng-template #noteNotExist>
   Note does not exist
