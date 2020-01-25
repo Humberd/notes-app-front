@@ -7,6 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MatButtonModule } from '@angular/material/button';
 import { TagEditFormModule } from '../../forms/tag/tag-edit-form/tag-edit-form.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonDialogsModule } from '../common-dialogs/common-dialogs.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatButtonModule,
     TagEditFormModule,
     ReactiveFormsModule,
+    CommonDialogsModule,
   ],
   providers: [
     TagDialogsService,
