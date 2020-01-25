@@ -32,4 +32,9 @@ export class AppRoutingHelperService {
 
     return '/' + urlSegments.join('/').split('?')[0];
   }
+
+  updateNotePath(noteId: string): Promise<boolean> {
+    const newUrl = this.replaceNoteIdInPath(noteId);
+    return this.router.navigateByUrl(newUrl);
+  }
 }

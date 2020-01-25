@@ -274,11 +274,16 @@ export class IndexedDbLayerService implements OnDestroy {
         switchMap(baseNote => this.add()
           .pipe(
             switchMap(newNote => this.updateContent(newNote.id, this.generateDuplicateTitle(baseNote.title), baseNote.content)),
-            switchMap(newNote => forkJoin(...baseNote.tags.map(tag => this.addTag(newNote.id, tag.name)))
-              .pipe(
-                switchMap(() => this.read(newNote.id)),
-              ),
-            ),
+            switchMap(newNote => {
+              if (baseNote.tags.length === 0) {
+                return this.read(newNote.id);
+              }
+
+              return forkJoin(...baseNote.tags.map(tag => this.addTag(newNote.id, tag.name)))
+                .pipe(
+                  switchMap(() => this.read(newNote.id)),
+                );
+            }),
           ),
         ),
         tap(newNote => {

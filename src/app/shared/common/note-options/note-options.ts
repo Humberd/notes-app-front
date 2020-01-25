@@ -2,11 +2,15 @@ import { OptionConfig } from '../optionConfig';
 import { Injectable } from '@angular/core';
 import { Note } from '../../../domains/note/models/note';
 import { NotesService } from '../../../domains/note/services/notes.service';
+import { AppRoutingHelperService } from '../_services/app-routing-helper.service';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class NoteOptionsController {
   constructor(
     private notesService: NotesService,
+    private appRoutingHelperService: AppRoutingHelperService,
+    private router: Router,
   ) {
 
   }
@@ -18,7 +22,8 @@ export class NoteOptionsController {
         labelTK: 'common.duplicate',
         showWhen: note => !note.isDeleted,
         action: note => this.notesService.duplicate(note.id)
-          .subscribe(),
+          .subscribe(duplicatedNote => this.appRoutingHelperService.updateNotePath(duplicatedNote.id),
+            console.error, () => console.log('completed')),
       },
       {
         icon: 'star_border',
