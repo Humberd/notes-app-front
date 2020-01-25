@@ -8,9 +8,7 @@ import { Note } from '../../../domains/note/models/note';
   providedIn: 'root',
 })
 export class NoteRouteTitleResolver extends TitleRouteResolver {
-
   private readonly title$ = new Subject<string>();
-
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<string> | Promise<string> | string {
     return this.title$.asObservable();
