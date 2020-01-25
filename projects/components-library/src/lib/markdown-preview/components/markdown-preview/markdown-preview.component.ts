@@ -14,7 +14,6 @@ import { MarkdownPreviewService } from 'components-library/lib/markdown-preview/
 export class MarkdownPreviewComponent implements OnInit {
   @Input()
   set text(text: string) {
-    console.log({text});
     this.markdownPreviewService.compile(text)
       .subscribe(htmlOutput => {
         this.elementRef.nativeElement.innerHTML = htmlOutput;

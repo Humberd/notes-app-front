@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -7,12 +7,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./icon-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IconButtonComponent implements OnInit {
-
-  constructor() {
-  }
-
-  ngOnInit() {
-  }
+export class IconButtonComponent {
 
 }
