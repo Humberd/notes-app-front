@@ -22,8 +22,7 @@ export class NoteOptionsController {
         labelTK: 'common.duplicate',
         showWhen: note => !note.isDeleted,
         action: note => this.notesService.duplicate(note.id)
-          .subscribe(duplicatedNote => this.appRoutingHelperService.updateNotePath(duplicatedNote.id),
-            console.error, () => console.log('completed')),
+          .subscribe(duplicatedNote => this.appRoutingHelperService.updateNotePath(duplicatedNote.id)),
       },
       {
         icon: 'star_border',

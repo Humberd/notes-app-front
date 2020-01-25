@@ -204,7 +204,7 @@ export class IndexedDbLayerService implements OnDestroy {
             name: tagName,
           })
             .pipe(
-              tap(() => this.tagChanged$.next(noteId)),
+              tap(newTag => this.tagChanged$.next(newTag.id)),
             );
         }),
         switchMap(tag =>
@@ -217,7 +217,10 @@ export class IndexedDbLayerService implements OnDestroy {
                   updatedAt: new Date(),
                 }),
               ),
-              tap(() => this.noteChanged$.next(noteId)),
+              tap(() => {
+                this.noteChanged$.next(noteId);
+                this.tagChanged$.next(tag.id);
+              }),
             ),
         ),
       );
