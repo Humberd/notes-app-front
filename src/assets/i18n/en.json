@@ -1,4 +1,7 @@
 {
+  "core": {
+    "app_title": "Notes App"
+  },
   "common": {
     "all_notes": "All Notes",
     "starred": "Starred",
