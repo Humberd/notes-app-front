@@ -273,7 +273,7 @@ export class IndexedDbLayerService implements OnDestroy {
       .pipe(
         switchMap(baseNote => this.add()
           .pipe(
-            switchMap(newNote => this.updateContent(newNote.id, baseNote.title, baseNote.content)),
+            switchMap(newNote => this.updateContent(newNote.id, this.generateDuplicateTitle(baseNote.title), baseNote.content)),
             switchMap(newNote => forkJoin(...baseNote.tags.map(tag => this.addTag(newNote.id, tag.name)))
               .pipe(
                 switchMap(() => this.read(newNote.id)),
@@ -339,5 +339,21 @@ export class IndexedDbLayerService implements OnDestroy {
           switchMap(() => this.readNotesStats()),
         ),
     );
+  }
+
+  private generateDuplicateTitle(title: string): string {
+    const matcher = /\((\d+)\)$/;
+
+    const matchResult = title.match(matcher);
+    if (!matchResult) {
+      return `${title} (1)`;
+    }
+
+    const currentDuplicateIndex = Number(matchResult[1]);
+    if (Number.isNaN(currentDuplicateIndex)) {
+      return `${title} (1)`;
+    }
+
+    return title.replace(matcher, `(${currentDuplicateIndex + 1})`);
   }
 }

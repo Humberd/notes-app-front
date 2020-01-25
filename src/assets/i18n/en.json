@@ -19,7 +19,8 @@
     "preview": "Preview",
     "name": "Name",
     "raw": "Raw",
-    "split": "Split"
+    "split": "Split",
+    "title": "Title"
   },
   "tags": {
     "no_tags": "No tags",

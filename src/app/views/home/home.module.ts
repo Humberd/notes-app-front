@@ -31,6 +31,7 @@ import { ViewSwitcherModule } from 'components-library/lib/view-switcher/view-sw
 import { NoteContentPreviewComponent } from './components/note-container/components/note-content-preview/note-content-preview.component';
 import { NoteContentComponent } from './components/note-container/components/note-content/note-content.component';
 import { MarkdownPreviewModule } from 'components-library/lib/markdown-preview/markdown-preview.module';
+import { NoteTitleFieldComponent } from './components/note-container/components/note-title-field/note-title-field.component';
 
 @NgModule({
   imports: [
@@ -68,6 +69,7 @@ import { MarkdownPreviewModule } from 'components-library/lib/markdown-preview/m
     NoteContainerActionsComponent,
     NoteContentPreviewComponent,
     NoteContentComponent,
+    NoteTitleFieldComponent,
   ],
 })
 export class HomeModule {

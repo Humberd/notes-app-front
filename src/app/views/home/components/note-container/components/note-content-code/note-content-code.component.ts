@@ -3,9 +3,9 @@ import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
-import { NotesRefresherService } from '../../../../services/notes-refresher.service';
 import { Note } from '../../../../../../domains/note/models/note';
 import { NotesService } from '../../../../../../domains/note/services/notes.service';
+import { FormValidators } from '../../../../../../form-validators/form.validators';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
 @Component({
@@ -22,22 +22,25 @@ export class NoteContentCodeComponent implements OnInit {
     wordWrap: 'on',
     automaticLayout: true,
   };
-  noteContentControl = new FormControl();
+  noteContentControl = new FormControl('', FormValidators.note.content);
 
   // tslint:disable-next-line:variable-name
   private _note: Note;
   @Input()
   set note(newNote: Note) {
-    if (this._note?.id !== newNote.id) {
+    if (this.note?.id !== newNote.id) {
       this.noteContentControl.setValue(newNote.content);
     }
 
     this._note = newNote;
   }
 
+  get note(): Note {
+    return this._note;
+  }
+
   constructor(
     private notesService: NotesService,
-    private notesRefresherService: NotesRefresherService,
   ) {
   }
 
@@ -45,20 +48,14 @@ export class NoteContentCodeComponent implements OnInit {
     this.noteContentControl.valueChanges
       .pipe(
         takeUntil(this.destroy$),
-        filter(it => it !== this._note.content),
+        filter(it => it !== this.note.content),
         debounceTime(1000),
-        switchMap(newContent => this.notesService.update(this._note.id, {
-          title: this.getTitle(newContent),
+        switchMap(newContent => this.notesService.update(this.note.id, {
+          title: this.note.title,
           content: newContent,
         })),
       )
-      .subscribe(newNote => {
-        this.notesRefresherService.updateRef(newNote);
-      });
-  }
-
-  private getTitle(content: string): string {
-    return content.trimLeft().split('\n')[0].trim();
+      .subscribe();
   }
 
 }
