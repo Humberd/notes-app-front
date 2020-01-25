@@ -29,7 +29,6 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<Note> {
   }
 
   protected onSuccess(success: Note): void {
-    console.log({success});
     this.noteNameRouteTitleResolver.setTitle(success);
   }
 }
