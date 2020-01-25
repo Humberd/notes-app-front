@@ -12,14 +12,16 @@ export class MarkdownPreviewService {
 
   compile(rawText: string): Observable<string> {
     return new Observable<string>(subscriber => {
-      const worker = new Worker('../web-workers/markdown-preview.worker', {type: 'module'});
+      const worker = new Worker('../../../../../../src/app/web-workers/markdown-preview.worker', {type: 'module'});
 
       worker.onmessage = ({data}) => {
+        worker.terminate();
         subscriber.next(this.domSanitizer.sanitize(SecurityContext.HTML, data));
         subscriber.complete();
       };
 
       worker.onerror = ev => {
+        worker.terminate();
         subscriber.error(ev);
       };
 

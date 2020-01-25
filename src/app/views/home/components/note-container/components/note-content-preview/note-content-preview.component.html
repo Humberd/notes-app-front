@@ -1,7 +1,11 @@
-<div
-  class="note-preview-component"
-  style="overflow: hidden"
-  [innerHTML]="note.content | markdownPreview | async"
->
+<lib-markdown-preview
+  [text]="note.content"
+></lib-markdown-preview>
 
-</div>
+<!--<div-->
+<!--  class="note-preview-component"-->
+<!--  style="overflow: hidden"-->
+<!--  [innerHTML]="note.content | markdownPreview | async"-->
+<!--&gt;-->
+
+<!--</div>-->
