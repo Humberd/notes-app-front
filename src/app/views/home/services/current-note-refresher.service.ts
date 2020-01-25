@@ -5,6 +5,7 @@ import { NoteIdRouteParam } from './note-id-route-param';
 import { filter, switchMap } from 'rxjs/operators';
 import { Note } from '../../../domains/note/models/note';
 import { NotesService } from '../../../domains/note/services/notes.service';
+import { NoteRouteTitleResolver } from '../../../shared/common/_services/note-route-title-resolver.service';
 
 @Injectable()
 export class CurrentNoteRefresherService extends SimpleDataRefresher<Note> {
@@ -12,6 +13,7 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<Note> {
   constructor(
     private notesService: NotesService,
     private noteIdRouteParam: NoteIdRouteParam,
+    private noteNameRouteTitleResolver: NoteRouteTitleResolver,
   ) {
     super({
       period: NEVER_REFRESH,
@@ -26,4 +28,8 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<Note> {
       );
   }
 
+  protected onSuccess(success: Note): void {
+    console.log({success});
+    this.noteNameRouteTitleResolver.setTitle(success);
+  }
 }
