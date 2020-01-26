@@ -47,4 +47,8 @@ export class GeneralListComponent implements OnInit {
     return this.appRoutingHelperService.replaceNoteTypeInPath(path, this.noteTypeRouteParam.value);
   }
 
+  trackByTag(index: number, tag: Tag) {
+    return tag.id;
+  }
+
 }
