@@ -16,4 +16,6 @@ export interface TagsRepository {
   watchList(): Observable<Tag[]>;
 
   delete(body: TagDeleteRequest): Observable<any>;
+
+  deletePermanently(id: string): Observable<any>;
 }
