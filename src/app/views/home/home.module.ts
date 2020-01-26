@@ -12,7 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { GeneralPillComponent } from './components/general-list/general-pill/general-pill.component';
+import { GeneralPillComponent } from './components/general-list/components/general-pill/general-pill.component';
 import { NotesListComponent } from './components/notes-list/notes-list.component';
 import { NoteListItemComponent } from './components/notes-list/note-list-item/note-list-item.component';
 import { AppCommonModule } from '../../shared/common/app-common.module';
@@ -22,7 +22,7 @@ import { NoteContentCodeComponent } from './components/note-container/components
 import { NoteSearchBarComponent } from './components/note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './components/note-container/components/actions-bar/actions-bar.component';
-import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
+import { TagDialogsModule } from '../../dialogs/tag/tag-dialogs.module';
 import { EditorModule } from 'components-library/lib/editor/editor.module';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
 import { ButtonsModule } from 'components-library/lib/buttons/buttons.module';

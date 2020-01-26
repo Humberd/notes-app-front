@@ -8,6 +8,8 @@ import { TagsRefresherService } from './services/tags-refresher.service';
 import { NoteIdRouteParam } from './services/note-id-route-param';
 import { CurrentNoteRefresherService } from './services/current-note-refresher.service';
 import { NotesStatsRefresherService } from './services/notes-stats-refresher.service';
+import { GeneralPanelExpansionService } from './services/general-panel-expansion.service';
+import { PanelExpansionStatus } from './models/panel-expansion-status';
 
 @Component({
   selector: 'app-home',
@@ -22,16 +24,21 @@ import { NotesStatsRefresherService } from './services/notes-stats-refresher.ser
     TagsRefresherService,
     CurrentNoteRefresherService,
     NotesStatsRefresherService,
+    GeneralPanelExpansionService,
   ],
 })
 export class HomeComponent implements OnInit {
   readonly resizeAreaWidth = 7;
+
+  generalPanelWidthWhenHidden = 50;
 
   generalPanelMinWidth = 100;
   generalPanelWidth = 250;
 
   notesPanelMinWidth = 100;
   notesPanelWidth = 300;
+
+  PanelExpansionStatus = PanelExpansionStatus;
 
   constructor(
     private notesRefresherService: NotesRefresherService,
@@ -40,6 +47,7 @@ export class HomeComponent implements OnInit {
     private tagsRefresherService: TagsRefresherService,
     private currentNoteRefresherService: CurrentNoteRefresherService,
     private notesStatsRefresherService: NotesStatsRefresherService,
+    public generalPanelExpansionService: GeneralPanelExpansionService,
   ) {
   }
 
@@ -66,5 +74,14 @@ export class HomeComponent implements OnInit {
 
   notesPanelResizeEnd(event: ResizeEvent) {
     this.notesPanelWidth = event.rectangle.width;
+  }
+
+  getMainContentWidth(): string {
+    let generalPanelWidth = this.generalPanelWidth;
+    if (this.generalPanelExpansionService.status === PanelExpansionStatus.HIDDEN) {
+      generalPanelWidth = this.generalPanelWidthWhenHidden;
+    }
+
+    return `calc(100% - ${generalPanelWidth}px - ${this.notesPanelWidth}px)`;
   }
 }

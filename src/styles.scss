@@ -56,7 +56,9 @@ input {
   --textColor-accent: #1ec38b;
   --backgroundColor-accent: #1ea26c;
 
-  --transition-basic: all 0.1s linear;
+  --transition-duration: 0.1s;
+  --transition-function: linear;
+  --transition-basic: all var(--transition-duration) var(--transition-function);
 
   --space-xl: 32px;
   --space-l: 24px;

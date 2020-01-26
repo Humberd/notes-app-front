@@ -1,15 +1,20 @@
 <aside
   class="panel"
   mwlResizable
-  [style.width.px]="generalPanelWidth"
-  [resizeEdges]="{right: true}"
+  [class.hidden]="(generalPanelExpansionService.status$ | async) === PanelExpansionStatus.HIDDEN"
+  [style.width.px]="(generalPanelExpansionService.status$ | async) === PanelExpansionStatus.VISIBLE ? generalPanelWidth : generalPanelWidthWhenHidden"
+  [resizeEdges]="(generalPanelExpansionService.status$ | async) === PanelExpansionStatus.VISIBLE  ? {right: true} : {}"
   [resizeCursorPrecision]="resizeAreaWidth"
   [validateResize]="generalPanelValidator"
   (resizing)="generalPanelResizeEnd($event)"
   (resizeEnd)="generalPanelResizeEnd($event)"
 >
 
-  <app-general-list></app-general-list>
+  <app-general-list
+    [panelExpansionStatus]="generalPanelExpansionService.status$ | async"
+    (panelHide)="generalPanelExpansionService.hide()"
+    (panelShow)="generalPanelExpansionService.show()"
+  ></app-general-list>
 
 </aside>
 
@@ -31,7 +36,7 @@
 
 <main
   class="main"
-  [style.width]="'calc(100% - '+generalPanelWidth+'px - '+notesPanelWidth+'px)'"
+  [style.width]="getMainContentWidth()"
 >
 
   <app-note-container></app-note-container>

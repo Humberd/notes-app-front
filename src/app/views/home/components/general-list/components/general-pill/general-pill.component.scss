@@ -1,7 +1,13 @@
+@mixin generalPillAnimation() {
+  transition-duration: var(--transition-duration);
+  transition-timing-function: var(--transition-function);
+  transition-property: background-color, color;
+}
+
 .list-item {
   font-size: 14px;
   height: 36px;
-  padding: 0 20px;
+  padding: 0 var(--space-md);
   width: 100%;
   user-select: none;
 
@@ -11,7 +17,7 @@
   align-items: center;
   overflow: hidden;
 
-  transition: var(--transition-basic);
+  @include generalPillAnimation;
 
   &:hover {
     background-color: var(--backgroundColor-secondary);
@@ -34,15 +40,24 @@
     }
   }
 
+  &.hidden {
+    padding: 0;
+    justify-content: center;
+
+    .icon {
+      margin: 0;
+    }
+  }
+
   & > * {
-    transition: var(--transition-basic);
+    @include generalPillAnimation;
   }
 
   .icon {
     font-size: 20px;
     width: 20px;
     height: 20px;
-    margin-right: 10px;
+    margin-right: var(--space-sm);
   }
 
   .name {

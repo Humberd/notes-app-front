@@ -3,6 +3,8 @@
   *ngIf="href"
   [routerLink]="href"
   [class.active-route]="isHrefActive"
+  [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
+  [matTooltip]="getTooltip()"
   queryParamsHandling="preserve"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
@@ -11,6 +13,8 @@
 <button
   class="list-item"
   *ngIf="!href"
+  [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
+  [matTooltip]="getTooltip()"
   (click)="action.emit()"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
@@ -18,6 +22,8 @@
 
 <ng-template #pillContent>
   <mat-icon class="icon">{{icon}}</mat-icon>
-  <span class="name">{{name}}</span>
-  <span class="counter">{{counter !== undefined ? counter : ''}}</span>
+  <ng-container *ngIf="isVisible()">
+    <span class="name">{{name}}</span>
+    <span class="counter">{{counter !== undefined ? counter : ''}}</span>
+  </ng-container>
 </ng-template>

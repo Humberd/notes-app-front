@@ -4,6 +4,7 @@
   [counter]="(notesStatsRefresherService.data$ | async)?.allCount"
   [href]="replaceNoteTypeInPathWith('all')"
   [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'all'"
+  [expansionStatus]="panelExpansionStatus"
 ></app-general-pill>
 
 <app-general-pill
@@ -12,6 +13,7 @@
   [counter]="(notesStatsRefresherService.data$ | async)?.starredCount"
   [href]="replaceNoteTypeInPathWith('starred')"
   [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'starred'"
+  [expansionStatus]="panelExpansionStatus"
 ></app-general-pill>
 
 <app-general-pill
@@ -20,28 +22,43 @@
   [counter]="(notesStatsRefresherService.data$ | async)?.deletedCount"
   [href]="replaceNoteTypeInPathWith('trash')"
   [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'trash'"
+  [expansionStatus]="panelExpansionStatus"
 ></app-general-pill>
 
 
 <section class="tags">
 
-  <h5 class="header">{{'common.tags' | translate}}</h5>
+  <h5
+    class="header"
+    [class.hidden]="panelExpansionStatus === PanelExpansionStatus.HIDDEN"
+  >{{'common.tags' | translate}}</h5>
 
-  <ng-container *ngFor="let tag of tagsRefresherService.data$ | async">
-    <app-general-pill
-      icon="tag"
-      [name]="tag.name"
-      [counter]="tag.notesCount"
-      [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
-    ></app-general-pill>
+  <div class="tags-container">
+    <ng-container *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
+      <app-general-pill
+        icon="tag"
+        [name]="tag.name"
+        [counter]="tag.notesCount"
+        [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
+        [expansionStatus]="panelExpansionStatus"
+      ></app-general-pill>
 
-    <app-context-menu
-      #contextMenu
-      [options]="tagOptions"
-      [item]="tag"
-    ></app-context-menu>
+      <app-context-menu
+        #contextMenu
+        [options]="tagOptions"
+        [item]="tag"
+      ></app-context-menu>
 
-  </ng-container>
+    </ng-container>
+  </div>
 
 </section>
 
+<footer class="options">
+  <app-general-pill
+    [icon]="panelExpansionStatus === PanelExpansionStatus.VISIBLE ? 'chevron_left' : 'chevron_right'"
+    [name]="(panelExpansionStatus === PanelExpansionStatus.VISIBLE ? 'common.hide' : 'common.show') | translate"
+    [expansionStatus]="panelExpansionStatus"
+    (action)="togglePanel()"
+  ></app-general-pill>
+</footer>

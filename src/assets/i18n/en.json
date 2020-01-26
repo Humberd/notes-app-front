@@ -23,7 +23,9 @@
     "name": "Name",
     "raw": "Raw",
     "split": "Split",
-    "title": "Title"
+    "title": "Title",
+    "hide": "Hide",
+    "show": "Show"
   },
   "tags": {
     "no_tags": "No tags",
