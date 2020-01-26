@@ -22,4 +22,16 @@ export class GeneralPillComponent {
     return this.expansionStatus === PanelExpansionStatus.VISIBLE;
   }
 
+  getTooltip() {
+    if (this.expansionStatus === PanelExpansionStatus.VISIBLE) {
+      return;
+    }
+
+    if (this.counter === undefined || this.counter === null) {
+      return this.name;
+    }
+
+    return `${this.name} (${this.counter})`;
+  }
+
 }

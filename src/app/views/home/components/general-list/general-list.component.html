@@ -28,7 +28,10 @@
 
 <section class="tags">
 
-  <h5 class="header">{{'common.tags' | translate}}</h5>
+  <h5
+    class="header"
+    [class.hidden]="panelExpansionStatus === PanelExpansionStatus.HIDDEN"
+  >{{'common.tags' | translate}}</h5>
 
   <div class="tags-container">
     <ng-container *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
@@ -53,8 +56,8 @@
 
 <footer class="options">
   <app-general-pill
-    icon="chevron_left"
-    [name]="'common.hide' | translate"
+    [icon]="panelExpansionStatus === PanelExpansionStatus.VISIBLE ? 'chevron_left' : 'chevron_right'"
+    [name]="(panelExpansionStatus === PanelExpansionStatus.VISIBLE ? 'common.hide' : 'common.show') | translate"
     [expansionStatus]="panelExpansionStatus"
     (action)="togglePanel()"
   ></app-general-pill>

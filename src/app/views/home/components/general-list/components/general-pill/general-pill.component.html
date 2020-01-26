@@ -4,6 +4,7 @@
   [routerLink]="href"
   [class.active-route]="isHrefActive"
   [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
+  [matTooltip]="getTooltip()"
   queryParamsHandling="preserve"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
@@ -13,6 +14,7 @@
   class="list-item"
   *ngIf="!href"
   [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
+  [matTooltip]="getTooltip()"
   (click)="action.emit()"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>

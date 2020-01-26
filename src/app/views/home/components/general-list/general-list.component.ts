@@ -26,6 +26,8 @@ export class GeneralListComponent implements OnInit {
   @Output() panelHide = new EventEmitter();
   @Output() panelShow = new EventEmitter();
 
+  PanelExpansionStatus = PanelExpansionStatus;
+
   tagOptions: OptionConfig<Tag>[];
 
   constructor(

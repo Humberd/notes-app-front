@@ -24,7 +24,8 @@
     "raw": "Raw",
     "split": "Split",
     "title": "Title",
-    "hide": "Hide"
+    "hide": "Hide",
+    "show": "Show"
   },
   "tags": {
     "no_tags": "No tags",
