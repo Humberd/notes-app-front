@@ -12,7 +12,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { GeneralPillComponent } from './components/general-list/general-pill/general-pill.component';
+import { GeneralPillComponent } from './components/general-list/components/general-pill/general-pill.component';
 import { NotesListComponent } from './components/notes-list/notes-list.component';
 import { NoteListItemComponent } from './components/notes-list/note-list-item/note-list-item.component';
 import { AppCommonModule } from '../../shared/common/app-common.module';

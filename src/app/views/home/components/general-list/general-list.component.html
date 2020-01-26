@@ -1,55 +1,62 @@
-<app-general-pill
-  icon="note"
-  [name]="'common.all_notes' | translate"
-  [counter]="(notesStatsRefresherService.data$ | async)?.allCount"
-  [href]="replaceNoteTypeInPathWith('all')"
-  [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'all'"
-></app-general-pill>
+<ng-container *ngIf="panelExpansionService.status$ | async as expansionStatus">
 
-<app-general-pill
-  icon="star"
-  [name]="'common.starred' | translate"
-  [counter]="(notesStatsRefresherService.data$ | async)?.starredCount"
-  [href]="replaceNoteTypeInPathWith('starred')"
-  [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'starred'"
-></app-general-pill>
-
-<app-general-pill
-  icon="delete"
-  [name]="'common.trash' | translate"
-  [counter]="(notesStatsRefresherService.data$ | async)?.deletedCount"
-  [href]="replaceNoteTypeInPathWith('trash')"
-  [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'trash'"
-></app-general-pill>
-
-
-<section class="tags">
-
-  <h5 class="header">{{'common.tags' | translate}}</h5>
-
-  <div class="tags-container">
-    <ng-container *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
-      <app-general-pill
-        icon="tag"
-        [name]="tag.name"
-        [counter]="tag.notesCount"
-        [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
-      ></app-general-pill>
-
-      <app-context-menu
-        #contextMenu
-        [options]="tagOptions"
-        [item]="tag"
-      ></app-context-menu>
-
-    </ng-container>
-  </div>
-
-</section>
-
-<footer class="options">
   <app-general-pill
-    icon="chevron_left"
-    [name]="'common.hide' | translate"
+    icon="note"
+    [name]="'common.all_notes' | translate"
+    [counter]="(notesStatsRefresherService.data$ | async)?.allCount"
+    [href]="replaceNoteTypeInPathWith('all')"
+    [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'all'"
+    [expansionStatus]="expansionStatus"
   ></app-general-pill>
-</footer>
+
+  <app-general-pill
+    icon="star"
+    [name]="'common.starred' | translate"
+    [counter]="(notesStatsRefresherService.data$ | async)?.starredCount"
+    [href]="replaceNoteTypeInPathWith('starred')"
+    [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'starred'"
+    [expansionStatus]="expansionStatus"
+  ></app-general-pill>
+
+  <app-general-pill
+    icon="delete"
+    [name]="'common.trash' | translate"
+    [counter]="(notesStatsRefresherService.data$ | async)?.deletedCount"
+    [href]="replaceNoteTypeInPathWith('trash')"
+    [isHrefActive]="(noteTypeRouteParam.value$ | async) === 'trash'"
+    [expansionStatus]="expansionStatus"
+  ></app-general-pill>
+
+
+  <section class="tags">
+
+    <h5 class="header">{{'common.tags' | translate}}</h5>
+
+    <div class="tags-container">
+      <ng-container *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
+        <app-general-pill
+          icon="tag"
+          [name]="tag.name"
+          [counter]="tag.notesCount"
+          [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
+        ></app-general-pill>
+
+        <app-context-menu
+          #contextMenu
+          [options]="tagOptions"
+          [item]="tag"
+        ></app-context-menu>
+
+      </ng-container>
+    </div>
+
+  </section>
+
+  <footer class="options">
+    <app-general-pill
+      icon="chevron_left"
+      [name]="'common.hide' | translate"
+      [expansionStatus]="expansionStatus"
+    ></app-general-pill>
+  </footer>
+</ng-container>

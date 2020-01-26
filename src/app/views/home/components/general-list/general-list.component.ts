@@ -10,13 +10,14 @@ import { TagOptionsController } from '../../../../shared/common/tag-options/tag-
 import { OptionConfig } from '../../../../shared/common/optionConfig';
 import { Tag } from '../../../../domains/tag/models/tag.model';
 import { NotesStatsRefresherService } from '../../services/notes-stats-refresher.service';
+import { PanelExpansionService } from './services/panel-expansion.service';
 
 @Component({
   selector: 'app-general-list',
   templateUrl: './general-list.component.html',
   styleUrls: ['./general-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [TagOptionsController],
+  providers: [TagOptionsController, PanelExpansionService],
 })
 export class GeneralListComponent implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
@@ -30,6 +31,7 @@ export class GeneralListComponent implements OnInit {
     public tagsRefresherService: TagsRefresherService,
     public noteTypeRouteParam: NoteTypeRouteParam,
     public notesStatsRefresherService: NotesStatsRefresherService,
+    public panelExpansionService: PanelExpansionService,
   ) {
     this.tagOptions = this.tagOptionsController.getOptions();
   }

@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { PanelExpansionStatus } from '../../models/panel-expansion-status';
 
 @Component({
   selector: 'app-general-pill',
@@ -12,6 +13,7 @@ export class GeneralPillComponent {
   @Input() counter: number;
   @Input() href?: any;
   @Input() isHrefActive?: boolean;
+  @Input() expansionStatus: PanelExpansionStatus;
   @Output() action = new EventEmitter();
 
 }
