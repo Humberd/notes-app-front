@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { PanelExpansionStatus } from '../../models/panel-expansion-status';
+import { PanelExpansionStatus } from '../../../../models/panel-expansion-status';
 
 @Component({
   selector: 'app-general-pill',
@@ -15,5 +15,9 @@ export class GeneralPillComponent {
   @Input() isHrefActive?: boolean;
   @Input() expansionStatus: PanelExpansionStatus;
   @Output() action = new EventEmitter();
+
+  isVisible(): boolean {
+    return this.expansionStatus === PanelExpansionStatus.VISIBLE;
+  }
 
 }

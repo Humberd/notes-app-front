@@ -9,7 +9,11 @@
   (resizeEnd)="generalPanelResizeEnd($event)"
 >
 
-  <app-general-list></app-general-list>
+  <app-general-list
+    [panelExpansionStatus]="generalPanelExpansionService.status$ | async"
+    (panelHide)="generalPanelExpansionService.hide()"
+    (panelShow)="generalPanelExpansionService.show()"
+  ></app-general-list>
 
 </aside>
 

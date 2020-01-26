@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { NoteType, NoteTypeRouteParam } from '../../services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -10,17 +10,22 @@ import { TagOptionsController } from '../../../../shared/common/tag-options/tag-
 import { OptionConfig } from '../../../../shared/common/optionConfig';
 import { Tag } from '../../../../domains/tag/models/tag.model';
 import { NotesStatsRefresherService } from '../../services/notes-stats-refresher.service';
-import { PanelExpansionService } from './services/panel-expansion.service';
+import { PanelExpansionStatus } from '../../models/panel-expansion-status';
 
 @Component({
   selector: 'app-general-list',
   templateUrl: './general-list.component.html',
   styleUrls: ['./general-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [TagOptionsController, PanelExpansionService],
+  providers: [TagOptionsController],
 })
 export class GeneralListComponent implements OnInit {
   @Destroy$() private readonly destroy$ = new Subject();
+
+  @Input() panelExpansionStatus: PanelExpansionStatus;
+  @Output() panelHide = new EventEmitter();
+  @Output() panelShow = new EventEmitter();
+
   tagOptions: OptionConfig<Tag>[];
 
   constructor(
@@ -31,7 +36,6 @@ export class GeneralListComponent implements OnInit {
     public tagsRefresherService: TagsRefresherService,
     public noteTypeRouteParam: NoteTypeRouteParam,
     public notesStatsRefresherService: NotesStatsRefresherService,
-    public panelExpansionService: PanelExpansionService,
   ) {
     this.tagOptions = this.tagOptionsController.getOptions();
   }
@@ -51,6 +55,19 @@ export class GeneralListComponent implements OnInit {
 
   trackByTag(index: number, tag: Tag) {
     return tag.id;
+  }
+
+  togglePanel(): void {
+    switch (this.panelExpansionStatus) {
+      case PanelExpansionStatus.VISIBLE:
+        this.panelHide.next();
+        break;
+      case PanelExpansionStatus.HIDDEN:
+        this.panelShow.next();
+        break;
+      default:
+        throw Error('unhandled toggle panel state');
+    }
   }
 
 }
