@@ -3,6 +3,7 @@
   *ngIf="href"
   [routerLink]="href"
   [class.active-route]="isHrefActive"
+  [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
   queryParamsHandling="preserve"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
@@ -11,6 +12,7 @@
 <button
   class="list-item"
   *ngIf="!href"
+  [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
   (click)="action.emit()"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>

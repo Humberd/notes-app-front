@@ -16,6 +16,8 @@ export class GeneralPillComponent {
   @Input() expansionStatus: PanelExpansionStatus;
   @Output() action = new EventEmitter();
 
+  PanelExpansionStatus = PanelExpansionStatus;
+
   isVisible(): boolean {
     return this.expansionStatus === PanelExpansionStatus.VISIBLE;
   }
