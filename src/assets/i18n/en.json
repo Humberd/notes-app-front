@@ -1,6 +1,7 @@
 {
   "core": {
-    "app_title": "Notes App"
+    "app_title": "Notes App",
+    "bar": "bar"
   },
   "common": {
     "all_notes": "All Notes",
