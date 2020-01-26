@@ -5,7 +5,6 @@ import { RouterModule } from '@angular/router';
 import { routes } from './home.routes';
 import { ResizableModule } from 'angular-resizable-element';
 import { GeneralListComponent } from './components/general-list/general-list.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -32,13 +31,13 @@ import { NoteContentPreviewComponent } from './components/note-container/compone
 import { NoteContentComponent } from './components/note-container/components/note-content/note-content.component';
 import { MarkdownPreviewModule } from 'components-library/lib/markdown-preview/markdown-preview.module';
 import { NoteTitleFieldComponent } from './components/note-container/components/note-title-field/note-title-field.component';
+import { LibTranslateModule } from '../../shared/translate/translate.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     ResizableModule,
-    TranslateModule,
     MatIconModule,
     AppCommonModule,
     ReactiveFormsModule,
@@ -54,6 +53,7 @@ import { NoteTitleFieldComponent } from './components/note-container/components/
     ButtonsModule,
     ViewSwitcherModule,
     MarkdownPreviewModule,
+    LibTranslateModule,
   ],
   declarations: [
     HomeComponent,

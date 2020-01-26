@@ -6,7 +6,7 @@
 >
   <div class="content">
     <header>
-      <h5 class="title">{{note.title || ('notes.title_placeholder' | translate)}}</h5>
+      <h5 class="title">{{note.title || ('notes.title_placeholder' | libTranslate)}}</h5>
       <mat-icon
         *ngIf="note.isStarred"
         color="accent"
@@ -28,7 +28,7 @@
       </ng-container>
 
       <ng-template #noTags>
-        <span class="no-tags">{{'tags.no_tags' | translate}}</span>
+        <span class="no-tags">{{'tags.no_tags' | libTranslate}}</span>
       </ng-template>
     </ul>
 

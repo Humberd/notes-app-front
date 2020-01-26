@@ -1,6 +1,6 @@
 <lib-input-control
   class="name"
-  [label]="'common.name' | translate"
+  [label]="'common.name' | libTranslate"
   [formControl]="formDefinition.name"
 ></lib-input-control>
 
@@ -17,7 +17,7 @@
 
 <div class="preview">
   <label libLabel>
-    {{'common.preview' | translate}}
+    {{'common.preview' | libTranslate}}
   </label>
   <app-note-tag
     class="tag-preview"
