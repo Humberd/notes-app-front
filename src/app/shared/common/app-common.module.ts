@@ -5,8 +5,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { ContextMenuComponent } from './context-menu/context-menu.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
+import { LibTranslateModule } from '../translate/translate.module';
 
 @NgModule({
   declarations: [NoteTagComponent, ContextMenuComponent],
@@ -15,8 +15,8 @@ import { BoostMatContextMenuModule } from '@ng-boost/material';
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
-    TranslateModule,
     BoostMatContextMenuModule,
+    LibTranslateModule,
   ],
   exports: [NoteTagComponent, ContextMenuComponent],
 })

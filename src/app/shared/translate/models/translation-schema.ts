@@ -1,4 +1,4 @@
-import { TranslationKey } from '@src/app/shared/translate/models/translation-key';
+import { TranslationKey } from './translation-key';
 
 export interface TranslationSchema {
   key: TranslationKey;

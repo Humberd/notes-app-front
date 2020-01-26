@@ -20,7 +20,7 @@ export class TagOptionsController {
     return [
       {
         icon: 'edit',
-        labelTK: 'common.edit',
+        label: 'common.edit',
         showWhen: tag => true,
         action: tag => this.tagDialogsService.openEditTagDialog({
           ...tag,
@@ -29,7 +29,7 @@ export class TagOptionsController {
       {
         icon: 'delete_forever',
         iconColor: 'warn',
-        labelTK: 'common.delete_permanently',
+        label: 'common.delete_permanently',
         dividerAbove: true,
         showWhen: tag => true,
         action: tag => this.tagDialogsService.openDeleteTagPermanentlyDialog(tag)

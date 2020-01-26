@@ -4,14 +4,14 @@ import { CommonDialogsService } from './services/common-dialogs.service';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { TranslateModule } from '@ngx-translate/core';
+import { LibTranslateModule } from '../../shared/translate/translate.module';
 
 @NgModule({
   imports: [
     CommonModule,
     MatDialogModule,
     MatButtonModule,
-    TranslateModule,
+    LibTranslateModule,
   ],
   providers: [CommonDialogsService],
   declarations: [ConfirmationDialogComponent],

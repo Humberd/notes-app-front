@@ -12,17 +12,17 @@ export class NoteContainerComponent {
   viewSwitcherConfig: ViewSwitcherConfig[] = [
     {
       id: 'code',
-      labelTK: 'common.raw',
+      label: 'common.raw',
       icon: 'code',
     },
     {
       id: 'split',
-      labelTK: 'common.split',
+      label: 'common.split',
       icon: 'vertical_split',
     },
     {
       id: 'preview',
-      labelTK: 'common.preview',
+      label: 'common.preview',
       icon: 'insert_drive_file',
     },
   ];

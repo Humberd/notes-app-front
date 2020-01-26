@@ -13,7 +13,7 @@ export function colorHexValidator(control: AbstractControl): ValidationResult {
 
   return {
     colorHex: {
-      messageTK: 'validators.color_hex',
+      message: 'validators.color_hex',
     },
   };
 }

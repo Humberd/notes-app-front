@@ -2,12 +2,12 @@
   class="search"
   type="text"
   [formControl]="searchControl"
-  [placeholder]="'common.search' | translate"
+  [placeholder]="'common.search' | libTranslate"
 >
 
 <button
   class="new"
   (click)="createNewNote()"
 >
-  {{'common.new' | translate}}
+  {{'common.new' | libTranslate}}
 </button>

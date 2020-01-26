@@ -1,5 +1,7 @@
+import { Translation } from '../../../../../../src/app/shared/translate/models/translation';
+
 export interface ViewSwitcherConfig {
   id: string;
-  labelTK: string;
+  label: Translation;
   icon: string;
 }

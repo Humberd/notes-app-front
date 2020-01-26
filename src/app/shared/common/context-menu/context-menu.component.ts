@@ -15,7 +15,7 @@ export class ContextMenuComponent<T> {
   @ViewChild(MatMenu, {static: true}) matMenu: MatMenu;
 
   trackBy(index: number, item: OptionConfig<T>) {
-    return item.labelTK;
+    return item.label;
   }
 
 }

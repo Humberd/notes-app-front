@@ -6,7 +6,7 @@
       class="action"
       libIconButton
       (click)="noteOption.action(note)"
-      [matTooltip]="noteOption.labelTK | translate"
+      [matTooltip]="noteOption.label | libTranslate"
     >
       <mat-icon [color]="noteOption.iconColor">{{noteOption.icon}}</mat-icon>
     </button>
