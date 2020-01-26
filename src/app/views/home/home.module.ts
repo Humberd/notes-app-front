@@ -22,7 +22,7 @@ import { NoteContentCodeComponent } from './components/note-container/components
 import { NoteSearchBarComponent } from './components/note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './components/note-container/components/actions-bar/actions-bar.component';
-import { TagDialogsModule } from '../../dialogs/tag-dialogs/tag-dialogs.module';
+import { TagDialogsModule } from '../../dialogs/tag/tag-dialogs.module';
 import { EditorModule } from 'components-library/lib/editor/editor.module';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
 import { ButtonsModule } from 'components-library/lib/buttons/buttons.module';
