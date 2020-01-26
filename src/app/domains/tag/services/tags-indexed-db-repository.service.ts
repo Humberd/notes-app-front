@@ -37,4 +37,8 @@ export class TagsIndexedDbRepositoryService implements TagsRepository {
     return this.indexedDbLayer.removeTag(body.noteId, body.tagId);
   }
 
+  deletePermanently(id: string): Observable<any> {
+    return this.indexedDbLayer.removeTagPermanently(id);
+  }
+
 }

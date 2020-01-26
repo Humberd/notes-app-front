@@ -3,13 +3,17 @@ import { Injectable } from '@angular/core';
 import { NoteTag } from '../../../domains/note/models/note-tag';
 import { Tag } from '../../../domains/tag/models/tag.model';
 import { TagDialogsService } from '../../../dialogs/tag-dialogs/services/tag-dialogs.service';
-import { filter } from 'rxjs/operators';
+import { filter, switchMap } from 'rxjs/operators';
 import { ConfirmationDialogResult } from '../../../dialogs/common-dialogs/components/confirmation-dialog/models/confirmation-dialog-result';
+import { TagsService } from '../../../domains/tag/services/tags.service';
 
 @Injectable()
 export class TagOptionsController {
 
-  constructor(private tagDialogsService: TagDialogsService) {
+  constructor(
+    private tagDialogsService: TagDialogsService,
+    private tagsService: TagsService,
+  ) {
   }
 
   getOptions(): OptionConfig<NoteTag | Tag>[] {
@@ -32,8 +36,9 @@ export class TagOptionsController {
           .afterClosed()
           .pipe(
             filter(result => result === ConfirmationDialogResult.CONFIRMED),
+            switchMap(() => this.tagsService.deletePermanently(tag.id)),
           )
-          .subscribe(() => console.log('CONFIRMED')),
+          .subscribe(),
       },
     ];
   }

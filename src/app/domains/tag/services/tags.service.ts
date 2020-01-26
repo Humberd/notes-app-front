@@ -35,4 +35,8 @@ export class TagsService {
   delete(body: TagDeleteRequest): Observable<any> {
     return this.repository.delete(body);
   }
+
+  deletePermanently(id: string): Observable<any> {
+    return this.repository.deletePermanently(id);
+  }
 }

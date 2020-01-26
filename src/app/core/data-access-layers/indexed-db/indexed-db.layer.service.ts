@@ -1,7 +1,7 @@
-import { forkJoin, merge, Observable, of, Subject } from 'rxjs';
+import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
 import { NoteType } from '../../../views/home/services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap, toArray } from 'rxjs/operators';
 import { Note } from '../../../domains/note/models/note';
 import { NoteTag } from '../../../domains/note/models/note-tag';
 import { Tag } from '../../../domains/tag/models/tag.model';
@@ -268,6 +268,31 @@ export class IndexedDbLayerService implements OnDestroy {
           this.tagChanged$.next(tagId);
           this.noteChanged$.next(noteId);
         }),
+      );
+  }
+
+  removeTagPermanently(tagId: string): Observable<any> {
+    return this.db.readAllNotes()
+      .pipe(
+        switchMap(allNotes => allNotes),
+        switchMap(note => {
+          const newTags = note.tags.filter(tag => tag.id !== tagId);
+
+          const noteHadTag = note.tags.length !== newTags.length;
+          if (!noteHadTag) {
+            return EMPTY;
+          }
+
+          return this.db.updateNote({
+            ...note,
+            tags: this.uniqueTagIds(newTags),
+            updatedAt: new Date(),
+          });
+        }),
+        tap(note => this.noteChanged$.next(note.id)),
+        toArray(),
+        switchMap(() => this.db.removeTag(tagId)),
+        tap(() => this.tagChanged$.next(tagId)),
       );
   }
 
