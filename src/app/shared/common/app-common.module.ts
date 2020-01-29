@@ -4,12 +4,11 @@ import { NoteTagComponent } from './note-tag/note-tag.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { ContextMenuComponent } from './context-menu/context-menu.component';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
 import { LibTranslateModule } from '../translate/translate.module';
+import { ContextMenuModule } from 'components-library/lib/context-menu/context-menu.module';
 
 @NgModule({
-  declarations: [NoteTagComponent, ContextMenuComponent],
   imports: [
     CommonModule,
     MatIconModule,
@@ -17,8 +16,10 @@ import { LibTranslateModule } from '../translate/translate.module';
     MatDividerModule,
     BoostMatContextMenuModule,
     LibTranslateModule,
+    ContextMenuModule,
   ],
-  exports: [NoteTagComponent, ContextMenuComponent],
+  declarations: [NoteTagComponent],
+  exports: [NoteTagComponent],
 })
 export class AppCommonModule {
 }
