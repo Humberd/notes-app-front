@@ -14,7 +14,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { GeneralPillComponent } from './components/general-list/components/general-pill/general-pill.component';
 import { NotesListComponent } from './components/notes-list/notes-list.component';
 import { NoteListItemComponent } from './components/notes-list/note-list-item/note-list-item.component';
-import { AppCommonModule } from '../../shared/common/app-common.module';
 import { NoteContainerComponent } from './components/note-container/note-container.component';
 import { TagsBarComponent } from './components/note-container/components/tags-bar/tags-bar.component';
 import { NoteContentCodeComponent } from './components/note-container/components/note-content-code/note-content-code.component';
@@ -41,7 +40,6 @@ import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
     RouterModule.forChild(routes),
     ResizableModule,
     MatIconModule,
-    AppCommonModule,
     ReactiveFormsModule,
     FormsModule,
     MatAutocompleteModule,
