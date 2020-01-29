@@ -4,18 +4,12 @@
   user-select: none;
 
   display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
 
   &.removable {
     padding-right: 0;
   }
-}
-
-.container {
-  width: 100%;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 button.close-icon {
