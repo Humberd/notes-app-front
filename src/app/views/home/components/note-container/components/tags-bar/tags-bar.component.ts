@@ -3,9 +3,9 @@ import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { TagsRefresherService } from '../../../../services/tags-refresher.service';
 import { map, startWith, switchMap } from 'rxjs/operators';
-import { Note } from '../../../../../../../../projects/domains/src/lib/note/models/note';
-import { NoteTag } from '../../../../../../../../projects/domains/src/lib/note/models/note-tag';
-import { TagsService } from '../../../../../../../../projects/domains/src/lib/tag/services/tags.service';
+import { Note } from 'domains/lib/note/models/note';
+import { NoteTag } from 'domains/lib/note/models/note-tag';
+import { TagsService } from 'domains/lib/tag/services/tags.service';
 
 @Component({
   selector: 'app-tags-bar',

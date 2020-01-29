@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { OptionConfig } from '../optionConfig';
+import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
 import { TagOptionsController } from '../tag-options/tag-options';
-import { NoteTag } from '../../../../../projects/domains/src/lib/note/models/note-tag';
+import { NoteTag } from 'domains/lib/note/models/note-tag';
 
 @Component({
   selector: 'app-note-tag',

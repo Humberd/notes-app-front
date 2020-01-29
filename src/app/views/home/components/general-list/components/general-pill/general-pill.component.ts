@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { PanelExpansionStatus } from '../../../../models/panel-expansion-status';
-import { OptionConfig } from '../../../../../../shared/common/optionConfig';
+import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
 
 @Component({
   selector: 'app-general-pill',

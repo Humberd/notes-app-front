@@ -3,8 +3,8 @@ import { NEVER_REFRESH, Refresher, SimpleDataRefresher } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { NoteIdRouteParam } from './note-id-route-param';
 import { filter, switchMap } from 'rxjs/operators';
-import { Note } from '../../../../../projects/domains/src/lib/note/models/note';
-import { NotesService } from '../../../../../projects/domains/src/lib/note/services/notes.service';
+import { Note } from 'domains/lib/note/models/note';
+import { NotesService } from 'domains/lib/note/services/notes.service';
 import { NoteRouteTitleResolver } from '../../../shared/common/_services/note-route-title-resolver.service';
 
 @Injectable()

@@ -4,8 +4,8 @@ import { combineLatest, Observable } from 'rxjs';
 import { NoteTypeRouteParam } from './note-type-route-param';
 import { switchMap } from 'rxjs/operators';
 import { NotesSearchService } from './notes-search.service';
-import { Note } from '../../../../../projects/domains/src/lib/note/models/note';
-import { NotesService } from '../../../../../projects/domains/src/lib/note/services/notes.service';
+import { Note } from 'domains/lib/note/models/note';
+import { NotesService } from 'domains/lib/note/services/notes.service';
 
 @Injectable()
 export class NotesRefresherService extends ClientSidePageableDataRefresher<Note> {

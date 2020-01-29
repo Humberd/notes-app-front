@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Note } from '../../../../../../../../projects/domains/src/lib/note/models/note';
+import { Note } from 'domains/lib/note/models/note';
 
 @Component({
   selector: 'app-note-content-preview',

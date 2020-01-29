@@ -1,4 +1,6 @@
+import { NoteType } from 'domains/lib/note/models/note-types';
+
 export interface NoteReadListRequest {
-  type: 'all' | 'starred' | 'trash';
+  type: NoteType;
   searchQuery: string;
 }

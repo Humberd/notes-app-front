@@ -1,12 +1,12 @@
 import { EMPTY, forkJoin, merge, Observable, of, Subject } from 'rxjs';
-import { NoteType } from '../../../views/home/services/note-type-route-param';
 import { IndexedDbAccessor } from './indexed-db-accessor';
 import { filter, map, switchMap, tap, toArray } from 'rxjs/operators';
-import { Note } from '../../../../../projects/domains/src/lib/note/models/note';
-import { NoteTag } from '../../../../../projects/domains/src/lib/note/models/note-tag';
-import { Tag } from '../../../../../projects/domains/src/lib/tag/models/tag.model';
+import { Note } from 'domains/lib/note/models/note';
+import { NoteTag } from 'domains/lib/note/models/note-tag';
+import { Tag } from 'domains/lib/tag/models/tag.model';
 import { Injectable, OnDestroy } from '@angular/core';
-import { NotesStats } from '../../../../../projects/domains/src/lib/notes-stats/models/notes-stats';
+import { NotesStats } from 'domains/lib/notes-stats/models/notes-stats';
+import { NoteType } from 'domains/lib/note/models/note-types';
 
 type NoteId = string;
 type TagId = string;

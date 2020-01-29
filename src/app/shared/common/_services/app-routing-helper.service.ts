@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { NoteType } from '../../../views/home/services/note-type-route-param';
+import { NoteType } from 'domains/lib/note/models/note-types';
 
 @Injectable({
   providedIn: 'root',

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { IndexedDbLayerService } from '../../../../../../src/app/core/data-access-layers/indexed-db/indexed-db.layer.service';
 import { Observable } from 'rxjs';
 import { Note } from '../models/note';
 import { NoteReadListRequest } from '../models/note.read-list-request';
 import { NoteUpdateRequest } from '../models/note.update-request';
 import { NotesRepository } from '../models/notes.repository';
+import { IndexedDbLayerService } from 'domains/lib/data-access/indexed-db/indexed-db.layer.service';
 
 @Injectable({
   providedIn: 'root',

@@ -1,7 +1,7 @@
-import { OptionConfig } from '../optionConfig';
+import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
 import { Injectable } from '@angular/core';
-import { Note } from '../../../../../projects/domains/src/lib/note/models/note';
-import { NotesService } from '../../../../../projects/domains/src/lib/note/services/notes.service';
+import { Note } from 'domains/lib/note/models/note';
+import { NotesService } from 'domains/lib/note/services/notes.service';
 import { AppRoutingHelperService } from '../_services/app-routing-helper.service';
 
 @Injectable()

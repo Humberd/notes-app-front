@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
-import { OptionConfig } from '../../../../../../../src/app/shared/common/optionConfig';
 import { MatMenu } from '@angular/material/menu';
+import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
 
 @Component({
   selector: 'lib-context-menu',
