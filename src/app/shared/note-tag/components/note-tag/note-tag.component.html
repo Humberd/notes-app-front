@@ -1,0 +1,15 @@
+<lib-tag
+  [style.background-color]="tag.colorHex"
+  [removable]="removable"
+  (removed)="removed.emit($event)"
+  [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
+  [contextMenuDisabled]="contextMenuDisabled"
+>
+  {{tag.name}}
+</lib-tag>
+
+<lib-context-menu
+  #contextMenu
+  [options]="tagOptions"
+  [item]="tag"
+></lib-context-menu>

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
-import { TagOptionsController } from '../tag-options/tag-options';
+import { TagOptionsController } from '../../../common/tag-options/tag-options';
 import { NoteTag } from 'domains/lib/note/models/note-tag';
 
 @Component({
@@ -8,11 +8,6 @@ import { NoteTag } from 'domains/lib/note/models/note-tag';
   templateUrl: './note-tag.component.html',
   styleUrls: ['./note-tag.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[style.background-color]': 'tag.colorHex',
-    role: 'list-item',
-    '[class.removable]': 'removable',
-  },
   providers: [TagOptionsController],
 })
 export class NoteTagComponent {
@@ -20,16 +15,11 @@ export class NoteTagComponent {
   @Input() removable: boolean;
   @Input() contextMenuDisabled: boolean;
 
-  @Output() removed = new EventEmitter<NoteTag>();
+  @Output() removed = new EventEmitter();
   tagOptions: OptionConfig<NoteTag>[];
 
   constructor(tagOptionsController: TagOptionsController) {
     this.tagOptions = tagOptionsController.getOptions();
-  }
-
-  onRemove(event: MouseEvent) {
-    event.stopPropagation();
-    this.removed.emit(this.tag);
   }
 
 }

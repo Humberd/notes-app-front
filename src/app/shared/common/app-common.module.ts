@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NoteTagComponent } from './note-tag/note-tag.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -18,8 +17,6 @@ import { ContextMenuModule } from 'components-library/lib/context-menu/context-m
     LibTranslateModule,
     ContextMenuModule,
   ],
-  declarations: [NoteTagComponent],
-  exports: [NoteTagComponent],
 })
 export class AppCommonModule {
 }

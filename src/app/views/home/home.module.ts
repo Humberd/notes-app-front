@@ -33,6 +33,7 @@ import { MarkdownPreviewModule } from 'components-library/lib/markdown-preview/m
 import { NoteTitleFieldComponent } from './components/note-container/components/note-title-field/note-title-field.component';
 import { LibTranslateModule } from 'components-library/lib/translate/translate.module';
 import { ContextMenuModule } from 'components-library/lib/context-menu/context-menu.module';
+import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
 
 @NgModule({
   imports: [
@@ -56,6 +57,7 @@ import { ContextMenuModule } from 'components-library/lib/context-menu/context-m
     MarkdownPreviewModule,
     LibTranslateModule,
     ContextMenuModule,
+    NoteTagModule,
   ],
   declarations: [
     HomeComponent,

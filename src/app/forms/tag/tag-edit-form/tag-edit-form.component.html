@@ -19,16 +19,12 @@
   <label libLabel>
     {{'common.preview' | libTranslate}}
   </label>
-  <app-note-tag
+  <lib-tag
     class="tag-preview"
-    [removable]="true"
-    [contextMenuDisabled]="true"
-    [tag]="{
-      id: '1',
-      name: 'hello',
-      colorHex: formDefinition.colorHex.value
-    }"
-  ></app-note-tag>
+    [style.background-color]="formDefinition.colorHex.value"
+  >
+    {{formDefinition.name.value}}
+  </lib-tag>
 </div>
 
 <pre>{{rootForm.value | json}}</pre>

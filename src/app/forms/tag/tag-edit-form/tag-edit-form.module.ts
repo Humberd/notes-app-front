@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { LibFormsModule } from 'components-library/lib/forms/forms.module';
 import { LibTranslateModule } from 'components-library/lib/translate/translate.module';
+import { TagsModule } from 'components-library/lib/tags/tags.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { LibTranslateModule } from 'components-library/lib/translate/translate.m
     ColorPickerModule,
     LibFormsModule,
     LibTranslateModule,
+    TagsModule,
   ],
   declarations: [TagEditFormComponent],
   exports: [TagEditFormComponent],
