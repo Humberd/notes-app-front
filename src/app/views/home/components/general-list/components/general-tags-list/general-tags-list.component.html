@@ -5,6 +5,7 @@
     [counter]="tag.notesCount"
     [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
     [expansionStatus]="panelExpansionStatus"
+    [hoverOptionsTemplate]="hoverOptions"
   ></app-general-pill>
 
   <lib-context-menu
@@ -12,5 +13,9 @@
     [options]="tagOptions"
     [item]="tag"
   ></lib-context-menu>
+
+  <ng-template #hoverOptions>
+    foobar
+  </ng-template>
 
 </ng-container>

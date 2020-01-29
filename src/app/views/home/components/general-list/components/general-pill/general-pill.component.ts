@@ -19,6 +19,8 @@ export class GeneralPillComponent {
 
   PanelExpansionStatus = PanelExpansionStatus;
 
+  isHovering = false;
+
   isVisible(): boolean {
     return this.expansionStatus === PanelExpansionStatus.VISIBLE;
   }
@@ -33,6 +35,10 @@ export class GeneralPillComponent {
     }
 
     return `${this.name} (${this.counter})`;
+  }
+
+  hasHoverOptions(): boolean {
+    return !!this.hoverOptionsTemplate;
   }
 
 }

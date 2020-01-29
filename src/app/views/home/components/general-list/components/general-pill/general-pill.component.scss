@@ -13,6 +13,8 @@
 
   color: var(--textColor-secondary);
 
+  position: relative;
+
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -24,6 +26,10 @@
 
     .name {
       color: var(--textColor-primary);
+    }
+
+    .counter {
+      visibility: hidden;
     }
   }
 
@@ -69,5 +75,12 @@
 
   .counter {
     margin-left: auto;
+  }
+
+  .hover-options-container {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
   }
 }

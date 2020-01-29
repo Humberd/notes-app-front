@@ -6,6 +6,8 @@
   [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
   [matTooltip]="getTooltip()"
   queryParamsHandling="preserve"
+  (mouseenter)="isHovering = true"
+  (mouseleave)="isHovering = false"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
 </a>
@@ -16,14 +18,25 @@
   [class.hidden]="expansionStatus === PanelExpansionStatus.HIDDEN"
   [matTooltip]="getTooltip()"
   (click)="action.emit()"
+  (mouseenter)="isHovering = true"
+  (mouseleave)="isHovering = false"
 >
   <ng-container [ngTemplateOutlet]="pillContent"></ng-container>
 </button>
 
 <ng-template #pillContent>
   <mat-icon class="icon">{{icon}}</mat-icon>
+
   <ng-container *ngIf="isVisible()">
     <span class="name">{{name}}</span>
     <span class="counter">{{counter !== undefined ? counter : ''}}</span>
+
+    <div
+      *ngIf="hasHoverOptions() && isHovering"
+      class="hover-options-container"
+    >
+      <ng-container [ngTemplateOutlet]="hoverOptionsTemplate"></ng-container>
+    </div>
+
   </ng-container>
 </ng-template>
