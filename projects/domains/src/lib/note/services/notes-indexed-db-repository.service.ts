@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IndexedDbLayerService } from '../../../core/data-access-layers/indexed-db/indexed-db.layer.service';
+import { IndexedDbLayerService } from '../../../../../../src/app/core/data-access-layers/indexed-db/indexed-db.layer.service';
 import { Observable } from 'rxjs';
 import { Note } from '../models/note';
 import { NoteReadListRequest } from '../models/note.read-list-request';

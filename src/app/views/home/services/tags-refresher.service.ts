@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { NEVER_REFRESH, Refresher, SimpleDataRefresher } from '@ng-boost/core';
 import { Observable } from 'rxjs';
-import { Tag } from '../../../domains/tag/models/tag.model';
-import { TagsService } from '../../../domains/tag/services/tags.service';
+import { Tag } from '../../../../../projects/domains/src/lib/tag/models/tag.model';
+import { TagsService } from '../../../../../projects/domains/src/lib/tag/services/tags.service';
 
 @Injectable()
 export class TagsRefresherService extends SimpleDataRefresher<Tag[]> {

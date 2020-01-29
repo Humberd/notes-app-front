@@ -25,6 +25,12 @@
       ],
       "components-library/*": [
         "projects/components-library/src/*"
+      ],
+      "domains": [
+        "projects/domains/src/public_api"
+      ],
+      "domains/*": [
+        "projects/domains/src/*"
       ]
     }
   },

@@ -5,7 +5,7 @@ import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { TagEditDialogFormValues } from './models/tag-edit-dialog-form-values';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { TagsService } from '../../../../domains/tag/services/tags.service';
+import { TagsService } from '../../../../../../projects/domains/src/lib/tag/services/tags.service';
 
 @Component({
   selector: 'app-tag-edit-dialog',
