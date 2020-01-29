@@ -1,8 +1,9 @@
 import { Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { allowedNoteTypes, noteTypeParamName } from './services/note-type-route-param';
+import { noteTypeParamName } from './services/note-type-route-param';
 import { noteIdParamName } from './services/note-id-route-param';
 import { NoteRouteTitleResolver } from '../../shared/common/_services/note-route-title-resolver.service';
+import { allowedNoteTypes } from 'domains/lib/note/models/note-types';
 
 export const routes: Routes = [
   {

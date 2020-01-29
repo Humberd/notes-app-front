@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Note } from '../../../../../../domains/note/models/note';
+import { Note } from 'domains/lib/note/models/note';
 import { ViewSwitcherService } from 'components-library/lib/view-switcher/services/view-switcher.service';
 import { ResizeEvent } from 'angular-resizable-element';
 

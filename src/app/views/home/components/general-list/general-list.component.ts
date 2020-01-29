@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { NoteType, NoteTypeRouteParam } from '../../services/note-type-route-param';
+import { NoteTypeRouteParam } from '../../services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { TagsRefresherService } from '../../services/tags-refresher.service';
 import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
 import { TagOptionsController } from '../../../../shared/common/tag-options/tag-options';
-import { OptionConfig } from '../../../../shared/common/optionConfig';
-import { Tag } from '../../../../domains/tag/models/tag.model';
+import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
+import { Tag } from 'domains/lib/tag/models/tag.model';
 import { NotesStatsRefresherService } from '../../services/notes-stats-refresher.service';
 import { PanelExpansionStatus } from '../../models/panel-expansion-status';
+import { NoteType } from 'domains/lib/note/models/note-types';
 
 @Component({
   selector: 'app-general-list',

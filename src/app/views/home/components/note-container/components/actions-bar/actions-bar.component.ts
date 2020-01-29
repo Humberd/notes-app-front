@@ -1,7 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Note } from '../../../../../../domains/note/models/note';
-import { FormControl } from '@angular/forms';
-import { FormValidators } from '../../../../../../form-validators/form.validators';
+import { Note } from 'domains/lib/note/models/note';
 
 @Component({
   selector: 'app-actions-bar',
@@ -11,7 +9,5 @@ import { FormValidators } from '../../../../../../form-validators/form.validator
 })
 export class ActionsBarComponent {
   @Input() note: Note;
-
-  titleControl = new FormControl('', FormValidators.note.title);
 
 }

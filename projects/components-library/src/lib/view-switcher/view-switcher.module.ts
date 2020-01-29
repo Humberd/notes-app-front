@@ -5,7 +5,7 @@ import { ButtonsModule } from 'components-library/lib/buttons/buttons.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { ViewSwitcherComponent } from './components/view-switcher/view-switcher.component';
-import { LibTranslateModule } from '../../../../../src/app/shared/translate/translate.module';
+import { LibTranslateModule } from '../translate/translate.module';
 
 @NgModule({
   imports: [

@@ -3,8 +3,8 @@ import { FormControl } from '@angular/forms';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
-import { Note } from '../../../../../../domains/note/models/note';
-import { NotesService } from '../../../../../../domains/note/services/notes.service';
+import { Note } from 'domains/lib/note/models/note';
+import { NotesService } from 'domains/lib/note/services/notes.service';
 import { FormValidators } from '../../../../../../form-validators/form.validators';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 

@@ -1,11 +1,11 @@
-import { OptionConfig } from '../optionConfig';
+import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
 import { Injectable } from '@angular/core';
-import { NoteTag } from '../../../domains/note/models/note-tag';
-import { Tag } from '../../../domains/tag/models/tag.model';
+import { NoteTag } from 'domains/lib/note/models/note-tag';
+import { Tag } from 'domains/lib/tag/models/tag.model';
 import { TagDialogsService } from '../../../dialogs/tag/services/tag-dialogs.service';
 import { filter, switchMap } from 'rxjs/operators';
 import { ConfirmationDialogResult } from '../../../dialogs/common/components/confirmation-dialog/models/confirmation-dialog-result';
-import { TagsService } from '../../../domains/tag/services/tags.service';
+import { TagsService } from 'domains/lib/tag/services/tags.service';
 
 @Injectable()
 export class TagOptionsController {

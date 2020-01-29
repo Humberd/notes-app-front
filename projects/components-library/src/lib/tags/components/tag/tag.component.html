@@ -1,0 +1,15 @@
+<span>
+  <ng-content></ng-content>
+</span>
+
+<button
+  class="close-icon"
+  *ngIf="removable"
+  aria-label="Remove"
+  (click)="onRemove($event)"
+>
+  <mat-icon class="close-icon">
+    close
+  </mat-icon>
+</button>
+

@@ -1,0 +1,30 @@
+:host {
+  background-color: var(--backgroundColor-secondary);
+  padding: 0 var(--space-sm);
+  user-select: none;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &.removable {
+    padding-right: 0;
+  }
+}
+
+button.close-icon {
+  display: inline-flex;
+  margin-left: var(--space-xsm);
+  padding: 0 var(--space-sm);
+  align-self: stretch;
+
+  &:hover, &:focus {
+    background-color: rgb(255, 255, 255, 0.1);
+  }
+
+  .close-icon {
+    width: unset;
+    height: unset;
+    font-size: inherit;
+  }
+}

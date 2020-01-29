@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { TitleRouteResolver } from '@ng-boost/core';
 import { Observable, Subject } from 'rxjs';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import { Note } from '../../../domains/note/models/note';
+import { Note } from 'domains/lib/note/models/note';
 
 @Injectable({
   providedIn: 'root',

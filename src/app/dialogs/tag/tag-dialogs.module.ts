@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TagEditFormModule } from '../../forms/tag/tag-edit-form/tag-edit-form.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonDialogsModule } from '../common/common-dialogs.module';
-import { LibTranslateModule } from '../../shared/translate/translate.module';
+import { LibTranslateModule } from 'components-library/lib/translate/translate.module';
 
 @NgModule({
   imports: [

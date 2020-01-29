@@ -1,4 +1,4 @@
-import { Translation } from '../../../../../../src/app/shared/translate/models/translation';
+import { Translation } from '../../translate/models/translation';
 
 export interface HotkeyDefinition {
   combo: string;

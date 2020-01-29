@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { Note } from '../../../../../../domains/note/models/note';
-import { NotesService } from '../../../../../../domains/note/services/notes.service';
+import { Note } from 'domains/lib/note/models/note';
+import { NotesService } from 'domains/lib/note/services/notes.service';
 import { FormControl } from '@angular/forms';
 import { FormValidators } from '../../../../../../form-validators/form.validators';
 import { Destroy$ } from '@ng-boost/core';

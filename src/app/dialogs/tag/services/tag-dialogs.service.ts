@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { TagEditDialogComponent } from '../components/edit-tag-dialog/tag-edit-dialog.component';
 import { TagEditDialogData } from '../components/edit-tag-dialog/models/tag-edit-dialog-data';
-import { NoteTag } from '../../../domains/note/models/note-tag';
+import { NoteTag } from 'domains/lib/note/models/note-tag';
 import { CommonDialogsService } from '../../common/services/common-dialogs.service';
 import { TranslateService } from '@ngx-translate/core';
 
