@@ -1,0 +1,14 @@
+<ng-container
+  *ngFor="let tagOption of tagOptions; trackBy: trackByTagOption"
+>
+  <button
+    *ngIf="tagOption.showWhen(tag)"
+    class="option-button"
+    libIconButton
+    (click)="onClick($event, tagOption)"
+    [matTooltip]="tagOption.label | libTranslate"
+  >
+    <mat-icon [color]="tagOption.iconColor">{{tagOption.icon}}</mat-icon>
+  </button>
+</ng-container>
+

@@ -1,7 +1,7 @@
 @mixin generalPillAnimation() {
   transition-duration: var(--transition-duration);
   transition-timing-function: var(--transition-function);
-  transition-property: background-color, color;
+  transition-property: color;
 }
 
 .list-item {
@@ -26,10 +26,6 @@
 
     .name {
       color: var(--textColor-primary);
-    }
-
-    .counter {
-      visibility: hidden;
     }
   }
 
@@ -78,6 +74,8 @@
   }
 
   .hover-options-container {
+    background-color: var(--backgroundColor-secondary);
+
     position: absolute;
     right: 0;
     top: 0;

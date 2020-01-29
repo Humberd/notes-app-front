@@ -15,7 +15,10 @@
   ></lib-context-menu>
 
   <ng-template #hoverOptions>
-    foobar
+    <app-general-tag-hover-options
+      [tag]="tag"
+      [tagOptions]="tagOptions"
+    ></app-general-tag-hover-options>
   </ng-template>
 
 </ng-container>

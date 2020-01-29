@@ -34,6 +34,7 @@ import { LibTranslateModule } from 'components-library/lib/translate/translate.m
 import { ContextMenuModule } from 'components-library/lib/context-menu/context-menu.module';
 import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
 import { GeneralTagsListComponent } from './components/general-list/components/general-tags-list/general-tags-list.component';
+import { GeneralTagHoverOptionsComponent } from './components/general-list/components/general-tag-hover-options/general-tag-hover-options.component';
 
 @NgModule({
   imports: [
@@ -74,6 +75,7 @@ import { GeneralTagsListComponent } from './components/general-list/components/g
     NoteContentComponent,
     NoteTitleFieldComponent,
     GeneralTagsListComponent,
+    GeneralTagHoverOptionsComponent,
   ],
 })
 export class HomeModule {
