@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { PanelExpansionStatus } from '../../../../models/panel-expansion-status';
-import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
 
 @Component({
   selector: 'app-general-pill',
@@ -15,7 +14,7 @@ export class GeneralPillComponent {
   @Input() href?: any;
   @Input() isHrefActive?: boolean;
   @Input() expansionStatus: PanelExpansionStatus;
-  @Input() optionConfig?: OptionConfig<any>;
+  @Input() hoverOptionsTemplate: TemplateRef<any>;
   @Output() action = new EventEmitter();
 
   PanelExpansionStatus = PanelExpansionStatus;

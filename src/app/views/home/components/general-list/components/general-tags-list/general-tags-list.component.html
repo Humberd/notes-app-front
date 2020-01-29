@@ -1,0 +1,16 @@
+<ng-container *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
+  <app-general-pill
+    icon="tag"
+    [name]="tag.name"
+    [counter]="tag.notesCount"
+    [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
+    [expansionStatus]="panelExpansionStatus"
+  ></app-general-pill>
+
+  <lib-context-menu
+    #contextMenu
+    [options]="tagOptions"
+    [item]="tag"
+  ></lib-context-menu>
+
+</ng-container>

@@ -4,11 +4,8 @@ import { NoteTypeRouteParam } from '../../services/note-type-route-param';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
-import { TagsRefresherService } from '../../services/tags-refresher.service';
 import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
 import { TagOptionsController } from '../../../../shared/common/tag-options/tag-options';
-import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
-import { Tag } from 'domains/lib/tag/models/tag.model';
 import { NotesStatsRefresherService } from '../../services/notes-stats-refresher.service';
 import { PanelExpansionStatus } from '../../models/panel-expansion-status';
 import { NoteType } from 'domains/lib/note/models/note-types';
@@ -29,18 +26,13 @@ export class GeneralListComponent implements OnInit {
 
   PanelExpansionStatus = PanelExpansionStatus;
 
-  tagOptions: OptionConfig<Tag>[];
-
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
     private appRoutingHelperService: AppRoutingHelperService,
-    private tagOptionsController: TagOptionsController,
-    public tagsRefresherService: TagsRefresherService,
     public noteTypeRouteParam: NoteTypeRouteParam,
     public notesStatsRefresherService: NotesStatsRefresherService,
   ) {
-    this.tagOptions = this.tagOptionsController.getOptions();
   }
 
   ngOnInit() {
@@ -54,10 +46,6 @@ export class GeneralListComponent implements OnInit {
 
   replaceNoteTypeInPathWith(path: NoteType): string {
     return this.appRoutingHelperService.replaceNoteTypeInPath(path, this.noteTypeRouteParam.value);
-  }
-
-  trackByTag(index: number, tag: Tag) {
-    return tag.id;
   }
 
   togglePanel(): void {

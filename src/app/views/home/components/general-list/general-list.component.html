@@ -27,30 +27,16 @@
 
 
 <section class="tags">
-
   <h5
     class="header"
     [class.hidden]="panelExpansionStatus === PanelExpansionStatus.HIDDEN"
   >{{'common.tags' | libTranslate}}</h5>
 
-  <div class="tags-container">
-    <ng-container *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
-      <app-general-pill
-        icon="tag"
-        [name]="tag.name"
-        [counter]="tag.notesCount"
-        [boostMatContextMenuTriggerFor]="contextMenu.matMenu"
-        [expansionStatus]="panelExpansionStatus"
-      ></app-general-pill>
 
-      <lib-context-menu
-        #contextMenu
-        [options]="tagOptions"
-        [item]="tag"
-      ></lib-context-menu>
-
-    </ng-container>
-  </div>
+  <app-general-tags-list
+    class="tags-container"
+    [panelExpansionStatus]="panelExpansionStatus"
+  ></app-general-tags-list>
 
 </section>
 

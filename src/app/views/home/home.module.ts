@@ -33,6 +33,7 @@ import { NoteTitleFieldComponent } from './components/note-container/components/
 import { LibTranslateModule } from 'components-library/lib/translate/translate.module';
 import { ContextMenuModule } from 'components-library/lib/context-menu/context-menu.module';
 import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
+import { GeneralTagsListComponent } from './components/general-list/components/general-tags-list/general-tags-list.component';
 
 @NgModule({
   imports: [
@@ -72,6 +73,7 @@ import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
     NoteContentPreviewComponent,
     NoteContentComponent,
     NoteTitleFieldComponent,
+    GeneralTagsListComponent,
   ],
 })
 export class HomeModule {
