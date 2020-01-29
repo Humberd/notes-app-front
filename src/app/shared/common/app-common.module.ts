@@ -5,7 +5,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
-import { LibTranslateModule } from '../translate/translate.module';
+import { LibTranslateModule } from 'components-library/lib/translate/translate.module';
 import { ContextMenuModule } from 'components-library/lib/context-menu/context-menu.module';
 
 @NgModule({

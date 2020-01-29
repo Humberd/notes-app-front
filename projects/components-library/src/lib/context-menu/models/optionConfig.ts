@@ -1,5 +1,5 @@
 import { ThemePalette } from '@angular/material/core';
-import { Translation } from '../../../../../../src/app/shared/translate/models/translation';
+import { Translation } from '../../translate/models/translation';
 
 export interface OptionConfig<T> {
   icon: string;
