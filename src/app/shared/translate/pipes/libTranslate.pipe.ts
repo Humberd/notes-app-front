@@ -6,17 +6,15 @@ import { Translation } from '../models/translation';
   name: 'libTranslate',
   pure: false,
 })
-export class LibTranslatePipe implements PipeTransform {
+export class LibTranslatePipe extends TranslatePipe implements PipeTransform {
 
-  constructor(private translatePipe: TranslatePipe) {
-  }
-
+  // @ts-ignore
   transform(translation: Translation, ...args: any[]): any {
     if (typeof translation === 'string') {
-      return this.translatePipe.transform(translation, ...args);
+      return super.transform(translation, ...args);
     }
 
-    return this.translatePipe.transform(translation.key, translation.params);
+    return super.transform(translation.key, translation.params);
   }
 
 }
