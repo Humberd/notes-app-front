@@ -1,0 +1,16 @@
+:root {
+  --textColor-primary: #f8f8f2;
+  --textColor-secondary: #939395;
+
+  --backgroundColor-primary: #272822;
+  --backgroundColor-secondary: #373831;
+  --backgroundColor-tertiary: #4a4b44;
+
+  --textColor-accent: #1ec38b;
+  --backgroundColor-accent: #1ea26c;
+
+  --transition-duration: 0.1s;
+  --transition-function: linear;
+  --transition-basic: all var(--transition-duration) var(--transition-function);
+
+}
