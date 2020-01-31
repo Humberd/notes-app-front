@@ -5,8 +5,17 @@ import { AuthComponent } from './auth.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     component: AuthComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'login',
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('./views/login/login.module').then(m => m.LoginModule),
+      },
+    ],
   },
 ];
 
