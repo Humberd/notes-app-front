@@ -1,0 +1,14 @@
+<label>
+  <div
+    libLabel
+    *ngIf="label"
+  >{{label}}</div>
+
+  <div>
+    <ng-content></ng-content>
+
+    <p *ngIf="false">error message</p>
+  </div>
+
+</label>
+

@@ -35,6 +35,7 @@ import { ContextMenuModule } from 'common-library/lib/context-menu/context-menu.
 import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
 import { GeneralTagsListComponent } from './components/general-list/components/general-tags-list/general-tags-list.component';
 import { GeneralTagHoverOptionsComponent } from './components/general-list/components/general-tag-hover-options/general-tag-hover-options.component';
+import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 
 @NgModule({
   imports: [
@@ -58,6 +59,7 @@ import { GeneralTagHoverOptionsComponent } from './components/general-list/compo
     LibTranslateModule,
     ContextMenuModule,
     NoteTagModule,
+    LibFormsModule,
   ],
   declarations: [
     HomeComponent,
