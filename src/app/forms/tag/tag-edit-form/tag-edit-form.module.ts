@@ -7,6 +7,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 import { LibTranslateModule } from 'common-library/lib/translate/translate.module';
 import { TagsModule } from 'common-library/lib/tags/tags.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { TagsModule } from 'common-library/lib/tags/tags.module';
     LibFormsModule,
     LibTranslateModule,
     TagsModule,
+    ReactiveFormsModule,
   ],
   declarations: [TagEditFormComponent],
   exports: [TagEditFormComponent],
