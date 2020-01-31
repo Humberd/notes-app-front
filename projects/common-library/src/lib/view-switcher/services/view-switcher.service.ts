@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ViewSwitcherConfig } from 'components-library/lib/view-switcher/models/view-switcher-config';
+import { ViewSwitcherConfig } from 'common-library/lib/view-switcher/models/view-switcher-config';
 
 @Injectable()
 export class ViewSwitcherService {

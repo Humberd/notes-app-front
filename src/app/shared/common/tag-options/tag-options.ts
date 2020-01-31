@@ -1,4 +1,4 @@
-import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
+import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfig';
 import { Injectable } from '@angular/core';
 import { NoteTag } from 'domains/lib/note/models/note-tag';
 import { Tag } from 'domains/lib/tag/models/tag.model';

@@ -20,11 +20,11 @@
       "dom"
     ],
     "paths": {
-      "components-library": [
-        "projects/components-library/src/public_api"
+      "common-library": [
+        "projects/common-library/src/public_api"
       ],
-      "components-library/*": [
-        "projects/components-library/src/*"
+      "common-library/*": [
+        "projects/common-library/src/*"
       ],
       "domains": [
         "projects/domains/src/public_api"

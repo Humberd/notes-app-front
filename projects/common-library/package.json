@@ -1,8 +1,8 @@
 {
-  "name": "components-library",
+  "name": "common-library",
   "version": "0.0.1",
   "scripts": {
-    "build:watch": "ng build components-library --watch"
+    "build:watch": "ng build common-library --watch"
   },
   "peerDependencies": {
     "@angular/common": "^8.2.8",

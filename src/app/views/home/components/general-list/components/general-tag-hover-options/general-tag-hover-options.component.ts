@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
+import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfig';
 import { Tag } from 'domains/lib/tag/models/tag.model';
 
 @Component({

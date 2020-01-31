@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { PanelExpansionStatus } from 'src/app/views/home/models/panel-expansion-status';
-import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
+import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfig';
 import { Tag } from 'domains/lib/tag/models/tag.model';
 import { TagOptionsController } from '../../../../../../shared/common/tag-options/tag-options';
 import { TagsRefresherService } from '../../../../services/tags-refresher.service';

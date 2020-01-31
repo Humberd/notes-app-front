@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { MarkdownPreviewService } from 'components-library/lib/markdown-preview/services/markdown-preview.service';
+import { MarkdownPreviewService } from 'common-library/lib/markdown-preview/services/markdown-preview.service';
 
 @Component({
   selector: 'lib-markdown-preview',

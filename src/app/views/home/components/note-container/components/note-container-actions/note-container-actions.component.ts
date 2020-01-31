@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Note } from 'domains/lib/note/models/note';
-import { OptionConfig } from 'components-library/lib/context-menu/models/optionConfig';
+import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfig';
 import { NoteOptionsController } from '../../../../../../shared/common/note-options/note-options';
 
 @Component({

@@ -4,9 +4,9 @@ import { TagEditFormComponent } from './tag-edit-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { LibFormsModule } from 'components-library/lib/forms/forms.module';
-import { LibTranslateModule } from 'components-library/lib/translate/translate.module';
-import { TagsModule } from 'components-library/lib/tags/tags.module';
+import { LibFormsModule } from 'common-library/lib/forms/forms.module';
+import { LibTranslateModule } from 'common-library/lib/translate/translate.module';
+import { TagsModule } from 'common-library/lib/tags/tags.module';
 
 @NgModule({
   imports: [

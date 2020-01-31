@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ContextMenuComponent } from 'components-library/lib/context-menu/components/context-menu/context-menu.component';
+import { ContextMenuComponent } from 'common-library/lib/context-menu/components/context-menu/context-menu.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { LibTranslateModule } from '../translate/translate.module';

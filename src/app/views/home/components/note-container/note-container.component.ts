@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CurrentNoteRefresherService } from '../../services/current-note-refresher.service';
-import { ViewSwitcherConfig } from 'components-library/lib/view-switcher/models/view-switcher-config';
+import { ViewSwitcherConfig } from 'common-library/lib/view-switcher/models/view-switcher-config';
 
 @Component({
   selector: 'app-note-container',

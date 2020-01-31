@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, forwardRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AbstractFormControl } from 'components-library/lib/forms/base-classes/abstract-form-control';
+import { AbstractFormControl } from 'common-library/lib/forms/base-classes/abstract-form-control';
 
 @Component({
   selector: 'lib-input-control',
