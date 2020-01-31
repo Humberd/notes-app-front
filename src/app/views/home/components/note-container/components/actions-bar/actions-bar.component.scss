@@ -1,17 +1,23 @@
 :host {
   margin-bottom: var(--space-md);
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
 }
 
 .title-field {
   margin-right: auto;
-  padding-right: var(--space-xl);
-  width: 100%;
   align-self: center;
   display: block;
+  flex: 1;
 }
 
 .view-switcher {
-  margin-right: var(--space-xl);
+  display: block;
+  margin-left: var(--space-xl);
+}
+
+.note-actions {
+  display: block;
+  margin-left: var(--space-xl);
 }
