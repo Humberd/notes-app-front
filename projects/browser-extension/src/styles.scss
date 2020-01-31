@@ -1,1 +1,8 @@
 @import "../../common-styles/index";
+
+body {
+  height: 600px;
+  width: 800px;
+  margin: auto;
+  border: 1px solid var(--textColor-secondary);
+}
