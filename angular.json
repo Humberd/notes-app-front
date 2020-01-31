@@ -276,7 +276,8 @@
             "aot": true,
             "assets": [
               "projects/browser-extension/src/favicon.ico",
-              "projects/browser-extension/src/assets"
+              "projects/browser-extension/src/assets",
+              "projects/browser-extension/src/manifest.json"
             ],
             "styles": [
               "projects/browser-extension/src/styles.scss"
