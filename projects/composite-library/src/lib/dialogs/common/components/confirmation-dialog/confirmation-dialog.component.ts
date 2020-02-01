@@ -4,7 +4,7 @@ import { ConfirmationDialogData } from './models/confirmation-dialog-data';
 import { ConfirmationDialogResult } from './models/confirmation-dialog-result';
 
 @Component({
-  selector: 'app-confirmation-dialog',
+  selector: 'lib2-confirmation-dialog',
   templateUrl: './confirmation-dialog.component.html',
   styleUrls: ['./confirmation-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

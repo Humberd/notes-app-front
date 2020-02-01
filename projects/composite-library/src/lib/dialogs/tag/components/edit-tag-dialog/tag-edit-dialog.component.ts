@@ -8,7 +8,7 @@ import { FormGroup } from '@angular/forms';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 
 @Component({
-  selector: 'app-tag-edit-dialog',
+  selector: 'lib2-tag-edit-dialog',
   templateUrl: './tag-edit-dialog.component.html',
   styleUrls: ['./tag-edit-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

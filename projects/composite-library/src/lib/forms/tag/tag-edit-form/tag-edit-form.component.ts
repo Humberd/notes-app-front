@@ -6,7 +6,7 @@ import { FormValidators } from '../../../form-validators/form.validators';
 import { TagEditInitialValues } from './models/tag-edit-initial-values';
 
 @Component({
-  selector: 'app-tag-edit-form',
+  selector: 'lib2-tag-edit-form',
   templateUrl: './tag-edit-form.component.html',
   styleUrls: ['./tag-edit-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
