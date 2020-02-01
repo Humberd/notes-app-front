@@ -376,6 +376,46 @@
           }
         }
       }
+    },
+    "composite-library": {
+      "projectType": "library",
+      "root": "projects/composite-library",
+      "sourceRoot": "projects/composite-library/src",
+      "prefix": "lib2",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/composite-library/tsconfig.lib.json",
+            "project": "projects/composite-library/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/composite-library/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/composite-library/src/test.ts",
+            "tsConfig": "projects/composite-library/tsconfig.spec.json",
+            "karmaConfig": "projects/composite-library/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/composite-library/tsconfig.lib.json",
+              "projects/composite-library/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "angular-electron",
