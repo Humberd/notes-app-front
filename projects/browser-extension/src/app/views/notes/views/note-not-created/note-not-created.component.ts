@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'brx-note-not-created',
@@ -9,10 +9,15 @@ import { Router } from '@angular/router';
 })
 export class NoteNotCreatedComponent {
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {
   }
 
   savePage() {
-    this.router.navigateByUrl('../create');
+    this.router.navigate(['../created'], {
+      relativeTo: this.activatedRoute,
+    });
   }
 }
