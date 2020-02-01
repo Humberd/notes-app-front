@@ -16,6 +16,10 @@ const routes: Routes = [
         path: 'not-created',
         loadChildren: () => import('./views/note-not-created/note-not-created.module').then(m => m.NoteNotCreatedModule),
       },
+      {
+        path: 'created',
+        loadChildren: () => import('./views/note-created/note-created.module').then(m => m.NoteCreatedModule),
+      },
     ],
   },
 ];
