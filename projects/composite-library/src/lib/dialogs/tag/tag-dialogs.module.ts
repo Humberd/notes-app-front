@@ -4,10 +4,10 @@ import { TagDialogsService } from './services/tag-dialogs.service';
 import { TagEditDialogComponent } from './components/edit-tag-dialog/tag-edit-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { TagEditFormModule } from '../../forms/tag/tag-edit-form/tag-edit-form.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonDialogsModule } from '../common/common-dialogs.module';
 import { LibTranslateModule } from 'common-library/lib/translate/translate.module';
+import { TagEditFormModule } from '../../forms/tag/tag-edit-form/tag-edit-form.module';
 
 @NgModule({
   imports: [

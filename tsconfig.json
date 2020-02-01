@@ -35,8 +35,8 @@
       "auto-generated/*": [
         "auto-generated/*"
       ],
-      "composite-library": [
-        "dist/composite-library"
+      "composite-library/*": [
+        "projects/composite-library/src/*"
       ]
     }
   },

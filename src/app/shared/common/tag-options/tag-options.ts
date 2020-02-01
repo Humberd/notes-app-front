@@ -2,9 +2,9 @@ import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfi
 import { Injectable } from '@angular/core';
 import { NoteTag } from 'domains/lib/note/models/note-tag';
 import { Tag } from 'domains/lib/tag/models/tag.model';
-import { TagDialogsService } from '../../../dialogs/tag/services/tag-dialogs.service';
+import { TagDialogsService } from 'composite-library/lib/dialogs/tag/services/tag-dialogs.service';
 import { filter, switchMap } from 'rxjs/operators';
-import { ConfirmationDialogResult } from '../../../dialogs/common/components/confirmation-dialog/models/confirmation-dialog-result';
+import { ConfirmationDialogResult } from 'composite-library/lib/dialogs/common/components/confirmation-dialog/models/confirmation-dialog-result';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 
 @Injectable()

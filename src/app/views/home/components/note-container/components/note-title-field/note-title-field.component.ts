@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { Note } from 'domains/lib/note/models/note';
 import { NotesService } from 'domains/lib/note/services/notes.service';
 import { FormControl } from '@angular/forms';
-import { FormValidators } from '../../../../../../form-validators/form.validators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
 
 @Component({
   selector: 'app-note-title-field',

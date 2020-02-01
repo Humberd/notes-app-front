@@ -1,4 +1,4 @@
-import { Translation } from '../../../../projects/common-library/src/lib/translate/models/translation';
+import { Translation } from 'common-library/lib/translate/models/translation';
 
 export type ValidationResult = {
   [key: string]: {
