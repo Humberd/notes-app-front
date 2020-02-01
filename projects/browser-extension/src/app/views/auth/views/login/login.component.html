@@ -1,6 +1,17 @@
-<button
-  mat-raised-button
-  color="accent"
+<form
+  [formGroup]="rootForm"
+  (ngSubmit)="submit()"
 >
-  LOGIN
-</button>
+
+  <brx-login-form
+    [formGroupTemplate]="formDefinition.form"
+  ></brx-login-form>
+
+  <button
+    mat-raised-button
+    color="accent"
+  >
+    Login
+  </button>
+
+</form>

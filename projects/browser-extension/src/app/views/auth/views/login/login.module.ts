@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { MatButtonModule } from '@angular/material/button';
+import { LoginFormModule } from '../../../../forms/login-form/login-form.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -12,6 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
     CommonModule,
     LoginRoutingModule,
     MatButtonModule,
+    LoginFormModule,
+    ReactiveFormsModule,
   ],
 })
 export class LoginModule {

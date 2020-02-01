@@ -1,8 +1,13 @@
 @import "../../common-styles/index";
 
+:root {
+  --windowMaxHeight: 600px;
+  --windowMaxWidth: 800px;
+}
+
+
 body {
-  height: 600px;
-  width: 800px;
+  width: 400px;
   margin: auto;
   border: 1px solid var(--textColor-secondary);
 }
