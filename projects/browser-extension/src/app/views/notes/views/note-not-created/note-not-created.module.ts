@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { NoteNotCreatedRoutingModule } from './note-not-created-routing.module';
 import { NoteNotCreatedComponent } from './note-not-created.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @NgModule({
@@ -10,6 +11,7 @@ import { NoteNotCreatedComponent } from './note-not-created.component';
   imports: [
     CommonModule,
     NoteNotCreatedRoutingModule,
+    MatButtonModule,
   ],
 })
 export class NoteNotCreatedModule {

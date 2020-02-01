@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'brx-note-not-created',
@@ -6,12 +7,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./note-not-created.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NoteNotCreatedComponent implements OnInit {
+export class NoteNotCreatedComponent {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
-  ngOnInit() {
+  savePage() {
+    this.router.navigateByUrl('../create');
   }
-
 }
