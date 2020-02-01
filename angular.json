@@ -280,7 +280,8 @@
               "projects/browser-extension/src/manifest.json"
             ],
             "styles": [
-              "projects/browser-extension/src/styles.scss"
+              "projects/browser-extension/src/styles.scss",
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css"
             ],
             "scripts": []
           },

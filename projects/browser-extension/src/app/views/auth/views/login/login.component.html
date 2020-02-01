@@ -1,0 +1,26 @@
+<form
+  [formGroup]="rootForm"
+  (ngSubmit)="submit()"
+>
+
+  <brx-login-form
+    [formGroupTemplate]="formDefinition.form"
+  ></brx-login-form>
+
+  <footer>
+    <a
+      libLink
+      routerLink="../register"
+    >
+      or Create an Account
+    </a>
+
+    <button
+      mat-raised-button
+      color="accent"
+    >
+      Login
+    </button>
+  </footer>
+
+</form>

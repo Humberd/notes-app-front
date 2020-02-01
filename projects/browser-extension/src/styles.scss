@@ -1,1 +1,14 @@
 @import "../../common-styles/index";
+
+:root {
+  --windowMaxHeight: 600px;
+  --windowMaxWidth: 800px;
+}
+
+
+body {
+  height: unset;
+  width: 400px;
+  margin: auto;
+  border: 1px solid var(--textColor-secondary);
+}
