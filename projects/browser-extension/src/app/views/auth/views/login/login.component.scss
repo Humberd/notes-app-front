@@ -1,6 +1,11 @@
-:host {
+form {
+  margin: var(--space-xl);
+}
+
+footer {
+  margin-top: var(--space-xl);
+
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+  align-items: baseline;
+  justify-content: space-between;
 }

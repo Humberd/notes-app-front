@@ -1,0 +1,7 @@
+:host {
+  color: var(--textColor-accent2);
+
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
+}

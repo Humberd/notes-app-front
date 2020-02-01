@@ -3,6 +3,8 @@ import { LoginFormValues } from '../../../../forms/login-form/models/login-form-
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { AuthorizationService } from 'domains/lib/authorization/services/authorization.service';
+import { Router } from '@angular/router';
 
 interface RootLoginFormValues {
   form: LoginFormValues;
@@ -15,6 +17,14 @@ interface RootLoginFormValues {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginComponent extends FormRootController<RootLoginFormValues> {
+
+  constructor(
+    private authorizationService: AuthorizationService,
+    private router: Router,
+  ) {
+    super();
+  }
+
   getFormDefinition(): FormControllerConfig<RootLoginFormValues> {
     return {
       form: new FormGroup({}),
@@ -22,8 +32,14 @@ export class LoginComponent extends FormRootController<RootLoginFormValues> {
   }
 
   protected submitAction(values: RootLoginFormValues): Observable<any> {
-    return undefined;
+    return this.authorizationService.login({
+      login: values.form.login,
+      password: values.form.password,
+    });
   }
 
 
+  protected onSuccess(success: any): void {
+    this.router.navigateByUrl('/home');
+  }
 }
