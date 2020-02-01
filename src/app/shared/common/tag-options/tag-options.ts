@@ -9,7 +9,6 @@ import { TagsService } from 'domains/lib/tag/services/tags.service';
 
 @Injectable()
 export class TagOptionsController {
-
   constructor(
     private tagDialogsService: TagDialogsService,
     private tagsService: TagsService,
