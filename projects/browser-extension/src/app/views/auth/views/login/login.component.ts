@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { LoginFormValues } from '../../../../forms/login-form/models/login-form-values';
+import { LoginFormValues } from '../../../../../../../composite-library/src/lib/forms/login-form/models/login-form-values';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';

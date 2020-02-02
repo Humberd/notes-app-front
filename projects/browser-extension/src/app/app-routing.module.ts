@@ -5,11 +5,15 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'auth',
+    redirectTo: 'notes',
   },
   {
     path: 'auth',
     loadChildren: () => import('./views/auth/auth.module').then(value => value.AuthModule),
+  },
+  {
+    path: 'notes',
+    loadChildren: () => import('./views/notes/notes.module').then(m => m.NotesModule),
   },
 ];
 

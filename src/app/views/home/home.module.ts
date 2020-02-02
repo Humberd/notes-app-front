@@ -20,7 +20,7 @@ import { NoteContentCodeComponent } from './components/note-container/components
 import { NoteSearchBarComponent } from './components/note-search-bar/note-search-bar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActionsBarComponent } from './components/note-container/components/actions-bar/actions-bar.component';
-import { TagDialogsModule } from '../../dialogs/tag/tag-dialogs.module';
+import { TagDialogsModule } from 'composite-library/lib/dialogs/tag/tag-dialogs.module';
 import { EditorModule } from 'common-library/lib/editor/editor.module';
 import { BoostMatContextMenuModule } from '@ng-boost/material';
 import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
@@ -32,10 +32,11 @@ import { MarkdownPreviewModule } from 'common-library/lib/markdown-preview/markd
 import { NoteTitleFieldComponent } from './components/note-container/components/note-title-field/note-title-field.component';
 import { LibTranslateModule } from 'common-library/lib/translate/translate.module';
 import { ContextMenuModule } from 'common-library/lib/context-menu/context-menu.module';
-import { NoteTagModule } from '../../shared/note-tag/note-tag.module';
+import { NoteTagModule } from '../../../../projects/composite-library/src/lib/components/note-tag/note-tag.module';
 import { GeneralTagsListComponent } from './components/general-list/components/general-tags-list/general-tags-list.component';
 import { GeneralTagHoverOptionsComponent } from './components/general-list/components/general-tag-hover-options/general-tag-hover-options.component';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
+import { AutocompleteInputFormModule } from 'composite-library/lib/forms/autocomplete-input/autocomplete-input-form.module';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { LibFormsModule } from 'common-library/lib/forms/forms.module';
     ContextMenuModule,
     NoteTagModule,
     LibFormsModule,
+    AutocompleteInputFormModule,
   ],
   declarations: [
     HomeComponent,

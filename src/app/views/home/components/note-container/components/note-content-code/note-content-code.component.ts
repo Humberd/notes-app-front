@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { Note } from 'domains/lib/note/models/note';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { FormValidators } from '../../../../../../form-validators/form.validators';
+import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
 import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
 
 @Component({
