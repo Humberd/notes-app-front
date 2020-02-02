@@ -1,3 +1,5 @@
+/// <reference types="chrome"/>
+
 import { Injectable } from '@angular/core';
 import { ChromeApi } from './impl/chrome-api';
 import { Observable } from 'rxjs';
