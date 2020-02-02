@@ -9,10 +9,6 @@ const routes: Routes = [
     component: NotesComponent,
     children: [
       {
-        path: '',
-        redirectTo: 'not-created',
-      },
-      {
         path: 'not-created',
         loadChildren: () => import('./views/note-not-created/note-not-created.module').then(m => m.NoteNotCreatedModule),
       },

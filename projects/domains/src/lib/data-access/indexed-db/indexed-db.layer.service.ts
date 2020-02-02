@@ -65,6 +65,20 @@ export class IndexedDbLayerService implements OnDestroy {
     return this.db.readNote(noteId);
   }
 
+  readNoteByUrl(webPageUrl: string): Observable<Note> {
+    return this.db.readAllNotes()
+      .pipe(
+        map(notes => notes.filter(note => note.webPageUrl === webPageUrl)),
+        map(remainingNotes => {
+          if (remainingNotes.length === 0) {
+            throw Error('Not Found');
+          }
+
+          return remainingNotes[0];
+        }),
+      );
+  }
+
   readList(type: NoteType, searchQuery?: string): Observable<Note[]> {
     return this.db.readAllNotes()
       .pipe(

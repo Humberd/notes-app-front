@@ -22,6 +22,10 @@ export class NotesIndexedDbRepositoryService implements NotesRepository {
     return this.indexedDbLayer.read(noteId);
   }
 
+  readByUrl(webPageUrl: string): Observable<Note> {
+    return this.indexedDbLayer.readNoteByUrl(webPageUrl);
+  }
+
   watch(noteId: string): Observable<Note> {
     return this.indexedDbLayer.watchNote(noteId);
   }

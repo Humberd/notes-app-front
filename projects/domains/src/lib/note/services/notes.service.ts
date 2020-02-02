@@ -21,6 +21,10 @@ export class NotesService {
     return this.repository.read(noteId);
   }
 
+  readByUrl(webPageUrl: string): Observable<Note> {
+    return this.repository.readByUrl(webPageUrl);
+  }
+
   watch(noteId: string): Observable<Note> {
     return this.repository.watch(noteId);
   }
