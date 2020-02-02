@@ -35,7 +35,7 @@ export class NotesIndexedDbRepositoryService implements NotesRepository {
   }
 
   update(noteId: string, body: NoteUpdateRequest): Observable<Note> {
-    return this.indexedDbLayer.updateContent(noteId, body.title, body.content);
+    return this.indexedDbLayer.updateContent(noteId, body);
   }
 
   delete(noteId: string): Observable<any> {
