@@ -5,7 +5,7 @@
     *ngFor="let tag of (note$ | async).tags; trackBy: trackBy"
     [tag]="tag"
     [removable]="true"
-    (removed)="removeTag($event)"
+    (removed)="removeTag(tag)"
   ></lib2-note-tag>
 
 </ul>

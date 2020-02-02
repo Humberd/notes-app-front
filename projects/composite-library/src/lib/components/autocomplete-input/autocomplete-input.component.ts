@@ -61,7 +61,7 @@ export class AutocompleteInputComponent extends FormController<AutocompleteInput
   }
 
   resetForm() {
-    this.formDefinition.value.reset();
+    this.formDefinition.value.reset('');
   }
 
   private getInputLcValue$(): Observable<string> {
