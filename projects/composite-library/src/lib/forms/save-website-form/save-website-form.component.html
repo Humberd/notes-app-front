@@ -10,17 +10,34 @@
 </lib-control-container>
 
 
-<lib-control-container
-  label="Tags"
+<form
+  [formGroup]="formDefinition.newTag"
+  (ngSubmit)="addTag()"
 >
-
-  <input
-    [formControl]="formDefinition.tags"
-    libInput
+  <lib-control-container
+    label="Tags"
   >
 
-  <ol>
-    <>
-  </ol>
+    <lib2-autocomplete-input-form
+      [allValues]="allTagNames$ | async"
+      [ignoredValues]="[]"
+      [formGroupTemplate]="formDefinition.newTag"
+    ></lib2-autocomplete-input-form>
 
-</lib-control-container>
+    <ol>
+
+      <lib2-note-tag
+        class="tag"
+        *ngFor="let tag of tagNames; let index= index"
+        [tag]="{
+           id: '' + index,
+           name: tag
+        }"
+        [removable]="true"
+        (removed)="removeTag(tag)"
+      ></lib2-note-tag>
+
+    </ol>
+
+  </lib-control-container>
+</form>
