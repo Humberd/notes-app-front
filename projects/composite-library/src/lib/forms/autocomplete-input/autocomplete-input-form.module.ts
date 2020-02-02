@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AutocompleteInputComponent } from './autocomplete-input.component';
+import { AutocompleteInputFormComponent } from './autocomplete-input-form.component';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 
 
 @NgModule({
-  declarations: [AutocompleteInputComponent],
   imports: [
     CommonModule,
     MatAutocompleteModule,
     ReactiveFormsModule,
     LibFormsModule,
   ],
-  exports: [AutocompleteInputComponent],
+  declarations: [AutocompleteInputFormComponent],
+  exports: [AutocompleteInputFormComponent],
 })
-export class AutocompleteInpute {
+export class AutocompleteInputFormModule {
 }

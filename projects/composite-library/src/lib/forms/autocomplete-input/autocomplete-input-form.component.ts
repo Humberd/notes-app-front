@@ -1,18 +1,17 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { FormController, FormControllerConfig } from '@ng-boost/core';
 import { FormControl } from '@angular/forms';
-import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, startWith, switchMap } from 'rxjs/operators';
-import { AutocompleteInputFormValues } from 'composite-library/lib/components/autocomplete-input/models/autocomplete-input-form-values';
+import { AutocompleteInputFormValues } from 'composite-library/lib/forms/autocomplete-input/models/autocomplete-input-form-values';
 
 @Component({
-  selector: 'lib2-autocomplete-input',
-  templateUrl: './autocomplete-input.component.html',
-  styleUrls: ['./autocomplete-input.component.scss'],
+  selector: 'lib2-autocomplete-input-form',
+  templateUrl: './autocomplete-input-form.component.html',
+  styleUrls: ['./autocomplete-input-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteInputComponent extends FormController<AutocompleteInputFormValues> implements OnInit {
+export class AutocompleteInputFormComponent extends FormController<AutocompleteInputFormValues> implements OnInit {
 
   @Input()
   set ignoredValues(ignoredTagNames: string[]) {
@@ -56,7 +55,7 @@ export class AutocompleteInputComponent extends FormController<AutocompleteInput
 
   getFormDefinition(): FormControllerConfig<AutocompleteInputFormValues> {
     return {
-      value: new FormControl('', FormValidators.tag.name),
+      value: new FormControl(''),
     };
   }
 

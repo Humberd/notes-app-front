@@ -14,10 +14,10 @@
   [formGroup]="rootForm"
   (ngSubmit)="submit()"
 >
-  <lib2-autocomplete-input
+  <lib2-autocomplete-input-form
     [allValues]="allTagNames$ | async"
     [ignoredValues]="ignoredTagNames$ | async"
     [formGroupTemplate]="formDefinition.form"
-  ></lib2-autocomplete-input>
+  ></lib2-autocomplete-input-form>
 
 </form>

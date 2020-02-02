@@ -6,9 +6,9 @@ import { Note } from 'domains/lib/note/models/note';
 import { NoteTag } from 'domains/lib/note/models/note-tag';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
-import { AutocompleteInputFormValues } from 'composite-library/lib/components/autocomplete-input/models/autocomplete-input-form-values';
+import { AutocompleteInputFormValues } from 'composite-library/lib/forms/autocomplete-input/models/autocomplete-input-form-values';
 import { FormGroup } from '@angular/forms';
-import { AutocompleteInputComponent } from 'composite-library/lib/components/autocomplete-input/autocomplete-input.component';
+import { AutocompleteInputFormComponent } from 'composite-library/lib/forms/autocomplete-input/autocomplete-input-form.component';
 
 interface Foobar {
   form: AutocompleteInputFormValues;
@@ -21,7 +21,7 @@ interface Foobar {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagsBarComponent extends FormRootController<Foobar> implements OnInit {
-  @ViewChild(AutocompleteInputComponent) autocompleteInputComponent: AutocompleteInputComponent;
+  @ViewChild(AutocompleteInputFormComponent) autocompleteInputComponent: AutocompleteInputFormComponent;
 
   @Input()
   set note(note: Note) {
@@ -35,7 +35,7 @@ export class TagsBarComponent extends FormRootController<Foobar> implements OnIn
   allTagNames$: Observable<string[]>;
   ignoredTagNames$: Observable<string[]>;
 
-  private readonly note$ = new BehaviorSubject<Note>(null);
+  readonly note$ = new BehaviorSubject<Note>(null);
 
   constructor(
     private tagsRefresherService: TagsRefresherService,
