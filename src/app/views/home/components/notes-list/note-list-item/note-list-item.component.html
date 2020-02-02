@@ -20,11 +20,11 @@
 
     <ul class="tags">
       <ng-container *ngIf="note.tags.length > 0; else noTags">
-        <app-note-tag
+        <lib2-note-tag
           class="tag"
           *ngFor="let tag of note.tags"
           [tag]="tag"
-        ></app-note-tag>
+        ></lib2-note-tag>
       </ng-container>
 
       <ng-template #noTags>

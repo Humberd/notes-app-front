@@ -5,7 +5,7 @@ import { filter, takeUntil } from 'rxjs/operators';
 import { Destroy$ } from '@ng-boost/core';
 import { Subject } from 'rxjs';
 import { AppRoutingHelperService } from '../../../../shared/common/_services/app-routing-helper.service';
-import { TagOptionsController } from '../../../../shared/common/tag-options/tag-options';
+import { TagOptionsController } from 'composite-library/lib/services/tag-options';
 import { NotesStatsRefresherService } from '../../services/notes-stats-refresher.service';
 import { PanelExpansionStatus } from '../../models/panel-expansion-status';
 import { NoteType } from 'domains/lib/note/models/note-types';
