@@ -1,0 +1,19 @@
+<input
+  class="new-tag"
+  [formControl]="formDefinition.value"
+  [placeholder]="'Add tag...'"
+  [matAutocomplete]="autocomplete"
+  libInput
+/>
+
+<mat-autocomplete
+  [autoActiveFirstOption]="true"
+  #autocomplete
+>
+  <mat-option
+    *ngFor="let value of autocompleteValues$ | async"
+    [value]="value"
+  >
+    {{value}}
+  </mat-option>
+</mat-autocomplete>

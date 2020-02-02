@@ -10,4 +10,14 @@ export const FormValidators = {
     name: Validators.required,
     colorHex: colorHexValidator,
   },
+  auth: {
+    login: {
+      login: [],
+      password: [],
+    },
+    register: {
+      login: [],
+      password: [],
+    },
+  },
 };

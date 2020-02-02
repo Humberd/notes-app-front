@@ -3,7 +3,7 @@ import { PanelExpansionStatus } from 'src/app/views/home/models/panel-expansion-
 import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfig';
 import { Tag } from 'domains/lib/tag/models/tag.model';
 import { TagOptionsController } from 'composite-library/lib/services/tag-options';
-import { TagsRefresherService } from '../../../../services/tags-refresher.service';
+import { TagsRefresherService } from 'composite-library/lib/services/tags-refresher.service';
 
 @Component({
   selector: 'app-general-tags-list',

@@ -36,6 +36,7 @@ import { NoteTagModule } from '../../../../projects/composite-library/src/lib/co
 import { GeneralTagsListComponent } from './components/general-list/components/general-tags-list/general-tags-list.component';
 import { GeneralTagHoverOptionsComponent } from './components/general-list/components/general-tag-hover-options/general-tag-hover-options.component';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
+import { AutocompleteInpute } from 'composite-library/lib/components/autocomplete-input/autocomplete-inpute';
 
 @NgModule({
   imports: [
@@ -60,6 +61,7 @@ import { LibFormsModule } from 'common-library/lib/forms/forms.module';
     ContextMenuModule,
     NoteTagModule,
     LibFormsModule,
+    AutocompleteInpute,
   ],
   declarations: [
     HomeComponent,

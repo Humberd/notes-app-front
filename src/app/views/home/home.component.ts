@@ -4,7 +4,7 @@ import { NoteTypeRouteParam } from './services/note-type-route-param';
 import { NotesRefresherService } from './services/notes-refresher.service';
 import { NotesSearchService } from './services/notes-search.service';
 import { ActivatedRoute } from '@angular/router';
-import { TagsRefresherService } from './services/tags-refresher.service';
+import { TagsRefresherService } from 'composite-library/lib/services/tags-refresher.service';
 import { NoteIdRouteParam } from './services/note-id-route-param';
 import { CurrentNoteRefresherService } from './services/current-note-refresher.service';
 import { NotesStatsRefresherService } from './services/notes-stats-refresher.service';

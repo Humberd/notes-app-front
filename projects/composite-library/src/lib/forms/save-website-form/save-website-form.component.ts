@@ -4,7 +4,7 @@ import { SaveWebsiteFormValues } from './models/save-website-form-values';
 import { FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'brx-save-website-form',
+  selector: 'lib2-save-website-form',
   templateUrl: './save-website-form.component.html',
   styleUrls: ['./save-website-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
