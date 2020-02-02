@@ -66,15 +66,9 @@ export class TagsBarComponent extends FormRootController<Foobar> implements OnIn
   }
 
   protected submitAction(values: Foobar): Observable<any> {
-    const newTagName = values.form.value;
-    if (this.note.tags.some(tag => tag.name === newTagName)) {
-      console.log('Tag already exists');
-      return;
-    }
-
     return this.tagsService.create({
       noteId: this.note.id,
-      name: newTagName,
+      name: values.form.value,
     });
   }
 
