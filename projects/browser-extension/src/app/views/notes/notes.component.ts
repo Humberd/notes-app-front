@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ChromeApiBridgeService } from '../../services/chrome-api/chrome-api-bridge.service';
 import { NotesService } from 'domains/lib/note/services/notes.service';
 import { switchMap } from 'rxjs/operators';
@@ -17,6 +17,7 @@ export class NotesComponent implements OnInit {
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
     private notesService: NotesService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
@@ -29,10 +30,12 @@ export class NotesComponent implements OnInit {
         next: note => {
           this.isNoteCreated = true;
           this.note = note;
+          this.changeDetectorRef.markForCheck();
         },
         error: err => {
           this.isNoteCreated = false;
           console.warn(err);
+          this.changeDetectorRef.markForCheck();
         },
       });
   }
