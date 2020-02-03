@@ -1,3 +1,10 @@
-form {
+:host {
+  display: block;
   margin: var(--space-xl);
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-xl);
 }

@@ -3,11 +3,12 @@ import { TagsRefresherService } from 'composite-library/lib/services/tags-refres
 import { Note } from 'domains/lib/note/models/note';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { SaveWebsiteFormValues } from 'composite-library/lib/forms/save-website-form/models/save-website-form-values';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-website-form/models/save-website-form-initial-values';
 import { map } from 'rxjs/operators';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
+import { NotesService } from 'domains/lib/note/services/notes.service';
 
 interface NoteCreatedFormValues {
   form: SaveWebsiteFormValues;
@@ -29,6 +30,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
   constructor(
     private tagsRefresherService: TagsRefresherService,
     private tagsService: TagsService,
+    private notesService: NotesService,
   ) {
     super();
   }
@@ -56,7 +58,11 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
 
   protected submitAction(values: NoteCreatedFormValues): Observable<any> {
     console.log('submitting top level form');
-    return of();
+    return this.notesService.update(this.note.id, {
+      webPageUrl: this.note.webPageUrl,
+      content: this.note.content,
+      title: values.form.title,
+    });
   }
 
   handleTagAdd(tagName: string) {

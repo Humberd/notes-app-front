@@ -10,6 +10,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonDialogsModule } from 'composite-library/lib/dialogs/common/common-dialogs.module';
 import { TagDialogsModule } from 'composite-library/lib/dialogs/tag/tag-dialogs.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
+import { SaveWebsiteFormOptionsComponent } from './components/save-website-form-options/save-website-form-options.component';
 
 @NgModule({
   imports: [
@@ -20,8 +22,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonDialogsModule,
     TagDialogsModule,
     ReactiveFormsModule,
+    MatIconModule,
   ],
-  declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent],
+  declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent, SaveWebsiteFormOptionsComponent],
 })
 export class NotesModule {
 }

@@ -1,3 +1,5 @@
+<h2>Save WebPage</h2>
+
 <form
   [formGroup]="rootForm"
   (ngSubmit)="submit()"
@@ -10,5 +12,16 @@
     (tagAdd)="handleTagAdd($event)"
     (tagDelete)="handleTagDelete($event)"
   ></lib2-save-website-form>
+
+  <footer>
+    <brx-save-website-form-options></brx-save-website-form-options>
+
+    <button
+      mat-raised-button
+      color="accent"
+    >
+      SAVE
+    </button>
+  </footer>
 
 </form>
