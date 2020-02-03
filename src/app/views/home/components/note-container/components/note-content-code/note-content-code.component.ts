@@ -53,6 +53,7 @@ export class NoteContentCodeComponent implements OnInit {
         switchMap(newContent => this.notesService.update(this.note.id, {
           title: this.note.title,
           content: newContent,
+          webPageUrl: this.note.webPageUrl,
         })),
       )
       .subscribe();

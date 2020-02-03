@@ -47,6 +47,7 @@ export class NoteTitleFieldComponent implements OnInit {
         switchMap(newTitle => this.notesService.update(this.note.id, {
           title: newTitle,
           content: this.note.content,
+          webPageUrl: this.note.webPageUrl,
         })),
       )
       .subscribe();
