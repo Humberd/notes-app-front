@@ -22,6 +22,10 @@ export class NotesIndexedDbRepositoryService implements NotesRepository {
     return this.indexedDbLayer.read(noteId);
   }
 
+  readByUrl(webPageUrl: string): Observable<Note> {
+    return this.indexedDbLayer.readNoteByUrl(webPageUrl);
+  }
+
   watch(noteId: string): Observable<Note> {
     return this.indexedDbLayer.watchNote(noteId);
   }
@@ -35,7 +39,7 @@ export class NotesIndexedDbRepositoryService implements NotesRepository {
   }
 
   update(noteId: string, body: NoteUpdateRequest): Observable<Note> {
-    return this.indexedDbLayer.updateContent(noteId, body.title, body.content);
+    return this.indexedDbLayer.updateContent(noteId, body);
   }
 
   delete(noteId: string): Observable<any> {

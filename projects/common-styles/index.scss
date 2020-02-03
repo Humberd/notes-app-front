@@ -31,3 +31,29 @@ button {
   color: inherit;
   border: none;
 }
+
+h1 {
+  font-size: var(--fontSize-xxl);
+  font-weight: 700;
+  margin-top: var(--space-md);
+  margin-bottom: var(--space-l);
+}
+
+h2 {
+  font-size: var(--fontSize-xl);
+  font-weight: 500;
+  margin-top: var(--space-sm);
+  margin-bottom: var(--space-md);
+}
+
+h3 {
+  font-size: var(--fontSize-l);
+  font-weight: 400;
+  margin-top: var(--space-xsm);
+  margin-bottom: var(--space-sm);
+}
+
+h4 {
+  font-size: var(--fontSize-md);
+  font-weight: 400;
+}

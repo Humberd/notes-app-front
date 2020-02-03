@@ -19,8 +19,8 @@
   >
 
     <lib2-autocomplete-input-form
-      [allValues]="allTagNames$ | async"
-      [ignoredValues]="[]"
+      [allValues]="allTagNames"
+      [ignoredValues]="tagNames"
       [formGroupTemplate]="formDefinition.newTag"
     ></lib2-autocomplete-input-form>
 

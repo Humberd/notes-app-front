@@ -1,12 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormController, FormControllerConfig } from '@ng-boost/core';
 import { SaveWebsiteFormValues } from './models/save-website-form-values';
 import { FormControl, FormGroup } from '@angular/forms';
-import { TagsRefresherService } from 'composite-library/lib/services/tags-refresher.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { AutocompleteInputFormValues } from 'composite-library/lib/forms/autocomplete-input/models/autocomplete-input-form-values';
 import { AutocompleteInputFormComponent } from 'composite-library/lib/forms/autocomplete-input/autocomplete-input-form.component';
+import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-website-form/models/save-website-form-initial-values';
 
 @Component({
   selector: 'lib2-save-website-form',
@@ -14,42 +12,37 @@ import { AutocompleteInputFormComponent } from 'composite-library/lib/forms/auto
   styleUrls: ['./save-website-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SaveWebsiteFormComponent extends FormController<SaveWebsiteFormValues> implements OnInit {
+export class SaveWebsiteFormComponent extends FormController<SaveWebsiteFormValues, SaveWebsiteFormInitialValues> {
   @ViewChild(AutocompleteInputFormComponent) autoCompleteInputFormComponent: AutocompleteInputFormComponent;
 
-  allTagNames$: Observable<string[]>;
+  @Output() tagAdd = new EventEmitter<string>();
+  @Output() tagDelete = new EventEmitter<string>();
+
+  @Input() allTagNames: string[];
 
   tagNames: string[] = [];
 
-  constructor(private tagsRefresherService: TagsRefresherService) {
-    super();
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit();
-
-    this.allTagNames$ = this.tagsRefresherService.data$
-      .pipe(
-        map(tags => tags.map(tag => tag.name)),
-      );
-  }
-
   getFormDefinition(): FormControllerConfig<SaveWebsiteFormValues> {
+    this.tagNames = [...this.initialValues.tagNames];
+
     return {
-      title: new FormControl(),
+      title: new FormControl(this.initialValues?.title),
       newTag: new FormGroup({}),
     };
   }
 
   addTag() {
     const newTagValues: AutocompleteInputFormValues = this.formDefinition.newTag.value;
+    const newTagName = newTagValues.value;
 
-    this.tagNames.push(newTagValues.value);
+    this.tagNames.push(newTagName);
     this.autoCompleteInputFormComponent.resetForm();
+    this.tagAdd.emit(newTagName);
   }
 
   removeTag(tagName: string) {
     this.tagNames = this.tagNames.filter(it => it !== tagName);
+    this.tagDelete.emit(tagName);
   }
 
 }

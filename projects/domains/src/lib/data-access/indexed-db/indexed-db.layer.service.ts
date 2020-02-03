@@ -7,6 +7,7 @@ import { Tag } from 'domains/lib/tag/models/tag.model';
 import { Injectable, OnDestroy } from '@angular/core';
 import { NotesStats } from 'domains/lib/notes-stats/models/notes-stats';
 import { NoteType } from 'domains/lib/note/models/note-types';
+import { NoteUpdateRequest } from 'domains/lib/note/models/note.update-request';
 
 type NoteId = string;
 type TagId = string;
@@ -40,6 +41,7 @@ export class IndexedDbLayerService implements OnDestroy {
     return this.db.addNote({
       id: this.randomId(),
       tags: [],
+      webPageUrl: '',
       title: '',
       content: '',
       createdAt: new Date(),
@@ -61,6 +63,20 @@ export class IndexedDbLayerService implements OnDestroy {
 
   read(noteId: string): Observable<Note> {
     return this.db.readNote(noteId);
+  }
+
+  readNoteByUrl(webPageUrl: string): Observable<Note> {
+    return this.db.readAllNotes()
+      .pipe(
+        map(notes => notes.filter(note => note.webPageUrl === webPageUrl)),
+        map(remainingNotes => {
+          if (remainingNotes.length === 0) {
+            throw Error('Not Found');
+          }
+
+          return remainingNotes[0];
+        }),
+      );
   }
 
   readList(type: NoteType, searchQuery?: string): Observable<Note[]> {
@@ -175,13 +191,14 @@ export class IndexedDbLayerService implements OnDestroy {
       );
   }
 
-  updateContent(noteId: string, title: string, content: string): Observable<Note> {
+  updateContent(noteId: string, body: NoteUpdateRequest): Observable<Note> {
     return this.read(noteId)
       .pipe(
         switchMap(note => this.db.updateNote({
           ...note,
-          title,
-          content,
+          title: body.title,
+          content: body.content,
+          webPageUrl: body.webPageUrl,
           tags: this.uniqueTagIds(note.tags),
           updatedAt: new Date(),
         })),
@@ -301,7 +318,11 @@ export class IndexedDbLayerService implements OnDestroy {
       .pipe(
         switchMap(baseNote => this.add()
           .pipe(
-            switchMap(newNote => this.updateContent(newNote.id, this.generateDuplicateTitle(baseNote.title), baseNote.content)),
+            switchMap(newNote => this.updateContent(newNote.id, {
+              title: this.generateDuplicateTitle(baseNote.title),
+              content: baseNote.content,
+              webPageUrl: baseNote.webPageUrl,
+            })),
             switchMap(newNote => {
               if (baseNote.tags.length === 0) {
                 return this.read(newNote.id);
