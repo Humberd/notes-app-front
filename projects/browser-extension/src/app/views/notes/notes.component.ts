@@ -34,7 +34,6 @@ export class NotesComponent implements OnInit {
         },
         error: err => {
           this.isNoteCreated = false;
-          console.warn(err);
           this.changeDetectorRef.markForCheck();
         },
       });

@@ -27,7 +27,7 @@ export class NoteNotCreatedComponent {
     const currentTab = await this.chromeApiBridgeService.getCurrentTab().toPromise();
 
     const updatedNote = await this.notesService.update(note.id, {
-      title: 'foobar',
+      title: currentTab.title,
       content: '',
       webPageUrl: currentTab.url,
     }).toPromise();

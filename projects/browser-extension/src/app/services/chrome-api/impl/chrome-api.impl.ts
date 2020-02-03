@@ -7,7 +7,7 @@ export class ChromeApiImpl implements ChromeApi {
     return new Observable<chrome.tabs.Tab>(subscriber => {
       chrome.tabs.query({
         active: true,
-        lastFocusedWindow: true,
+        currentWindow: true,
       }, tabs => {
         subscriber.next(tabs[0]);
         subscriber.complete();

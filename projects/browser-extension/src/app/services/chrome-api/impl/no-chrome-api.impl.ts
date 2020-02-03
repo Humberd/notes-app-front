@@ -13,6 +13,7 @@ export class NoChromeApiImpl implements ChromeApi {
       incognito: false,
       discarded: false,
       autoDiscardable: false,
+      title: 'Test title - running as normal app',
       url: 'testUrl',
     };
     return of(tab);
