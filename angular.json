@@ -18,7 +18,7 @@
           "options": {
             "baseHref": "/",
             "deployUrl": "/",
-            "outputPath": "dist/main-app",
+            "outputPath": "dist",
             "index": "src/index.html",
             "main": "src/main.ts",
             "preserveSymlinks": true,
