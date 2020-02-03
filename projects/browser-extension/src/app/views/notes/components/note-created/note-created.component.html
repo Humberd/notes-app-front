@@ -1,5 +1,14 @@
-<form>
+<form
+  [formGroup]="rootForm"
+  (ngSubmit)="submit()"
+>
 
-  <lib2-save-website-form></lib2-save-website-form>
+  <lib2-save-website-form
+    [formGroupTemplate]="formDefinition.form"
+    [initialValues]="formInitialValues"
+    [allTagNames]="allTagNames$ | async"
+    (tagAdd)="handleTagAdd($event)"
+    (tagDelete)="handleTagDelete($event)"
+  ></lib2-save-website-form>
 
 </form>

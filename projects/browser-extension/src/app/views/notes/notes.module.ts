@@ -9,7 +9,7 @@ import { SaveWebsiteFormModule } from 'composite-library/lib/forms/save-website-
 import { MatButtonModule } from '@angular/material/button';
 import { CommonDialogsModule } from 'composite-library/lib/dialogs/common/common-dialogs.module';
 import { TagDialogsModule } from 'composite-library/lib/dialogs/tag/tag-dialogs.module';
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
@@ -19,6 +19,7 @@ import { TagDialogsModule } from 'composite-library/lib/dialogs/tag/tag-dialogs.
     MatButtonModule,
     CommonDialogsModule,
     TagDialogsModule,
+    ReactiveFormsModule,
   ],
   declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent],
 })

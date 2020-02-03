@@ -10,7 +10,7 @@ import { ChromeApiImpl } from './impl/chrome-api.impl';
   providedIn: 'root',
 })
 export class ChromeApiBridgeService implements ChromeApi {
-  chromeApiImpl: ChromeApi;
+  private readonly chromeApiImpl: ChromeApi;
 
   constructor() {
     if (typeof chrome.extension === 'undefined') {

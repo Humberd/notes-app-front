@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ChromeApiBridgeService } from '../../services/chrome-api/chrome-api-bridge.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NotesService } from 'domains/lib/note/services/notes.service';
 import { switchMap } from 'rxjs/operators';
+import { Note } from 'domains/lib/note/models/note';
 
 @Component({
   selector: 'brx-notes',
@@ -10,27 +10,36 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./notes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotesComponent {
+export class NotesComponent implements OnInit {
+  isNoteCreated: boolean;
+  note: Note;
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
     private notesService: NotesService,
   ) {
-    chromeApiBridgeService.getCurrentTab()
+  }
+
+  ngOnInit(): void {
+    this.chromeApiBridgeService.getCurrentTab()
       .pipe(
         switchMap(currentTab => this.notesService.readByUrl(currentTab.url)),
       )
       .subscribe({
         next: note => {
-          this.router.navigate(['./created', note.id], {relativeTo: this.activatedRoute});
+          this.isNoteCreated = true;
+          this.note = note;
         },
         error: err => {
+          this.isNoteCreated = false;
           console.warn(err);
-          this.router.navigate(['./not-created'], {relativeTo: this.activatedRoute});
         },
       });
+  }
+
+  handleNoteCreated(event: Note) {
+    this.isNoteCreated = true;
+    this.note = event;
   }
 
 }

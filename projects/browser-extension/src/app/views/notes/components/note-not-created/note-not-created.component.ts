@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { switchMap } from 'rxjs/operators';
+import { ChromeApiBridgeService } from '../../../../services/chrome-api/chrome-api-bridge.service';
+import { Note } from 'domains/lib/note/models/note';
 
 @Component({
   selector: 'brx-note-not-created',
@@ -10,28 +11,27 @@ import { switchMap } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NoteNotCreatedComponent {
+  @Output() noteCreated = new EventEmitter<Note>();
 
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private notesService: NotesService,
+    private chromeApiBridgeService: ChromeApiBridgeService,
   ) {
   }
 
-  savePage() {
-    this.notesService.create()
-      .pipe(
-        switchMap(note => this.notesService.update(note.id, {
-          title: 'foobar',
-          content: '',
-          webPageUrl: '',
-        })),
-      )
-      .subscribe(note => {
-        this.router.navigate(['../created', note.id], {
-          relativeTo: this.activatedRoute,
-        });
-      });
+  async savePage() {
+    const note = await this.notesService.create().toPromise();
 
+    const currentTab = await this.chromeApiBridgeService.getCurrentTab().toPromise();
+
+    const updatedNote = await this.notesService.update(note.id, {
+      title: 'foobar',
+      content: '',
+      webPageUrl: currentTab.url,
+    }).toPromise();
+
+    this.noteCreated.emit(updatedNote);
   }
 }
