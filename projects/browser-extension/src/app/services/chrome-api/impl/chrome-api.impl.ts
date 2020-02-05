@@ -14,4 +14,13 @@ export class ChromeApiImpl implements ChromeApi {
       });
     });
   }
+
+  sendTabMessage(tabId: number, message: any): Observable<any> {
+    return new Observable<any>(subscriber => {
+      chrome.tabs.sendMessage(tabId, message, response => {
+        subscriber.next(response);
+        subscriber.complete();
+      });
+    });
+  }
 }

@@ -19,4 +19,8 @@ export class NoChromeApiImpl implements ChromeApi {
     return of(tab);
   }
 
+  sendTabMessage(tabId: number, message: any): Observable<any> {
+    return of();
+  }
+
 }

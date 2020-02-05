@@ -24,4 +24,8 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.getCurrentTab();
   }
 
+  sendTabMessage(tabId: number, message: any): Observable<any> {
+    return this.chromeApiImpl.sendTabMessage(tabId, message);
+  }
+
 }
