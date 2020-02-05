@@ -2,7 +2,6 @@ import { Observable } from 'rxjs';
 import { ChromeApi } from './chrome-api';
 
 export class ChromeApiImpl implements ChromeApi {
-
   getCurrentTab(): Observable<chrome.tabs.Tab> {
     return new Observable<chrome.tabs.Tab>(subscriber => {
       chrome.tabs.query({

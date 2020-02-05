@@ -6,7 +6,8 @@
     "default_popup": "index.html"
   },
   "permissions": [
-    "activeTab"
+    "activeTab",
+    "tabs"
   ],
   "background": {
     "scripts": [
@@ -22,6 +23,9 @@
       "all_frames": false,
       "js": [
         "assets/content-selection.js"
+      ],
+      "css": [
+        "assets/content-selection.css"
       ]
     }
   ]
