@@ -9,7 +9,7 @@ import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-w
 import { map } from 'rxjs/operators';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { ChromeApiBridgeService } from '../../../../services/chrome-api/chrome-api-bridge.service';
+import { ContentScriptsService } from '../../../../services/content-scripts/content-scripts.service';
 
 interface NoteCreatedFormValues {
   form: SaveWebsiteFormValues;
@@ -33,7 +33,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     private tagsRefresherService: TagsRefresherService,
     private tagsService: TagsService,
     private notesService: NotesService,
-    private chromeApiBridgeService: ChromeApiBridgeService,
+    private contentScriptsService: ContentScriptsService,
   ) {
     super();
   }
@@ -86,7 +86,6 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
   }
 
   handleContentSelectionMode() {
-    this.chromeApiBridgeService.sendTabMessage(this.tabId, 'message from the app')
-      .subscribe(console.log, null, () => console.log('completed'));
+    this.contentScriptsService.startSelectionMode(this.tabId);
   }
 }

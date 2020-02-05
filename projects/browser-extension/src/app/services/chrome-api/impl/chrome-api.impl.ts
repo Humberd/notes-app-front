@@ -1,5 +1,6 @@
-import { Observable } from 'rxjs';
+import { fromEventPattern, Observable } from 'rxjs';
 import { ChromeApi } from './chrome-api';
+import { ListenMessageResult } from './listen-message-result';
 
 export class ChromeApiImpl implements ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab> {
@@ -21,5 +22,26 @@ export class ChromeApiImpl implements ChromeApi {
         subscriber.complete();
       });
     });
+  }
+
+  sendMessage(message: any): Observable<any> {
+    return new Observable<any>(subscriber => {
+      chrome.runtime.sendMessage(message, response => {
+        subscriber.next(response);
+        subscriber.complete();
+      });
+    });
+  }
+
+  listenMessage(): Observable<ListenMessageResult> {
+    function addHandler(handler) {
+      chrome.runtime.onMessage.addListener(handler);
+    }
+
+    function deleteHandler(handler) {
+      chrome.runtime.onMessage.removeListener(handler);
+    }
+
+    return fromEventPattern(addHandler, deleteHandler);
   }
 }
