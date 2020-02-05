@@ -1,0 +1,15 @@
+.brx-top-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  z-index: 10000;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.brx-button {
+
+}

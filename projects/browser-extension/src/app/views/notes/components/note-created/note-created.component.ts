@@ -9,6 +9,7 @@ import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-w
 import { map } from 'rxjs/operators';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 import { NotesService } from 'domains/lib/note/services/notes.service';
+import { ContentScriptsService } from 'composite-library/lib/browser-extension/content-scripts/content-scripts.service';
 
 interface NoteCreatedFormValues {
   form: SaveWebsiteFormValues;
@@ -23,6 +24,7 @@ interface NoteCreatedFormValues {
 })
 export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValues> implements OnInit {
   @Input() note: Note;
+  @Input() tabId: number;
   formInitialValues: SaveWebsiteFormInitialValues;
 
   allTagNames$: Observable<string[]>;
@@ -31,6 +33,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     private tagsRefresherService: TagsRefresherService,
     private tagsService: TagsService,
     private notesService: NotesService,
+    private contentScriptsService: ContentScriptsService,
   ) {
     super();
   }
@@ -47,6 +50,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     this.formInitialValues = {
       title: this.note.title,
       tagNames: this.note.tags.map(it => it.name),
+      content: this.note.content,
     };
   }
 
@@ -60,7 +64,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     console.log('submitting top level form');
     return this.notesService.update(this.note.id, {
       webPageUrl: this.note.webPageUrl,
-      content: this.note.content,
+      content: values.form.content,
       title: values.form.title,
     });
   }
@@ -81,4 +85,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
       .subscribe();
   }
 
+  handleContentSelectionMode() {
+    this.contentScriptsService.startSelectionMode(this.tabId);
+  }
 }

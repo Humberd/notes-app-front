@@ -11,6 +11,7 @@
     [allTagNames]="allTagNames$ | async"
     (tagAdd)="handleTagAdd($event)"
     (tagDelete)="handleTagDelete($event)"
+    (contentSelectionMode)="handleContentSelectionMode()"
   ></lib2-save-website-form>
 
   <footer>

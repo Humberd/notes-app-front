@@ -1,5 +1,6 @@
 import { Observable, of } from 'rxjs';
-import { ChromeApi } from './chrome-api';
+import { ChromeApi } from '../../models/chrome-api';
+import { ListenMessageResult } from '../../models/listen-message-result';
 
 export class NoChromeApiImpl implements ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab> {
@@ -17,6 +18,18 @@ export class NoChromeApiImpl implements ChromeApi {
       url: 'testUrl',
     };
     return of(tab);
+  }
+
+  sendTabMessage(tabId: number, message: any): Observable<any> {
+    return of();
+  }
+
+  sendMessage(message: any): Observable<any> {
+    return of();
+  }
+
+  listenMessage(): Observable<ListenMessageResult> {
+    return of();
   }
 
 }

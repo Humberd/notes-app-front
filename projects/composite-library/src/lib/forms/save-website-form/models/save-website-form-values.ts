@@ -3,4 +3,5 @@ import { AutocompleteInputFormValues } from 'composite-library/lib/forms/autocom
 export interface SaveWebsiteFormValues {
   title: string;
   newTag: AutocompleteInputFormValues;
+  content: string;
 }

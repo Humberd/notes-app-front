@@ -41,3 +41,22 @@
 
   </lib-control-container>
 </form>
+
+<lib-control-container
+  label="Content"
+>
+
+  <textarea
+    libInput
+    [formControl]="formDefinition.content"
+  ></textarea>
+
+</lib-control-container>
+
+<button
+  mat-raised-button
+  (click)="enterContentSelectionMode()"
+  type="button"
+>
+  Or select form page
+</button>

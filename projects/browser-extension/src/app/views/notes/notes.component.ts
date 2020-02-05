@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ChromeApiBridgeService } from '../../services/chrome-api/chrome-api-bridge.service';
+import { ChromeApiBridgeService } from 'composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, tap } from 'rxjs/operators';
 import { Note } from 'domains/lib/note/models/note';
 
 @Component({
@@ -13,6 +13,7 @@ import { Note } from 'domains/lib/note/models/note';
 export class NotesComponent implements OnInit {
   isNoteCreated: boolean;
   note: Note;
+  tabId: number;
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
@@ -24,6 +25,7 @@ export class NotesComponent implements OnInit {
   ngOnInit(): void {
     this.chromeApiBridgeService.getCurrentTab()
       .pipe(
+        tap(currentTab => this.tabId = currentTab.id),
         switchMap(currentTab => this.notesService.readByUrl(currentTab.url)),
       )
       .subscribe({
