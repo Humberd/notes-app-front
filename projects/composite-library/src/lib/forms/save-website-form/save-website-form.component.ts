@@ -29,6 +29,7 @@ export class SaveWebsiteFormComponent extends FormController<SaveWebsiteFormValu
     return {
       title: new FormControl(this.initialValues?.title),
       newTag: new FormGroup({}),
+      content: new FormControl(this.initialValues?.content),
     };
   }
 

@@ -46,7 +46,10 @@
   label="Content"
 >
 
-  <textarea libInput></textarea>
+  <textarea
+    libInput
+    [formControl]="formDefinition.content"
+  ></textarea>
 
 </lib-control-container>
 
