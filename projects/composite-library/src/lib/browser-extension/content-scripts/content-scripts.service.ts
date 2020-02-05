@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ChromeApiBridgeService } from '../chrome-api/chrome-api-bridge.service';
+import { ChromeApiBridgeService } from 'composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
 
 @Injectable({
   providedIn: 'root',

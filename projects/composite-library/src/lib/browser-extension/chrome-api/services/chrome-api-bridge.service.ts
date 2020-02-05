@@ -1,11 +1,11 @@
 /// <reference types="chrome"/>
 
 import { Injectable } from '@angular/core';
-import { ChromeApi } from './impl/chrome-api';
+import { ChromeApi } from '../models/chrome-api';
 import { Observable } from 'rxjs';
 import { NoChromeApiImpl } from './impl/no-chrome-api.impl';
 import { ChromeApiImpl } from './impl/chrome-api.impl';
-import { ListenMessageResult } from './impl/listen-message-result';
+import { ListenMessageResult } from '../models/listen-message-result';
 
 @Injectable({
   providedIn: 'root',
