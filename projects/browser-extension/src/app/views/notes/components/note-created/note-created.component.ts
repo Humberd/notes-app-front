@@ -81,4 +81,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
       .subscribe();
   }
 
+  handleContentSelectionMode() {
+
+  }
 }

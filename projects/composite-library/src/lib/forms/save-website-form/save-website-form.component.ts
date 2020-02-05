@@ -15,10 +15,11 @@ import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-w
 export class SaveWebsiteFormComponent extends FormController<SaveWebsiteFormValues, SaveWebsiteFormInitialValues> {
   @ViewChild(AutocompleteInputFormComponent) autoCompleteInputFormComponent: AutocompleteInputFormComponent;
 
+  @Input() allTagNames: string[];
+
   @Output() tagAdd = new EventEmitter<string>();
   @Output() tagDelete = new EventEmitter<string>();
-
-  @Input() allTagNames: string[];
+  @Output() contentSelectionMode = new EventEmitter();
 
   tagNames: string[] = [];
 
@@ -45,4 +46,7 @@ export class SaveWebsiteFormComponent extends FormController<SaveWebsiteFormValu
     this.tagDelete.emit(tagName);
   }
 
+  enterContentSelectionMode() {
+    this.contentSelectionMode.emit();
+  }
 }
