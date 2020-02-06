@@ -1,13 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
 import { APP_BASE_HREF } from '@angular/common';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
   imports: [
     BrowserModule,
   ],
@@ -17,7 +13,14 @@ import { APP_BASE_HREF } from '@angular/common';
       useValue: 'content',
     },
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {
+  constructor() {
+    console.log('Content scripts are running from Angular2');
+  }
+
+  ngDoBootstrap() {
+    console.log('Im bootstrapped');
+  }
 }
+

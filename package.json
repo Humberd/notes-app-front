@@ -58,6 +58,7 @@
     "@angular/compiler": "9.0.0-rc.9",
     "@angular/compiler-cli": "9.0.0-rc.9",
     "@angular/core": "9.0.0-rc.9",
+    "@angular/elements": "^9.0.0-rc.9",
     "@angular/forms": "^9.0.0-rc.9",
     "@angular/language-service": "9.0.0-rc.9",
     "@angular/material": "^9.0.0-rc.8",
