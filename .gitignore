@@ -50,3 +50,4 @@ testem.log
 Thumbs.db
 browser-extension-build/browser-extension
 browser-extension-build/background
+browser-extension-build/content

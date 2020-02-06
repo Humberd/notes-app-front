@@ -20,10 +20,10 @@
       "run_at": "document_start",
       "all_frames": false,
       "js": [
-        "content-selection/content-selection.js"
-      ],
-      "css": [
-        "content-selection/content-selection.css"
+        "content/runtime.js",
+        "content/polyfills.js",
+        "content/styles.js",
+        "content/main.js"
       ]
     }
   ]
