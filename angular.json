@@ -564,7 +564,8 @@
               "projects/browser-extension-content/src/assets"
             ],
             "styles": [
-              "projects/browser-extension-content/src/styles.scss"
+              "projects/browser-extension-content/src/styles.scss",
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css"
             ],
             "scripts": []
           },
