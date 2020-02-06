@@ -268,16 +268,15 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/browser-extension",
+            "baseHref": "browser-extension",
+            "outputPath": "browser-extension-build/browser-extension",
             "index": "projects/browser-extension/src/index.html",
             "main": "projects/browser-extension/src/main.ts",
             "polyfills": "projects/browser-extension/src/polyfills.ts",
             "tsConfig": "projects/browser-extension/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/browser-extension/src/favicon.ico",
-              "projects/browser-extension/src/assets",
-              "projects/browser-extension/src/manifest.json"
+              "projects/browser-extension/src/assets"
             ],
             "styles": [
               "projects/browser-extension/src/styles.scss",
@@ -413,6 +412,249 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        }
+      }
+    },
+    "browser-extension-background": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "spec": false
+        }
+      },
+      "root": "projects/browser-extension-background",
+      "sourceRoot": "projects/browser-extension-background/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "baseHref": "background",
+            "outputPath": "browser-extension-build/background",
+            "index": "projects/browser-extension-background/src/index.html",
+            "main": "projects/browser-extension-background/src/main.ts",
+            "polyfills": "projects/browser-extension-background/src/polyfills.ts",
+            "tsConfig": "projects/browser-extension-background/tsconfig.app.json",
+            "aot": true,
+            "scripts": [
+              "projects/browser-extension-background/src/scripts/hot-reload.js"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/browser-extension-background/src/environments/environment.ts",
+                  "with": "projects/browser-extension-background/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "browser-extension-background:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "browser-extension-background:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "browser-extension-background:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/browser-extension-background/src/test.ts",
+            "polyfills": "projects/browser-extension-background/src/polyfills.ts",
+            "tsConfig": "projects/browser-extension-background/tsconfig.spec.json",
+            "karmaConfig": "projects/browser-extension-background/karma.conf.js",
+            "assets": [
+              "projects/browser-extension-background/src/favicon.ico",
+              "projects/browser-extension-background/src/assets"
+            ],
+            "styles": [
+              "projects/browser-extension-background/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/browser-extension-background/tsconfig.app.json",
+              "projects/browser-extension-background/tsconfig.spec.json",
+              "projects/browser-extension-background/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/browser-extension-background/e2e/protractor.conf.js",
+            "devServerTarget": "browser-extension-background:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "browser-extension-background:serve:production"
+            }
+          }
+        }
+      }
+    },
+    "browser-extension-content": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "changeDetection": "OnPush",
+          "spec": false
+        }
+      },
+      "root": "projects/browser-extension-content",
+      "sourceRoot": "projects/browser-extension-content/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "baseHref": "content",
+            "outputPath": "browser-extension-build/content",
+            "index": "projects/browser-extension-content/src/index.html",
+            "main": "projects/browser-extension-content/src/main.ts",
+            "polyfills": "projects/browser-extension-content/src/polyfills.ts",
+            "tsConfig": "projects/browser-extension-content/tsconfig.app.json",
+            "aot": true,
+            "vendorChunk": false,
+            "extractCss": true,
+            "assets": [
+              "projects/browser-extension-content/src/assets"
+            ],
+            "styles": [
+              "projects/browser-extension-content/src/styles.scss",
+              "./node_modules/@angular/material/prebuilt-themes/purple-green.css"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/browser-extension-content/src/environments/environment.ts",
+                  "with": "projects/browser-extension-content/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "none",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "browser-extension-content:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "browser-extension-content:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "browser-extension-content:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/browser-extension-content/src/test.ts",
+            "polyfills": "projects/browser-extension-content/src/polyfills.ts",
+            "tsConfig": "projects/browser-extension-content/tsconfig.spec.json",
+            "karmaConfig": "projects/browser-extension-content/karma.conf.js",
+            "assets": [
+              "projects/browser-extension-content/src/favicon.ico",
+              "projects/browser-extension-content/src/assets"
+            ],
+            "styles": [
+              "projects/browser-extension-content/src/styles.scss"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/browser-extension-content/tsconfig.app.json",
+              "projects/browser-extension-content/tsconfig.spec.json",
+              "projects/browser-extension-content/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/browser-extension-content/e2e/protractor.conf.js",
+            "devServerTarget": "browser-extension-content:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "browser-extension-content:serve:production"
+            }
           }
         }
       }

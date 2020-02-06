@@ -1,3 +1,5 @@
+console.log('Content selection works');
+
 let hasPanelElem = false;
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {

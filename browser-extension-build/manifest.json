@@ -3,29 +3,29 @@
   "name": "Notes App",
   "version": "0.0.1",
   "browser_action": {
-    "default_popup": "index.html"
+    "default_popup": "browser-extension/index.html"
   },
   "permissions": [
     "activeTab",
     "tabs"
   ],
   "background": {
-    "scripts": [
-      "assets/hot-reload.js"
-    ]
+    "page": "background/index.html"
   },
   "content_scripts": [
     {
       "matches": [
         "<all_urls>"
       ],
-      "run_at": "document_start",
+      "run_at": "document_end",
       "all_frames": false,
       "js": [
-        "assets/content-selection.js"
+        "content/runtime.js",
+        "content/polyfills.js",
+        "content/main.js"
       ],
       "css": [
-        "assets/content-selection.css"
+        "content/styles.css"
       ]
     }
   ]

@@ -48,3 +48,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+browser-extension-build/browser-extension
+browser-extension-build/background
+browser-extension-build/content
