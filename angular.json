@@ -559,7 +559,7 @@
             "tsConfig": "projects/browser-extension-content/tsconfig.app.json",
             "aot": true,
             "vendorChunk": false,
-            "extractCss": false,
+            "extractCss": true,
             "assets": [
               "projects/browser-extension-content/src/assets"
             ],

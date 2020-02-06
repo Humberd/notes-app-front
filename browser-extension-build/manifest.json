@@ -22,8 +22,10 @@
       "js": [
         "content/runtime.js",
         "content/polyfills.js",
-        "content/styles.js",
         "content/main.js"
+      ],
+      "css": [
+        "content/style.css"
       ]
     }
   ]
