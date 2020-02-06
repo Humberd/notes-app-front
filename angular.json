@@ -268,7 +268,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/browser-extension",
+            "outputPath": "browser-extension-build/browser-extension",
             "index": "projects/browser-extension/src/index.html",
             "main": "projects/browser-extension/src/main.ts",
             "polyfills": "projects/browser-extension/src/polyfills.ts",

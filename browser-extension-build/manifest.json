@@ -11,7 +11,7 @@
   ],
   "background": {
     "scripts": [
-      "assets/hot-reload.js"
+      "hot-reload.js"
     ]
   },
   "content_scripts": [
@@ -22,10 +22,10 @@
       "run_at": "document_start",
       "all_frames": false,
       "js": [
-        "assets/content-selection.js"
+        "content-selection/content-selection.js"
       ],
       "css": [
-        "assets/content-selection.css"
+        "content-selection/content-selection.css"
       ]
     }
   ]
