@@ -10,7 +10,7 @@
     "tabs"
   ],
   "background": {
-    "page": "backgound/index.html"
+    "page": "background/index.html"
   },
   "content_scripts": [
     {

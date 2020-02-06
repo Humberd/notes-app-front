@@ -433,6 +433,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "baseHref": "background",
             "outputPath": "browser-extension-build/background",
             "index": "projects/browser-extension-background/src/index.html",
             "main": "projects/browser-extension-background/src/main.ts",
@@ -440,6 +441,7 @@
             "tsConfig": "projects/browser-extension-background/tsconfig.app.json",
             "aot": true,
             "scripts": [
+              "projects/browser-extension-background/src/scripts/hot-reload.js"
             ]
           },
           "configurations": {
