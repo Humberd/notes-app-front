@@ -276,7 +276,6 @@
             "tsConfig": "projects/browser-extension/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/browser-extension/src/favicon.ico",
               "projects/browser-extension/src/assets"
             ],
             "styles": [
