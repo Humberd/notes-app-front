@@ -10,9 +10,7 @@
     "tabs"
   ],
   "background": {
-    "scripts": [
-      "hot-reload.js"
-    ]
+    "page": "backgound/index.html"
   },
   "content_scripts": [
     {
