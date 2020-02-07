@@ -1,7 +1,7 @@
 import MessageSender = chrome.runtime.MessageSender;
 
-export interface ListenMessageResult {
-  message: any;
+export interface ListenMessageResult<Message, Response> {
+  message: Message;
   sender: MessageSender;
-  sendResponse: (response?: any) => void;
+  sendResponse: (response?: Response) => void;
 }
