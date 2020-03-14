@@ -78,11 +78,13 @@
     "ngx-monaco-editor": "^8.1.1",
     "rxjs": "6.5.4",
     "tslib": "^1.10.0",
+    "web-app": "^0.1.0",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.6",
     "@angular-devkit/build-ng-packagr": "~0.900.6",
+    "@angular/compiler-cli": "~9.0.6",
     "@types/chrome": "0.0.93",
     "@types/flat": "0.0.28",
     "@types/jasmine": "3.5.1",
