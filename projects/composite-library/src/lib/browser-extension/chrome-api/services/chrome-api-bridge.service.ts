@@ -1,6 +1,6 @@
 /// <reference types="chrome"/>
 
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { ChromeApi } from '../models/chrome-api';
 import { Observable } from 'rxjs';
 import { NoChromeApiImpl } from './impl/no-chrome-api.impl';
@@ -13,11 +13,11 @@ import { ListenMessageResult } from '../models/listen-message-result';
 export class ChromeApiBridgeService implements ChromeApi {
   private readonly chromeApiImpl: ChromeApi;
 
-  constructor() {
+  constructor(ngZone: NgZone) {
     if (typeof chrome.extension === 'undefined') {
       this.chromeApiImpl = new NoChromeApiImpl();
     } else {
-      this.chromeApiImpl = new ChromeApiImpl();
+      this.chromeApiImpl = new ChromeApiImpl(ngZone);
     }
   }
 
@@ -33,7 +33,7 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.sendMessage(message);
   }
 
-  listenMessage(): Observable<ListenMessageResult> {
+  listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
     return this.chromeApiImpl.listenMessage();
   }
 

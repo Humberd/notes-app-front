@@ -1,9 +1,14 @@
 <section class="brx-top-panel">
-  <button mat-button>CANCEL</button>
+  <button
+    mat-button
+    (click)="handleCancel()"
+  >CANCEL
+  </button>
   <button
     *ngIf="selection?.type === 'Range'"
     mat-raised-button
     color="accent"
+    (click)="handleSave()"
   >
     SAVE
   </button>

@@ -8,5 +8,5 @@ export interface ChromeApi {
 
   sendMessage(message: any): Observable<any>;
 
-  listenMessage(): Observable<ListenMessageResult>;
+  listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>>;
 }

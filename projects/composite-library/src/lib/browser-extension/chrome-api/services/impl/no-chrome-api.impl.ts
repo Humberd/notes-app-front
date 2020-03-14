@@ -28,7 +28,7 @@ export class NoChromeApiImpl implements ChromeApi {
     return of();
   }
 
-  listenMessage(): Observable<ListenMessageResult> {
+  listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
     return of();
   }
 

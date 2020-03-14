@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-content-selection-bar',
@@ -7,6 +7,9 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ContentSelectionBarComponent implements OnInit, OnDestroy {
+  @Output() cancel = new EventEmitter();
+  @Output() save = new EventEmitter<string>();
+
   selection: Selection;
 
   constructor(private changeDetectorRef: ChangeDetectorRef) {
@@ -24,5 +27,13 @@ export class ContentSelectionBarComponent implements OnInit, OnDestroy {
     this.selection = document.getSelection();
     this.changeDetectorRef.markForCheck();
   };
+
+  handleSave() {
+    this.save.next(this.selection.toString());
+  }
+
+  handleCancel() {
+    this.cancel.next();
+  }
 
 }

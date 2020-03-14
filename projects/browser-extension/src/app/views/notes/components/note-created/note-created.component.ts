@@ -9,7 +9,7 @@ import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-w
 import { map } from 'rxjs/operators';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { ContentScriptsService } from 'composite-library/lib/browser-extension/content-scripts/content-scripts.service';
+import { ContentScriptsService } from 'composite-library/lib/browser-extension/content-scripts/services/content-scripts.service';
 
 interface NoteCreatedFormValues {
   form: SaveWebsiteFormValues;
