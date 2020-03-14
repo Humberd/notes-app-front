@@ -422,7 +422,7 @@
         "@schematics/angular:component": {
           "style": "scss",
           "changeDetection": "OnPush",
-          "spec": false
+          "skipTests": true
         }
       },
       "root": "projects/browser-extension-background",
@@ -541,7 +541,7 @@
         "@schematics/angular:component": {
           "style": "scss",
           "changeDetection": "OnPush",
-          "spec": false
+          "skipTests": true
         }
       },
       "root": "projects/browser-extension-content",
@@ -665,7 +665,7 @@
     "@schematics/angular:component": {
       "style": "scss",
       "changeDetection": "OnPush",
-      "spec": false
+      "skipTests": true
     }
   }
 }
