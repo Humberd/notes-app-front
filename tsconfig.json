@@ -37,11 +37,15 @@
       ],
       "composite-library/*": [
         "projects/composite-library/src/*"
+      ],
+      "@web-app/*": [
+        "projects/web-app/src/*"
       ]
     }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "strictInjectionParameters": true,
+    "disableTypeScriptVersionCheck": true
   }
 }

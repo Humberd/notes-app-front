@@ -1,7 +1,7 @@
 const fs = require('fs');
 const flat = require('flat');
 
-const TRANSLATION_FILE_PATH = './src/assets/i18n/en.json';
+const TRANSLATION_FILE_PATH = './projects/web-app/src/assets/i18n/en.json';
 const TYPE_DEFINITION_LOCATION = './auto-generated/translation-key.ts';
 
 fs.watchFile(TRANSLATION_FILE_PATH, () => {
