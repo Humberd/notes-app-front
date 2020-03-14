@@ -1,5 +1,5 @@
 import { Injectable, NgZone } from '@angular/core';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../../../src/environments/environment';
 import { AuthService } from './auth.service';
 
 export interface Oauth2LoginEvent {

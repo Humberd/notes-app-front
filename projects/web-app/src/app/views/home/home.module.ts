@@ -32,7 +32,7 @@ import { MarkdownPreviewModule } from 'common-library/lib/markdown-preview/markd
 import { NoteTitleFieldComponent } from './components/note-container/components/note-title-field/note-title-field.component';
 import { LibTranslateModule } from 'common-library/lib/translate/translate.module';
 import { ContextMenuModule } from 'common-library/lib/context-menu/context-menu.module';
-import { NoteTagModule } from '../../../../projects/composite-library/src/lib/components/note-tag/note-tag.module';
+import { NoteTagModule } from 'composite-library/lib/components/note-tag/note-tag.module';
 import { GeneralTagsListComponent } from './components/general-list/components/general-tags-list/general-tags-list.component';
 import { GeneralTagHoverOptionsComponent } from './components/general-list/components/general-tag-hover-options/general-tag-hover-options.component';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
