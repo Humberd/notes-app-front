@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../../src/environments/environment';
+import { environment } from '@web-app/environments/environment';
 
 @Component({
   selector: 'app-root',

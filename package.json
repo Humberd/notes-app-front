@@ -18,7 +18,7 @@
   "private": true,
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all -p ng:serve electron:serve",
+    "start": "ng serve",
     "build:browser-extension:dev": "ng build browser-extension",
     "build:browser-extension:dev-watch": "ng build browser-extension --watch",
     "build:browser-extension:prod": "ng build browser-extension --prod",

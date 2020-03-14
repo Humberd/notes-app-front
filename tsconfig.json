@@ -37,6 +37,9 @@
       ],
       "composite-library/*": [
         "projects/composite-library/src/*"
+      ],
+      "@web-app/*": [
+        "projects/web-app/src/*"
       ]
     }
   },
