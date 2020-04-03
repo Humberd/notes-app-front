@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserView } from '../view/user-view';
 import { PasswordCredentialsLoginRequest } from '../request/password-credentials-login-request';
@@ -17,8 +17,8 @@ export class PasswordCredentialsService {
 
   }
 
-  login(body: PasswordCredentialsLoginRequest): Observable<void> {
-    return this.httpClient.post<void>(`${this.baseUrl}/auth/password-credentials/login`, body);
+  login(body: PasswordCredentialsLoginRequest): Observable<HttpResponse<void>> {
+    return this.httpClient.post<void>(`${this.baseUrl}/auth/password-credentials/login`, body, {observe: 'response'});
   }
 
   register(body: PasswordCredentialsRegisterRequest): Observable<UserView> {

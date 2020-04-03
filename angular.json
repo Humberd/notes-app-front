@@ -587,7 +587,8 @@
     "@schematics/angular:component": {
       "style": "scss",
       "changeDetection": "OnPush",
-      "skipTests": true
+      "skipTests": true,
+      "displayBlock": true
     },
     "@schematics/angular:service": {
       "skipTests": true
