@@ -12,8 +12,8 @@ export const FormValidators = {
   },
   auth: {
     login: {
-      login: [],
-      password: [],
+      login: [Validators.required],
+      password: [Validators.required],
     },
     register: {
       login: [],

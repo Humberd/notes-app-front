@@ -1,52 +1,39 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
-import { BoostMatIconModule } from '@ng-boost/material';
-import { AuthModule } from './core/auth/auth.module';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { APP_BASE_HREF } from '@angular/common';
-import { MonacoEditorModule } from 'ngx-monaco-editor';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { BoostTitleModule } from '@ng-boost/core';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+import { routes } from '@web-app/app/app.routes';
+import { environment } from '@web-app/environments/environment';
+import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.interceptor';
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
-}
 
 @NgModule({
-  declarations: [AppComponent],
   imports: [
+    CommonModule,
     BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    AppRoutingModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient],
-      },
-    }),
-    AuthModule,
     BrowserAnimationsModule,
-    BoostMatIconModule.forRoot({
-      iconPaths: [''],
+    HttpClientModule,
+    RouterModule.forRoot(routes, {
+      enableTracing: false,
+      onSameUrlNavigation: 'reload',
+      initialNavigation: 'enabled',
+      relativeLinkResolution: 'corrected',
     }),
-    MonacoEditorModule.forRoot(),
-    ColorPickerModule,
-    BoostTitleModule.forRoot(),
   ],
+  declarations: [AppComponent],
   providers: [
     {
       provide: APP_BASE_HREF,
       useValue: '',
     },
+    {
+      provide: 'BASE_URL',
+      useValue: environment.fullServerApi,
+    },
+    JwtRequestInterceptor
   ],
   bootstrap: [AppComponent],
 })
