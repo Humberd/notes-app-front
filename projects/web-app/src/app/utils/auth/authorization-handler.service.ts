@@ -4,8 +4,8 @@ import { StorageKey } from '@web-app/app/utils/storage/storage-key';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { PasswordCredentialsLoginRequest } from '../../../../../domain/src/entity/user/request/password-credentials-login-request';
 import { PasswordCredentialsDomainService } from '../../../../../domain/src/entity/user/service/password-credentials-domain.service';
-import { map, mapTo, switchMap } from 'rxjs/operators';
-import { AuthUserStatus, AuthUserStatusType } from '@web-app/app/utils/auth/authorized-user';
+import { filter, map, mapTo, switchMap } from 'rxjs/operators';
+import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@web-app/app/utils/auth/authorized-user';
 import { JwtContent } from '@web-app/app/utils/auth/jwt-content';
 
 @Injectable({
@@ -14,23 +14,17 @@ import { JwtContent } from '@web-app/app/utils/auth/jwt-content';
 export class AuthorizationHandlerService {
   private readonly storage = this.storageService.get(StorageKey.USER_JWT);
   private readonly authStatus$ = new BehaviorSubject<AuthUserStatus>({type: AuthUserStatusType.NOT_INITIATED});
+  private readonly user$: Observable<AuthorizedUser> = this.authStatus$.pipe(
+    filter(status => status.type !== AuthUserStatusType.LOGGED_IN),
+    map((status: LoggedIn) => status.user),
+  );
 
   constructor(
     private storageService: StorageService,
     private passwordCredentialsDomainService: PasswordCredentialsDomainService,
   ) {
-
+    this.handleInitialTokenFetch();
   }
-
-  // isLoggedIn$: Observable<boolean> = this.userStatus$.pipe(map(it => this.loggedIn(it)));
-  //
-  // get isLoggedIn(): boolean {
-  //   return this.loggedIn(this.userStatus$.value);
-  // }
-  //
-  // private loggedIn(status: AuthUserStatus): boolean {
-  //   return status === AuthUserStatus.LOGGED_IN;
-  // }
 
   login(data: PasswordCredentialsLoginRequest): Observable<void> {
     return this.passwordCredentialsDomainService.login(data)
@@ -38,9 +32,7 @@ export class AuthorizationHandlerService {
         map(response => {
           const headerValue = response.headers.get('authorization');
           if (!headerValue.startsWith('Bearer ')) {
-            this.authStatus$.next({
-              type: AuthUserStatusType.LOGGED_OUT,
-            });
+            this.markAsLoggedOut();
             throw Error('Header value doesnt start with "Bearer "');
           }
 
@@ -48,12 +40,9 @@ export class AuthorizationHandlerService {
 
           let jwtContent: JwtContent;
           try {
-            const b64Payload = jwt.split('.')[1];
-            jwtContent = JSON.parse(atob(b64Payload));
+            jwtContent = this.extractJwtContent(jwt);
           } catch (e) {
-            this.authStatus$.next({
-              type: AuthUserStatusType.LOGGED_OUT,
-            });
+            this.markAsLoggedOut();
             throw e;
           }
 
@@ -65,13 +54,51 @@ export class AuthorizationHandlerService {
             user: {
               id: jwtContent.sub,
               name: 'not - yet',
-              jwt
-            }
+              jwt,
+            },
           });
           this.storage.set(jwt);
           return of();
         }),
         mapTo(undefined),
       );
+  }
+
+
+  private handleInitialTokenFetch() {
+    const jwt = this.storage.get();
+    if (!jwt) {
+      this.markAsLoggedOut();
+      return;
+    }
+
+    let jwtContent: JwtContent;
+    try {
+      jwtContent = this.extractJwtContent(jwt);
+    } catch (e) {
+      this.markAsLoggedOut();
+      return;
+    }
+
+    this.authStatus$.next({
+      type: AuthUserStatusType.LOGGED_IN,
+      user: {
+        id: jwtContent.sub,
+        name: 'not - yet',
+        jwt,
+      },
+    });
+    this.storage.set(jwt);
+  }
+
+  private markAsLoggedOut() {
+    this.authStatus$.next({
+      type: AuthUserStatusType.LOGGED_OUT,
+    });
+  }
+
+  private extractJwtContent(jwt: string): JwtContent {
+    const b64Payload = jwt.split('.')[1];
+    return JSON.parse(atob(b64Payload));
   }
 }

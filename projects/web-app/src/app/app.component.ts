@@ -18,9 +18,9 @@ export class AppComponent implements OnInit {
       email: 'admin@admin.com',
       password: 'admin123',
     })
-      .subscribe({
-        error: console.error
-      });
+      // .subscribe({
+      //   error: console.error
+      // });
   }
 
 }
