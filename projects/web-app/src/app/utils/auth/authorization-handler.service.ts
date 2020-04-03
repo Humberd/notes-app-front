@@ -59,7 +59,7 @@ export class AuthorizationHandlerService {
             },
           });
           this.storage.set(jwt);
-          return of();
+          return of(jwt)
         }),
         mapTo(undefined),
       );

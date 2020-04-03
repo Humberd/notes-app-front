@@ -4,6 +4,9 @@ import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
+import { HttpResponseBase } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { mapTo, tap } from 'rxjs/operators';
 
 interface CredentialsLoginFormValues {
   email: string,
@@ -18,22 +21,41 @@ interface CredentialsLoginFormValues {
 })
 export class CredentialsLoginComponent extends FormRootController<CredentialsLoginFormValues> {
   rootForm: FormGroup;
+  errorMessage: string;
 
-  constructor(private authorizationHandlerService: AuthorizationHandlerService) {
+  constructor(
+    private authorizationHandlerService: AuthorizationHandlerService,
+    private router: Router,
+  ) {
     super();
   }
 
   getFormDefinition(): FormControllerConfig<CredentialsLoginFormValues> {
     return {
-      email: new FormControl('', FormValidators.auth.login.login),
-      password: new FormControl('', FormValidators.auth.login.password),
+      email: new FormControl('admin@admin.com', FormValidators.auth.login.login),
+      password: new FormControl('admin123', FormValidators.auth.login.password),
     };
   }
 
   protected submitAction(values: CredentialsLoginFormValues): Observable<any> {
+    this.errorMessage = undefined;
     return this.authorizationHandlerService.login({
       email: values.email,
-      password: values.password
-    });
+      password: values.password,
+    })
+  }
+
+  protected onSuccess(success: any): void {
+    this.router.navigate(['/my-notes'])
+  }
+
+  protected onError(err: HttpResponseBase): void {
+    switch (err.status) {
+      case 401:
+        this.errorMessage = 'Unauthorized';
+        break;
+      default:
+        this.errorMessage = 'Unknown error';
+    }
   }
 }
