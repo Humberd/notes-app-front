@@ -9,6 +9,7 @@ import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@w
 import { JwtContent } from '@web-app/app/utils/auth/jwt-content';
 import { MyDataDomainService } from '../../../../../domain/src/entity/user/service/my-data-domain.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,7 @@ export class AuthorizationHandlerService {
     private storageService: StorageService,
     private passwordCredentialsDomainService: PasswordCredentialsDomainService,
     private myDataDomainService: MyDataDomainService,
+    private router: Router
   ) {
     this.handleInitialTokenFetch();
   }
@@ -106,10 +108,16 @@ export class AuthorizationHandlerService {
           return {jwtContent, jwt};
         }),
         switchMap(({jwt, jwtContent}) => {
-          return this.readUserProfile(jwt, jwtContent)
+          return this.readUserProfile(jwt, jwtContent);
         }),
         mapTo(undefined),
       );
+  }
+
+  logout() {
+    this.markAsLoggedOut();
+    this.storage.remove();
+    this.router.navigate(['/'])
   }
 
   private markAsLoggedOut() {

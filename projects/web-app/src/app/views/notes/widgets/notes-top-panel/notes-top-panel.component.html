@@ -1,0 +1,37 @@
+<a
+  routerLink="/my-notes"
+  class="logo-link"
+>
+  <p class="logo">NotesApp</p>
+</a>
+
+<section class="search">
+  <input
+    type="search"
+    libInput
+    class="search"
+    placeholder="Search"
+  >
+</section>
+
+<section class="menu-items">
+  <button
+    libIconButton
+    class="user-actions"
+    [mat-menu-trigger-for]="userActionsRef"
+  >
+    <span class="user-name">{{(authorizationHandlerService.user$ | async).name}}</span>
+    <mat-icon class="icon">account_circle</mat-icon>
+    <mat-icon>expand_more</mat-icon>
+  </button>
+  <mat-menu #userActionsRef>
+    <button
+      mat-menu-item
+      (click)="logout()"
+    >
+      Logout
+    </button>
+  </mat-menu>
+
+
+</section>
