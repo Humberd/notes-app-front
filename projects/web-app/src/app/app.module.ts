@@ -16,7 +16,7 @@ import { environment } from '@web-app/environments/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {
-      enableTracing: false,
+      enableTracing: true,
       onSameUrlNavigation: 'reload',
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected',

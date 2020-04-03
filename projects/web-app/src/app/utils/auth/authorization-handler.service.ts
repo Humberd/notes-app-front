@@ -4,7 +4,7 @@ import { StorageKey } from '@web-app/app/utils/storage/storage-key';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { PasswordCredentialsLoginRequest } from '../../../../../domain/src/entity/user/request/password-credentials-login-request';
 import { PasswordCredentialsDomainService } from '../../../../../domain/src/entity/user/service/password-credentials-domain.service';
-import { filter, map, mapTo, switchMap } from 'rxjs/operators';
+import { filter, map, mapTo, shareReplay, switchMap } from 'rxjs/operators';
 import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@web-app/app/utils/auth/authorized-user';
 import { JwtContent } from '@web-app/app/utils/auth/jwt-content';
 
@@ -17,6 +17,7 @@ export class AuthorizationHandlerService {
   private readonly user$: Observable<AuthorizedUser> = this.authStatus$.pipe(
     filter(status => status.type !== AuthUserStatusType.LOGGED_IN),
     map((status: LoggedIn) => status.user),
+    shareReplay()
   );
 
   constructor(
