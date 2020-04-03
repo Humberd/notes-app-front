@@ -16,7 +16,7 @@ import { environment } from '@web-app/environments/environment';
     BrowserAnimationsModule,
     HttpClientModule,
     RouterModule.forRoot(routes, {
-      enableTracing: true,
+      enableTracing: false,
       onSameUrlNavigation: 'reload',
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected',
@@ -30,8 +30,8 @@ import { environment } from '@web-app/environments/environment';
     },
     {
       provide: 'BASE_URL',
-      useValue: environment.fullServerApi
-    }
+      useValue: environment.fullServerApi,
+    },
   ],
   bootstrap: [AppComponent],
 })

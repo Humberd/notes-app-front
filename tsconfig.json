@@ -26,6 +26,9 @@
       "common-library/*": [
         "projects/common-library/src/*"
       ],
+      "@common-library/*": [
+        "projects/common-library/src/*"
+      ],
       "domains": [
         "projects/domains/src/public_api"
       ],
