@@ -32,6 +32,9 @@
       "domains/*": [
         "projects/domains/src/*"
       ],
+      "@domain": [
+        "projects/domain/src/*"
+      ],
       "auto-generated/*": [
         "auto-generated/*"
       ],

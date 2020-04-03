@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
   serverApi: '/api',
-  fullServerApi: 'http://localhost:8080',
+  fullServerApi: 'https://api.notes-app.humberd.pl',
   environment: 'LOCAL',
 };
