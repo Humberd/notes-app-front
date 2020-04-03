@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { PasswordCredentialsService } from '../../../domain/src/entity/user/service/password-credentials.service';
+import { PasswordCredentialsDomainService } from '../../../domain/src/entity/user/service/password-credentials-domain.service';
+import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorization-handler.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,17 @@ import { PasswordCredentialsService } from '../../../domain/src/entity/user/serv
 })
 export class AppComponent implements OnInit {
 
-  constructor(private passwordCredentialService: PasswordCredentialsService) {
+  constructor(private authorizationHandlerService: AuthorizationHandlerService) {
   }
 
   ngOnInit(): void {
-    this.passwordCredentialService.login({
+    this.authorizationHandlerService.login({
       email: 'admin@admin.com',
       password: 'admin123',
     })
-      .subscribe(console.log);
+      .subscribe({
+        error: console.error
+      });
   }
 
 }

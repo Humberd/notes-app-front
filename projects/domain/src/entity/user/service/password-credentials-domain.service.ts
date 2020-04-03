@@ -8,7 +8,7 @@ import { PasswordCredentialsRegisterRequest } from '../request/password-credenti
 @Injectable({
   providedIn: 'root',
 })
-export class PasswordCredentialsService {
+export class PasswordCredentialsDomainService {
 
   constructor(
     private httpClient: HttpClient,
