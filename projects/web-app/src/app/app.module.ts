@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routes } from '@web-app/app/app.routes';
 import { environment } from '@web-app/environments/environment';
+import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.interceptor';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { environment } from '@web-app/environments/environment';
       provide: 'BASE_URL',
       useValue: environment.fullServerApi,
     },
+    JwtRequestInterceptor
   ],
   bootstrap: [AppComponent],
 })

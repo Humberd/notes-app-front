@@ -14,7 +14,6 @@ export class PasswordCredentialsDomainService {
     private httpClient: HttpClient,
     @Inject('BASE_URL') private baseUrl: string,
   ) {
-
   }
 
   login(body: PasswordCredentialsLoginRequest): Observable<HttpResponse<void>> {
