@@ -1,6 +1,6 @@
 import { Injectable, NgZone } from '@angular/core';
-import { environment } from '../../../../../../../src/environments/environment';
 import { AuthService } from './auth.service';
+import { environment } from '@web-app/environments/environment';
 
 export interface Oauth2LoginEvent {
   type: 'jwt';

@@ -51,3 +51,4 @@ Thumbs.db
 browser-extension-build/browser-extension
 browser-extension-build/background
 browser-extension-build/content
+/auto-generated/__ngcc_entry_points__.json
