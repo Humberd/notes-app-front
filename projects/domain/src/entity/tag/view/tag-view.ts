@@ -3,6 +3,6 @@ export interface TagView {
   name: string;
   backgroundColor?: string;
   notesCount: number;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: number;
+  updatedAt: number;
 }

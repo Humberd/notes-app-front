@@ -2,6 +2,8 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { UserView } from '../view/user-view';
+import { ViewList } from '../../../common/view-list';
+import { NoteView } from '../../note/view/note-view';
 
 @Injectable({
   providedIn: 'root',
@@ -20,5 +22,9 @@ export class MyDataDomainService {
         authorization: `Bearer ${jwt}`,
       },
     });
+  }
+
+  readMyNotesList(): Observable<ViewList<NoteView>> {
+    return this.httpClient.get<ViewList<NoteView>>(`${this.baseUrl}/my/notes`);
   }
 }

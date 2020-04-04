@@ -1,6 +1,9 @@
 <ul class="list">
   <li *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackBy">
-    <button class="tag">
+    <button
+      class="tag"
+      (click)="chooseTag(tag)"
+    >
 
       <div
         class="color-preview"
@@ -13,6 +16,7 @@
         class="more-options"
         title="Options"
         [mat-menu-trigger-for]="moreOptionsRef"
+        (click)="$event.stopPropagation()"
       >
         <mat-icon>more_vert</mat-icon>
       </button>

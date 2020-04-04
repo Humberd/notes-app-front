@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { AutorefreshMode, NEVER_REFRESH, PageOptions, RefresherDataSource } from '@ng-boost/core';
-import { SpringPageableDataRefresher } from '../../../../../../domain/src/common/spring-pageable-data-refresher';
-import { TagView } from '../../../../../../domain/src/tag/view/tag-view';
-import { TagDomainService } from '../../../../../../domain/src/tag/service/tag-domain.service';
-import { ViewList } from '../../../../../../domain/src/common/view-list';
+import { SpringPageableDataRefresher } from '@domain/common/spring-pageable-data-refresher';
+import { TagView } from '@domain/entity/tag/view/tag-view';
+import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
+import { ViewList } from '@domain/common/view-list';
 
 @Injectable()
 export class TagsRefresherService extends SpringPageableDataRefresher<TagView> {

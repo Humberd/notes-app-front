@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
-import { TagView } from '../../../../../../../domain/src/tag/view/tag-view';
+import { TagView } from '@domain/entity/tag/view/tag-view';
 
 @Component({
   selector: 'app-tags-left-panel',
@@ -18,6 +18,10 @@ export class TagsLeftPanelComponent implements OnInit {
 
   trackBy(index: number, tagView: TagView) {
     return tagView.id;
+  }
+
+  chooseTag(tag: TagView) {
+    console.log(tag);
   }
 
 }
