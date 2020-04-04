@@ -35,6 +35,7 @@ export class AuthorizationHandlerService {
     private myDataDomainService: MyDataDomainService,
     private router: Router
   ) {
+    console.log('auth handler init');
     this.handleInitialTokenFetch();
   }
 
@@ -107,9 +108,7 @@ export class AuthorizationHandlerService {
 
           return {jwtContent, jwt};
         }),
-        switchMap(({jwt, jwtContent}) => {
-          return this.readUserProfile(jwt, jwtContent);
-        }),
+        switchMap(({jwt, jwtContent}) => this.readUserProfile(jwt, jwtContent)),
         mapTo(undefined),
       );
   }

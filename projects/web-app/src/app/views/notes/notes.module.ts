@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { NotesComponent } from './notes.component';
 import { RouterModule } from '@angular/router';
 import { routes } from '@web-app/app/views/notes/notes.routes';
-import { NotesTopPanelComponent } from './widgets/notes-top-panel/notes-top-panel.component';
+import { NotesTopPanelComponent } from './widget/notes-top-panel/notes-top-panel.component';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
 import { MatIconModule } from '@angular/material/icon';
