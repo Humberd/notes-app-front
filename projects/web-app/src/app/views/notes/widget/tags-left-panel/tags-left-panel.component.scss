@@ -1,0 +1,57 @@
+:host {
+  display: block;
+  height: 100%;
+  background-color: var(--backgroundColor-secondary);
+  width: 250px;
+}
+
+ul.list {
+
+  button.tag{
+    width: 100%;
+    height: 45px;
+    padding: 0 var(--space-sm);
+    text-align: left;
+
+    display: inline-flex;
+    align-items: center;
+
+    &:hover, &:focus, &:focus-within {
+      background-color: var(--backgroundColor-tertiary);
+      .more-options {
+        display: inline-flex;
+      }
+    }
+
+    .color-preview {
+      width: 20px;
+      min-width: 20px;
+      height: 10px;
+
+      margin-right: 16px;
+    }
+
+    .name {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    button.more-options {
+      margin-left: auto;
+      width: 30px;
+      min-width: 30px;
+      height: 30px;
+      color: var(--textColor-secondary);
+
+      display: none;
+      align-items: center;
+      justify-content: center;
+
+      &:hover, &:focus {
+        background-color: var(--backgroundColor-quaternary);
+        color: var(--textColor-primary);
+      }
+    }
+  }
+}

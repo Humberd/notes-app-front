@@ -8,6 +8,8 @@ import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { TagsLeftPanelComponent } from './widget/tags-left-panel/tags-left-panel.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -17,8 +19,9 @@ import { MatMenuModule } from '@angular/material/menu';
     ButtonsModule,
     MatIconModule,
     MatMenuModule,
+    MatButtonModule,
   ],
-  declarations: [NotesComponent, NotesTopPanelComponent],
+  declarations: [NotesComponent, NotesTopPanelComponent, TagsLeftPanelComponent],
 })
 export class NotesModule {
 }
