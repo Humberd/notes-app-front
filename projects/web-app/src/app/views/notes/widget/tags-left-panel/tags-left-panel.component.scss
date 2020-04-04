@@ -3,6 +3,8 @@
   height: 100%;
   background-color: var(--backgroundColor-secondary);
   width: 250px;
+
+  border-right: 1px solid var(--backgroundColor-quaternary);
 }
 
 ul.list {
@@ -39,10 +41,6 @@ ul.list {
 
     button.more-options {
       margin-left: auto;
-      width: 30px;
-      min-width: 30px;
-      height: 30px;
-      color: var(--textColor-secondary);
 
       display: none;
       align-items: center;

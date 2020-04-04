@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { TagsLeftPanelComponent } from './widget/tags-left-panel/tags-left-panel.component';
 import { MatButtonModule } from '@angular/material/button';
+import { NotesListPanelComponent } from './widget/notes-list-panel/notes-list-panel.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatMenuModule,
     MatButtonModule,
   ],
-  declarations: [NotesComponent, NotesTopPanelComponent, TagsLeftPanelComponent],
+  declarations: [NotesComponent, NotesTopPanelComponent, TagsLeftPanelComponent, NotesListPanelComponent],
 })
 export class NotesModule {
 }
