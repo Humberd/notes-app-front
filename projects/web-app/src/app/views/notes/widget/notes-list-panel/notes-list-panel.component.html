@@ -1,9 +1,16 @@
 <ul>
-  <li *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy">
-    <h4>{{note.title}}</h4>
+  <li
+    *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy"
+    class="note"
+  >
+    <h3>{{note.title}}</h3>
+
     <section class="links" *ngIf="note.url">
       <a [href]="note.url" libLink>{{note.url}}</a>
     </section>
-    <lib-markdown-preview [text]="note.content"></lib-markdown-preview>
+
+    <section class="tags">
+      <lib2-note-tag *ngFor="let tag of note.tags" [tag]="tag" class="tag"></lib2-note-tag>
+    </section>
   </li>
 </ul>

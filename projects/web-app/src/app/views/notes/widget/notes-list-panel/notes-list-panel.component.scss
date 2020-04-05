@@ -6,3 +6,20 @@
 
   border-right: 1px solid var(--backgroundColor-quaternary);
 }
+
+.note {
+  margin: var(--space-l);
+
+  .links {
+    font-size: var(--fontSize-sm);
+  }
+
+  .tags {
+    font-size: var(--fontSize-sm);
+    margin-top: var(--space-sm);
+
+    .tag {
+      margin-right: var(--space-sm);
+    }
+  }
+}

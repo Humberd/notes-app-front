@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { NotesListPanelComponent } from './widget/notes-list-panel/notes-list-panel.component';
 import { LinkModule } from 'common-library/lib/link/link.module';
 import { MarkdownPreviewModule } from 'common-library/lib/markdown-preview/markdown-preview.module';
+import { TagsModule } from 'common-library/lib/tags/tags.module';
+import { NoteTagModule } from 'composite-library/lib/components/note-tag/note-tag.module';
 
 @NgModule({
   imports: [
@@ -25,6 +27,8 @@ import { MarkdownPreviewModule } from 'common-library/lib/markdown-preview/markd
     MatButtonModule,
     LinkModule,
     MarkdownPreviewModule,
+    TagsModule,
+    NoteTagModule,
   ],
   declarations: [NotesComponent, NotesTopPanelComponent, TagsLeftPanelComponent, NotesListPanelComponent],
 })
