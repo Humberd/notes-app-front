@@ -1,0 +1,32 @@
+:host {
+  display: block;
+  height: 100%;
+  background-color: var(--backgroundColor-secondary);
+  border-right: 1px solid var(--backgroundColor-tertiary);
+  width: 800px;
+}
+
+.note {
+  padding: var(--space-l);
+
+  &:hover {
+    background-color: var(--backgroundColor-tertiary);
+  }
+
+  .title {
+    color: var(--textColor-primary);
+  }
+
+  .links {
+    font-size: var(--fontSize-sm);
+  }
+
+  .tags {
+    font-size: var(--fontSize-sm);
+    margin-top: var(--space-sm);
+
+    .tag {
+      margin-right: var(--space-sm);
+    }
+  }
+}

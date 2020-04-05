@@ -1,31 +1,25 @@
-import { Injectable, SecurityContext } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
+import { WorkerManager } from 'angular-web-worker/angular';
+import { MarkdownPreviewWorker } from 'common-library/lib/markdown-preview/web-workers/markdown-preview.worker';
+import { fromPromise } from 'rxjs/internal-compatibility';
+import { switchMap } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class MarkdownPreviewService {
+  constructor(
+    private domSanitizer: DomSanitizer,
+    private workerManager: WorkerManager,
+  ) {
 
-  constructor(private domSanitizer: DomSanitizer) {
   }
 
   compile(rawText: string): Observable<string> {
-    return new Observable<string>(subscriber => {
-      const worker = new Worker('../../../../../../src/app/web-workers/markdown-preview.worker', {type: 'module'});
-
-      worker.onmessage = ({data}) => {
-        worker.terminate();
-        subscriber.next(this.domSanitizer.sanitize(SecurityContext.HTML, data));
-        subscriber.complete();
-      };
-
-      worker.onerror = ev => {
-        worker.terminate();
-        subscriber.error(ev);
-      };
-
-      worker.postMessage(rawText);
-    });
+    const client = this.workerManager.createClient(MarkdownPreviewWorker);
+    return fromPromise(client.connect())
+      .pipe(
+        switchMap(() => client.call(worker => worker.renderText(rawText))),
+      );
   }
 }

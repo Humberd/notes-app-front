@@ -35,7 +35,7 @@
       "domains/*": [
         "projects/domains/src/*"
       ],
-      "@domain": [
+      "@domain/*": [
         "projects/domain/src/*"
       ],
       "auto-generated/*": [

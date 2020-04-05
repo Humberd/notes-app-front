@@ -3,7 +3,7 @@ import { APP_BASE_HREF, CommonModule } from '@angular/common';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routes } from '@web-app/app/app.routes';
 import { environment } from '@web-app/environments/environment';
@@ -33,7 +33,11 @@ import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.inter
       provide: 'BASE_URL',
       useValue: environment.fullServerApi,
     },
-    JwtRequestInterceptor
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: JwtRequestInterceptor,
+    },
   ],
   bootstrap: [AppComponent],
 })
