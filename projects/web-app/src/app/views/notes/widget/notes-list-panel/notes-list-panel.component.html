@@ -1,1 +1,9 @@
-<p>notes-list-panel works!</p>
+<ul>
+  <li *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy">
+    <h4>{{note.title}}</h4>
+    <section class="links" *ngIf="note.url">
+      <a [href]="note.url" libLink>{{note.url}}</a>
+    </section>
+    <lib-markdown-preview [text]="note.content"></lib-markdown-preview>
+  </li>
+</ul>

@@ -487,7 +487,8 @@
               "node_modules/@angular/material/prebuilt-themes/purple-green.css",
               "projects/web-app/src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "webWorkerTsConfig": "projects/web-app/tsconfig.worker.json"
           },
           "configurations": {
             "production": {
@@ -514,7 +515,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "10kb"
+                  "maximumError": "20kb"
                 }
               ]
             }
@@ -560,7 +561,8 @@
             "tsConfig": [
               "projects/web-app/tsconfig.app.json",
               "projects/web-app/tsconfig.spec.json",
-              "projects/web-app/e2e/tsconfig.json"
+              "projects/web-app/e2e/tsconfig.json",
+              "projects/web-app/tsconfig.worker.json"
             ],
             "exclude": [
               "**/node_modules/**"

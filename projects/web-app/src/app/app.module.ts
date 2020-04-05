@@ -36,8 +36,8 @@ import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.inter
     {
       provide: HTTP_INTERCEPTORS,
       multi: true,
-      useClass: JwtRequestInterceptor
-    }
+      useClass: JwtRequestInterceptor,
+    },
   ],
   bootstrap: [AppComponent],
 })
