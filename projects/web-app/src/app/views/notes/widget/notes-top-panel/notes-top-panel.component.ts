@@ -25,11 +25,11 @@ export class NotesTopPanelComponent implements OnInit {
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(700)
+        debounceTime(700),
       )
       .subscribe(value => {
         this.notesRefresherService.search(value);
-      })
+      });
   }
 
   logout() {
