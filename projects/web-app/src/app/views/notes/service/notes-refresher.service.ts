@@ -16,6 +16,9 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
   }
 
   protected getPageableDataSource(pageOptions: PageOptions): RefresherDataSource<ViewList<NoteView>> {
-    return this.myDataDomainService.readMyNotesList();
+    console.log(pageOptions);
+    return this.myDataDomainService.readMyNotesList({
+      query: pageOptions.search
+    });
   }
 }

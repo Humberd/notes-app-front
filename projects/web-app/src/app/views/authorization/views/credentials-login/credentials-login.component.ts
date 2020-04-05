@@ -20,7 +20,6 @@ interface CredentialsLoginFormValues {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CredentialsLoginComponent extends FormRootController<CredentialsLoginFormValues> {
-  rootForm: FormGroup;
   errorMessage: string;
 
   constructor(
