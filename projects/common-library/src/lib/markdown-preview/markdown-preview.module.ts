@@ -4,14 +4,14 @@ import { MarkdownPreviewPipe } from './pipes/markdown-preview.pipe';
 import { MarkdownPreviewComponent } from './components/markdown-preview/markdown-preview.component';
 import { MarkdownPreviewService } from 'common-library/lib/markdown-preview/services/markdown-preview.service';
 import { WorkerModule } from 'angular-web-worker/angular';
-import { AppWorker } from 'common-library/lib/markdown-preview/web-workers/app.worker';
+import { MarkdownPreviewWorker } from 'common-library/lib/markdown-preview/web-workers/markdown-preview.worker';
 
 
 @NgModule({
   imports: [
     CommonModule,
     WorkerModule.forWorkers([
-      {worker: AppWorker, initFn: () => new Worker('./web-workers/app.worker.ts', {type: 'module'})},
+      {worker: MarkdownPreviewWorker, initFn: () => new Worker('./web-workers/markdown-preview.worker.ts', {type: 'module'})},
     ]),
   ],
   declarations: [MarkdownPreviewPipe, MarkdownPreviewComponent],
