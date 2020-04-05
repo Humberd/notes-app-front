@@ -1,1 +1,48 @@
-<pre>{{(currentNoteRefresherService.data$ | async) | json}}</pre>
+<article *ngIf="currentNoteRefresherService.data$ | async as note">
+  <header class="header">
+    <a
+      class="close-button"
+      libIconButton
+      routerLink="../"
+    >
+      <mat-icon>close</mat-icon>
+    </a>
+    <h2 class="title">{{note.title}}</h2>
+  </header>
+
+  <section class="links" *ngIf="note.url">
+    <a
+      [routerLink]="note.url"
+      target="_blank"
+      rel="noreferrer noopener"
+      libLink
+    >{{note.url}}</a>
+  </section>
+
+  <section class="tags">
+    <lib2-note-tag
+      *ngFor="let tag of note.tags"
+      [tag]="tag"
+    ></lib2-note-tag>
+
+  </section>
+
+  <section class="content">
+
+    <lib-markdown-preview [text]="note.content"></lib-markdown-preview>
+
+  </section>
+
+  <footer class="user-info">
+    <div class="wrapper">
+      <span>
+        <span class="label">Author:</span>
+        {{note.author.name}}
+      </span>
+      <span>
+        <span class="label">Last modified:</span>
+        {{note.updatedAt | date:'dd.MM.yyyy, hh:mm:ss'}}
+      </span>
+    </div>
+  </footer>
+</article>

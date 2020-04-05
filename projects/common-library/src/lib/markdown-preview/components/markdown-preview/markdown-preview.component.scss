@@ -1,4 +1,5 @@
 .lib-markdown-preview {
+  display: block;
   line-height: 1.5;
 
   address,
@@ -812,5 +813,9 @@
 
   marquee[direction="up"], marquee[direction="down"] {
     block-size: 200px;
+  }
+
+  pre {
+    margin: 0;
   }
 }
