@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ViewList } from '../../../common/view-list';
+import { ViewList } from '@domain/common/view-list';
 import { TagView } from '../view/tag-view';
 import { Observable } from 'rxjs';
 import { TagPatchRequest } from '../request/tag-patch-request';
