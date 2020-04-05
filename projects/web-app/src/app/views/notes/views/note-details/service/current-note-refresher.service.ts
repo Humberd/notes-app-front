@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { NoteIdParamService } from '@web-app/app/views/notes/views/note-details/service/note-id-param.service';
 import { distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class CurrentNoteRefresherService extends SimpleDataRefresher<NoteView> {
@@ -12,6 +13,7 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<NoteView> {
   constructor(
     private noteDomainService: NoteDomainService,
     private noteIdParamService: NoteIdParamService,
+    private router: Router,
   ) {
     super({
       mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
@@ -25,5 +27,9 @@ export class CurrentNoteRefresherService extends SimpleDataRefresher<NoteView> {
         distinctUntilChanged(),
         switchMap(noteId => this.noteDomainService.read(noteId)),
       );
+  }
+
+  protected onError(err: any): void {
+    this.router.navigate(['../']);
   }
 }

@@ -469,6 +469,7 @@
             "polyfills": "projects/web-app/src/polyfills.ts",
             "tsConfig": "projects/web-app/tsconfig.app.json",
             "aot": true,
+            "preserveSymlinks": true,
             "assets": [
               "projects/web-app/src/favicon.ico",
               "projects/web-app/src/assets",
