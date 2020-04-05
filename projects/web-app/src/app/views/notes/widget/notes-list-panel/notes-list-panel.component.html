@@ -3,10 +3,21 @@
     *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy"
     class="note"
   >
-    <h3>{{note.title}}</h3>
+    <a
+      class="title"
+      [routerLink]="note.id"
+      libLink
+    >
+      <h3>{{note.title}}</h3>
+    </a>
 
     <section class="links" *ngIf="note.url">
-      <a [href]="note.url" libLink>{{note.url}}</a>
+      <a
+        [href]="note.url"
+        target="_blank"
+        rel="noreferrer noopener"
+        libLink
+      >{{note.url}}</a>
     </section>
 
     <section class="tags">

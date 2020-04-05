@@ -8,7 +8,15 @@
 }
 
 .note {
-  margin: var(--space-l);
+  padding: var(--space-l);
+
+  &:hover {
+    background-color: var(--backgroundColor-tertiary);
+  }
+
+  .title {
+    color: var(--textColor-primary);
+  }
 
   .links {
     font-size: var(--fontSize-sm);
