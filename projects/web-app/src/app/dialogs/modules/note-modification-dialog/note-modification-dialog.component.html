@@ -1,3 +1,5 @@
+<h2>{{strategy.getTitle()}}</h2>
+
 <form [formGroup]="rootForm" (ngSubmit)="submit()">
   <lib-control-container label="Title">
     <input [formControl]="formDefinition.title" type="text" libInput>
@@ -21,7 +23,7 @@
     <button
       mat-raised-button color="accent"
     >
-      Save
+      {{strategy.getSubmitButton()}}
     </button>
   </footer>
 </form>
