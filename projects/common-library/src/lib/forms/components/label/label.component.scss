@@ -2,3 +2,7 @@
   display: inline-flex;
   margin-bottom: var(--space-sm);
 }
+
+.required-asterisk {
+  color: var(--textColor-danger);
+}

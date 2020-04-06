@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Optional, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -8,5 +9,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InputComponent {
+
+  constructor(@Optional() public ngControl?: NgControl) {
+  }
 
 }
