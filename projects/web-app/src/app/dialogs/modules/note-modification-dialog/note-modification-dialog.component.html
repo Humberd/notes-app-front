@@ -1,0 +1,27 @@
+<form [formGroup]="rootForm" (ngSubmit)="submit()">
+  <lib-control-container label="Title">
+    <input [formControl]="formDefinition.title" type="text" libInput>
+  </lib-control-container>
+
+  <lib-control-container label="Url">
+    <input [formControl]="formDefinition.url" type="text" libInput>
+  </lib-control-container>
+
+  <lib-control-container label="Content">
+    <lib-editor class="editor" [formControl]="formDefinition.content"></lib-editor>
+  </lib-control-container>
+
+  <footer>
+    <button
+      mat-button
+      mat-dialog-close
+    >
+      Cancel
+    </button>
+    <button
+      mat-raised-button color="accent"
+    >
+      Save
+    </button>
+  </footer>
+</form>

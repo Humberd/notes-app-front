@@ -8,6 +8,8 @@ import { RouterModule } from '@angular/router';
 import { routes } from '@web-app/app/app.routes';
 import { environment } from '@web-app/environments/environment';
 import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.interceptor';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.inter
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected',
     }),
+    MatDialogModule,
+    MonacoEditorModule.forRoot(),
   ],
   declarations: [AppComponent],
   providers: [

@@ -1,13 +1,17 @@
 <label>
-  <div
-    libLabel
+  <lib-label
     *ngIf="label"
-  >{{label}}</div>
+    [isRequired]="isRequired()"
+  >
+    {{label}}
+  </lib-label>
 
   <div>
     <ng-content></ng-content>
 
-    <p *ngIf="false">error message</p>
+    <p class="error-message" *ngIf="getErrors() as errors">
+      {{errors[0] || ''}}
+    </p>
   </div>
 
 </label>

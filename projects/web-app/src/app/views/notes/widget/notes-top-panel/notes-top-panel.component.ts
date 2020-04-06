@@ -3,6 +3,7 @@ import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorizati
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
+import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 
 @Component({
   selector: 'app-notes-top-panel',
@@ -19,6 +20,7 @@ export class NotesTopPanelComponent implements OnInit {
   constructor(
     public authorizationHandlerService: AuthorizationHandlerService,
     private notesRefresherService: NotesRefresherService,
+    private dialogService: DialogService,
   ) {
   }
 
@@ -34,5 +36,9 @@ export class NotesTopPanelComponent implements OnInit {
 
   logout() {
     this.authorizationHandlerService.logout();
+  }
+
+  async newNote() {
+    await this.dialogService.openCreateNoteDialog();
   }
 }

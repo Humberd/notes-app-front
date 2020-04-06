@@ -3,7 +3,8 @@ import { colorHexValidator } from './validators/color-hex.validator';
 
 export const FormValidators = {
   note: {
-    title: [],
+    title: [Validators.required],
+    url: [],
     content: [],
   },
   tag: {

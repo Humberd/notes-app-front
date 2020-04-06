@@ -17,5 +17,12 @@ import IEditorConstructionOptions = monaco.editor.IEditorConstructionOptions;
   ],
 })
 export class EditorComponent extends AbstractControlValueAccessor<string> {
-  @Input() options: IEditorConstructionOptions;
+  readonly defaultEditorOptions: IEditorConstructionOptions = {
+    theme: 'vs-dark',
+    language: 'markdown',
+    wordWrap: 'on',
+    automaticLayout: true,
+  };
+
+  @Input() options: IEditorConstructionOptions = this.defaultEditorOptions;
 }
