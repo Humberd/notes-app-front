@@ -10,6 +10,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.interceptor';
 import { environment } from '../environments/environment';
+import { defaultAuthorizedRoute, defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-routes';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -51,6 +52,14 @@ export function HttpLoaderFactory(http: HttpClient) {
       multi: true,
       useClass: JwtRequestInterceptor,
     },
+    {
+      provide: defaultAuthorizedRoute,
+      useValue: '/notes'
+    },
+    {
+      provide: defaultUnauthorizedRoute,
+      useValue: '/authorization'
+    }
   ],
   bootstrap: [AppComponent],
 })
