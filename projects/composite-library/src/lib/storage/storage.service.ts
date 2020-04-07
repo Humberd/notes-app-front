@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { StorageKey } from '@web-app/app/utils/storage/storage-key';
+import { StorageKey } from 'composite-library/lib/storage/storage-key';
 
 @Injectable({
   providedIn: 'root',

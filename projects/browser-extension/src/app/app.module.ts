@@ -4,10 +4,12 @@ import { NgModule } from '@angular/core';
 import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.interceptor';
+import { environment } from '../environments/environment';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -29,7 +31,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       },
     }),
     RouterModule.forRoot(routes, {
-      enableTracing: true,
+      enableTracing: false,
       onSameUrlNavigation: 'reload',
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected',
@@ -39,6 +41,15 @@ export function HttpLoaderFactory(http: HttpClient) {
     {
       provide: APP_BASE_HREF,
       useValue: '',
+    },
+    {
+      provide: 'BASE_URL',
+      useValue: environment.fullServerApi,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: JwtRequestInterceptor,
     },
   ],
   bootstrap: [AppComponent],

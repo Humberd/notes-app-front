@@ -7,9 +7,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { routes } from '@web-app/app/app.routes';
 import { environment } from '@web-app/environments/environment';
-import { JwtRequestInterceptor } from '@web-app/app/utils/auth/jwt-request.interceptor';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.interceptor';
 
 
 @NgModule({

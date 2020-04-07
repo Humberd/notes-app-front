@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map, tap } from 'rxjs/operators';
-import { AuthUserStatusType } from '@web-app/app/utils/auth/authorized-user';
-import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorization-handler.service';
+import { AuthUserStatusType } from 'composite-library/lib/auth/authorized-user';
+import { AuthorizationHandlerService } from 'composite-library/lib/auth/authorization-handler.service';
 
 @Injectable({
   providedIn: 'root',

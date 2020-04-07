@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
-import { MustBeAuthorizedGuard } from '@web-app/app/utils/auth/must-be-authorized.guard';
-import { MustNotBeAuthorizedGuard } from '@web-app/app/utils/auth/must-not-be-authorized.guard';
+import { MustBeAuthorizedGuard } from '@web-app/../../../composite-library/src/lib/auth/must-be-authorized.guard';
+import { MustNotBeAuthorizedGuard } from '@web-app/../../../composite-library/src/lib/auth/must-not-be-authorized.guard';
 
 export const routes: Routes = [
   {

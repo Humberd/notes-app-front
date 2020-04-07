@@ -1,8 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { StorageInstance, StorageService } from '@web-app/app/utils/storage/storage.service';
-import { StorageKey } from '@web-app/app/utils/storage/storage-key';
+import { StorageKey } from '@composite-library/lib/storage/storage-key';
+import { StorageInstance, StorageService } from '@composite-library/lib/storage/storage.service';
 
 @Injectable()
 export class JwtRequestInterceptor implements HttpInterceptor {

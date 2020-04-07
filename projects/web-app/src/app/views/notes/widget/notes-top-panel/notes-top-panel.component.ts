@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorization-handler.service';
+import { AuthorizationHandlerService } from '@web-app/../../../../../../../composite-library/src/lib/auth/authorization-handler.service';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { FormControl } from '@angular/forms';
 import { debounceTime, filter } from 'rxjs/operators';

@@ -2,9 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
+import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 import { HttpResponseBase } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
 
 interface CredentialsLoginFormValues {
   email: string,
@@ -21,7 +22,7 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
   errorMessage: string;
 
   constructor(
-    // private authorizationHandlerService: AuthorizationHandlerService,
+    private authorizationHandlerService: AuthorizationHandlerService,
     private router: Router,
   ) {
     super();

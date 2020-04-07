@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorization-handler.service';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
+import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 import { HttpResponseBase } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
 
 interface CredentialsLoginFormValues {
   email: string,
