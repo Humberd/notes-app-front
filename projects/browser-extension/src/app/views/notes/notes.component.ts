@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ChromeApiBridgeService } from 'composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
-import { NotesService } from 'domains/lib/note/services/notes.service';
+import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
 import { switchMap, tap } from 'rxjs/operators';
-import { Note } from 'domains/lib/note/models/note';
+import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
+import { NoteView } from '@domain/entity/note/view/note-view';
 
 @Component({
   selector: 'brx-notes',
@@ -12,12 +12,12 @@ import { Note } from 'domains/lib/note/models/note';
 })
 export class NotesComponent implements OnInit {
   isNoteCreated: boolean;
-  note: Note;
+  note: NoteView;
   tabId: number;
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
-    private notesService: NotesService,
+    private noteDomainService: NoteDomainService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
@@ -26,7 +26,7 @@ export class NotesComponent implements OnInit {
     this.chromeApiBridgeService.getCurrentTab()
       .pipe(
         tap(currentTab => this.tabId = currentTab.id),
-        switchMap(currentTab => this.notesService.readByUrl(currentTab.url)),
+        switchMap(currentTab => this.noteDomainService.read(currentTab.url)),
       )
       .subscribe({
         next: note => {
@@ -41,7 +41,7 @@ export class NotesComponent implements OnInit {
       });
   }
 
-  handleNoteCreated(event: Note) {
+  handleNoteCreated(event: NoteView) {
     this.isNoteCreated = true;
     this.note = event;
   }

@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorization-handler.service';
+import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
 import { filter, map, tap } from 'rxjs/operators';
-import { AuthUserStatusType } from '@web-app/app/utils/auth/authorized-user';
+import { AuthUserStatusType } from '@composite-library/lib/auth/authorized-user';
+import { defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-routes';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ export class MustBeAuthorizedGuard implements CanActivate, CanActivateChild {
   constructor(
     private authorizationHandlerService: AuthorizationHandlerService,
     private router: Router,
+    @Inject(defaultUnauthorizedRoute) private unauthorizedRoute: string,
   ) {
   }
 
@@ -36,7 +38,7 @@ export class MustBeAuthorizedGuard implements CanActivate, CanActivateChild {
         map(status => status.type === AuthUserStatusType.LOGGED_IN),
         tap(isLoggedIn => {
           if (!isLoggedIn) {
-            this.router.navigate(['/']);
+            this.router.navigateByUrl(this.unauthorizedRoute);
           }
         }),
       );

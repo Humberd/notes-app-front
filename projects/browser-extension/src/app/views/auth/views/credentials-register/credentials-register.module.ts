@@ -1,16 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { AuthComponent } from './auth.component';
+import { CredentialsRegisterComponent } from './credentials-register.component';
 import { RouterModule } from '@angular/router';
-import { routes } from './auth.routes';
+import { routes } from './credentials-register.routes';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
   ],
-  declarations: [AuthComponent],
+  declarations: [CredentialsRegisterComponent],
 })
-export class AuthModule {
+export class CredentialsRegisterModule {
 }

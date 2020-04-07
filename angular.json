@@ -45,12 +45,6 @@
     },
     "browser-extension": {
       "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss",
-          "changeDetection": "OnPush"
-        }
-      },
       "root": "projects/browser-extension",
       "sourceRoot": "projects/browser-extension/src",
       "prefix": "brx",
@@ -58,7 +52,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "browser-extension",
             "outputPath": "browser-extension-build/browser-extension",
             "index": "projects/browser-extension/src/index.html",
             "main": "projects/browser-extension/src/main.ts",

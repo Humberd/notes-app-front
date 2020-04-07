@@ -13,7 +13,7 @@ interface CredentialsLoginFormValues {
 }
 
 @Component({
-  selector: 'app-credentials-login',
+  selector: 'brx-credentials-login',
   templateUrl: './credentials-login.component.html',
   styleUrls: ['./credentials-login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -44,7 +44,7 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
   }
 
   protected onSuccess(success: any): void {
-    this.router.navigate(['/my-notes']);
+    this.router.navigate(['/notes']);
   }
 
   protected onError(err: HttpResponseBase): void {

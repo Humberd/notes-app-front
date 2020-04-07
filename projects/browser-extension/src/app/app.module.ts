@@ -1,11 +1,16 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { routes } from './app.routes';
 import { AppComponent } from './app.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { APP_BASE_HREF } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.interceptor';
+import { environment } from '../environments/environment';
+import { defaultAuthorizedRoute, defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-routes';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -18,7 +23,6 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
@@ -27,8 +31,36 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient],
       },
     }),
+    RouterModule.forRoot(routes, {
+      enableTracing: false,
+      onSameUrlNavigation: 'reload',
+      initialNavigation: 'enabled',
+      relativeLinkResolution: 'corrected',
+    })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_BASE_HREF,
+      useValue: '',
+    },
+    {
+      provide: 'BASE_URL',
+      useValue: environment.fullServerApi,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      multi: true,
+      useClass: JwtRequestInterceptor,
+    },
+    {
+      provide: defaultAuthorizedRoute,
+      useValue: '/notes'
+    },
+    {
+      provide: defaultUnauthorizedRoute,
+      useValue: '/authorization'
+    }
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {

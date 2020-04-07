@@ -5,7 +5,7 @@ import { NoteDomainService } from '@domain/entity/note/service/note-domain.servi
 import { FormControllerConfig } from '@ng-boost/core';
 import { NoteModificationDialogData } from '@web-app/app/dialogs/modules/note-modification-dialog/models/note-modification-dialog-data';
 import { FormControl } from '@angular/forms';
-import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
+import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 
 export class NewNoteStrategy implements NoteModificationStrategy {
 

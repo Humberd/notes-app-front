@@ -3,7 +3,7 @@ import { FormController, FormControllerConfig } from '@ng-boost/core';
 import { FormControl } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { filter, map, startWith, switchMap } from 'rxjs/operators';
-import { AutocompleteInputFormValues } from 'composite-library/lib/forms/autocomplete-input/models/autocomplete-input-form-values';
+import { AutocompleteInputFormValues } from '@composite-library/lib/forms/autocomplete-input/models/autocomplete-input-form-values';
 
 @Component({
   selector: 'lib2-autocomplete-input-form',

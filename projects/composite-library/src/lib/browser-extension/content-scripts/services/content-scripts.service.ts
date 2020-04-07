@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ChromeApiBridgeService } from 'composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
-import { ContentScriptRequestType } from 'composite-library/lib/browser-extension/content-scripts/models/content-script-request-type';
+import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
+import { ContentScriptRequestType } from '@composite-library/lib/browser-extension/content-scripts/models/content-script-request-type';
 import { Observable } from 'rxjs';
 import { filter, tap } from 'rxjs/operators';
-import { ListenMessageResult } from 'composite-library/lib/browser-extension/chrome-api/models/listen-message-result';
-import { ContentScriptResponse } from 'composite-library/lib/browser-extension/content-scripts/models/content-script-response';
+import { ListenMessageResult } from '@composite-library/lib/browser-extension/chrome-api/models/listen-message-result';
+import { ContentScriptResponse } from '@composite-library/lib/browser-extension/content-scripts/models/content-script-response';
 
 @Injectable({
   providedIn: 'root',

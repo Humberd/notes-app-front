@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { StorageService } from '@web-app/app/utils/storage/storage.service';
-import { StorageKey } from '@web-app/app/utils/storage/storage-key';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { PasswordCredentialsLoginRequest } from '../../../../../domain/src/entity/user/request/password-credentials-login-request';
-import { PasswordCredentialsDomainService } from '../../../../../domain/src/entity/user/service/password-credentials-domain.service';
+import { PasswordCredentialsLoginRequest } from '@domain/entity/user/request/password-credentials-login-request';
+import { PasswordCredentialsDomainService } from '@domain/entity/user/service/password-credentials-domain.service';
 import { filter, map, mapTo, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@web-app/app/utils/auth/authorized-user';
-import { JwtContent } from '@web-app/app/utils/auth/jwt-content';
-import { MyDataDomainService } from '../../../../../domain/src/entity/user/service/my-data-domain.service';
+import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StorageKey } from '@composite-library/lib/storage/storage-key';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
+import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@composite-library/lib/auth/authorized-user';
+import { JwtContent } from '@composite-library/lib/auth/jwt-content';
 
 @Injectable({
   providedIn: 'root',
@@ -35,7 +35,6 @@ export class AuthorizationHandlerService {
     private myDataDomainService: MyDataDomainService,
     private router: Router
   ) {
-    console.log('auth handler init');
     this.handleInitialTokenFetch();
   }
 
