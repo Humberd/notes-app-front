@@ -20,7 +20,7 @@ export class NewNoteStrategy implements NoteModificationStrategy {
     return 'Create';
   }
 
-  handleSubmit(formValues: NoteModificationDialogFormValues): Observable<any> {
+  handleSubmit(dialogData: NoteModificationDialogData, formValues: NoteModificationDialogFormValues): Observable<any> {
     return this.noteDomainService.create({
       title: formValues.title,
       url: formValues.url,

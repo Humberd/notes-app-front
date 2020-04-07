@@ -3,13 +3,29 @@
     *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy"
     class="note"
   >
-    <a
-      class="title"
-      [routerLink]="note.id"
-      libLink
-    >
-      <h3>{{note.title}}</h3>
-    </a>
+    <header>
+      <a
+        class="title"
+        [routerLink]="note.id"
+        libLink
+      >
+        <h3>{{note.title}}</h3>
+      </a>
+
+      <button
+        class="more-options"
+        title="Options"
+        libIconButton
+        [mat-menu-trigger-for]="moreOptionsRef"
+      >
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </header>
+
+    <mat-menu #moreOptionsRef>
+      <button mat-menu-item (click)="editNote(note)">Edit</button>
+      <button mat-menu-item>Delete</button>
+    </mat-menu>
 
     <section class="links" *ngIf="note.url">
       <a
@@ -21,7 +37,7 @@
     </section>
 
     <section class="tags">
-      <lib2-note-tag *ngFor="let tag of note.tags" [tag]="tag" class="tag"></lib2-note-tag>
+      <lib2-note-tag *ngFor="let tag of note.tags; trackBy: trackByTag" [tag]="tag" class="tag"></lib2-note-tag>
     </section>
   </li>
 </ul>

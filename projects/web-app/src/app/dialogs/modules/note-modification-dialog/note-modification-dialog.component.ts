@@ -38,7 +38,7 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
   }
 
   protected submitAction(values: NoteModificationDialogFormValues): Observable<any> {
-    return this.strategy.handleSubmit(values);
+    return this.strategy.handleSubmit(this.dialogData, values);
   }
 
   protected onSuccess(success: NoteView): void {

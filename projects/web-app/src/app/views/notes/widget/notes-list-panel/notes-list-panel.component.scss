@@ -9,6 +9,17 @@
 .note {
   padding: var(--space-l);
 
+  header {
+    display: flex;
+    justify-content: space-between;
+
+    .more-options {
+      &:hover {
+        background-color: var(--backgroundColor-quaternary);
+      }
+    }
+  }
+
   &:hover {
     background-color: var(--backgroundColor-tertiary);
   }

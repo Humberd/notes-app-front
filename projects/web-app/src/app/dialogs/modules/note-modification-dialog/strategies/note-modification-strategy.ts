@@ -8,7 +8,7 @@ export interface NoteModificationStrategy {
 
   getSubmitButton(): string;
 
-  handleSubmit(formValues: NoteModificationDialogFormValues): Observable<any>;
+  handleSubmit(dialogData: NoteModificationDialogData, formValues: NoteModificationDialogFormValues): Observable<any>;
 
   generateFormDefinition(dialogData: NoteModificationDialogData): FormControllerConfig<NoteModificationDialogFormValues>;
 }

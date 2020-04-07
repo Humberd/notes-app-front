@@ -20,4 +20,14 @@ export class DialogService {
       NoteModificationDialogModule.getDialogClass(),
     );
   }
+
+  async openEditNoteDialog(dialogData: NoteModificationDialogData) {
+    const {NoteModificationDialogModule} = await import('../modules/note-modification-dialog/note-modification-dialog.module');
+    return this.matDialog.open<NoteModificationDialogComponent, NoteModificationDialogData, NoteModificationDialogOutput>(
+      NoteModificationDialogModule.getDialogClass(),
+      {
+        data: dialogData,
+      },
+    );
+  }
 }

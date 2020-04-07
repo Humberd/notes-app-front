@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { CreateNoteRequest } from '@domain/entity/note/request/create-note-request';
+import { PatchNoteRequest } from '@domain/entity/note/request/patch-note-request';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,10 @@ export class NoteDomainService {
 
   create(body: CreateNoteRequest): Observable<NoteView> {
     return this.httpClient.post<NoteView>(`${this.baseUrl}/notes`, body);
+  }
+
+  patch(id: string, body: PatchNoteRequest): Observable<NoteView> {
+    return this.httpClient.patch<NoteView>(`${this.baseUrl}/notes/${id}`, body);
   }
 
   read(id: string): Observable<NoteView> {

@@ -19,8 +19,8 @@ export class EditNoteStrategy implements NoteModificationStrategy {
     return 'Save';
   }
 
-  handleSubmit(formValues: NoteModificationDialogFormValues): Observable<any> {
-    return this.noteDomainService.create({
+  handleSubmit(dialogData: NoteModificationDialogData, formValues: NoteModificationDialogFormValues): Observable<any> {
+    return this.noteDomainService.patch(dialogData.editedNote.id, {
       title: formValues.title,
       url: formValues.url,
       content: formValues.content,
