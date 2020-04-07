@@ -13,7 +13,7 @@ interface CredentialsLoginFormValues {
 }
 
 @Component({
-  selector: 'app-credentials-login',
+  selector: 'brx-credentials-login',
   templateUrl: './credentials-login.component.html',
   styleUrls: ['./credentials-login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

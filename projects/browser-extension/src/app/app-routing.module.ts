@@ -6,16 +6,16 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'notes',
+    redirectTo: 'authorization',
   },
   {
-    path: 'auth',
+    path: 'authorization',
     loadChildren: () => import('./views/auth/auth.module').then(value => value.AuthModule),
   },
-  {
-    path: 'notes',
-    loadChildren: () => import('./views/notes/notes.module').then(m => m.NotesModule),
-  },
+  // {
+  //   path: 'notes',
+  //   loadChildren: () => import('./views/notes/notes.module').then(m => m.NotesModule),
+  // },
 ];
 
 @NgModule({
