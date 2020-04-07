@@ -27,4 +27,8 @@ export class NoteDomainService {
   read(id: string): Observable<NoteView> {
     return this.httpClient.get<NoteView>(`${this.baseUrl}/notes/${id}`);
   }
+
+  delete(id: string): Observable<void> {
+    return this.httpClient.delete<void>(`${this.baseUrl}/notes/${id}`);
+  }
 }

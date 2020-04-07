@@ -24,7 +24,7 @@
 
     <mat-menu #moreOptionsRef>
       <button mat-menu-item (click)="editNote(note)">Edit</button>
-      <button mat-menu-item>Delete</button>
+      <button mat-menu-item (click)="deleteNote(note)">Delete</button>
     </mat-menu>
 
     <section class="links" *ngIf="note.url">

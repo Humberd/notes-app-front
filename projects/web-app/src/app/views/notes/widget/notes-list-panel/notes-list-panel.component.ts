@@ -36,9 +36,18 @@ export class NotesListPanelComponent implements OnInit {
     });
     dialogRef.afterClosed()
       .pipe(filter(result => !!result))
-      .subscribe(newNote => {
+      .subscribe(editedNote => {
         this.notesRefresherService.softRefresh();
       });
+  }
+
+  async deleteNote(note: NoteView) {
+    const dialogRef = await this.dialogService.openDeleteNoteDialog(note);
+    dialogRef.afterClosed()
+      .pipe(filter(result => !!result))
+      .subscribe(() => {
+        this.notesRefresherService.softRefresh();
+      })
   }
 
 }
