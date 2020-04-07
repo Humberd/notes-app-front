@@ -13,11 +13,11 @@ export const routes: Routes = [
     loadChildren: () => import('./views/auth/auth.module').then(value => value.AuthModule),
   },
   {
+    path: 'notes',
+    loadChildren: () => import('./views/notes/notes.module').then(m => m.NotesModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
-  }
-  // {
-  //   path: 'notes',
-  //   loadChildren: () => import('./views/notes/notes.module').then(m => m.NotesModule),
-  // },
+  },
 ];

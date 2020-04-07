@@ -1,15 +1,15 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { TagsRefresherService } from 'composite-library/lib/services/tags-refresher.service';
+import { TagsRefresherService } from '@composite-library/lib/services/tags-refresher.service';
 import { Note } from 'domains/lib/note/models/note';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
-import { SaveWebsiteFormValues } from 'composite-library/lib/forms/save-website-form/models/save-website-form-values';
+import { SaveWebsiteFormValues } from '@composite-library/lib/forms/save-website-form/models/save-website-form-values';
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { SaveWebsiteFormInitialValues } from 'composite-library/lib/forms/save-website-form/models/save-website-form-initial-values';
+import { SaveWebsiteFormInitialValues } from '@composite-library/lib/forms/save-website-form/models/save-website-form-initial-values';
 import { map } from 'rxjs/operators';
 import { TagsService } from 'domains/lib/tag/services/tags.service';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { ContentScriptsService } from 'composite-library/lib/browser-extension/content-scripts/services/content-scripts.service';
+import { ContentScriptsService } from '@composite-library/lib/browser-extension/content-scripts/services/content-scripts.service';
 
 interface NoteCreatedFormValues {
   form: SaveWebsiteFormValues;

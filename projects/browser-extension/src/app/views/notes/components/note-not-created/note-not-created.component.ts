@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NotesService } from 'domains/lib/note/services/notes.service';
-import { ChromeApiBridgeService } from 'composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
+import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
 import { Note } from 'domains/lib/note/models/note';
 
 @Component({
