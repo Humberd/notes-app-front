@@ -14,11 +14,6 @@ export const routes: Routes = [
         path: 'credentials/login',
         loadChildren: () => import('./views/credentials-login/credentials-login.module').then(value => value.CredentialsLoginModule),
       },
-      {
-        path: 'credentials/register',
-        loadChildren: () => import('./views/credentials-register/credentials-register.module')
-          .then(value => value.CredentialsRegisterModule),
-      },
     ],
   },
 ];

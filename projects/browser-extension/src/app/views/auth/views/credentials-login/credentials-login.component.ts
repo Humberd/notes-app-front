@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AuthorizationHandlerService } from '@web-app/app/utils/auth/authorization-handler.service';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
 import { HttpResponseBase } from '@angular/common/http';
@@ -22,7 +21,7 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
   errorMessage: string;
 
   constructor(
-    private authorizationHandlerService: AuthorizationHandlerService,
+    // private authorizationHandlerService: AuthorizationHandlerService,
     private router: Router,
   ) {
     super();
@@ -37,10 +36,11 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
 
   protected submitAction(values: CredentialsLoginFormValues): Observable<any> {
     this.errorMessage = undefined;
-    return this.authorizationHandlerService.login({
-      email: values.email,
-      password: values.password,
-    });
+    return of();
+    // return this.authorizationHandlerService.login({
+    //   email: values.email,
+    //   password: values.password,
+    // });
   }
 
   protected onSuccess(success: any): void {
