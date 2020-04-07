@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { NoteModificationDialogData } from '@web-app/app/dialogs/modules/note-modification-dialog/models/note-modification-dialog-data';
 import { FormControllerConfig } from '@ng-boost/core';
 import { FormControl } from '@angular/forms';
-import { FormValidators } from 'composite-library/lib/form-validators/form.validators';
+import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 
 export class EditNoteStrategy implements NoteModificationStrategy {
   constructor(private noteDomainService: NoteDomainService) {

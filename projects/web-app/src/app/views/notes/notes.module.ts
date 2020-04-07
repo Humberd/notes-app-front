@@ -14,7 +14,7 @@ import { NotesListPanelComponent } from './widget/notes-list-panel/notes-list-pa
 import { LinkModule } from 'common-library/lib/link/link.module';
 import { MarkdownPreviewModule } from 'common-library/lib/markdown-preview/markdown-preview.module';
 import { TagsModule } from 'common-library/lib/tags/tags.module';
-import { NoteTagModule } from 'composite-library/lib/components/note-tag/note-tag.module';
+import { NoteTagModule } from '@composite-library/lib/components/note-tag/note-tag.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
