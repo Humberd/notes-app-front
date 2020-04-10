@@ -9,6 +9,34 @@
     <input [formControl]="formDefinition.url" type="text" libInput>
   </lib-control-container>
 
+  <form
+    [formGroup]="autocompleteFormGroup"
+    (ngSubmit)="addTag()"
+  >
+    <lib-control-container label="Tags">
+
+      <lib2-autocomplete-input-form
+        [allValues]="allTags"
+        [ignoredValues]="formDefinition.tags.value"
+        [formControl]="autocompleteInnerControl"
+      ></lib2-autocomplete-input-form>
+
+      <ol>
+        <lib2-note-tag
+          class="tag"
+          *ngFor="let tag of formDefinition.tags.value; let index= index"
+          [tag]="{
+           id: tag,
+           name: tag
+        }"
+          [removable]="true"
+          (removed)="removeTag(tag)"
+        ></lib2-note-tag>
+      </ol>
+
+    </lib-control-container>
+  </form>
+
   <lib-control-container label="Content">
     <lib-editor class="editor" [formControl]="formDefinition.content"></lib-editor>
   </lib-control-container>

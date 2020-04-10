@@ -1,7 +1,7 @@
 <lib-tag
   [style.background-color]="tag.backgroundColor"
   [removable]="removable"
-  (removed)="removed.emit($event)"
+  (removed)="removed.emit()"
 >
   {{tag.name}}
 </lib-tag>
