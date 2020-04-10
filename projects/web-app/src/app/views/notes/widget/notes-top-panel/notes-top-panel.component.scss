@@ -4,7 +4,6 @@
 
   position: sticky;
   top: 0;
-  overflow: hidden;
   display: flex;
 }
 
@@ -48,6 +47,7 @@ section.menu-items {
     height: 100%;
     width: 150px;
     max-width: 150px;
+    overflow: hidden;
     padding: 0 var(--space-md);
 
     .user-name {
