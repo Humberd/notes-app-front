@@ -18,7 +18,7 @@ ul.list {
     display: inline-flex;
     align-items: center;
 
-    &:hover, &:focus, &:focus-within {
+    &:hover {
       background-color: var(--backgroundColor-tertiary);
 
       .notes-count {
