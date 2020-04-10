@@ -4,6 +4,7 @@ import { NoteView } from '@domain/entity/note/view/note-view';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { TagMinimalView } from '@domain/entity/tag/view/tag-minimal-view';
 import { filter } from 'rxjs/operators';
+import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
 
 @Component({
   selector: 'app-notes-list-panel',
@@ -15,6 +16,7 @@ export class NotesListPanelComponent implements OnInit {
 
   constructor(
     public notesRefresherService: NotesRefresherService,
+    private tagsRefresherService: TagsRefresherService,
     private dialogService: DialogService,
   ) {
   }
@@ -38,6 +40,7 @@ export class NotesListPanelComponent implements OnInit {
       .pipe(filter(result => !!result))
       .subscribe(editedNote => {
         this.notesRefresherService.softRefresh();
+        this.tagsRefresherService.softRefresh();
       });
   }
 
