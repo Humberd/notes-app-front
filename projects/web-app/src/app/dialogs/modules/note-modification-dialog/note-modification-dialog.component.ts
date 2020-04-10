@@ -61,7 +61,12 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
   }
 
   addTag() {
-    const newTagName = this.autocompleteInnerControl.value;
+    const newTagName = this.autocompleteInnerControl.value.trim();
+    if (!newTagName) {
+      console.warn('Value cannot be blank');
+
+      return;
+    }
 
     this.formDefinition.tags.setValue([
       ...this.formDefinition.tags.value,

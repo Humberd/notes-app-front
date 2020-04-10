@@ -15,6 +15,10 @@ export class MarkdownPreviewWorker {
 
   @Callable()
   renderText(text: string): string {
+    if (!text) {
+      return text;
+    }
+
     return marked(text);
   }
 

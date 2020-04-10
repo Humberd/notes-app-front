@@ -5,6 +5,7 @@ import { debounceTime, filter } from 'rxjs/operators';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
+import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
 
 @Component({
   selector: 'app-notes-top-panel',
@@ -21,6 +22,7 @@ export class NotesTopPanelComponent implements OnInit {
   constructor(
     public authorizationHandlerService: AuthorizationHandlerService,
     private notesRefresherService: NotesRefresherService,
+    private tagsRefresherService: TagsRefresherService,
     private dialogService: DialogService,
     private router: Router
   ) {
@@ -46,6 +48,7 @@ export class NotesTopPanelComponent implements OnInit {
       .pipe(filter(result => !!result))
       .subscribe(result => {
         this.notesRefresherService.softRefresh();
+        this.tagsRefresherService.softRefresh();
         this.router.navigate(['/my-notes', result.id])
       });
   }
