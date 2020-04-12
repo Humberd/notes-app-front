@@ -4,7 +4,9 @@ trigger:
 variables:
   DOCKER_CLI_EXPERIMENTAL: enabled
   image-name: humberd/notes-app-web
-  tag-name: $(Build.BuildId)
+  amd64-tag: amd64-$(Build.BuildId)
+  armv7-tag: armv7-$(Build.BuildId)
+  manifest-tag: $(build.BuildId)
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -17,26 +19,39 @@ steps:
       containerRegistry: 'DockerHub - Humberd'
 
   - task: Docker@2
-    displayName: Build
+    displayName: Build linux/amd64
     inputs:
       repository: $(image-name)
       command: 'build'
-      Dockerfile: 'docker/web-app/Dockerfile'
+      Dockerfile: 'docker/web-app/amd64.Dockerfile'
       buildContext:
-      tags: |
-        $(tag-name)
-        latest
+      tags: $(amd64-tag)
       addPipelineData: false
 
   - task: Docker@2
-    displayName: Push
+    displayName: Build linux/arm/v7
     inputs:
-      repository: $(image-name)
-      command: 'push'
-      tags: |
-        latest
-        $(tag-name)
+      repository: '$(image-name)'
+      command: 'build'
+      Dockerfile: 'docker/web-app/armv7.Dockerfile'
+      buildContext:
+      tags: '$(armv7-tag)'
       addPipelineData: false
+
+  - task: Bash@3
+    displayName: Build and Push Manifest
+    inputs:
+      targetType: 'inline'
+      script: |
+        docker push $(image-name):$(amd64-tag)
+        docker push $(image-name):$(armv7-tag)
+
+        docker manifest create $(image-name):latest $(image-name):$(amd64-tag) $(image-name):$(armv7-tag)
+        docker manifest create $(image-name):$(manifest-tag) $(image-name):$(amd64-tag) $(image-name):$(armv7-tag)
+
+        docker manifest push $(image-name):latest
+        docker manifest push $(image-name):$(manifest-tag)
+      failOnStderr: true
 
   - task: Docker@2
     displayName: Logout
