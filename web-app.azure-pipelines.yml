@@ -1,0 +1,46 @@
+trigger:
+  - master
+
+variables:
+  DOCKER_CLI_EXPERIMENTAL: enabled
+  image-name: humberd/notes-app-web
+  tag-name: $(Build.BuildId)
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: Docker@2
+    displayName: Login
+    inputs:
+      command: login
+      containerRegistry: 'DockerHub - Humberd'
+
+  - task: Docker@2
+    displayName: Build
+    inputs:
+      repository: $(image-name)
+      command: 'build'
+      Dockerfile: 'docker/web-app/Dockerfile'
+      buildContext:
+      tags: |
+        $(tag-name)
+        latest
+      addPipelineData: false
+
+  - task: Bash@3
+    displayName: Push
+    inputs:
+      repository: $(image-name)
+      command: 'push'
+      tags: |
+        $(tag-name)
+        latest
+      addPipelineData: false
+
+  - task: Docker@2
+    displayName: Logout
+    condition: always()
+    inputs:
+      command: logout
+      containerRegistry: 'DockerHub - Humberd'
