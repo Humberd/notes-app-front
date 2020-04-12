@@ -24,6 +24,7 @@ export class EditNoteStrategy implements NoteModificationStrategy {
       title: formValues.title,
       url: formValues.url,
       content: formValues.content,
+      tags: formValues.tags.map(tagName => ({name: tagName}))
     });
   }
 
@@ -32,6 +33,7 @@ export class EditNoteStrategy implements NoteModificationStrategy {
       title: new FormControl(dialogData.editedNote.title, FormValidators.note.title),
       url: new FormControl(dialogData.editedNote.url, FormValidators.note.url),
       content: new FormControl(dialogData.editedNote.content, FormValidators.note.content),
+      tags: new FormControl(dialogData.editedNote.tags.map(tag => tag.name))
     };
   }
 

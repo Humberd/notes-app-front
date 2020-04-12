@@ -18,11 +18,20 @@ ul.list {
     display: inline-flex;
     align-items: center;
 
-    &:hover, &:focus, &:focus-within {
+    &:hover {
       background-color: var(--backgroundColor-tertiary);
+
+      .notes-count {
+        display: none;
+      }
+
       .more-options {
         display: inline-flex;
       }
+    }
+
+    &.selected {
+      background-color: var(--backgroundColor-tertiary);
     }
 
     .color-preview {
@@ -37,6 +46,11 @@ ul.list {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    .notes-count {
+      margin-left: auto;
+      padding: 0 var(--space-sm);
     }
 
     button.more-options {

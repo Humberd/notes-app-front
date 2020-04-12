@@ -2,6 +2,7 @@
   <li *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackBy">
     <button
       class="tag"
+      [class.selected]="notesRefresherService.isTagSelected$(tag.id) | async"
       (click)="chooseTag(tag)"
     >
 
@@ -11,6 +12,8 @@
       ></div>
 
       <span class="name">{{tag.name}}</span>
+
+      <span class="notes-count">{{tag.notesCount}}</span>
 
       <button
         class="more-options"

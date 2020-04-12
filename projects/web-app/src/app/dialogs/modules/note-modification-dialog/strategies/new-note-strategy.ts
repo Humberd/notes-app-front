@@ -23,8 +23,9 @@ export class NewNoteStrategy implements NoteModificationStrategy {
   handleSubmit(dialogData: NoteModificationDialogData, formValues: NoteModificationDialogFormValues): Observable<any> {
     return this.noteDomainService.create({
       title: formValues.title,
-      url: formValues.url,
-      content: formValues.content,
+      url: formValues.url || null,
+      content: formValues.content || null,
+      tags: formValues.tags.map(tagName => ({name: tagName})),
     });
   }
 
@@ -33,6 +34,7 @@ export class NewNoteStrategy implements NoteModificationStrategy {
       title: new FormControl('', FormValidators.note.title),
       url: new FormControl('', FormValidators.note.url),
       content: new FormControl('', FormValidators.note.content),
+      tags: new FormControl([], []),
     };
   }
 

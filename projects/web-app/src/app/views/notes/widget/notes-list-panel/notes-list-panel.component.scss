@@ -4,6 +4,7 @@
   background-color: var(--backgroundColor-secondary);
   border-right: 1px solid var(--backgroundColor-tertiary);
   width: 800px;
+  overflow: auto;
 }
 
 .note {
