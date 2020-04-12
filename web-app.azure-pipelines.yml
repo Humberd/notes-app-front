@@ -34,8 +34,8 @@ steps:
       repository: $(image-name)
       command: 'push'
       tags: |
-        $(tag-name)
         latest
+        $(tag-name)
       addPipelineData: false
 
   - task: Docker@2
