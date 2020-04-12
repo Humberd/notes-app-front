@@ -28,7 +28,7 @@ steps:
         latest
       addPipelineData: false
 
-  - task: Bash@3
+  - task: Docker@2
     displayName: Push
     inputs:
       repository: $(image-name)
