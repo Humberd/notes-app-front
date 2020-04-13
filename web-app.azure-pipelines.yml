@@ -21,6 +21,7 @@ steps:
     inputs:
       targetType: 'inline'
       script: |
+        docker version
         docker buildx create
         docker buildx build -f .\docker\web-app\Dockerfile -t $(image-name):$(image-tag) -t $(image-name):latest --platform linux/amd64,linux/arm/v7 --push .
 
