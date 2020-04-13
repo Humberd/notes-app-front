@@ -39,7 +39,7 @@ export class SaveWebsiteFormComponent extends FormController<SaveWebsiteFormValu
     const newTagName = newTagValues.value;
 
     this.tagNames.push(newTagName);
-    this.autoCompleteInputFormComponent.resetForm();
+    // this.autoCompleteInputFormComponent.resetForm();
     this.tagAdd.emit(newTagName);
   }
 

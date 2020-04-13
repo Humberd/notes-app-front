@@ -20,7 +20,6 @@ import { SaveWebsiteFormOptionsComponent } from './components/save-website-form-
     SaveWebsiteFormModule,
     MatButtonModule,
     CommonDialogsModule,
-    TagDialogsModule,
     ReactiveFormsModule,
     MatIconModule,
   ],
