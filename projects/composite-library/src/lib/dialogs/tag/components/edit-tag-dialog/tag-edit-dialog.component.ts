@@ -3,9 +3,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { TagEditDialogData } from './models/tag-edit-dialog-data';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { TagEditDialogFormValues } from './models/tag-edit-dialog-form-values';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { TagsService } from 'domains/lib/tag/services/tags.service';
 
 @Component({
   selector: 'lib2-tag-edit-dialog',
@@ -18,7 +17,6 @@ export class TagEditDialogComponent extends FormRootController<TagEditDialogForm
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: TagEditDialogData,
     private matDialogRef: MatDialogRef<any>,
-    private tagsService: TagsService,
   ) {
     super();
   }
@@ -30,10 +28,7 @@ export class TagEditDialogComponent extends FormRootController<TagEditDialogForm
   }
 
   protected submitAction(values: TagEditDialogFormValues): Observable<any> {
-    return this.tagsService.update(this.dialogData.id, {
-      name: values.form.name,
-      colorHex: values.form.colorHex || undefined,
-    });
+    return of()
   }
 
   protected onSuccess(success: any): void {
