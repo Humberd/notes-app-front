@@ -3,8 +3,14 @@
   margin: var(--space-xl);
 }
 
+.editor {
+  height: 400px;
+}
+
 footer {
   display: flex;
-  justify-content: space-between;
-  margin-top: var(--space-xl);
+  justify-content: flex-end;
+  margin-top: var(--space-sm);
+  position: sticky;
+  bottom: 0;
 }

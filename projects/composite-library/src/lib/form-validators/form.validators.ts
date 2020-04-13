@@ -6,6 +6,7 @@ export const FormValidators = {
     title: [Validators.required],
     url: [],
     content: [],
+    tags: []
   },
   tag: {
     name: Validators.required,

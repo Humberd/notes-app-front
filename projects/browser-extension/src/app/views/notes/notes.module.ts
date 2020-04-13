@@ -12,6 +12,10 @@ import { TagDialogsModule } from '@composite-library/lib/dialogs/tag/tag-dialogs
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { SaveWebsiteFormOptionsComponent } from './components/save-website-form-options/save-website-form-options.component';
+import { LibFormsModule } from 'common-library/lib/forms/forms.module';
+import { AutocompleteInputFormModule } from '@composite-library/lib/forms/autocomplete-input/autocomplete-input-form.module';
+import { NoteTagModule } from '@composite-library/lib/components/note-tag/note-tag.module';
+import { EditorModule } from 'common-library/lib/editor/editor.module';
 
 @NgModule({
   imports: [
@@ -22,6 +26,10 @@ import { SaveWebsiteFormOptionsComponent } from './components/save-website-form-
     CommonDialogsModule,
     ReactiveFormsModule,
     MatIconModule,
+    LibFormsModule,
+    AutocompleteInputFormModule,
+    NoteTagModule,
+    EditorModule,
   ],
   declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent, SaveWebsiteFormOptionsComponent],
 })

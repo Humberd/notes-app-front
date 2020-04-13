@@ -59,7 +59,12 @@
             "tsConfig": "projects/browser-extension/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/browser-extension/src/assets"
+              "projects/browser-extension/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "./assets/monaco/"
+              }
             ],
             "styles": [
               "projects/browser-extension/src/styles.scss",

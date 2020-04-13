@@ -11,6 +11,7 @@ import { RouterModule } from '@angular/router';
 import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.interceptor';
 import { environment } from '../environments/environment';
 import { defaultAuthorizedRoute, defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-routes';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -36,7 +37,8 @@ export function HttpLoaderFactory(http: HttpClient) {
       onSameUrlNavigation: 'reload',
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected',
-    })
+    }),
+    MonacoEditorModule.forRoot()
   ],
   providers: [
     {
