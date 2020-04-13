@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { OptionConfig } from 'common-library/lib/context-menu/models/optionConfig';
-import { NoteTag } from 'domains/lib/note/models/note-tag';
 import { TagMinimalView } from '@domain/entity/tag/view/tag-minimal-view';
 
 @Component({
@@ -15,7 +14,7 @@ export class NoteTagComponent {
   @Input() contextMenuDisabled: boolean;
 
   @Output() removed = new EventEmitter();
-  tagOptions: OptionConfig<NoteTag>[];
+  tagOptions: OptionConfig<TagMinimalView>[];
 
   constructor() {
     this.tagOptions = [];
