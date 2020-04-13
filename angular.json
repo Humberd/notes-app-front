@@ -55,6 +55,7 @@
             "outputPath": "browser-extension-build/browser-extension",
             "index": "projects/browser-extension/src/index.html",
             "main": "projects/browser-extension/src/main.ts",
+            "baseHref": "browser-extension",
             "polyfills": "projects/browser-extension/src/polyfills.ts",
             "tsConfig": "projects/browser-extension/tsconfig.app.json",
             "aot": true,

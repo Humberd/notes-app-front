@@ -45,7 +45,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   providers: [
     {
       provide: APP_BASE_HREF,
-      useValue: '',
+      useValue: '/browser-extension/',
     },
     {
       provide: 'BASE_URL',

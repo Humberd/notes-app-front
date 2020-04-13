@@ -1,6 +1,7 @@
 :host {
   display: block;
   margin: var(--space-xl);
+  margin-bottom: 0;
 }
 
 .editor {
@@ -10,7 +11,8 @@
 footer {
   display: flex;
   justify-content: space-between;
-  margin-top: var(--space-sm);
   position: sticky;
   bottom: 0;
+  background-color: var(--backgroundColor-primary);
+  padding: var(--space-sm);
 }
