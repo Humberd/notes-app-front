@@ -12,6 +12,7 @@ import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.i
 import { environment } from '../environments/environment';
 import { defaultAuthorizedRoute, defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-routes';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -24,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {

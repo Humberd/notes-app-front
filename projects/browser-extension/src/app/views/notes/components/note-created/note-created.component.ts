@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
@@ -22,6 +22,7 @@ interface NoteCreatedFormValues {
 export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValues> implements OnInit {
   @Input() note: NoteView;
   @Input() tabId: number;
+  @Output() noteDeleted = new EventEmitter();
 
   autocompleteInnerControl = new FormControl('');
   autocompleteFormGroup = new FormGroup({autocompleteInnerControl: this.autocompleteInnerControl});
@@ -84,4 +85,8 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     );
   }
 
+  deleteNote() {
+    this.noteDomainService.delete(this.note.id)
+      .subscribe(() => this.noteDeleted.emit())
+  }
 }

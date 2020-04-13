@@ -6,4 +6,5 @@
 <brx-note-created
   *ngIf="note"
   [note]="note"
+  (noteDeleted)="note = undefined"
 ></brx-note-created>

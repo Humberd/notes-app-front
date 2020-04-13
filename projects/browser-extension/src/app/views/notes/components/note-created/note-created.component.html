@@ -37,8 +37,21 @@
 
   <footer>
     <button
-      mat-raised-button color="accent"
+      type="button"
+      libIconButton
+      [mat-menu-trigger-for]="optionsRef"
     >
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <mat-menu #optionsRef yPosition="above">
+      <button mat-menu-item (click)="deleteNote()">
+        <mat-icon>delete</mat-icon>
+
+        Delete
+      </button>
+    </mat-menu>
+
+    <button mat-raised-button color="accent">
       Save
     </button>
   </footer>

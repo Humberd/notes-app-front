@@ -16,6 +16,8 @@ import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 import { AutocompleteInputFormModule } from '@composite-library/lib/forms/autocomplete-input/autocomplete-input-form.module';
 import { NoteTagModule } from '@composite-library/lib/components/note-tag/note-tag.module';
 import { EditorModule } from 'common-library/lib/editor/editor.module';
+import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   imports: [
@@ -30,6 +32,8 @@ import { EditorModule } from 'common-library/lib/editor/editor.module';
     AutocompleteInputFormModule,
     NoteTagModule,
     EditorModule,
+    ButtonsModule,
+    MatMenuModule,
   ],
   declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent, SaveWebsiteFormOptionsComponent],
 })
