@@ -1,8 +1,10 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
+import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { NoteView } from '@domain/entity/note/view/note-view';
+import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
+import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
 
 @Component({
   selector: 'brx-note-not-created',
@@ -18,6 +20,7 @@ export class NoteNotCreatedComponent {
     private activatedRoute: ActivatedRoute,
     private noteDomainService: NoteDomainService,
     private chromeApiBridgeService: ChromeApiBridgeService,
+    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
   ) {
   }
 
@@ -30,5 +33,8 @@ export class NoteNotCreatedComponent {
     }).toPromise();
 
     this.noteCreated.emit(newNote);
+    this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.NOTE_CREATED, {
+      note: newNote
+    })
   }
 }

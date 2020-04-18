@@ -6,6 +6,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
+import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
+import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
 
 interface NoteCreatedFormValues {
   title: string,
@@ -31,6 +33,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
   constructor(
     private tagDomainService: TagDomainService,
     private noteDomainService: NoteDomainService,
+    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService
   ) {
     super();
   }
@@ -87,6 +90,11 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
 
   deleteNote() {
     this.noteDomainService.delete(this.note.id)
-      .subscribe(() => this.noteDeleted.emit())
+      .subscribe(() => {
+        this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.NOTE_DELETED, {
+          note: this.note
+        })
+        this.noteDeleted.emit();
+      })
   }
 }

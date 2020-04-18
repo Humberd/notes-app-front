@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { ChromeApi } from '../../models/chrome-api';
-import { ListenMessageResult } from '../../models/listen-message-result';
+import { ChromeApi } from '../model/chrome-api';
+import { ListenMessageResult } from '../model/listen-message-result';
 import { NgZone } from '@angular/core';
 
 export class ChromeApiImpl implements ChromeApi {

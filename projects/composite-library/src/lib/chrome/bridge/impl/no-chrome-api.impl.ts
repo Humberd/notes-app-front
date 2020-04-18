@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
-import { ChromeApi } from '../../models/chrome-api';
-import { ListenMessageResult } from '../../models/listen-message-result';
+import { ChromeApi } from '../model/chrome-api';
+import { ListenMessageResult } from '../model/listen-message-result';
 
 export class NoChromeApiImpl implements ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab> {
