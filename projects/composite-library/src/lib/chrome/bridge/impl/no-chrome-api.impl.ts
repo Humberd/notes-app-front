@@ -1,6 +1,6 @@
 import { Observable, of } from 'rxjs';
-import { ChromeApi } from '../../models/chrome-api';
-import { ListenMessageResult } from '../../models/listen-message-result';
+import { ChromeApi } from '../model/chrome-api';
+import { ListenMessageResult } from '../model/listen-message-result';
 
 export class NoChromeApiImpl implements ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab> {
@@ -29,6 +29,22 @@ export class NoChromeApiImpl implements ChromeApi {
   }
 
   listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
+    return of();
+  }
+
+  onTabActivated(): Observable<chrome.tabs.TabActiveInfo> {
+    return of();
+  }
+
+  onTabUpdated(): Observable<any> {
+    return of();
+  }
+
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
+    return of();
+  }
+
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
     return of();
   }
 

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
+import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { switchMap } from 'rxjs/operators';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { NotesRefresherService } from './service/notes-refresher.service';

@@ -4,15 +4,14 @@
     "directive-selector": [
       true,
       "attribute",
-      "lib2",
+      "app",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "lib2",
+      "app",
       "kebab-case"
-    ],
-    "no-namespace": false
+    ]
   }
 }
