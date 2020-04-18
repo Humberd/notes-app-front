@@ -79,5 +79,45 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
+  onTabUpdated(): Observable<any> {
+    return new Observable<any>(subscriber => {
+      const handler = (tabId, changeInfo, tab) => {
+        this.ngZone.run(() => {
+          subscriber.next({
+            tabId,
+            changeInfo,
+            tab
+          })
+        });
+      };
+      chrome.tabs.onUpdated.addListener(handler);
+
+      return () => {
+        chrome.tabs.onUpdated.removeListener(handler);
+      };
+    });
+  }
+
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
+    return new Observable(subscriber => {
+      const handler = () => {
+        this.ngZone.run(() => {
+          subscriber.next()
+        });
+      };
+      chrome.browserAction.setBadgeBackgroundColor(details, handler)
+    });
+  }
+
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
+    return new Observable(subscriber => {
+      const handler = () => {
+        this.ngZone.run(() => {
+          subscriber.next()
+        });
+      };
+      chrome.browserAction.setBadgeText(details, handler)
+    });
+  }
 
 }

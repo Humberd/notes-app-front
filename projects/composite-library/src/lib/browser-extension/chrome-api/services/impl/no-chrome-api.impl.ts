@@ -36,4 +36,16 @@ export class NoChromeApiImpl implements ChromeApi {
     return of();
   }
 
+  onTabUpdated(): Observable<any> {
+    return of();
+  }
+
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
+    return of();
+  }
+
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
+    return of();
+  }
+
 }

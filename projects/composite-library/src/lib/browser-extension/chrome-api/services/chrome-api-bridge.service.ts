@@ -41,4 +41,16 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.onTabActivated();
   }
 
+  onTabUpdated(): Observable<any> {
+    return this.chromeApiImpl.onTabUpdated();
+  }
+
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
+    return this.chromeApiImpl.setBadgeBackgroundColor(details);
+  }
+
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
+    return this.chromeApiImpl.setBadgeText(details);
+  }
+
 }
