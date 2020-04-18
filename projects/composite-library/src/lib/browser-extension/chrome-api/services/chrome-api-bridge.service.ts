@@ -37,4 +37,8 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.listenMessage();
   }
 
+  onTabActivated(): Observable<chrome.tabs.TabActiveInfo> {
+    return this.chromeApiImpl.onTabActivated();
+  }
+
 }

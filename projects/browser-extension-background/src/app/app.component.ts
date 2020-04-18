@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor() {
+  constructor(private chromeApiBridgeService: ChromeApiBridgeService) {
     console.log('Browser Extension Background is running');
-    console.log('hello from updated');
+
+    chromeApiBridgeService.onTabActivated()
+      .subscribe(tabInfo => console.log(tabInfo));
   }
 }
