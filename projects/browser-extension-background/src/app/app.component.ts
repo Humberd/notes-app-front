@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, NgZone } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
 
 @Component({
@@ -12,6 +12,8 @@ export class AppComponent {
     console.log('Browser Extension Background is running');
 
     chromeApiBridgeService.onTabActivated()
-      .subscribe(tabInfo => console.log(tabInfo));
+      .subscribe(tabInfo => {
+        console.log('is inzone: ', NgZone.isInAngularZone());
+      });
   }
 }

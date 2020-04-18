@@ -1,4 +1,4 @@
-import { fromEvent, fromEventPattern, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ChromeApi } from '../../models/chrome-api';
 import { ListenMessageResult } from '../../models/listen-message-result';
 import { NgZone } from '@angular/core';
@@ -65,10 +65,18 @@ export class ChromeApiImpl implements ChromeApi {
   }
 
   onTabActivated(): Observable<chrome.tabs.TabActiveInfo> {
-    return fromEventPattern(
-      handler => chrome.tabs.onActivated.addListener(handler),
-      handler => chrome.tabs.onActivated.removeListener(handler)
-    )
+    return new Observable<chrome.tabs.TabActiveInfo>(subscriber => {
+      const handler = tabInfo => {
+        this.ngZone.run(() => {
+          subscriber.next(tabInfo);
+        });
+      };
+      chrome.tabs.onActivated.addListener(handler);
+
+      return () => {
+        chrome.tabs.onActivated.removeListener(handler);
+      };
+    });
   }
 
 
