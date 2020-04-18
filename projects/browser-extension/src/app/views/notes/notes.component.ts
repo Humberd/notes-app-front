@@ -1,49 +1,48 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/browser-extension/chrome-api/services/chrome-api-bridge.service';
-import { switchMap, tap } from 'rxjs/operators';
-import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
+import { switchMap } from 'rxjs/operators';
 import { NoteView } from '@domain/entity/note/view/note-view';
+import { NotesRefresherService } from './service/notes-refresher.service';
+import { TagsRefresherService } from './service/tags-refresher.service';
+import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
 
 @Component({
   selector: 'brx-notes',
   templateUrl: './notes.component.html',
   styleUrls: ['./notes.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  viewProviders: [
+    NotesRefresherService,
+    TagsRefresherService,
+  ],
 })
 export class NotesComponent implements OnInit {
-  isNoteCreated: boolean;
   note: NoteView;
-  tabId: number;
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
-    private noteDomainService: NoteDomainService,
+    private myDataDomainService: MyDataDomainService,
     private changeDetectorRef: ChangeDetectorRef,
+    private notesRefresherService: NotesRefresherService,
+    private tagsRefresherService: TagsRefresherService,
   ) {
   }
 
   ngOnInit(): void {
+    this.notesRefresherService.start();
+    this.tagsRefresherService.start();
+
     this.chromeApiBridgeService.getCurrentTab()
       .pipe(
-        tap(currentTab => this.tabId = currentTab.id),
-        switchMap(currentTab => this.noteDomainService.read(currentTab.url)),
+        switchMap(currentTab => this.myDataDomainService.readMyNotesList({url: currentTab.url})),
       )
-      .subscribe({
-        next: note => {
-          this.isNoteCreated = true;
-          this.note = note;
-          this.changeDetectorRef.markForCheck();
-        },
-        error: err => {
-          this.isNoteCreated = false;
-          this.changeDetectorRef.markForCheck();
-        },
-      });
-  }
+      .subscribe(response => {
+        if (response.data.length > 0) {
+          this.note = response.data[0];
+        }
 
-  handleNoteCreated(event: NoteView) {
-    this.isNoteCreated = true;
-    this.note = event;
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
 }

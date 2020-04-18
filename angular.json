@@ -55,11 +55,17 @@
             "outputPath": "browser-extension-build/browser-extension",
             "index": "projects/browser-extension/src/index.html",
             "main": "projects/browser-extension/src/main.ts",
+            "baseHref": "browser-extension",
             "polyfills": "projects/browser-extension/src/polyfills.ts",
             "tsConfig": "projects/browser-extension/tsconfig.app.json",
             "aot": true,
             "assets": [
-              "projects/browser-extension/src/assets"
+              "projects/browser-extension/src/assets",
+              {
+                "glob": "**/*",
+                "input": "node_modules/ngx-monaco-editor/assets/monaco",
+                "output": "./assets/monaco/"
+              }
             ],
             "styles": [
               "projects/browser-extension/src/styles.scss",

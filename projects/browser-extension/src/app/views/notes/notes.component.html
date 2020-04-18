@@ -1,8 +1,10 @@
 <brx-note-not-created
+  *ngIf="!note"
+  (noteCreated)="note = $event"
 ></brx-note-not-created>
 
-<!--<brx-note-created-->
-<!--  *ngIf="isNoteCreated === true"-->
-<!--  [note]="note"-->
-<!--  [tabId]="tabId"-->
-<!--&gt;</brx-note-created>-->
+<brx-note-created
+  *ngIf="note"
+  [note]="note"
+  (noteDeleted)="note = undefined"
+></brx-note-created>

@@ -50,6 +50,7 @@ export class NotesListPanelComponent implements OnInit {
       .pipe(filter(result => !!result))
       .subscribe(() => {
         this.notesRefresherService.softRefresh();
+        this.tagsRefresherService.softRefresh();
       })
   }
 

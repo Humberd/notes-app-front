@@ -8,5 +8,10 @@
   "permissions": [
     "activeTab",
     "tabs"
-  ]
+  ],
+  "background": {
+    "scripts": [
+      "hot-reload.js"
+    ]
+  }
 }

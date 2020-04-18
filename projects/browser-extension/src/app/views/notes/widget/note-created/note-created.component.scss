@@ -1,0 +1,18 @@
+:host {
+  display: block;
+  margin: var(--space-xl);
+  margin-bottom: 0;
+}
+
+.editor {
+  height: 400px;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  bottom: 0;
+  background-color: var(--backgroundColor-primary);
+  padding: var(--space-sm);
+}

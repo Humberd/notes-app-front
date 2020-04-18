@@ -22,6 +22,7 @@ export class EditorComponent extends AbstractControlValueAccessor<string> {
     language: 'markdown',
     wordWrap: 'on',
     automaticLayout: true,
+    lineNumbersMinChars: 3
   };
 
   @Input() options: IEditorConstructionOptions = this.defaultEditorOptions;
