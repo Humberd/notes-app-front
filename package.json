@@ -20,7 +20,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build:browser-extension:dev": "ng build browser-extension",
-    "build:browser-extension:dev-watch": "ng build browser-extension --watch",
+    "build:browser-extension:dev-watch": "concurrently \"ng build browser-extension --watch\" \"ng build browser-extension-background --watch\"",
     "build:browser-extension:prod": "ng build browser-extension --prod",
     "build:web-app": "ng build web-app --prod",
     "serve:web-app:web": "concurrently \"npm run translations:watch\" \"ng serve --host 0.0.0.0\"",

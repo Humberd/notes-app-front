@@ -10,8 +10,6 @@
     "tabs"
   ],
   "background": {
-    "scripts": [
-      "hot-reload.js"
-    ]
+    "page": "background/index.html"
   }
 }
