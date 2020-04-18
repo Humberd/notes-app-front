@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap } from 'rxjs/operators';
 import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
 import { forkJoin } from 'rxjs';
 import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
@@ -21,9 +21,9 @@ export class AppComponent {
   ) {
     console.log('Browser Extension Background is running');
 
-    this.listenForPopupMessages();
     this.listenForActiveTab();
-
+    this.listenForTabUpdate();
+    this.listenForPopupMessages();
   }
 
   private listenForActiveTab() {
@@ -36,6 +36,28 @@ export class AppComponent {
           })
             .pipe(
               map(notes => ({tab, notes})),
+            ),
+        ),
+      )
+      .subscribe(({tab, notes}) => {
+        if (notes.data.length !== 0) {
+          this.setNoteSavedStatus(tab);
+        } else {
+          this.setNoteUnsavedStatus(tab);
+        }
+      });
+  }
+
+  private listenForTabUpdate() {
+    this.chromeApiBridgeService.onTabUpdated()
+      .pipe(
+        filter(event => event.tab.status === 'complete'),
+        switchMap(event =>
+          this.myDataDomainService.readMyNotesList({
+            url: event.tab.url,
+          })
+            .pipe(
+              map(notes => ({tab: event.tab, notes})),
             ),
         ),
       )

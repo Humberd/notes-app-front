@@ -3,6 +3,7 @@ import { ListenMessageResult } from './listen-message-result';
 import TabActiveInfo = chrome.tabs.TabActiveInfo;
 import BadgeTextDetails = chrome.browserAction.BadgeTextDetails;
 import BadgeBackgroundColorDetails = chrome.browserAction.BadgeBackgroundColorDetails;
+import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 
 export interface ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab>;
@@ -15,7 +16,7 @@ export interface ChromeApi {
 
   onTabActivated(): Observable<TabActiveInfo>;
 
-  onTabUpdated(): Observable<any>;
+  onTabUpdated(): Observable<TabUpdateEvent>;
 
   setBadgeText(details: BadgeTextDetails): Observable<void>
 

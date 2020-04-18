@@ -2,6 +2,7 @@ import { Observable } from 'rxjs';
 import { ChromeApi } from '../model/chrome-api';
 import { ListenMessageResult } from '../model/listen-message-result';
 import { NgZone } from '@angular/core';
+import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 
 export class ChromeApiImpl implements ChromeApi {
 
@@ -15,6 +16,7 @@ export class ChromeApiImpl implements ChromeApi {
         currentWindow: true,
       }, tabs => {
         this.ngZone.run(() => {
+          console.log({tabs});
           subscriber.next(tabs[0]);
           subscriber.complete();
         });
@@ -79,15 +81,15 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
-  onTabUpdated(): Observable<any> {
-    return new Observable<any>(subscriber => {
+  onTabUpdated(): Observable<TabUpdateEvent> {
+    return new Observable<TabUpdateEvent>(subscriber => {
       const handler = (tabId, changeInfo, tab) => {
         this.ngZone.run(() => {
           subscriber.next({
             tabId,
             changeInfo,
-            tab
-          })
+            tab,
+          });
         });
       };
       chrome.tabs.onUpdated.addListener(handler);
@@ -102,10 +104,10 @@ export class ChromeApiImpl implements ChromeApi {
     return new Observable(subscriber => {
       const handler = () => {
         this.ngZone.run(() => {
-          subscriber.next()
+          subscriber.next();
         });
       };
-      chrome.browserAction.setBadgeBackgroundColor(details, handler)
+      chrome.browserAction.setBadgeBackgroundColor(details, handler);
     });
   }
 
@@ -113,10 +115,10 @@ export class ChromeApiImpl implements ChromeApi {
     return new Observable(subscriber => {
       const handler = () => {
         this.ngZone.run(() => {
-          subscriber.next()
+          subscriber.next();
         });
       };
-      chrome.browserAction.setBadgeText(details, handler)
+      chrome.browserAction.setBadgeText(details, handler);
     });
   }
 

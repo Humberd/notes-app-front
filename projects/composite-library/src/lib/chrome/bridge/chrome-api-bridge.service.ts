@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { NoChromeApiImpl } from './impl/no-chrome-api.impl';
 import { ChromeApiImpl } from './impl/chrome-api.impl';
 import { ListenMessageResult } from './model/listen-message-result';
+import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 
 @Injectable({
   providedIn: 'root',
@@ -41,7 +42,7 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.onTabActivated();
   }
 
-  onTabUpdated(): Observable<any> {
+  onTabUpdated(): Observable<TabUpdateEvent> {
     return this.chromeApiImpl.onTabUpdated();
   }
 
@@ -50,6 +51,7 @@ export class ChromeApiBridgeService implements ChromeApi {
   }
 
   setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
+    console.log('set badge text', details);
     return this.chromeApiImpl.setBadgeText(details);
   }
 
