@@ -6,6 +6,20 @@
 
 .editor {
   height: 400px;
+
+  &.hidden {
+    display: none;
+  }
+}
+
+section.content {
+  .label {
+    align-items: center;
+  }
+
+  button.toggle {
+    margin-left: var(--space-sm);
+  }
 }
 
 footer {

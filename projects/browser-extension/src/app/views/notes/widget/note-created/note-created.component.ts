@@ -29,17 +29,19 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
   autocompleteInnerControl = new FormControl('');
   autocompleteFormGroup = new FormGroup({autocompleteInnerControl: this.autocompleteInnerControl});
   allTags: string[];
+  contentExpanded: boolean;
 
   constructor(
     private tagDomainService: TagDomainService,
     private noteDomainService: NoteDomainService,
-    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService
+    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.contentExpanded = !!this.note.content
 
     this.tagDomainService.readList()
       .subscribe(tags => {
@@ -92,9 +94,13 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     this.noteDomainService.delete(this.note.id)
       .subscribe(() => {
         this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.NOTE_DELETED, {
-          note: this.note
-        })
+          note: this.note,
+        });
         this.noteDeleted.emit();
-      })
+      });
+  }
+
+  toggleContentExpand() {
+    this.contentExpanded = !this.contentExpanded;
   }
 }

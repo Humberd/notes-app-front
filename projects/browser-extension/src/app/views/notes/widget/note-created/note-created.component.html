@@ -31,9 +31,27 @@
     </lib-control-container>
   </form>
 
-  <lib-control-container label="Content">
-    <lib-editor class="editor" [formControl]="formDefinition.content"></lib-editor>
-  </lib-control-container>
+  <section class="content">
+    <lib-label class="label">
+      <span>Content</span>
+
+      <button
+        class="toggle"
+        libIconButton
+        [title]="contentExpanded? 'Less' : 'More'"
+        (click)="toggleContentExpand()"
+      >
+        <mat-icon *ngIf="!contentExpanded">expand_more</mat-icon>
+        <mat-icon *ngIf="contentExpanded">expand_less</mat-icon>
+      </button>
+    </lib-label>
+    <lib-editor
+      class="editor"
+      [class.hidden]="!contentExpanded"
+      [formControl]="formDefinition.content"
+    ></lib-editor>
+
+  </section>
 
   <footer>
     <button
