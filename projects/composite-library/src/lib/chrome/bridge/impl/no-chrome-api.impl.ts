@@ -40,12 +40,16 @@ export class NoChromeApiImpl implements ChromeApi {
     return of();
   }
 
-  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
-    return of();
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Promise<void> {
+    return Promise.resolve();
   }
 
-  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
-    return of();
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Promise<void> {
+    return Promise.resolve();
+  }
+
+  createTab(createProperties: chrome.tabs.CreateProperties): Promise<chrome.tabs.Tab> {
+    return Promise.resolve();
   }
 
 }

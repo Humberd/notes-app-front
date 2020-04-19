@@ -100,26 +100,22 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
-  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
-    return new Observable(subscriber => {
-      const handler = () => {
-        this.ngZone.run(() => {
-          subscriber.next();
-        });
-      };
-      chrome.browserAction.setBadgeBackgroundColor(details, handler);
-    });
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      chrome.browserAction.setBadgeBackgroundColor(details, resolve);
+    })
   }
 
-  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
-    return new Observable(subscriber => {
-      const handler = () => {
-        this.ngZone.run(() => {
-          subscriber.next();
-        });
-      };
-      chrome.browserAction.setBadgeText(details, handler);
-    });
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Promise<void> {
+    return new Promise<void>((resolve, reject) => {
+      chrome.browserAction.setBadgeText(details, resolve);
+    })
+  }
+
+  createTab(createProperties: chrome.tabs.CreateProperties): Promise<chrome.tabs.Tab> {
+    return new Promise<chrome.tabs.Tab>((resolve, reject) => {
+      chrome.tabs.create(createProperties, resolve)
+    })
   }
 
 }

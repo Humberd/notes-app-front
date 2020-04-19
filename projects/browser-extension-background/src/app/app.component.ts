@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { filter, map, switchMap } from 'rxjs/operators';
 import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
-import { forkJoin } from 'rxjs';
 import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
 import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
 import Tab = chrome.tabs.Tab;
@@ -85,24 +84,20 @@ export class AppComponent {
   }
 
   private setNoteSavedStatus(tab: Tab) {
-    forkJoin([
-      this.chromeApiBridgeService.setBadgeText({
-        tabId: tab.id,
-        text: '✓',
-      }),
-      this.chromeApiBridgeService.setBadgeBackgroundColor({
-        tabId: tab.id,
-        color: '#006100',
-      }),
-    ])
-      .subscribe();
+    this.chromeApiBridgeService.setBadgeText({
+      tabId: tab.id,
+      text: '✓',
+    });
+    this.chromeApiBridgeService.setBadgeBackgroundColor({
+      tabId: tab.id,
+      color: '#006100',
+    });
   }
 
   private setNoteUnsavedStatus(tab: Tab) {
     this.chromeApiBridgeService.setBadgeText({
       text: '',
       tabId: tab.id,
-    })
-      .subscribe();
+    });
   }
 }

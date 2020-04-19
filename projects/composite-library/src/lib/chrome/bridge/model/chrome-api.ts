@@ -1,9 +1,11 @@
 import { Observable } from 'rxjs';
 import { ListenMessageResult } from './listen-message-result';
+import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 import TabActiveInfo = chrome.tabs.TabActiveInfo;
 import BadgeTextDetails = chrome.browserAction.BadgeTextDetails;
 import BadgeBackgroundColorDetails = chrome.browserAction.BadgeBackgroundColorDetails;
-import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
+import CreateProperties = chrome.tabs.CreateProperties;
+import Tab = chrome.tabs.Tab;
 
 export interface ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab>;
@@ -18,7 +20,9 @@ export interface ChromeApi {
 
   onTabUpdated(): Observable<TabUpdateEvent>;
 
-  setBadgeText(details: BadgeTextDetails): Observable<void>
+  setBadgeText(details: BadgeTextDetails): Promise<void>
 
-  setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Observable<void>
+  setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>
+
+  createTab(createProperties: CreateProperties): Promise<Tab>
 }

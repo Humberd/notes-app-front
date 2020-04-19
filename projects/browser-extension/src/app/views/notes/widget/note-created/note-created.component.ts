@@ -8,6 +8,8 @@ import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service'
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
 import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
+import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
+import { environment } from '../../../../../environments/environment';
 
 interface NoteCreatedFormValues {
   title: string,
@@ -35,6 +37,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     private tagDomainService: TagDomainService,
     private noteDomainService: NoteDomainService,
     private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
+    private chromeApiBridgeService: ChromeApiBridgeService
   ) {
     super();
   }
@@ -102,5 +105,11 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
 
   toggleContentExpand() {
     this.contentExpanded = !this.contentExpanded;
+  }
+
+  openInApp() {
+    this.chromeApiBridgeService.createTab({
+      url: `${environment.webAppUrl}/my-notes/${this.note.id}`
+    })
   }
 }

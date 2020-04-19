@@ -46,13 +46,16 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.onTabUpdated();
   }
 
-  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Observable<void> {
+  setBadgeBackgroundColor(details: chrome.browserAction.BadgeBackgroundColorDetails): Promise<void> {
     return this.chromeApiImpl.setBadgeBackgroundColor(details);
   }
 
-  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Observable<void> {
-    console.log('set badge text', details);
+  setBadgeText(details: chrome.browserAction.BadgeTextDetails): Promise<void> {
     return this.chromeApiImpl.setBadgeText(details);
+  }
+
+  createTab(createProperties: chrome.tabs.CreateProperties): Promise<chrome.tabs.Tab> {
+    return this.chromeApiImpl.createTab(createProperties);
   }
 
 }
