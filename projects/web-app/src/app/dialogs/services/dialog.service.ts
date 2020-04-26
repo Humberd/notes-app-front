@@ -6,8 +6,8 @@ import { NoteModificationDialogData } from '@web-app/app/dialogs/modules/note-mo
 import { ConfirmationDialogComponent } from '@web-app/app/dialogs/modules/confirmation-dialog/confirmation-dialog.component';
 import { ConfirmationDialogData } from '@web-app/app/dialogs/modules/confirmation-dialog/models/confirmation-dialog-data';
 import { NoteView } from '@domain/entity/note/view/note-view';
-import { filter, switchMap } from 'rxjs/operators';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
+import { WorkspaceModificationDialogComponent } from '@web-app/app/dialogs/modules/workspace-modification-dialog/workspace-modification-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +37,12 @@ export class DialogService {
     );
   }
 
+  async openCreateWorkspaceDialog() {
+    const {WorkspaceModificationDialogModule} =
+      await import('../modules/workspace-modification-dialog/workspace-modification-dialog.module');
+    return this.matDialog.open<WorkspaceModificationDialogComponent>(WorkspaceModificationDialogModule.getDialogClass());
+  }
+
   async openDeleteNoteDialog(note: NoteView) {
     return this.openConfirmationDialog({
       title: 'Delete note',
@@ -44,7 +50,7 @@ export class DialogService {
       confirm: {
         name: 'Delete',
         color: 'warn',
-        action: () => this.noteDomainService.delete(note.id)
+        action: () => this.noteDomainService.delete(note.id),
       },
     });
   }

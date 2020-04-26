@@ -4,6 +4,7 @@ import { TagView } from '@domain/entity/tag/view/tag-view';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
 import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
+import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 
 @Component({
   selector: 'app-filters-left-panel',
@@ -17,6 +18,7 @@ export class FiltersLeftPanelComponent implements OnInit {
     public tagsRefresherService: TagsRefresherService,
     public notesRefresherService: NotesRefresherService,
     public workspacesRefresherService: WorkspacesRefresherService,
+    private dialogService: DialogService
   ) {
   }
 
@@ -39,4 +41,7 @@ export class FiltersLeftPanelComponent implements OnInit {
     }
   }
 
+  async newWorkspace() {
+    await this.dialogService.openCreateWorkspaceDialog()
+  }
 }
