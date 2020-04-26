@@ -38,7 +38,7 @@ export class FiltersLeftPanelComponent implements OnInit {
     if (this.notesRefresherService.tagIds.some(it => it === tag.id)) {
       this.notesRefresherService.filterByTags(this.notesRefresherService.tagIds.filter(it => it !== tag.id));
     } else {
-      this.notesRefresherService.filterByTags([...this.notesRefresherService.tagIds, tag.id]);
+      this.notesRefresherService.filterByTags([tag.id]);
     }
   }
 
