@@ -1,0 +1,139 @@
+<section class="group workspaces">
+  <header>
+    <h5>
+      Workspaces
+    </h5>
+
+    <button
+      class="new"
+      title="New Workspace"
+      libIconButton
+      (click)="createWorkspace()"
+    >
+      <mat-icon class="icon">add</mat-icon>
+    </button>
+
+    <button
+      class="sort"
+      title="Sort"
+      libIconButton
+      [mat-menu-trigger-for]="workspaceSortRef"
+    >
+      <mat-icon class="icon">sort</mat-icon>
+    </button>
+
+    <mat-menu #workspaceSortRef>
+      <button mat-menu-item>
+        Sort by name ASC
+      </button>
+      <button mat-menu-item>
+        Sort by name DESC
+      </button>
+    </mat-menu>
+  </header>
+
+  <ul class="list">
+    <li *ngFor="let workspace of workspacesRefresherService.data$ | async; trackBy: trackByWorkspace">
+      <button
+        class="entity"
+        [class.selected]="notesRefresherService.isWorkspaceSelected$(workspace.id) | async"
+        (click)="chooseWorkspace(workspace)"
+      >
+
+        <span class="name">{{workspace.name}}</span>
+
+        <button
+          class="more-options"
+          title="Options"
+          libIconButton
+          [mat-menu-trigger-for]="moreOptionsRef"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #moreOptionsRef>
+          <button mat-menu-item (click)="editWorkspace(workspace)">Edit</button>
+          <button mat-menu-item (click)="deleteWorkspace(workspace)">Delete</button>
+        </mat-menu>
+
+      </button>
+    </li>
+  </ul>
+
+</section>
+
+<section class="group tags">
+  <header>
+    <h5>Tags</h5>
+
+    <button
+      class="new"
+      title="New Tag"
+      libIconButton
+    >
+      <mat-icon class="icon">add</mat-icon>
+    </button>
+
+    <button
+      class="sort"
+      title="Sort"
+      libIconButton
+      [mat-menu-trigger-for]="tagsSortRef"
+    >
+      <mat-icon class="icon">sort</mat-icon>
+    </button>
+
+    <mat-menu #tagsSortRef>
+      <button mat-menu-item>
+        Sort by name ASC
+      </button>
+      <button mat-menu-item>
+        Sort by name DESC
+      </button>
+      <button mat-menu-item>
+        Sort by notes ASC
+      </button>
+      <button mat-menu-item>
+        Sort by notes DESC
+      </button>
+    </mat-menu>
+  </header>
+
+  <ul class="list tags">
+    <li *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
+      <button
+        class="entity"
+        [class.selected]="notesRefresherService.isTagSelected$(tag.id) | async"
+        (click)="chooseTag(tag)"
+      >
+        <span class="name">{{tag.name}}</span>
+
+        <div
+          class="color-preview"
+          [style.backgroundColor]="tag.backgroundColor"
+        ></div>
+
+
+        <span class="notes-count">{{tag.notesCount}}</span>
+
+        <button
+          class="more-options"
+          title="Options"
+          libIconButton
+          [mat-menu-trigger-for]="moreOptionsRef"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #moreOptionsRef>
+          <button mat-menu-item>Edit</button>
+          <button mat-menu-item>Delete</button>
+        </mat-menu>
+
+      </button>
+    </li>
+  </ul>
+
+</section>

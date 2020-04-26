@@ -16,6 +16,7 @@ import { NoteTagModule } from '@composite-library/lib/components/note-tag/note-t
 import { EditorModule } from 'common-library/lib/editor/editor.module';
 import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -32,6 +33,7 @@ import { MatMenuModule } from '@angular/material/menu';
     EditorModule,
     ButtonsModule,
     MatMenuModule,
+    MatSelectModule,
   ],
   declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent],
 })

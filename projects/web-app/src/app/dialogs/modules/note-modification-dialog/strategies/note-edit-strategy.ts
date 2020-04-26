@@ -7,7 +7,7 @@ import { FormControllerConfig } from '@ng-boost/core';
 import { FormControl } from '@angular/forms';
 import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 
-export class EditNoteStrategy implements NoteModificationStrategy {
+export class NoteEditStrategy implements NoteModificationStrategy {
   constructor(private noteDomainService: NoteDomainService) {
   }
 
@@ -24,7 +24,8 @@ export class EditNoteStrategy implements NoteModificationStrategy {
       title: formValues.title,
       url: formValues.url,
       content: formValues.content,
-      tags: formValues.tags.map(tagName => ({name: tagName}))
+      tags: formValues.tags.map(tagName => ({name: tagName})),
+      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId}))
     });
   }
 
@@ -33,7 +34,8 @@ export class EditNoteStrategy implements NoteModificationStrategy {
       title: new FormControl(dialogData.editedNote.title, FormValidators.note.title),
       url: new FormControl(dialogData.editedNote.url, FormValidators.note.url),
       content: new FormControl(dialogData.editedNote.content, FormValidators.note.content),
-      tags: new FormControl(dialogData.editedNote.tags.map(tag => tag.name))
+      tags: new FormControl(dialogData.editedNote.tags.map(tag => tag.name)),
+      workspaceIds: new FormControl(dialogData.editedNote.workspaces.map(workspace => workspace.id))
     };
   }
 

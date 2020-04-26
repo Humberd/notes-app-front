@@ -6,6 +6,7 @@ import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
 import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
+import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
 
 @Component({
   selector: 'app-notes-top-panel',
@@ -23,6 +24,7 @@ export class NotesTopPanelComponent implements OnInit {
     public authorizationHandlerService: AuthorizationHandlerService,
     private notesRefresherService: NotesRefresherService,
     private tagsRefresherService: TagsRefresherService,
+    private workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
     private router: Router
   ) {
@@ -49,6 +51,7 @@ export class NotesTopPanelComponent implements OnInit {
       .subscribe(result => {
         this.notesRefresherService.softRefresh();
         this.tagsRefresherService.softRefresh();
+        this.workspacesRefresherService.softRefresh();
         this.router.navigate(['/my-notes', result.id])
       });
   }

@@ -6,11 +6,15 @@ export const FormValidators = {
     title: [Validators.required],
     url: [],
     content: [],
-    tags: []
+    tags: [],
+    workspaces: []
   },
   tag: {
     name: Validators.required,
     colorHex: colorHexValidator,
+  },
+  workspace: {
+    name: [Validators.required]
   },
   auth: {
     login: {

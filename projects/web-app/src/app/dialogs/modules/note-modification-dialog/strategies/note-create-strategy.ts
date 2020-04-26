@@ -7,7 +7,7 @@ import { NoteModificationDialogData } from '@web-app/app/dialogs/modules/note-mo
 import { FormControl } from '@angular/forms';
 import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 
-export class NewNoteStrategy implements NoteModificationStrategy {
+export class NoteCreateStrategy implements NoteModificationStrategy {
 
   constructor(private noteDomainService: NoteDomainService) {
   }
@@ -26,6 +26,7 @@ export class NewNoteStrategy implements NoteModificationStrategy {
       url: formValues.url || null,
       content: formValues.content || null,
       tags: formValues.tags.map(tagName => ({name: tagName})),
+      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId}))
     });
   }
 
@@ -35,6 +36,7 @@ export class NewNoteStrategy implements NoteModificationStrategy {
       url: new FormControl('', FormValidators.note.url),
       content: new FormControl('', FormValidators.note.content),
       tags: new FormControl([], []),
+      workspaceIds: new FormControl([], []),
     };
   }
 

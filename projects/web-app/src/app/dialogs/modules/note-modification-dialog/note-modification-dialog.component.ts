@@ -1,21 +1,28 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoteModificationDialogFormValues } from '@web-app/app/dialogs/modules/note-modification-dialog/models/note-midification-dialog-form-values';
 import { NoteModificationDialogData } from '@web-app/app/dialogs/modules/note-modification-dialog/models/note-modification-dialog-data';
 import { NoteModificationStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/note-modification-strategy';
-import { NewNoteStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/new-note-strategy';
+import { NoteCreateStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/note-create-strategy';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
-import { EditNoteStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/edit-note-strategy';
+import { NoteEditStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/note-edit-strategy';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
+import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
+import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER } from '@angular/material/select';
 
 @Component({
+  selector: 'app-note-modification-dialog',
   templateUrl: './note-modification-dialog.component.html',
   styleUrls: ['./note-modification-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
+  ],
 })
 export class NoteModificationDialogComponent extends FormRootController<NoteModificationDialogFormValues> implements OnInit {
   autocompleteInnerControl = new FormControl('');
@@ -23,19 +30,22 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
 
   readonly strategy: NoteModificationStrategy;
   allTags: string[];
+  allWorkspaces: WorkspaceView[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private dialogData: NoteModificationDialogData,
     private noteDomainService: NoteDomainService,
     private matDialogRef: MatDialogRef<NoteModificationDialogComponent>,
     private tagDomainService: TagDomainService,
+    private workspaceDomainService: WorkspaceDomainService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     super();
 
     if (this.dialogData?.editedNote) {
-      this.strategy = new EditNoteStrategy(this.noteDomainService);
+      this.strategy = new NoteEditStrategy(this.noteDomainService);
     } else {
-      this.strategy = new NewNoteStrategy(this.noteDomainService);
+      this.strategy = new NoteCreateStrategy(this.noteDomainService);
     }
   }
 
@@ -45,6 +55,13 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
     this.tagDomainService.readList()
       .subscribe(tags => {
         this.allTags = tags.data.map(tag => tag.name);
+        this.changeDetectorRef.markForCheck();
+      });
+
+    this.workspaceDomainService.readList()
+      .subscribe(workspaces => {
+        this.allWorkspaces = workspaces.data;
+        this.changeDetectorRef.markForCheck();
       });
   }
 

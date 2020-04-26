@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
@@ -10,11 +10,15 @@ import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/m
 import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { environment } from '../../../../../environments/environment';
+import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
+import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
+import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER } from '@angular/material/select';
 
 interface NoteCreatedFormValues {
   title: string,
   content: string,
-  tags: string[]
+  tags: string[],
+  workspaceIds: string[]
 }
 
 @Component({
@@ -22,6 +26,9 @@ interface NoteCreatedFormValues {
   templateUrl: './note-created.component.html',
   styleUrls: ['./note-created.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
+  ],
 })
 export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValues> implements OnInit {
   @Input() note: NoteView;
@@ -32,23 +39,33 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
   autocompleteFormGroup = new FormGroup({autocompleteInnerControl: this.autocompleteInnerControl});
   allTags: string[];
   contentExpanded: boolean;
+  allWorkspaces: WorkspaceView[];
 
   constructor(
     private tagDomainService: TagDomainService,
     private noteDomainService: NoteDomainService,
+    private workspaceDomainService: WorkspaceDomainService,
     private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
-    private chromeApiBridgeService: ChromeApiBridgeService
+    private chromeApiBridgeService: ChromeApiBridgeService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     super();
   }
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.contentExpanded = !!this.note.content
+    this.contentExpanded = !!this.note.content;
 
     this.tagDomainService.readList()
       .subscribe(tags => {
         this.allTags = tags.data.map(tag => tag.name);
+        this.changeDetectorRef.markForCheck();
+      });
+
+    this.workspaceDomainService.readList()
+      .subscribe(workspaces => {
+        this.allWorkspaces = workspaces.data;
+        this.changeDetectorRef.markForCheck();
       });
   }
 
@@ -57,6 +74,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
       title: new FormControl(this.note.title, FormValidators.note.title),
       tags: new FormControl(this.note.tags.map(tag => tag.name), FormValidators.note.tags),
       content: new FormControl(this.note.content, FormValidators.note.content),
+      workspaceIds: new FormControl(this.note.workspaces.map(workspace => workspace.id), FormValidators.note.workspaces),
     };
   }
 
@@ -65,6 +83,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
       title: values.title,
       content: values.content,
       tags: values.tags.map(tagName => ({name: tagName})),
+      workspaces: values.workspaceIds.map(workspaceId => ({id: workspaceId}))
     });
   }
 
@@ -109,7 +128,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
 
   openInApp() {
     this.chromeApiBridgeService.createTab({
-      url: `${environment.webAppUrl}/my-notes/${this.note.id}`
-    })
+      url: `${environment.webAppUrl}/my-notes/${this.note.id}`,
+    });
   }
 }

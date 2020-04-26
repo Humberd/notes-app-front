@@ -8,7 +8,7 @@ import { LibFormsModule } from 'common-library/lib/forms/forms.module';
 import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { TagsLeftPanelComponent } from './widget/tags-left-panel/tags-left-panel.component';
+import { FiltersLeftPanelComponent } from './widget/filters-left-panel/filters-left-panel.component';
 import { MatButtonModule } from '@angular/material/button';
 import { NotesListPanelComponent } from './widget/notes-list-panel/notes-list-panel.component';
 import { LinkModule } from 'common-library/lib/link/link.module';
@@ -32,7 +32,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     NoteTagModule,
     ReactiveFormsModule,
   ],
-  declarations: [NotesComponent, NotesTopPanelComponent, TagsLeftPanelComponent, NotesListPanelComponent],
+  declarations: [NotesComponent, NotesTopPanelComponent, FiltersLeftPanelComponent, NotesListPanelComponent],
 })
 export class NotesModule {
 }
