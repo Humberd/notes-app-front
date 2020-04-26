@@ -7,12 +7,26 @@
   border-right: 1px solid var(--backgroundColor-tertiary);
 }
 
-ul.list {
-
-  button.tag{
-    width: 100%;
-    height: 45px;
+section.group {
+  header {
+    margin-top: var(--space-l);
+    margin-bottom: var(--space-sm);
     padding: 0 var(--space-sm);
+    color: var(--textColor-secondary);
+  }
+
+  ul.list {
+    font-size: var(--fontSize-md);
+  }
+}
+
+
+ul.list {
+  button.entity {
+    width: 100%;
+    height: 30px;
+    padding-left: var(--space-md);
+    padding-right: var(--space-sm);
     text-align: left;
 
     display: inline-flex;
@@ -39,7 +53,7 @@ ul.list {
       min-width: 20px;
       height: 10px;
 
-      margin-right: 16px;
+      margin-left: var(--space-sm);
     }
 
     .name {
@@ -56,6 +70,10 @@ ul.list {
     button.more-options {
       margin-left: auto;
 
+      width: 30px;
+      height: 30px;
+      min-height: 30px;
+      min-width: 30px;
       display: none;
       align-items: center;
       justify-content: center;

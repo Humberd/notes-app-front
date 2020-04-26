@@ -1,35 +1,57 @@
-<ul class="list">
-  <li *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackBy">
-    <button
-      class="tag"
-      [class.selected]="notesRefresherService.isTagSelected$(tag.id) | async"
-      (click)="chooseTag(tag)"
-    >
+<section class="group workspaces">
+  <header>
+    <h5>Workspaces</h5>
+  </header>
 
-      <div
-        class="color-preview"
-        [style.backgroundColor]="tag.backgroundColor"
-      ></div>
-
-      <span class="name">{{tag.name}}</span>
-
-      <span class="notes-count">{{tag.notesCount}}</span>
-
-      <button
-        class="more-options"
-        title="Options"
-        libIconButton
-        [mat-menu-trigger-for]="moreOptionsRef"
-        (click)="$event.stopPropagation()"
-      >
-        <mat-icon>more_vert</mat-icon>
+  <ul class="list">
+    <li *ngFor="let workspace of workspacesRefresherService.data$ | async; trackBy: trackByWorkspace">
+      <button class="entity">
+        <span class="name">{{workspace.name}}</span>
       </button>
+    </li>
+  </ul>
 
-      <mat-menu #moreOptionsRef>
-        <button mat-menu-item>Edit</button>
-        <button mat-menu-item>Delete</button>
-      </mat-menu>
+</section>
 
-    </button>
-  </li>
-</ul>
+<section class="group tags">
+  <header>
+    <h5>Tags</h5>
+  </header>
+
+  <ul class="list tags">
+    <li *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
+      <button
+        class="entity"
+        [class.selected]="notesRefresherService.isTagSelected$(tag.id) | async"
+        (click)="chooseTag(tag)"
+      >
+        <span class="name">{{tag.name}}</span>
+
+        <div
+          class="color-preview"
+          [style.backgroundColor]="tag.backgroundColor"
+        ></div>
+
+
+        <span class="notes-count">{{tag.notesCount}}</span>
+
+        <button
+          class="more-options"
+          title="Options"
+          libIconButton
+          [mat-menu-trigger-for]="moreOptionsRef"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #moreOptionsRef>
+          <button mat-menu-item>Edit</button>
+          <button mat-menu-item>Delete</button>
+        </mat-menu>
+
+      </button>
+    </li>
+  </ul>
+
+</section>
