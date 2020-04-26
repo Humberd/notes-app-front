@@ -42,6 +42,14 @@ export class FiltersLeftPanelComponent implements OnInit {
     }
   }
 
+  chooseWorkspace(workspace: WorkspaceView) {
+    if (this.notesRefresherService.workspaceId === workspace.id) {
+      this.notesRefresherService.filterByWorkspace(undefined);
+    } else {
+      this.notesRefresherService.filterByWorkspace(workspace.id);
+    }
+  }
+
   async createWorkspace() {
     const dialogRef = await this.dialogService.openCreateWorkspaceDialog();
 

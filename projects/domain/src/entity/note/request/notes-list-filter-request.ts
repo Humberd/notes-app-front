@@ -4,4 +4,5 @@ export interface NotesListFilterRequest extends PageableRequest {
   query?: string;
   url?: string
   tagIds?: string[];
+  workspaceId?: string;
 }

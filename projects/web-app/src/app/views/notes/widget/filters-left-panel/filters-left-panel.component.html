@@ -34,7 +34,11 @@
 
   <ul class="list">
     <li *ngFor="let workspace of workspacesRefresherService.data$ | async; trackBy: trackByWorkspace">
-      <button class="entity">
+      <button
+        class="entity"
+        [class.selected]="notesRefresherService.isWorkspaceSelected$(workspace.id) | async"
+        (click)="chooseWorkspace(workspace)"
+      >
 
         <span class="name">{{workspace.name}}</span>
 
