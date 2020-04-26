@@ -83,6 +83,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
       title: values.title,
       content: values.content,
       tags: values.tags.map(tagName => ({name: tagName})),
+      workspaces: values.workspaceIds.map(workspaceId => ({id: workspaceId}))
     });
   }
 
