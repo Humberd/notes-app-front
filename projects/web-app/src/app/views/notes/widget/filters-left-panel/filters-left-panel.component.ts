@@ -4,12 +4,12 @@ import { TagView } from '@domain/entity/tag/view/tag-view';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 
 @Component({
-  selector: 'app-tags-left-panel',
-  templateUrl: './tags-left-panel.component.html',
-  styleUrls: ['./tags-left-panel.component.scss'],
+  selector: 'app-filters-left-panel',
+  templateUrl: './filters-left-panel.component.html',
+  styleUrls: ['./filters-left-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsLeftPanelComponent implements OnInit {
+export class FiltersLeftPanelComponent implements OnInit {
 
   constructor(
     public tagsRefresherService: TagsRefresherService,
