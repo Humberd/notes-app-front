@@ -11,6 +11,24 @@
     >
       <mat-icon class="icon">add</mat-icon>
     </button>
+
+    <button
+      class="options"
+      title="Options"
+      libIconButton
+      [mat-menu-trigger-for]="workspaceOptionsRef"
+    >
+      <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+
+    <mat-menu #workspaceOptionsRef>
+      <button mat-menu-item>
+        Sort by name ASC
+      </button>
+      <button mat-menu-item>
+        Sort by name DESC
+      </button>
+    </mat-menu>
   </header>
 
   <ul class="list">
@@ -34,6 +52,30 @@
     >
       <mat-icon class="icon">add</mat-icon>
     </button>
+
+    <button
+      class="options"
+      title="Options"
+      libIconButton
+      [mat-menu-trigger-for]="tagsOptionsRef"
+    >
+      <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+
+    <mat-menu #tagsOptionsRef>
+      <button mat-menu-item>
+        Sort by name ASC
+      </button>
+      <button mat-menu-item>
+        Sort by name DESC
+      </button>
+      <button mat-menu-item>
+        Sort by notes ASC
+      </button>
+      <button mat-menu-item>
+        Sort by notes DESC
+      </button>
+    </mat-menu>
   </header>
 
   <ul class="list tags">
