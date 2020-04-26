@@ -1,6 +1,6 @@
 import { NameModel } from '@domain/common/name-model';
 
-export interface CreateNoteRequest {
+export interface NoteCreateRequest {
   title: string;
   url?: string;
   content?: string;

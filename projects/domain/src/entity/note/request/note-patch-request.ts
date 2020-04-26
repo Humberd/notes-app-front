@@ -1,6 +1,6 @@
 import { NameModel } from '@domain/common/name-model';
 
-export interface PatchNoteRequest {
+export interface NotePatchRequest {
   title?: string;
   url?: string;
   content?: string;
