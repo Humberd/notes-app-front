@@ -3,4 +3,5 @@ export interface NoteModificationDialogFormValues {
   url?: string;
   content?: string;
   tags: string[];
+  workspaceIds: string[]
 }

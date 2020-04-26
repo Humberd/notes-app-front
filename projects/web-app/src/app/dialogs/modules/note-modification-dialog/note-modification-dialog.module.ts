@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { AutocompleteInputFormModule } from '@composite-library/lib/forms/autocomplete-input/autocomplete-input-form.module';
 import { NoteTagModule } from '@composite-library/lib/components/note-tag/note-tag.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { NoteTagModule } from '@composite-library/lib/components/note-tag/note-t
     MatDialogModule,
     AutocompleteInputFormModule,
     NoteTagModule,
+    MatSelectModule,
   ],
   declarations: [NoteModificationDialogComponent],
 })

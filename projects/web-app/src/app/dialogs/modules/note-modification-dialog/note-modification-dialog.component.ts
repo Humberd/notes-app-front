@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
 import { Observable } from 'rxjs';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -11,12 +11,18 @@ import { NoteEditStrategy } from '@web-app/app/dialogs/modules/note-modification
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
+import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
+import { MAT_SELECT_SCROLL_STRATEGY_PROVIDER } from '@angular/material/select';
 
 @Component({
   selector: 'app-note-modification-dialog',
   templateUrl: './note-modification-dialog.component.html',
   styleUrls: ['./note-modification-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    MAT_SELECT_SCROLL_STRATEGY_PROVIDER,
+  ],
 })
 export class NoteModificationDialogComponent extends FormRootController<NoteModificationDialogFormValues> implements OnInit {
   autocompleteInnerControl = new FormControl('');
@@ -24,12 +30,15 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
 
   readonly strategy: NoteModificationStrategy;
   allTags: string[];
+  allWorkspaces: WorkspaceView[];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private dialogData: NoteModificationDialogData,
     private noteDomainService: NoteDomainService,
     private matDialogRef: MatDialogRef<NoteModificationDialogComponent>,
     private tagDomainService: TagDomainService,
+    private workspaceDomainService: WorkspaceDomainService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
     super();
 
@@ -46,6 +55,13 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
     this.tagDomainService.readList()
       .subscribe(tags => {
         this.allTags = tags.data.map(tag => tag.name);
+        this.changeDetectorRef.markForCheck();
+      });
+
+    this.workspaceDomainService.readList()
+      .subscribe(workspaces => {
+        this.allWorkspaces = workspaces.data;
+        this.changeDetectorRef.markForCheck();
       });
   }
 

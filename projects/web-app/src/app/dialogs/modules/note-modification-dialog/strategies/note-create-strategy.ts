@@ -26,6 +26,7 @@ export class NoteCreateStrategy implements NoteModificationStrategy {
       url: formValues.url || null,
       content: formValues.content || null,
       tags: formValues.tags.map(tagName => ({name: tagName})),
+      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId}))
     });
   }
 
@@ -35,6 +36,7 @@ export class NoteCreateStrategy implements NoteModificationStrategy {
       url: new FormControl('', FormValidators.note.url),
       content: new FormControl('', FormValidators.note.content),
       tags: new FormControl([], []),
+      workspaceIds: new FormControl([], []),
     };
   }
 

@@ -5,6 +5,7 @@ import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { TagMinimalView } from '@domain/entity/tag/view/tag-minimal-view';
 import { filter } from 'rxjs/operators';
 import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
+import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
 
 @Component({
   selector: 'app-notes-list-panel',
@@ -17,6 +18,7 @@ export class NotesListPanelComponent implements OnInit {
   constructor(
     public notesRefresherService: NotesRefresherService,
     private tagsRefresherService: TagsRefresherService,
+    private workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
   ) {
   }
@@ -41,6 +43,7 @@ export class NotesListPanelComponent implements OnInit {
       .subscribe(editedNote => {
         this.notesRefresherService.softRefresh();
         this.tagsRefresherService.softRefresh();
+        this.workspacesRefresherService.softRefresh();
       });
   }
 
@@ -51,6 +54,7 @@ export class NotesListPanelComponent implements OnInit {
       .subscribe(() => {
         this.notesRefresherService.softRefresh();
         this.tagsRefresherService.softRefresh();
+        this.workspacesRefresherService.softRefresh();
       })
   }
 
