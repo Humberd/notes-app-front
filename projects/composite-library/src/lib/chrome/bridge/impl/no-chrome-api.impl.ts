@@ -49,7 +49,7 @@ export class NoChromeApiImpl implements ChromeApi {
   }
 
   createTab(createProperties: chrome.tabs.CreateProperties): Promise<chrome.tabs.Tab> {
-    return Promise.resolve();
+    return this.getCurrentTab().toPromise();
   }
 
 }
