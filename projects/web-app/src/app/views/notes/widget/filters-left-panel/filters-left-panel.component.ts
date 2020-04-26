@@ -61,4 +61,14 @@ export class FiltersLeftPanelComponent implements OnInit {
         this.workspacesRefresherService.softRefresh();
       });
   }
+
+  async deleteWorkspace(workspace: WorkspaceView) {
+    const dialogRef = await this.dialogService.openDeleteWorkspaceDialog(workspace);
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.workspacesRefresherService.softRefresh();
+      });
+  }
 }

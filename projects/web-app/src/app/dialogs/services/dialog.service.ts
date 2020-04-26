@@ -10,6 +10,8 @@ import { NoteDomainService } from '@domain/entity/note/service/note-domain.servi
 import { WorkspaceModificationDialogComponent } from '@web-app/app/dialogs/modules/workspace-modification-dialog/workspace-modification-dialog.component';
 import { WorkspaceModificationDialogData } from '@web-app/app/dialogs/modules/workspace-modification-dialog/models/workspace-modification-dialog-data';
 import { WorkspaceModificationDialogOutput } from '@web-app/app/dialogs/modules/workspace-modification-dialog/models/workspace-modification-dialog-output';
+import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
+import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +21,7 @@ export class DialogService {
   constructor(
     private matDialog: MatDialog,
     private noteDomainService: NoteDomainService,
+    private workspaceDomainService: WorkspaceDomainService,
   ) {
   }
 
@@ -37,6 +40,18 @@ export class DialogService {
         data: dialogData,
       },
     );
+  }
+
+  async openDeleteNoteDialog(note: NoteView) {
+    return this.openConfirmationDialog({
+      title: 'Delete note',
+      content: `You are going to delete note:\n\n${note.title}\n\nAre you sure?`,
+      confirm: {
+        name: 'Delete',
+        color: 'warn',
+        action: () => this.noteDomainService.delete(note.id),
+      },
+    });
   }
 
   async openCreateWorkspaceDialog() {
@@ -58,14 +73,14 @@ export class DialogService {
     );
   }
 
-  async openDeleteNoteDialog(note: NoteView) {
+  async openDeleteWorkspaceDialog(workspace: WorkspaceView) {
     return this.openConfirmationDialog({
-      title: 'Delete note',
-      content: `You are going to delete note:\n\n${note.title}\n\nAre you sure?`,
+      title: 'Delete Workspace',
+      content: `You are going to delete "${workspace.name}" workspace. Notes WILL NOT be deleted.\n\nAre you sure?`,
       confirm: {
         name: 'Delete',
         color: 'warn',
-        action: () => this.noteDomainService.delete(note.id),
+        action: () => this.workspaceDomainService.delete(workspace.id),
       },
     });
   }
