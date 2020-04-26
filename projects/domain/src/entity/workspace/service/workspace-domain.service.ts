@@ -25,11 +25,11 @@ export class WorkspaceDomainService {
   }
 
   patch(id: string, body: WorkspacePatchRequest): Observable<WorkspaceView> {
-    return this.httpClient.patch<WorkspaceView>(`${this.baseUrl}/${id}`, body);
+    return this.httpClient.patch<WorkspaceView>(`${this.baseUrl}/workspaces/${id}`, body);
   }
 
   delete(id: string): Observable<void> {
-    return this.httpClient.delete<void>(`${this.baseUrl}/${id}`);
+    return this.httpClient.delete<void>(`${this.baseUrl}/workspaces/${id}`);
   }
 
 }

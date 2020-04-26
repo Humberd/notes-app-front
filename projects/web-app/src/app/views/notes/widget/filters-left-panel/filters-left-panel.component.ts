@@ -42,13 +42,23 @@ export class FiltersLeftPanelComponent implements OnInit {
     }
   }
 
-  async newWorkspace() {
+  async createWorkspace() {
     const dialogRef = await this.dialogService.openCreateWorkspaceDialog();
 
     dialogRef.afterClosed()
       .pipe(filter(Boolean))
       .subscribe(() => {
-        this.workspacesRefresherService.softRefresh()
+        this.workspacesRefresherService.softRefresh();
+      });
+  }
+
+  async editWorkspace(workspace: WorkspaceView) {
+    const dialogRef = await this.dialogService.openEditWorkspaceDialog({editedWorkspace: workspace});
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.workspacesRefresherService.softRefresh();
       });
   }
 }

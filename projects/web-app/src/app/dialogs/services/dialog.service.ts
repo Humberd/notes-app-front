@@ -42,8 +42,19 @@ export class DialogService {
   async openCreateWorkspaceDialog() {
     const {WorkspaceModificationDialogModule} =
       await import('../modules/workspace-modification-dialog/workspace-modification-dialog.module');
-    return this.matDialog.open<WorkspaceModificationDialogComponent<WorkspaceModificationDialogData, WorkspaceModificationDialogOutput>>(
+    return this.matDialog.open<WorkspaceModificationDialogComponent, WorkspaceModificationDialogData, WorkspaceModificationDialogOutput>(
       WorkspaceModificationDialogModule.getDialogClass(),
+    );
+  }
+
+  async openEditWorkspaceDialog(dialogData: WorkspaceModificationDialogData) {
+    const {WorkspaceModificationDialogModule} =
+      await import('../modules/workspace-modification-dialog/workspace-modification-dialog.module');
+    return this.matDialog.open<WorkspaceModificationDialogComponent, WorkspaceModificationDialogData, WorkspaceModificationDialogOutput>(
+      WorkspaceModificationDialogModule.getDialogClass(),
+      {
+        data: dialogData,
+      },
     );
   }
 

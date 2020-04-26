@@ -8,7 +8,7 @@
       class="new"
       title="New Workspace"
       libIconButton
-      (click)="newWorkspace()"
+      (click)="createWorkspace()"
     >
       <mat-icon class="icon">add</mat-icon>
     </button>
@@ -35,7 +35,24 @@
   <ul class="list">
     <li *ngFor="let workspace of workspacesRefresherService.data$ | async; trackBy: trackByWorkspace">
       <button class="entity">
+
         <span class="name">{{workspace.name}}</span>
+
+        <button
+          class="more-options"
+          title="Options"
+          libIconButton
+          [mat-menu-trigger-for]="moreOptionsRef"
+          (click)="$event.stopPropagation()"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+
+        <mat-menu #moreOptionsRef>
+          <button mat-menu-item (click)="editWorkspace(workspace)">Edit</button>
+          <button mat-menu-item>Delete</button>
+        </mat-menu>
+
       </button>
     </li>
   </ul>
