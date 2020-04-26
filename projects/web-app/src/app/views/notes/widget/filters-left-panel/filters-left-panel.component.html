@@ -14,15 +14,15 @@
     </button>
 
     <button
-      class="options"
-      title="Options"
+      class="sort"
+      title="Sort"
       libIconButton
-      [mat-menu-trigger-for]="workspaceOptionsRef"
+      [mat-menu-trigger-for]="workspaceSortRef"
     >
-      <mat-icon class="icon">more_vert</mat-icon>
+      <mat-icon class="icon">sort</mat-icon>
     </button>
 
-    <mat-menu #workspaceOptionsRef>
+    <mat-menu #workspaceSortRef>
       <button mat-menu-item>
         Sort by name ASC
       </button>
@@ -55,15 +55,15 @@
     </button>
 
     <button
-      class="options"
-      title="Options"
+      class="sort"
+      title="Sort"
       libIconButton
-      [mat-menu-trigger-for]="tagsOptionsRef"
+      [mat-menu-trigger-for]="tagsSortRef"
     >
-      <mat-icon class="icon">more_vert</mat-icon>
+      <mat-icon class="icon">sort</mat-icon>
     </button>
 
-    <mat-menu #tagsOptionsRef>
+    <mat-menu #tagsSortRef>
       <button mat-menu-item>
         Sort by name ASC
       </button>

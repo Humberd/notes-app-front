@@ -5,14 +5,15 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NoteModificationDialogFormValues } from '@web-app/app/dialogs/modules/note-modification-dialog/models/note-midification-dialog-form-values';
 import { NoteModificationDialogData } from '@web-app/app/dialogs/modules/note-modification-dialog/models/note-modification-dialog-data';
 import { NoteModificationStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/note-modification-strategy';
-import { NewNoteStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/new-note-strategy';
+import { NoteCreateStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/note-create-strategy';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
-import { EditNoteStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/edit-note-strategy';
+import { NoteEditStrategy } from '@web-app/app/dialogs/modules/note-modification-dialog/strategies/note-edit-strategy';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
+  selector: 'app-note-modification-dialog',
   templateUrl: './note-modification-dialog.component.html',
   styleUrls: ['./note-modification-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,9 +34,9 @@ export class NoteModificationDialogComponent extends FormRootController<NoteModi
     super();
 
     if (this.dialogData?.editedNote) {
-      this.strategy = new EditNoteStrategy(this.noteDomainService);
+      this.strategy = new NoteEditStrategy(this.noteDomainService);
     } else {
-      this.strategy = new NewNoteStrategy(this.noteDomainService);
+      this.strategy = new NoteCreateStrategy(this.noteDomainService);
     }
   }
 

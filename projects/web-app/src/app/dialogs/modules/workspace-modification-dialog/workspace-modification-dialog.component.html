@@ -1,1 +1,18 @@
-<p>workspace-modification works!</p>
+<h2>{{strategy.getTitle()}}</h2>
+
+<form [formGroup]="rootForm" (ngSubmit)="submit()">
+
+  <lib-control-container label="Name">
+    <input [formControl]="formDefinition.name" type="text" libInput libAutofocus>
+  </lib-control-container>
+
+  <footer>
+    <button mat-button mat-dialog-close>
+      Cancel
+    </button>
+    <button mat-raised-button color="accent">
+      {{strategy.getSubmitButton()}}
+    </button>
+  </footer>
+
+</form>

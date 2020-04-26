@@ -12,6 +12,9 @@ export const FormValidators = {
     name: Validators.required,
     colorHex: colorHexValidator,
   },
+  workspace: {
+    name: [Validators.required]
+  },
   auth: {
     login: {
       login: [Validators.required],

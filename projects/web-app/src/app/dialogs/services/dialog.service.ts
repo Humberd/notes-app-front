@@ -8,6 +8,8 @@ import { ConfirmationDialogData } from '@web-app/app/dialogs/modules/confirmatio
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { WorkspaceModificationDialogComponent } from '@web-app/app/dialogs/modules/workspace-modification-dialog/workspace-modification-dialog.component';
+import { WorkspaceModificationDialogData } from '@web-app/app/dialogs/modules/workspace-modification-dialog/models/workspace-modification-dialog-data';
+import { WorkspaceModificationDialogOutput } from '@web-app/app/dialogs/modules/workspace-modification-dialog/models/workspace-modification-dialog-output';
 
 @Injectable({
   providedIn: 'root',
@@ -40,7 +42,9 @@ export class DialogService {
   async openCreateWorkspaceDialog() {
     const {WorkspaceModificationDialogModule} =
       await import('../modules/workspace-modification-dialog/workspace-modification-dialog.module');
-    return this.matDialog.open<WorkspaceModificationDialogComponent>(WorkspaceModificationDialogModule.getDialogClass());
+    return this.matDialog.open<WorkspaceModificationDialogComponent<WorkspaceModificationDialogData, WorkspaceModificationDialogOutput>>(
+      WorkspaceModificationDialogModule.getDialogClass(),
+    );
   }
 
   async openDeleteNoteDialog(note: NoteView) {

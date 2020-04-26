@@ -5,6 +5,7 @@ import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-re
 import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
 import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filters-left-panel',
@@ -18,7 +19,7 @@ export class FiltersLeftPanelComponent implements OnInit {
     public tagsRefresherService: TagsRefresherService,
     public notesRefresherService: NotesRefresherService,
     public workspacesRefresherService: WorkspacesRefresherService,
-    private dialogService: DialogService
+    private dialogService: DialogService,
   ) {
   }
 
@@ -42,6 +43,12 @@ export class FiltersLeftPanelComponent implements OnInit {
   }
 
   async newWorkspace() {
-    await this.dialogService.openCreateWorkspaceDialog()
+    const dialogRef = await this.dialogService.openCreateWorkspaceDialog();
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.workspacesRefresherService.softRefresh()
+      });
   }
 }
