@@ -52,7 +52,7 @@ export class AppComponent {
       .subscribe(payload => this.noteCacheService.addToCache(payload.note));
 
     this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_DELETED)
-      .subscribe(payload => this.noteCacheService.removeFromCache(payload.note.id));
+      .subscribe(payload => this.noteCacheService.removeFromCache(payload.note.url));
 
     this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.AUTHORIZED)
       .subscribe(() => this.noteCacheService.softRefresh());

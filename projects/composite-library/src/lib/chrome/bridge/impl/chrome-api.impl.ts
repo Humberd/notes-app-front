@@ -16,7 +16,6 @@ export class ChromeApiImpl implements ChromeApi {
         currentWindow: true,
       }, tabs => {
         this.ngZone.run(() => {
-          console.log({tabs});
           subscriber.next(tabs[0]);
           subscriber.complete();
         });

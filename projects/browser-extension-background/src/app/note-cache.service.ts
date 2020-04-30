@@ -55,8 +55,8 @@ export class NoteCacheService extends SimpleDataRefresher<Map<Url, NoteView>> {
     }
   }
 
-  removeFromCache(noteId: string) {
-    this.data.delete(noteId);
+  removeFromCache(url: string) {
+    this.data.delete(url);
     this._data$.next(this.data);
   }
 
