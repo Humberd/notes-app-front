@@ -5,9 +5,7 @@ import { NotesRoutingModule } from './notes-routing.module';
 import { NotesComponent } from './notes.component';
 import { NoteCreatedComponent } from './widget/note-created/note-created.component';
 import { NoteNotCreatedComponent } from './widget/note-not-created/note-not-created.component';
-import { SaveWebsiteFormModule } from '@composite-library/lib/forms/save-website-form/save-website-form.module';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonDialogsModule } from '@composite-library/lib/dialogs/common/common-dialogs.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { LibFormsModule } from 'common-library/lib/forms/forms.module';
@@ -22,9 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
   imports: [
     CommonModule,
     NotesRoutingModule,
-    SaveWebsiteFormModule,
     MatButtonModule,
-    CommonDialogsModule,
     ReactiveFormsModule,
     MatIconModule,
     LibFormsModule,
