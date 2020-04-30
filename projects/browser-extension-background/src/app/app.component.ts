@@ -24,24 +24,18 @@ export class AppComponent {
     console.log('Browser Extension Background is running');
     this.noteCacheService.start();
 
+    this.listenForCacheChange();
     this.listenForActiveTabChange();
     this.listenForUrlChangeOnActiveTab();
-    this.listenForNoteUpdateFromExtension();
+    this.listenForMessagesFromExtension();
   }
-
 
   private listenForActiveTabChange() {
     this.chromeApiBridgeService.onTabActivated()
       .pipe(
         switchMap(() => this.chromeApiBridgeService.getCurrentTab()),
       )
-      .subscribe(tab => {
-        if (this.noteCacheService.isInCache(tab.url)) {
-          this.setNoteSavedStatus(tab);
-        } else {
-          this.setNoteUnsavedStatus(tab);
-        }
-      });
+      .subscribe(tab => this.updateStatusFor(tab));
   }
 
   private listenForUrlChangeOnActiveTab() {
@@ -50,27 +44,35 @@ export class AppComponent {
         filter(event => event.tab.status === 'complete'),
         pluck('tab'),
       )
-      .subscribe(tab => {
-        if (this.noteCacheService.isInCache(tab.url)) {
-          this.setNoteSavedStatus(tab);
-        } else {
-          this.setNoteUnsavedStatus(tab);
-        }
-      });
+      .subscribe(tab => this.updateStatusFor(tab));
   }
 
-  private listenForNoteUpdateFromExtension() {
+  private listenForMessagesFromExtension() {
     this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_CREATED)
-      .pipe(
-        switchMap(() => this.chromeApiBridgeService.getCurrentTab()),
-      )
-      .subscribe(tab => this.setNoteSavedStatus(tab));
+      .subscribe(payload => this.noteCacheService.addToCache(payload.note));
 
     this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_DELETED)
+      .subscribe(payload => this.noteCacheService.removeFromCache(payload.note.id));
+
+    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.AUTHORIZED)
+      .subscribe(() => this.noteCacheService.softRefresh());
+  }
+
+  private listenForCacheChange() {
+    this.noteCacheService.data$
       .pipe(
         switchMap(() => this.chromeApiBridgeService.getCurrentTab()),
+        filter(tab => Boolean(tab)),
       )
-      .subscribe(tab => this.setNoteUnsavedStatus(tab));
+      .subscribe(tab => this.updateStatusFor(tab));
+  }
+
+  private updateStatusFor(tab: chrome.tabs.Tab) {
+    if (this.noteCacheService.isInCache(tab.url)) {
+      this.setNoteSavedStatus(tab);
+    } else {
+      this.setNoteUnsavedStatus(tab);
+    }
   }
 
   private setNoteSavedStatus(tab: Tab) {

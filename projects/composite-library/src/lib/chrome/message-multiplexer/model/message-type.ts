@@ -2,7 +2,8 @@ import { NoteView } from '@domain/entity/note/view/note-view';
 
 export enum ChromeMessageType {
   NOTE_CREATED = 'note_created',
-  NOTE_DELETED = 'note_deleted'
+  NOTE_DELETED = 'note_deleted',
+  AUTHORIZED = 'authorized'
 }
 
 export namespace ChromeMessageBody {
@@ -17,7 +18,8 @@ export namespace ChromeMessageBody {
 
 export type ChromeMessageMapping = {
   [ChromeMessageType.NOTE_CREATED]: ChromeMessageBody.NoteCreated,
-  [ChromeMessageType.NOTE_DELETED]: ChromeMessageBody.NoteDeleted
+  [ChromeMessageType.NOTE_DELETED]: ChromeMessageBody.NoteDeleted,
+  [ChromeMessageType.AUTHORIZED]: void
 }
 
 

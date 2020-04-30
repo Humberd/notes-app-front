@@ -2,37 +2,62 @@ import { Injectable } from '@angular/core';
 import { AutorefreshMode, NEVER_REFRESH, RefresherDataSource, SimpleDataRefresher } from '@ng-boost/core';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
-import { pluck } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 type Url = string;
 
 @Injectable()
-export class NoteCacheService extends SimpleDataRefresher<NoteView[]> {
-  private lookupCache = new Map<Url, NoteView>();
-
+export class NoteCacheService extends SimpleDataRefresher<Map<Url, NoteView>> {
   constructor(private noteDomainService: NoteDomainService) {
     super({
       mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
       period: NEVER_REFRESH,
     });
+
+    this._data$.next(new Map());
   }
 
-  protected getDataSource(): RefresherDataSource<NoteView[]> {
+  protected getDataSource(): RefresherDataSource<Map<Url, NoteView>> {
     return this.noteDomainService.readList({
       pageSize: 9999,
     })
-      .pipe(pluck('data'));
+      .pipe(
+        map(response => {
+          const cache = new Map<Url, NoteView>();
+
+          response.data
+            .filter(note => !!note.url)
+            .forEach(note => cache.set(note.url, note));
+
+          return cache;
+        }),
+      );
   }
 
-  protected onSuccess(notes: NoteView[]): void {
-    this.lookupCache.clear();
-    notes
-      .filter(note => !!note.url)
-      .forEach(note => this.lookupCache.set(note.url, note));
+
+  protected onError(err: HttpErrorResponse): void {
+    if (err.status === 403) {
+      return;
+    }
+
+    console.error(err);
   }
 
   isInCache(url: string): boolean {
-    return this.lookupCache.has(url);
+    return this.data.has(url);
+  }
+
+  addToCache(note: NoteView) {
+    if (note.url) {
+      this.data.set(note.url, note);
+      this._data$.next(this.data);
+    }
+  }
+
+  removeFromCache(noteId: string) {
+    this.data.delete(noteId);
+    this._data$.next(this.data);
   }
 
   getFromCache(url: string): NoteView {
@@ -40,6 +65,6 @@ export class NoteCacheService extends SimpleDataRefresher<NoteView[]> {
       return;
     }
 
-    return this.lookupCache.get(url);
+    return this.data.get(url);
   }
 }
