@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
 import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
 import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
+import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
 
 @Component({
   selector: 'app-notes-top-panel',
@@ -26,18 +27,18 @@ export class NotesTopPanelComponent implements OnInit {
     private tagsRefresherService: TagsRefresherService,
     private workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
-    private router: Router
+    private router: Router,
+    private notesSearchService: NotesSearchService,
   ) {
   }
 
   ngOnInit(): void {
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(700),
-      )
-      .subscribe(value => {
-        this.notesRefresherService.search(value);
-      });
+      .pipe(debounceTime(700))
+      .subscribe(value => this.notesSearchService.patch({query: value}));
+
+    this.notesSearchService.attributes$
+      .subscribe(attributes => this.searchControl.patchValue(attributes.query, {emitEvent: false}));
   }
 
   logout() {
@@ -52,7 +53,7 @@ export class NotesTopPanelComponent implements OnInit {
         this.notesRefresherService.softRefresh();
         this.tagsRefresherService.softRefresh();
         this.workspacesRefresherService.softRefresh();
-        this.router.navigate(['/my-notes', result.id])
+        this.router.navigate(['/my-notes', result.id]);
       });
   }
 }

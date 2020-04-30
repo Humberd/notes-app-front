@@ -7,6 +7,7 @@ import { UserDomainService } from '@domain/entity/user/service/user-domain.servi
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
+import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
 
 @Injectable()
 export class NotesRefresherService extends SpringPageableDataRefresher<NoteView> {
@@ -27,6 +28,7 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
   constructor(
     private noteDomainService: NoteDomainService,
     private routerUtilsService: RouterUtilsService,
+    private notesSearchService: NotesSearchService
   ) {
     super({
       mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
@@ -35,25 +37,15 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
   }
 
   protected getPageableDataSource(pageOptions: PageOptions): RefresherDataSource<ViewList<NoteView>> {
-    return combineLatest([
-      this._tagIds$,
-      this._workspaceId$,
-    ])
+    return this.notesSearchService.attributes$
       .pipe(
-        switchMap(([tagIds, workspaceId]) => this.noteDomainService.readList({
-          query: pageOptions.search,
-          sort: pageOptions.sort,
-          tagIds,
-          workspaceId,
+        switchMap(attributes => this.noteDomainService.readList({
+          query: attributes.query,
+          // sort: pageOptions.sort,
+          // tagIds,
+          // workspaceId,
         })),
       );
-  }
-
-  search(searchQuery: string): void {
-    this.routerUtilsService.updateQueryParams({
-      searchQuery: searchQuery || null,
-    });
-    super.search(searchQuery);
   }
 
   filterByTags(tagIds: string[]): void {

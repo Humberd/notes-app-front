@@ -85,18 +85,10 @@
     </button>
 
     <mat-menu #tagsSortRef>
-      <button mat-menu-item>
-        Sort by name ASC
-      </button>
-      <button mat-menu-item>
-        Sort by name DESC
-      </button>
-      <button mat-menu-item>
-        Sort by notes ASC
-      </button>
-      <button mat-menu-item>
-        Sort by notes DESC
-      </button>
+      <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by name ASC</button>
+      <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by name DESC</button>
+      <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by notes ASC</button>
+      <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by notes DESC</button>
     </mat-menu>
   </header>
 

@@ -79,4 +79,8 @@ export class FiltersLeftPanelComponent implements OnInit {
         this.workspacesRefresherService.softRefresh();
       });
   }
+
+  sortBy(key: keyof TagView, direction: 'asc' | 'desc') {
+
+  }
 }
