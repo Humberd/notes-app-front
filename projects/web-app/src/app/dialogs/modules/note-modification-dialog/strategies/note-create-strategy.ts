@@ -8,7 +8,6 @@ import { FormControl } from '@angular/forms';
 import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 
 export class NoteCreateStrategy implements NoteModificationStrategy {
-
   constructor(private noteDomainService: NoteDomainService) {
   }
 
@@ -20,16 +19,6 @@ export class NoteCreateStrategy implements NoteModificationStrategy {
     return 'Create';
   }
 
-  handleSubmit(dialogData: NoteModificationDialogData, formValues: NoteModificationDialogFormValues): Observable<any> {
-    return this.noteDomainService.create({
-      title: formValues.title,
-      url: formValues.url || null,
-      content: formValues.content || null,
-      tags: formValues.tags.map(tagName => ({name: tagName})),
-      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId}))
-    });
-  }
-
   generateFormDefinition(dialogData: NoteModificationDialogData): FormControllerConfig<NoteModificationDialogFormValues> {
     return {
       title: new FormControl('', FormValidators.note.title),
@@ -38,6 +27,16 @@ export class NoteCreateStrategy implements NoteModificationStrategy {
       tags: new FormControl([], []),
       workspaceIds: new FormControl([], []),
     };
+  }
+
+  handleSubmit(dialogData: NoteModificationDialogData, formValues: NoteModificationDialogFormValues): Observable<any> {
+    return this.noteDomainService.create({
+      title: formValues.title,
+      url: formValues.url || null,
+      content: formValues.content || null,
+      tags: formValues.tags.map(tagName => ({name: tagName})),
+      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId}))
+    });
   }
 
 }

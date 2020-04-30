@@ -27,7 +27,6 @@ import { MatSelectModule } from '@angular/material/select';
   declarations: [NoteModificationDialogComponent],
 })
 export class NoteModificationDialogModule {
-
   static getDialogClass() {
     return NoteModificationDialogComponent;
   }

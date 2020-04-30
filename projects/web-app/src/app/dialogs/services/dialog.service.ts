@@ -12,16 +12,21 @@ import { WorkspaceModificationDialogData } from '@web-app/app/dialogs/modules/wo
 import { WorkspaceModificationDialogOutput } from '@web-app/app/dialogs/modules/workspace-modification-dialog/models/workspace-modification-dialog-output';
 import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
 import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
+import { TagModificationDialogComponent } from '@web-app/app/dialogs/modules/tag-modification-dialog/tag-modification-dialog.component';
+import { TagModificationDialogData } from '@web-app/app/dialogs/modules/tag-modification-dialog/models/tag-modification-dialog-data';
+import { TagModificationDialogOutput } from '@web-app/app/dialogs/modules/tag-modification-dialog/models/tag-modification-dialog-output';
+import { TagView } from '@domain/entity/tag/view/tag-view';
+import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DialogService {
-
   constructor(
     private matDialog: MatDialog,
     private noteDomainService: NoteDomainService,
     private workspaceDomainService: WorkspaceDomainService,
+    private tagDomainService: TagDomainService
   ) {
   }
 
@@ -81,6 +86,35 @@ export class DialogService {
         name: 'Delete',
         color: 'warn',
         action: () => this.workspaceDomainService.delete(workspace.id),
+      },
+    });
+  }
+
+  async openCreateTagDialog() {
+    const {TagModificationDialogModule} = await import('../modules/tag-modification-dialog/tag-modification-dialog.module');
+    return this.matDialog.open<TagModificationDialogComponent, TagModificationDialogData, TagModificationDialogOutput>(
+      TagModificationDialogModule.getDialogClass(),
+    );
+  }
+
+  async openEditTagDialog(dialogData: TagModificationDialogData) {
+    const {TagModificationDialogModule} = await import('../modules/tag-modification-dialog/tag-modification-dialog.module');
+    return this.matDialog.open<TagModificationDialogComponent, TagModificationDialogData, TagModificationDialogOutput>(
+      TagModificationDialogModule.getDialogClass(),
+      {
+        data: dialogData
+      }
+    );
+  }
+
+  async openDeleteTagDialog(tag: TagView) {
+    return this.openConfirmationDialog({
+      title: 'Delete Workspace',
+      content: `You are going to delete "${tag.name}" tag. This action will detach "${tag.name}" from all notes.\n\nAre you sure?`,
+      confirm: {
+        name: 'Delete',
+        color: 'warn',
+        action: () => this.tagDomainService.delete(tag.id),
       },
     });
   }

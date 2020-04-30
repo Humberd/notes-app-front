@@ -6,4 +6,9 @@
 .content {
   overflow: hidden;
   margin-bottom: var(--space-xl);
+
+  pre {
+    white-space: pre-line;
+
+  }
 }
