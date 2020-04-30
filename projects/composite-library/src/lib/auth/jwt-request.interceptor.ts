@@ -2,17 +2,16 @@ import { Inject, Injectable } from '@angular/core';
 import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StorageKey } from '@composite-library/lib/storage/storage-key';
-import { StorageInstance, StorageService } from '@composite-library/lib/storage/storage.service';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
 
 @Injectable()
 export class JwtRequestInterceptor implements HttpInterceptor {
-  private storage: StorageInstance;
+  private storage = this.storageService.get(StorageKey.USER_JWT);
 
   constructor(
-    storageService: StorageService,
+    private storageService: StorageService,
     @Inject('BASE_URL') private baseUrl: string,
   ) {
-    this.storage = storageService.get(StorageKey.USER_JWT);
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
