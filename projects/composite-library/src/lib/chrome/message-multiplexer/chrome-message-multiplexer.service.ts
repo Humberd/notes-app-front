@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { ChromeMessageMapping, ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
 import { Observable } from 'rxjs';
-import { filter, map, tap } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
