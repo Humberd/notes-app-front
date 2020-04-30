@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input } from '@angular/core';
+import { Component, ContentChild, Input } from '@angular/core';
 import { InputComponent } from 'common-library/lib/forms/components/input/input.component';
 import { hasRequiredField } from '@ng-boost/core';
 

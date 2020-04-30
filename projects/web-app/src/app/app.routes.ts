@@ -12,13 +12,13 @@ export const routes: Routes = [
     path: 'authorization',
     loadChildren: () => import('./views/authorization/authorization.module').then(value => value.AuthorizationModule),
     canActivate: [MustNotBeAuthorizedGuard],
-    canActivateChild: [MustNotBeAuthorizedGuard]
+    canActivateChild: [MustNotBeAuthorizedGuard],
   },
   {
     path: 'my-notes',
     loadChildren: () => import('./views/notes/notes.module').then(value => value.NotesModule),
     canActivate: [MustBeAuthorizedGuard],
-    canActivateChild: [MustBeAuthorizedGuard]
+    canActivateChild: [MustBeAuthorizedGuard],
   },
   {
     path: '**',

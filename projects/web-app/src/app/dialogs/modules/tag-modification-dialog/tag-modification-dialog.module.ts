@@ -20,6 +20,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 })
 export class TagModificationDialogModule {
   static getDialogClass() {
-    return TagModificationDialogComponent
+    return TagModificationDialogComponent;
   }
 }

@@ -33,7 +33,7 @@ export class AuthorizationHandlerService {
     private storageService: StorageService,
     private passwordCredentialsDomainService: PasswordCredentialsDomainService,
     private myDataDomainService: UserDomainService,
-    private router: Router
+    private router: Router,
   ) {
     this.handleInitialTokenFetch();
   }
@@ -115,7 +115,7 @@ export class AuthorizationHandlerService {
   logout() {
     this.markAsLoggedOut();
     this.storage.remove();
-    this.router.navigate(['/'])
+    this.router.navigate(['/']);
   }
 
   private markAsLoggedOut() {

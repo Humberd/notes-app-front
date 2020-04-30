@@ -6,7 +6,9 @@
     [matTooltip]="viewType.label | libTranslate"
     (click)="noteViewSwitcherService.select(viewType.id)"
   >
-    <mat-icon [color]="(noteViewSwitcherService.selectedView$ | async) === viewType.id ? 'accent': undefined">{{viewType.icon}}</mat-icon>
+    <mat-icon
+      [color]="(noteViewSwitcherService.selectedView$ | async) === viewType.id ? 'accent': undefined"
+    >{{viewType.icon}}</mat-icon>
   </button>
 
   <div

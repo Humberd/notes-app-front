@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { WorkspaceModificationDialogData } from '@web-app/app/dialogs/modules/workspace-modification-dialog/models/workspace-modification-dialog-data';
 import { WorkspaceModificationStrategy } from '@web-app/app/dialogs/modules/workspace-modification-dialog/strategies/workspace-modification-strategy';
 import { FormControllerConfig, FormRootController } from '@ng-boost/core';
@@ -42,6 +42,6 @@ export class WorkspaceModificationDialogComponent extends FormRootController<Wor
   }
 
   protected onSuccess(success: WorkspaceView): void {
-    this.dialogRef.close(success)
+    this.dialogRef.close(success);
   }
 }

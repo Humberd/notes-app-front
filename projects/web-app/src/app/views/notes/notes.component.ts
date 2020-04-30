@@ -13,7 +13,7 @@ import { NotesSearchService } from '@web-app/app/views/notes/service/notes-searc
     TagsRefresherService,
     NotesRefresherService,
     WorkspacesRefresherService,
-    NotesSearchService
+    NotesSearchService,
   ],
 })
 export class NotesComponent implements OnInit {

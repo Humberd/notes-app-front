@@ -26,7 +26,7 @@ export class DialogService {
     private matDialog: MatDialog,
     private noteDomainService: NoteDomainService,
     private workspaceDomainService: WorkspaceDomainService,
-    private tagDomainService: TagDomainService
+    private tagDomainService: TagDomainService,
   ) {
   }
 
@@ -102,8 +102,8 @@ export class DialogService {
     return this.matDialog.open<TagModificationDialogComponent, TagModificationDialogData, TagModificationDialogOutput>(
       TagModificationDialogModule.getDialogClass(),
       {
-        data: dialogData
-      }
+        data: dialogData,
+      },
     );
   }
 

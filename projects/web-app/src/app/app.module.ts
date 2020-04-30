@@ -45,12 +45,12 @@ import { defaultAuthorizedRoute, defaultUnauthorizedRoute } from '@composite-lib
     },
     {
       provide: defaultAuthorizedRoute,
-      useValue: '/my-notes'
+      useValue: '/my-notes',
     },
     {
       provide: defaultUnauthorizedRoute,
-      useValue: '/authorization'
-    }
+      useValue: '/authorization',
+    },
   ],
   bootstrap: [AppComponent],
 })

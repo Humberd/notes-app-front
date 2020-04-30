@@ -13,7 +13,7 @@ export class MustNotBeAuthorizedGuard implements CanActivate, CanActivateChild {
   constructor(
     private authorizationHandlerService: AuthorizationHandlerService,
     private router: Router,
-    @Inject(defaultAuthorizedRoute) private authorizedRoute: string
+    @Inject(defaultAuthorizedRoute) private authorizedRoute: string,
   ) {
   }
 

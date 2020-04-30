@@ -19,6 +19,7 @@ import { routes } from './credentials-login.routes';
     MatButtonModule,
     LinkModule,
   ],
-  declarations: [CredentialsLoginComponent]
+  declarations: [CredentialsLoginComponent],
 })
-export class CredentialsLoginModule { }
+export class CredentialsLoginModule {
+}

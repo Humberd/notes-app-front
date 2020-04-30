@@ -11,10 +11,10 @@ export abstract class PageableRequest {
     return Object.entries(obj)
       .reduce((previousValue, [key, value]) => {
         if (value === undefined || value === '' || value === null || value?.length === 0) {
-          return previousValue
+          return previousValue;
         }
 
-        previousValue[key] =  String(value);
+        previousValue[key] = String(value);
         return previousValue;
       }, {} as Strinfigy<T>);
   }

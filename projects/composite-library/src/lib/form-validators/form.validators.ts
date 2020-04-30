@@ -7,14 +7,14 @@ export const FormValidators = {
     url: [],
     content: [],
     tags: [],
-    workspaces: []
+    workspaces: [],
   },
   tag: {
     name: Validators.required,
     backgroundColor: colorHexValidator,
   },
   workspace: {
-    name: [Validators.required]
+    name: [Validators.required],
   },
   auth: {
     login: {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
@@ -21,7 +21,7 @@ export class NotesListPanelComponent {
     private tagsRefresherService: TagsRefresherService,
     private workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
-    private notesSearchService: NotesSearchService
+    private notesSearchService: NotesSearchService,
   ) {
   }
 
@@ -54,7 +54,7 @@ export class NotesListPanelComponent {
         this.notesRefresherService.softRefresh();
         this.tagsRefresherService.softRefresh();
         this.workspacesRefresherService.softRefresh();
-      })
+      });
 
   }
 
@@ -62,9 +62,9 @@ export class NotesListPanelComponent {
     this.notesSearchService.patch({
       sort: {
         by: key,
-        direction
-      }
-    })
+        direction,
+      },
+    });
   }
 
 }

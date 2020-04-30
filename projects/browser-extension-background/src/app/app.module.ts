@@ -10,7 +10,7 @@ import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.i
 @NgModule({
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   declarations: [
     AppComponent,
@@ -27,8 +27,8 @@ import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.i
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtRequestInterceptor,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, pluck } from 'rxjs/operators';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';

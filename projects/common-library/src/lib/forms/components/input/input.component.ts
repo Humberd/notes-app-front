@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Optional, Self } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Optional } from '@angular/core';
 import { NgControl } from '@angular/forms';
 
 @Component({

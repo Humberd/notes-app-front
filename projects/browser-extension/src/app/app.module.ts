@@ -40,7 +40,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       initialNavigation: 'enabled',
       relativeLinkResolution: 'corrected',
     }),
-    MonacoEditorModule.forRoot()
+    MonacoEditorModule.forRoot(),
   ],
   providers: [
     {
@@ -58,12 +58,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     },
     {
       provide: defaultAuthorizedRoute,
-      useValue: '/notes'
+      useValue: '/notes',
     },
     {
       provide: defaultUnauthorizedRoute,
-      useValue: '/authorization'
-    }
+      useValue: '/authorization',
+    },
   ],
   bootstrap: [AppComponent],
 })

@@ -16,8 +16,8 @@ import { ColorPickerService } from 'ngx-color-picker';
   styleUrls: ['./tag-modification-dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    ColorPickerService
-  ]
+    ColorPickerService,
+  ],
 })
 export class TagModificationDialogComponent extends FormRootController<TagModificationDialogFormValues> {
   readonly strategy: TagModificationStrategy;
@@ -45,6 +45,6 @@ export class TagModificationDialogComponent extends FormRootController<TagModifi
   }
 
   protected onSuccess(success: any): void {
-    this.matDialogRef.close(success)
+    this.matDialogRef.close(success);
   }
 }

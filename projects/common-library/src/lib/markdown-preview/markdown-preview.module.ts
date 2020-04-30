@@ -17,8 +17,8 @@ import { MarkdownPreviewWorker } from 'common-library/lib/markdown-preview/web-w
   declarations: [MarkdownPreviewPipe, MarkdownPreviewComponent],
   exports: [MarkdownPreviewPipe, MarkdownPreviewComponent],
   providers: [
-    MarkdownPreviewService
-  ]
+    MarkdownPreviewService,
+  ],
 })
 export class MarkdownPreviewModule {
 }

@@ -33,7 +33,7 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
           })
             .pipe(
               catchError(err => EMPTY),
-            )
+            ),
         ),
       );
   }

@@ -22,14 +22,14 @@ export class TagCreateStrategy implements TagModificationStrategy {
   generateFormDefinition(dialogData: TagModificationDialogData): FormControllerConfig<TagModificationDialogFormValues> {
     return {
       name: new FormControl('', FormValidators.tag.name),
-      backgroundColor: new FormControl('', FormValidators.tag.backgroundColor)
+      backgroundColor: new FormControl('', FormValidators.tag.backgroundColor),
     };
   }
 
   handleSubmit(dialogData: TagModificationDialogData, formValues: TagModificationDialogFormValues): Observable<any> {
     return this.tagDomainService.create({
       name: formValues.name,
-      backgroundColor: formValues.backgroundColor
+      backgroundColor: formValues.backgroundColor,
     });
   }
 

@@ -19,6 +19,7 @@ import { LinkModule } from '@common-library/lib/link/link.module';
     MatButtonModule,
     LinkModule,
   ],
-  declarations: [CredentialsLoginComponent]
+  declarations: [CredentialsLoginComponent],
 })
-export class CredentialsLoginModule { }
+export class CredentialsLoginModule {
+}

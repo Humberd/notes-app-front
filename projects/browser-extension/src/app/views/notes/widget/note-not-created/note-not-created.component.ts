@@ -34,7 +34,7 @@ export class NoteNotCreatedComponent {
 
     this.noteCreated.emit(newNote);
     this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.NOTE_CREATED, {
-      note: newNote
-    })
+      note: newNote,
+    });
   }
 }

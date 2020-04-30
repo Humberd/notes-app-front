@@ -25,7 +25,7 @@ export class NoteEditStrategy implements NoteModificationStrategy {
       url: formValues.url,
       content: formValues.content,
       tags: formValues.tags.map(tagName => ({name: tagName})),
-      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId}))
+      workspaces: formValues.workspaceIds.map(workspaceId => ({id: workspaceId})),
     });
   }
 
@@ -35,7 +35,7 @@ export class NoteEditStrategy implements NoteModificationStrategy {
       url: new FormControl(dialogData.editedNote.url, FormValidators.note.url),
       content: new FormControl(dialogData.editedNote.content, FormValidators.note.content),
       tags: new FormControl(dialogData.editedNote.tags.map(tag => tag.name)),
-      workspaceIds: new FormControl(dialogData.editedNote.workspaces.map(workspace => workspace.id))
+      workspaceIds: new FormControl(dialogData.editedNote.workspaces.map(workspace => workspace.id)),
     };
   }
 

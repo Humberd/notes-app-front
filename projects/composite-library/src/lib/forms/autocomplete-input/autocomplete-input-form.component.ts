@@ -12,7 +12,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER,
-    {provide: NG_VALUE_ACCESSOR, useExisting: AutocompleteInputFormComponent, multi: true}
+    {provide: NG_VALUE_ACCESSOR, useExisting: AutocompleteInputFormComponent, multi: true},
   ],
 })
 export class AutocompleteInputFormComponent extends AbstractControlValueAccessor<string> implements OnInit {
@@ -41,26 +41,26 @@ export class AutocompleteInputFormComponent extends AbstractControlValueAccessor
 
   ngOnInit() {
     this.autocompleteValues$ = this.ignoredValues$
-        .pipe(
-            switchMap(() => this.allValues$),
-            filter(allValues => !!allValues),
-            switchMap(allValues => this.getInputLcValue$()
-                .pipe(
-                    // filter values that matches what user currently has in the input
-                    map(newValueLc => allValues.filter(value => value.toLowerCase().includes(newValueLc))),
-                    // filter values that are already selected
-                    map(matchingValues => matchingValues.filter(value => this.ignoredValues.every(it => it !== value))),
-                ),
-            ),
-        );
+      .pipe(
+        switchMap(() => this.allValues$),
+        filter(allValues => !!allValues),
+        switchMap(allValues => this.getInputLcValue$()
+          .pipe(
+            // filter values that matches what user currently has in the input
+            map(newValueLc => allValues.filter(value => value.toLowerCase().includes(newValueLc))),
+            // filter values that are already selected
+            map(matchingValues => matchingValues.filter(value => this.ignoredValues.every(it => it !== value))),
+          ),
+        ),
+      );
   }
 
   private getInputLcValue$(): Observable<string> {
     return this.formControl.valueChanges
-        .pipe(
-            startWith(this.formControl.value as string),
-            map((value: string) => (value || '').toLowerCase()),
-        );
+      .pipe(
+        startWith(this.formControl.value as string),
+        map((value: string) => (value || '').toLowerCase()),
+      );
   }
 
 }

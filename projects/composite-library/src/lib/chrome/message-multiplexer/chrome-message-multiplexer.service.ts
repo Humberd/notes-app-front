@@ -14,7 +14,7 @@ export class ChromeMessageMultiplexerService {
 
   sendMessage<T extends ChromeMessageType>(type: T, body: ChromeMessageMapping[T]): void {
     this.chromeApiBridgeService.sendMessage({type, body})
-      .subscribe()
+      .subscribe();
   }
 
   listenMessage<T extends ChromeMessageType>(type: T): Observable<ChromeMessageMapping[T]> {
