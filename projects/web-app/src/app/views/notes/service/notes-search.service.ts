@@ -44,9 +44,9 @@ export class NotesSearchService {
 
   private internalPatch(attributes: Partial<SearchAttributes>) {
     const newState: SearchAttributes = {
-      query: attributes.query || this.attributes.query,
-      workspaceId: attributes.workspaceId || this.attributes.workspaceId,
-      tagIds: attributes.tagIds || this.attributes.tagIds,
+      query: attributes.hasOwnProperty('query') ? (attributes.query || null) : this.attributes.query,
+      workspaceId: attributes.hasOwnProperty('workspaceId') ? (attributes.workspaceId || null) : this.attributes.workspaceId,
+      tagIds: attributes.hasOwnProperty('tagIds') ? (attributes.tagIds || null) : this.attributes.tagIds,
     };
 
     if (!this.hasStateChanged(this.attributes, newState)) {

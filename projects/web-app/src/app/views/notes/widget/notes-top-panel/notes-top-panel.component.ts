@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { FormControl } from '@angular/forms';
-import { debounceTime, filter } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, pluck } from 'rxjs/operators';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
@@ -35,10 +35,15 @@ export class NotesTopPanelComponent implements OnInit {
   ngOnInit(): void {
     this.searchControl.valueChanges
       .pipe(debounceTime(700))
-      .subscribe(value => this.notesSearchService.patch({query: value}));
+      .subscribe(value => this.notesSearchService.patch({query: value?.trim()}));
 
     this.notesSearchService.attributes$
-      .subscribe(attributes => this.searchControl.patchValue(attributes.query, {emitEvent: false}));
+      .pipe(
+        pluck('query'),
+        distinctUntilChanged(),
+        filter(query => query !== this.searchControl.value?.trim()),
+      )
+      .subscribe(query => this.searchControl.patchValue(query, {emitEvent: false}));
   }
 
   logout() {
