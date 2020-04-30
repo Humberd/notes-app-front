@@ -33,10 +33,21 @@
   </header>
 
   <ul class="list">
+    <li>
+      <button
+        class="entity"
+        [class.selected]="!(notesSearchService.attributes$ | async).workspaceId"
+        (click)="chooseAllWorkspaces()"
+      >
+
+        <span class="name" style="font-style: italic; overflow: visible">All</span>
+
+      </button>
+    </li>
     <li *ngFor="let workspace of workspacesRefresherService.data$ | async; trackBy: trackByWorkspace">
       <button
         class="entity"
-        [class.selected]="notesRefresherService.isWorkspaceSelected$(workspace.id) | async"
+        [class.selected]="(notesSearchService.attributes$ | async).workspaceId === workspace.id"
         (click)="chooseWorkspace(workspace)"
       >
 

@@ -20,7 +20,7 @@ export class FiltersLeftPanelComponent implements OnInit {
   constructor(
     public tagsRefresherService: TagsRefresherService,
     public notesRefresherService: NotesRefresherService,
-    private notesSearchService: NotesSearchService,
+    public notesSearchService: NotesSearchService,
     public workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -56,11 +56,11 @@ export class FiltersLeftPanelComponent implements OnInit {
   }
 
   chooseWorkspace(workspace: WorkspaceView) {
-    if (this.notesRefresherService.workspaceId === workspace.id) {
-      this.notesRefresherService.filterByWorkspace(undefined);
-    } else {
-      this.notesRefresherService.filterByWorkspace(workspace.id);
-    }
+    this.notesSearchService.patch({workspaceId: workspace.id});
+  }
+
+  chooseAllWorkspaces() {
+    this.notesSearchService.patch({workspaceId: null})
   }
 
   async createWorkspace() {
@@ -96,4 +96,5 @@ export class FiltersLeftPanelComponent implements OnInit {
   sortBy(key: keyof TagView, direction: 'asc' | 'desc') {
 
   }
+
 }
