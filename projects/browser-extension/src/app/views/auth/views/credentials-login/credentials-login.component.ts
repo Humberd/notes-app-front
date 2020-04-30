@@ -6,6 +6,8 @@ import { FormValidators } from '@composite-library/lib/form-validators/form.vali
 import { HttpResponseBase } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
+import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
+import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
 
 interface CredentialsLoginFormValues {
   email: string,
@@ -23,6 +25,7 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
 
   constructor(
     private authorizationHandlerService: AuthorizationHandlerService,
+    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
     private router: Router,
   ) {
     super();
@@ -44,6 +47,7 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
   }
 
   protected onSuccess(success: any): void {
+    this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.AUTHORIZED, {})
     this.router.navigate(['/notes']);
   }
 
