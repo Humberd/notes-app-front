@@ -7,6 +7,12 @@
   overflow: auto;
 }
 
+.section-header {
+  margin: var(--space-md) 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .note {
   padding: var(--space-l);
 

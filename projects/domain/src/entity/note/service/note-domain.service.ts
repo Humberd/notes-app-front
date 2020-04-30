@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { NoteCreateRequest } from '@domain/entity/note/request/note-create-request';
 import { NotePatchRequest } from '@domain/entity/note/request/note-patch-request';
+import { NotesListFilterRequest } from '@domain/entity/note/request/notes-list-filter-request';
+import { ViewList } from '@domain/common/view-list';
+import { PageableRequest } from '@domain/common/pageable-request';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +29,12 @@ export class NoteDomainService {
 
   read(id: string): Observable<NoteView> {
     return this.httpClient.get<NoteView>(`${this.baseUrl}/notes/${id}`);
+  }
+
+  readList(params?: NotesListFilterRequest): Observable<ViewList<NoteView>> {
+    return this.httpClient.get<ViewList<NoteView>>(`${this.baseUrl}/notes`, {
+      params: PageableRequest.stringify(params),
+    });
   }
 
   delete(id: string): Observable<void> {

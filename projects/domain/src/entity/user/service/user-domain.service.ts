@@ -10,7 +10,7 @@ import { PageableRequest } from '@domain/common/pageable-request';
 @Injectable({
   providedIn: 'root',
 })
-export class MyDataDomainService {
+export class UserDomainService {
 
   constructor(
     private httpClient: HttpClient,
@@ -18,17 +18,11 @@ export class MyDataDomainService {
   ) {
   }
 
-  readMyProfile(jwt: string): Observable<UserView> {
-    return this.httpClient.get<UserView>(`${this.baseUrl}/my/profile`, {
+  read(usedId: string,jwt: string): Observable<UserView> {
+    return this.httpClient.get<UserView>(`${this.baseUrl}/users/${usedId}`, {
       headers: {
         authorization: `Bearer ${jwt}`,
       },
-    });
-  }
-
-  readMyNotesList(params?: NotesListFilterRequest): Observable<ViewList<NoteView>> {
-    return this.httpClient.get<ViewList<NoteView>>(`${this.baseUrl}/my/notes`,{
-      params: PageableRequest.stringify(params)
     });
   }
 }

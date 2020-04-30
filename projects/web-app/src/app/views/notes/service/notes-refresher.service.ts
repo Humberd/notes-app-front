@@ -3,9 +3,10 @@ import { AutorefreshMode, NEVER_REFRESH, PageOptions, RefresherDataSource, Route
 import { SpringPageableDataRefresher } from '@domain/common/spring-pageable-data-refresher';
 import { ViewList } from '@domain/common/view-list';
 import { NoteView } from '@domain/entity/note/view/note-view';
-import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
+import { UserDomainService } from '@domain/entity/user/service/user-domain.service';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
+import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 
 @Injectable()
 export class NotesRefresherService extends SpringPageableDataRefresher<NoteView> {
@@ -24,7 +25,7 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
   }
 
   constructor(
-    private myDataDomainService: MyDataDomainService,
+    private noteDomainService: NoteDomainService,
     private routerUtilsService: RouterUtilsService,
   ) {
     super({
@@ -39,8 +40,9 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
       this._workspaceId$,
     ])
       .pipe(
-        switchMap(([tagIds, workspaceId]) => this.myDataDomainService.readMyNotesList({
+        switchMap(([tagIds, workspaceId]) => this.noteDomainService.readList({
           query: pageOptions.search,
+          sort: pageOptions.sort,
           tagIds,
           workspaceId,
         })),

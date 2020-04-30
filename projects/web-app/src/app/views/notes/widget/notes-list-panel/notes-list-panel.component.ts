@@ -58,4 +58,8 @@ export class NotesListPanelComponent implements OnInit {
       })
   }
 
+  sortBy(key: keyof NoteView, direction: 'asc' | 'desc') {
+    this.notesRefresherService.page(1, 999, key + (direction === 'asc' ? '+' : '-'))
+  }
+
 }

@@ -4,7 +4,8 @@ import { switchMap } from 'rxjs/operators';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { NotesRefresherService } from './service/notes-refresher.service';
 import { TagsRefresherService } from './service/tags-refresher.service';
-import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
+import { UserDomainService } from '@domain/entity/user/service/user-domain.service';
+import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 
 @Component({
   selector: 'brx-notes',
@@ -21,7 +22,8 @@ export class NotesComponent implements OnInit {
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
-    private myDataDomainService: MyDataDomainService,
+    private noteDomainService: NoteDomainService,
+    private myDataDomainService: UserDomainService,
     private changeDetectorRef: ChangeDetectorRef,
     private notesRefresherService: NotesRefresherService,
     private tagsRefresherService: TagsRefresherService,
@@ -34,7 +36,7 @@ export class NotesComponent implements OnInit {
 
     this.chromeApiBridgeService.getCurrentTab()
       .pipe(
-        switchMap(currentTab => this.myDataDomainService.readMyNotesList({url: currentTab.url})),
+        switchMap(currentTab => this.noteDomainService.readList({url: currentTab.url})),
       )
       .subscribe(response => {
         if (response.data.length > 0) {

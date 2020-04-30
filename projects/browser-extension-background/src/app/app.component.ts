@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { filter, map, switchMap } from 'rxjs/operators';
-import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
 import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
 import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
+import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import Tab = chrome.tabs.Tab;
 
 @Component({
@@ -15,7 +15,7 @@ export class AppComponent {
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
-    private myDataDomainService: MyDataDomainService,
+    private noteDomainService: NoteDomainService,
     private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
   ) {
     console.log('Browser Extension Background is running');
@@ -30,7 +30,7 @@ export class AppComponent {
       .pipe(
         switchMap(() => this.chromeApiBridgeService.getCurrentTab()),
         switchMap(tab =>
-          this.myDataDomainService.readMyNotesList({
+          this.noteDomainService.readList({
             url: tab.url,
           })
             .pipe(
@@ -52,7 +52,7 @@ export class AppComponent {
       .pipe(
         filter(event => event.tab.status === 'complete'),
         switchMap(event =>
-          this.myDataDomainService.readMyNotesList({
+          this.noteDomainService.readList({
             url: event.tab.url,
           })
             .pipe(

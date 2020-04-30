@@ -1,3 +1,17 @@
+<header class="section-header">
+  <button mat-button [mat-menu-trigger-for]="sortRef">
+    Sort
+    <mat-icon>sort</mat-icon>
+  </button>
+
+  <mat-menu #sortRef>
+    <button mat-menu-item (click)="sortBy('title', 'asc')">By title ASC</button>
+    <button mat-menu-item (click)="sortBy('title', 'desc')">By title DESC</button>
+    <button mat-menu-item>By recently updated ASC</button>
+    <button mat-menu-item>By recently updated DESC</button>
+  </mat-menu>
+</header>
+
 <ul>
   <li
     *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy"
