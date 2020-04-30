@@ -22,7 +22,7 @@
       <mat-icon class="icon">sort</mat-icon>
     </button>
 
-    <mat-menu #workspaceSortRef>
+    <mat-menu #workspaceSortRef xPosition="before">
       <button mat-menu-item>
         Sort by name ASC
       </button>
@@ -63,7 +63,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
 
-        <mat-menu #moreOptionsRef>
+        <mat-menu #moreOptionsRef xPosition="before">
           <button mat-menu-item (click)="editWorkspace(workspace)">Edit</button>
           <button mat-menu-item (click)="deleteWorkspace(workspace)">Delete</button>
         </mat-menu>
@@ -95,7 +95,7 @@
       <mat-icon class="icon">sort</mat-icon>
     </button>
 
-    <mat-menu #tagsSortRef>
+    <mat-menu #tagsSortRef xPosition="before">
       <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by name ASC</button>
       <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by name DESC</button>
       <button mat-menu-item (click)="sortBy('name', 'asc')">Sort by notes ASC</button>
@@ -130,7 +130,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
 
-        <mat-menu #moreOptionsRef>
+        <mat-menu #moreOptionsRef xPosition="before">
           <button mat-menu-item>Edit</button>
           <button mat-menu-item>Delete</button>
         </mat-menu>
