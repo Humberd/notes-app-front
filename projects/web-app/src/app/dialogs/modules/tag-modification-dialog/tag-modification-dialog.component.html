@@ -1,0 +1,32 @@
+<h2>{{strategy.getTitle()}}</h2>
+
+<form [formGroup]="rootForm" (ngSubmit)="submit()">
+  <lib-control-container label="Name">
+    <input [formControl]="formDefinition.name" type="text" libInput>
+  </lib-control-container>
+
+  <lib-control-container>
+    <span
+      [cpToggle]="true"
+      cpDialogDisplay="inline"
+      cpAlphaChannel="disabled"
+      [colorPicker]="formDefinition.backgroundColor.value"
+      (colorPickerChange)="formDefinition.backgroundColor.setValue($event)"
+    >
+    </span>
+  </lib-control-container>
+
+  <footer>
+    <button
+      mat-button
+      mat-dialog-close
+    >
+      Cancel
+    </button>
+    <button
+      mat-raised-button color="accent"
+    >
+      {{strategy.getSubmitButton()}}
+    </button>
+  </footer>
+</form>

@@ -60,7 +60,7 @@ export class FiltersLeftPanelComponent implements OnInit {
   }
 
   chooseAllWorkspaces() {
-    this.notesSearchService.patch({workspaceId: null})
+    this.notesSearchService.patch({workspaceId: null});
   }
 
   async createWorkspace() {
@@ -97,4 +97,14 @@ export class FiltersLeftPanelComponent implements OnInit {
 
   }
 
+  async createTag() {
+    const dialogRef = await this.dialogService.openCreateTagDialog();
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.tagsRefresherService.softRefresh();
+        this.notesRefresherService.softRefresh();
+      });
+  }
 }
