@@ -10,7 +10,7 @@ export abstract class PageableRequest {
 
     return Object.entries(obj)
       .reduce((previousValue, [key, value]) => {
-        if (value === undefined || value === '') {
+        if (value === undefined || value === '' || value === null || value?.length === 0) {
           return previousValue
         }
 

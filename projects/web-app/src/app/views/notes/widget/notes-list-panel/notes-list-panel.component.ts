@@ -6,6 +6,7 @@ import { TagMinimalView } from '@domain/entity/tag/view/tag-minimal-view';
 import { filter } from 'rxjs/operators';
 import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
 import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
+import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
 
 @Component({
   selector: 'app-notes-list-panel',
@@ -13,17 +14,15 @@ import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/wor
   styleUrls: ['./notes-list-panel.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NotesListPanelComponent implements OnInit {
+export class NotesListPanelComponent {
 
   constructor(
     public notesRefresherService: NotesRefresherService,
     private tagsRefresherService: TagsRefresherService,
     private workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
+    private notesSearchService: NotesSearchService
   ) {
-  }
-
-  ngOnInit(): void {
   }
 
   trackBy(index: number, item: NoteView) {
@@ -56,6 +55,16 @@ export class NotesListPanelComponent implements OnInit {
         this.tagsRefresherService.softRefresh();
         this.workspacesRefresherService.softRefresh();
       })
+
+  }
+
+  sortBy(key: keyof NoteView | string, direction: 'asc' | 'desc') {
+    this.notesSearchService.patch({
+      sort: {
+        by: key,
+        direction
+      }
+    })
   }
 
 }

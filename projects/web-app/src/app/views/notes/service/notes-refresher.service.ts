@@ -3,29 +3,17 @@ import { AutorefreshMode, NEVER_REFRESH, PageOptions, RefresherDataSource, Route
 import { SpringPageableDataRefresher } from '@domain/common/spring-pageable-data-refresher';
 import { ViewList } from '@domain/common/view-list';
 import { NoteView } from '@domain/entity/note/view/note-view';
-import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
+import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
+import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
+import { EMPTY } from 'rxjs';
 
 @Injectable()
 export class NotesRefresherService extends SpringPageableDataRefresher<NoteView> {
-  private readonly _tagIds$ = new BehaviorSubject<string[]>([]);
-  readonly tagIds$ = this._tagIds$.asObservable();
-
-  get tagIds() {
-    return this._tagIds$.value;
-  }
-
-  private readonly _workspaceId$ = new BehaviorSubject<string>(undefined);
-  readonly workspaceId$ = this._workspaceId$.asObservable();
-
-  get workspaceId() {
-    return this._workspaceId$.value;
-  }
-
   constructor(
-    private myDataDomainService: MyDataDomainService,
+    private noteDomainService: NoteDomainService,
     private routerUtilsService: RouterUtilsService,
+    private notesSearchService: NotesSearchService,
   ) {
     super({
       mode: AutorefreshMode.COUNT_AFTER_PREVIOUS_ENDS,
@@ -34,51 +22,20 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
   }
 
   protected getPageableDataSource(pageOptions: PageOptions): RefresherDataSource<ViewList<NoteView>> {
-    return combineLatest([
-      this._tagIds$,
-      this._workspaceId$,
-    ])
+    return this.notesSearchService.attributes$
       .pipe(
-        switchMap(([tagIds, workspaceId]) => this.myDataDomainService.readMyNotesList({
-          query: pageOptions.search,
-          tagIds,
-          workspaceId,
-        })),
+        switchMap(attributes =>
+          this.noteDomainService.readList({
+            query: attributes.query,
+            tagIds: attributes.tagIds,
+            workspaceId: attributes.workspaceId,
+            sort: !attributes.sort ? null : `${attributes.sort.by},${attributes.sort.direction}`,
+          })
+            .pipe(
+              catchError(err => EMPTY),
+            )
+        ),
       );
   }
 
-  search(searchQuery: string): void {
-    this.routerUtilsService.updateQueryParams({
-      searchQuery: searchQuery || null,
-    });
-    super.search(searchQuery);
-  }
-
-  filterByTags(tagIds: string[]): void {
-    this.routerUtilsService.updateQueryParams({
-      tagIds: tagIds || null,
-    });
-
-    this._tagIds$.next(tagIds);
-  }
-
-  isTagSelected$(tagId: string): Observable<boolean> {
-    return this.tagIds$.pipe(
-      map(selectedTagIds => selectedTagIds.some(it => it === tagId)),
-    );
-  }
-
-  filterByWorkspace(workspaceId: string): void {
-    this.routerUtilsService.updateQueryParams({
-      workspaceId: workspaceId || null,
-    });
-
-    this._workspaceId$.next(workspaceId);
-  }
-
-  isWorkspaceSelected$(workspaceId: string): Observable<boolean> {
-    return this.workspaceId$.pipe(
-      map(selectedWorkspaceId => selectedWorkspaceId === workspaceId),
-    );
-  }
 }

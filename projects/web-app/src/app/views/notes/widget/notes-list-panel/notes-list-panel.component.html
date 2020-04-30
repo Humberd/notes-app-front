@@ -1,3 +1,17 @@
+<header class="section-header">
+  <h4>
+    Results: {{notesRefresherService.totalItemsCount}}
+  </h4>
+
+  <button [matMenuTriggerFor]="sortRef" libIconButton>
+    <mat-icon>sort</mat-icon>
+  </button>
+</header>
+<mat-menu #sortRef xPosition="before">
+  <button mat-menu-item (click)="sortBy('title', 'asc')">By title ASC</button>
+  <button mat-menu-item (click)="sortBy('title', 'desc')">By title DESC</button>
+</mat-menu>
+
 <ul>
   <li
     *ngFor="let note of notesRefresherService.data$ | async; trackBy: trackBy"

@@ -3,7 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { PasswordCredentialsLoginRequest } from '@domain/entity/user/request/password-credentials-login-request';
 import { PasswordCredentialsDomainService } from '@domain/entity/user/service/password-credentials-domain.service';
 import { filter, map, mapTo, shareReplay, switchMap, tap } from 'rxjs/operators';
-import { MyDataDomainService } from '@domain/entity/user/service/my-data-domain.service';
+import { UserDomainService } from '@domain/entity/user/service/user-domain.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { StorageKey } from '@composite-library/lib/storage/storage-key';
@@ -32,7 +32,7 @@ export class AuthorizationHandlerService {
   constructor(
     private storageService: StorageService,
     private passwordCredentialsDomainService: PasswordCredentialsDomainService,
-    private myDataDomainService: MyDataDomainService,
+    private myDataDomainService: UserDomainService,
     private router: Router
   ) {
     this.handleInitialTokenFetch();
@@ -58,7 +58,7 @@ export class AuthorizationHandlerService {
   }
 
   private readUserProfile(jwt: string, jwtContent: JwtContent) {
-    return this.myDataDomainService.readMyProfile(jwt)
+    return this.myDataDomainService.read(jwtContent.sub, jwt)
       .pipe(
         tap({
           next: profile => {

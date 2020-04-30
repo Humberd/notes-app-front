@@ -7,6 +7,14 @@
   overflow: auto;
 }
 
+.section-header {
+  padding: var(--space-l);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .note {
   padding: var(--space-l);
 

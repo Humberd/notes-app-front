@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refresher.service';
 import { TagView } from '@domain/entity/tag/view/tag-view';
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
@@ -6,6 +6,7 @@ import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/wor
 import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
 import { DialogService } from '@web-app/app/dialogs/services/dialog.service';
 import { filter } from 'rxjs/operators';
+import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
 
 @Component({
   selector: 'app-filters-left-panel',
@@ -14,16 +15,28 @@ import { filter } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FiltersLeftPanelComponent implements OnInit {
+  selectedTags: { [tagId: string]: boolean } = {};
 
   constructor(
     public tagsRefresherService: TagsRefresherService,
     public notesRefresherService: NotesRefresherService,
+    public notesSearchService: NotesSearchService,
     public workspacesRefresherService: WorkspacesRefresherService,
     private dialogService: DialogService,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {
   }
 
   ngOnInit(): void {
+    this.notesSearchService.attributes$
+      .subscribe(attributes => {
+        this.selectedTags = attributes.tagIds.reduce((previousValue, currentValue) => {
+          previousValue[currentValue] = true;
+
+          return previousValue;
+        }, {});
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
   trackByTag(index: number, tagView: TagView) {
@@ -35,19 +48,19 @@ export class FiltersLeftPanelComponent implements OnInit {
   }
 
   chooseTag(tag: TagView) {
-    if (this.notesRefresherService.tagIds.some(it => it === tag.id)) {
-      this.notesRefresherService.filterByTags(this.notesRefresherService.tagIds.filter(it => it !== tag.id));
+    if (this.notesSearchService.attributes.tagIds.some(it => it === tag.id)) {
+      this.notesSearchService.patch({tagIds: []});
     } else {
-      this.notesRefresherService.filterByTags([tag.id]);
+      this.notesSearchService.patch({tagIds: [tag.id]});
     }
   }
 
   chooseWorkspace(workspace: WorkspaceView) {
-    if (this.notesRefresherService.workspaceId === workspace.id) {
-      this.notesRefresherService.filterByWorkspace(undefined);
-    } else {
-      this.notesRefresherService.filterByWorkspace(workspace.id);
-    }
+    this.notesSearchService.patch({workspaceId: workspace.id});
+  }
+
+  chooseAllWorkspaces() {
+    this.notesSearchService.patch({workspaceId: null})
   }
 
   async createWorkspace() {
@@ -79,4 +92,9 @@ export class FiltersLeftPanelComponent implements OnInit {
         this.workspacesRefresherService.softRefresh();
       });
   }
+
+  sortBy(key: keyof TagView, direction: 'asc' | 'desc') {
+
+  }
+
 }
