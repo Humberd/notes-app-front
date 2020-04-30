@@ -10,7 +10,9 @@ export class NotesSearchService {
     query: null,
     workspaceId: null,
     tagIds: [],
+    sort: null,
   });
+
 
   readonly attributes$ = this._attributes$.asObservable();
 
@@ -26,10 +28,16 @@ export class NotesSearchService {
       .pipe(
         filter(event => event instanceof NavigationEnd),
         map(() => {
+          const sort = {
+            by: this.routerUtilsService.getQueryParam('sortBy'),
+            direction: this.routerUtilsService.getQueryParam('sortDirection'),
+          };
+
           return ({
             query: this.routerUtilsService.getQueryParam('query'),
             workspaceId: this.routerUtilsService.getQueryParam('workspaceId'),
             tagIds: this.getAllQueryParams('tagIds') || [],
+            sort: sort.by && sort.direction ? sort : null,
           } as SearchAttributes);
         }),
       )
@@ -47,6 +55,7 @@ export class NotesSearchService {
       query: attributes.hasOwnProperty('query') ? (attributes.query || null) : this.attributes.query,
       workspaceId: attributes.hasOwnProperty('workspaceId') ? (attributes.workspaceId || null) : this.attributes.workspaceId,
       tagIds: attributes.hasOwnProperty('tagIds') ? (attributes.tagIds || null) : this.attributes.tagIds,
+      sort: attributes.hasOwnProperty('sort') ? (attributes.sort || null) : this.attributes.sort,
     };
 
     if (!this.hasStateChanged(this.attributes, newState)) {
@@ -61,6 +70,8 @@ export class NotesSearchService {
       query: attributes.query || null,
       workspaceId: attributes.workspaceId || null,
       tagIds: attributes.tagIds.length === 0 ? null : attributes.tagIds,
+      sortBy: attributes.sort?.by || null,
+      sortDirection: attributes.sort?.direction || null,
     });
   }
 
@@ -81,5 +92,11 @@ export class NotesSearchService {
 interface SearchAttributes {
   query: string | null;
   workspaceId: string | null;
-  tagIds: string[]
+  tagIds: string[],
+  sort: Sort | null
+}
+
+interface Sort {
+  by: string,
+  direction: 'asc' | 'desc';
 }
