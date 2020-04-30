@@ -14,12 +14,17 @@ export namespace ChromeMessageBody {
   export interface NoteDeleted {
     note: NoteView
   }
+
+  // tslint:disable-next-line:no-empty-interface
+  export interface Authorized {
+
+  }
 }
 
 export type ChromeMessageMapping = {
   [ChromeMessageType.NOTE_CREATED]: ChromeMessageBody.NoteCreated,
   [ChromeMessageType.NOTE_DELETED]: ChromeMessageBody.NoteDeleted,
-  [ChromeMessageType.AUTHORIZED]: void
+  [ChromeMessageType.AUTHORIZED]: ChromeMessageBody.Authorized
 }
 
 
