@@ -56,10 +56,11 @@ export class NotesListPanelComponent implements OnInit {
         this.tagsRefresherService.softRefresh();
         this.workspacesRefresherService.softRefresh();
       })
+
   }
 
-  sortBy(key: keyof NoteView, direction: 'asc' | 'desc') {
-    this.notesRefresherService.page(1, 999, key + (direction === 'asc' ? '+' : '-'))
+  sortBy(key: keyof NoteView | string, direction: 'asc' | 'desc') {
+    this.notesRefresherService.page(1, 999, `${key},${direction}`)
   }
 
 }

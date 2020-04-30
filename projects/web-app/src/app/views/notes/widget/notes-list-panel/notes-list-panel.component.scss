@@ -8,9 +8,10 @@
 }
 
 .section-header {
-  margin: var(--space-md) 0;
+  padding: var(--space-l);
+
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .note {
