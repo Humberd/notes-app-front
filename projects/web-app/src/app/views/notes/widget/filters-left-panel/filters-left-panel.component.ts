@@ -107,4 +107,35 @@ export class FiltersLeftPanelComponent implements OnInit {
         this.notesRefresherService.softRefresh();
       });
   }
+
+  async editTag(tag: TagView) {
+    const dialogRef = await this.dialogService.openEditTagDialog({
+      editedTag: tag,
+    });
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.tagsRefresherService.softRefresh();
+        this.notesRefresherService.softRefresh();
+      });
+  }
+
+  async deleteTag(tag: TagView) {
+    const dialogRef = await this.dialogService.openDeleteTagDialog(tag);
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.tagsRefresherService.softRefresh();
+
+        if (this.notesSearchService.attributes.tagIds.includes(tag.id)) {
+          this.notesSearchService.patch({
+            tagIds: this.notesSearchService.attributes.tagIds.filter(tagId => tagId !== tag.id),
+          });
+        } else {
+          this.notesRefresherService.softRefresh();
+        }
+      });
+  }
 }

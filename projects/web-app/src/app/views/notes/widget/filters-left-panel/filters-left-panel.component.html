@@ -132,8 +132,8 @@
         </button>
 
         <mat-menu #moreOptionsRef xPosition="before">
-          <button mat-menu-item>Edit</button>
-          <button mat-menu-item>Delete</button>
+          <button mat-menu-item (click)="editTag(tag)">Edit</button>
+          <button mat-menu-item (click)="deleteTag(tag)">Delete</button>
         </mat-menu>
 
       </button>

@@ -110,7 +110,7 @@ export class DialogService {
   async openDeleteTagDialog(tag: TagView) {
     return this.openConfirmationDialog({
       title: 'Delete Workspace',
-      content: `You are going to delete "${tag.name}" tag. This action will detach ${tag.name} from all notes.\n\nAre you sure?`,
+      content: `You are going to delete "${tag.name}" tag. This action will detach "${tag.name}" from all notes.\n\nAre you sure?`,
       confirm: {
         name: 'Delete',
         color: 'warn',
