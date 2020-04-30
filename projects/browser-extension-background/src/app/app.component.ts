@@ -29,6 +29,7 @@ export class AppComponent {
     this.listenForNoteUpdateFromExtension();
   }
 
+
   private listenForActiveTabChange() {
     this.chromeApiBridgeService.onTabActivated()
       .pipe(
