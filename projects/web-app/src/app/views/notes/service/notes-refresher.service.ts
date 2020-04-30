@@ -3,21 +3,13 @@ import { AutorefreshMode, NEVER_REFRESH, PageOptions, RefresherDataSource, Route
 import { SpringPageableDataRefresher } from '@domain/common/spring-pageable-data-refresher';
 import { ViewList } from '@domain/common/view-list';
 import { NoteView } from '@domain/entity/note/view/note-view';
-import { UserDomainService } from '@domain/entity/user/service/user-domain.service';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
 
 @Injectable()
 export class NotesRefresherService extends SpringPageableDataRefresher<NoteView> {
-  private readonly _tagIds$ = new BehaviorSubject<string[]>([]);
-  readonly tagIds$ = this._tagIds$.asObservable();
-
-  get tagIds() {
-    return this._tagIds$.value;
-  }
-
   private readonly _workspaceId$ = new BehaviorSubject<string>(undefined);
   readonly workspaceId$ = this._workspaceId$.asObservable();
 
@@ -41,25 +33,12 @@ export class NotesRefresherService extends SpringPageableDataRefresher<NoteView>
       .pipe(
         switchMap(attributes => this.noteDomainService.readList({
           query: attributes.query,
+          tagIds: attributes.tagIds
           // sort: pageOptions.sort,
           // tagIds,
           // workspaceId,
         })),
       );
-  }
-
-  filterByTags(tagIds: string[]): void {
-    this.routerUtilsService.updateQueryParams({
-      tagIds: tagIds || null,
-    });
-
-    this._tagIds$.next(tagIds);
-  }
-
-  isTagSelected$(tagId: string): Observable<boolean> {
-    return this.tagIds$.pipe(
-      map(selectedTagIds => selectedTagIds.some(it => it === tagId)),
-    );
   }
 
   filterByWorkspace(workspaceId: string): void {

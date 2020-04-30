@@ -96,7 +96,7 @@
     <li *ngFor="let tag of tagsRefresherService.data$ | async; trackBy: trackByTag">
       <button
         class="entity"
-        [class.selected]="notesRefresherService.isTagSelected$(tag.id) | async"
+        [class.selected]="selectedTags[tag.id]"
         (click)="chooseTag(tag)"
       >
         <span class="name">{{tag.name}}</span>
