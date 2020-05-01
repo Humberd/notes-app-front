@@ -6,8 +6,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
-import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
-import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
+import { ChromeInternalMessageService } from '@composite-library/lib/chrome/internal-message/chrome-internal-message.service';
+import { ChromeInternalMessageType } from '@composite-library/lib/chrome/internal-message/model/internal-message-type';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { environment } from '../../../../../environments/environment';
 import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
@@ -45,7 +45,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
     private tagDomainService: TagDomainService,
     private noteDomainService: NoteDomainService,
     private workspaceDomainService: WorkspaceDomainService,
-    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
+    private chromeMessageMultiplexerService: ChromeInternalMessageService,
     private chromeApiBridgeService: ChromeApiBridgeService,
     private changeDetectorRef: ChangeDetectorRef,
   ) {
@@ -115,7 +115,7 @@ export class NoteCreatedComponent extends FormRootController<NoteCreatedFormValu
   deleteNote() {
     this.noteDomainService.delete(this.note.id)
       .subscribe(() => {
-        this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.NOTE_DELETED, {
+        this.chromeMessageMultiplexerService.sendMessage(ChromeInternalMessageType.NOTE_DELETED, {
           note: this.note,
         });
         this.noteDeleted.emit();

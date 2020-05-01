@@ -4,7 +4,7 @@ import { ListenMessageResult } from '../model/listen-message-result';
 import { NgZone } from '@angular/core';
 import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 
-export class ChromeApiImpl implements ChromeApi {
+export class ExtensionApiImpl implements ChromeApi {
 
   constructor(private ngZone: NgZone) {
   }
@@ -23,6 +23,17 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
+  sendMessage(message: any): Observable<any> {
+    return new Observable<any>(subscriber => {
+      chrome.runtime.sendMessage(message, response => {
+        this.ngZone.run(() => {
+          subscriber.next(response);
+          subscriber.complete();
+        });
+      });
+    });
+  }
+
   sendTabMessage(tabId: number, message: any): Observable<any> {
     return new Observable<any>(subscriber => {
       chrome.tabs.sendMessage(tabId, message, response => {
@@ -34,9 +45,9 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
-  sendMessage(message: any): Observable<any> {
+  sendExternalMessage(extensionId: string, message: any): Observable<any> {
     return new Observable<any>(subscriber => {
-      chrome.runtime.sendMessage(message, response => {
+      chrome.runtime.sendMessage(extensionId, message, response => {
         this.ngZone.run(() => {
           subscriber.next(response);
           subscriber.complete();
@@ -61,6 +72,26 @@ export class ChromeApiImpl implements ChromeApi {
 
       return () => {
         chrome.runtime.onMessage.removeListener(handler);
+      };
+    });
+  }
+
+  listenExternalMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
+    return new Observable<ListenMessageResult<Message, Response>>(subscriber => {
+      const handler = (...event) => {
+        this.ngZone.run(() => {
+          subscriber.next({
+            message: event[0],
+            sender: event[1],
+            sendResponse: event[2],
+          });
+        });
+      };
+
+      chrome.runtime.onMessageExternal.addListener(handler);
+
+      return () => {
+        chrome.runtime.onMessageExternal.removeListener(handler);
       };
     });
   }
@@ -115,6 +146,10 @@ export class ChromeApiImpl implements ChromeApi {
     return new Promise<chrome.tabs.Tab>((resolve, reject) => {
       chrome.tabs.create(createProperties, resolve);
     });
+  }
+
+  getExtensionId(): string {
+    return chrome.runtime.id;
   }
 
 }

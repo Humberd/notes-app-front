@@ -6,6 +6,10 @@ import { FormValidators } from '@composite-library/lib/form-validators/form.vali
 import { HttpResponseBase } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
+import { TemporaryStorageKey } from '@composite-library/lib/storage/temporary-storage-key';
+import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
+import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
 
 interface CredentialsLoginFormValues {
   email: string,
@@ -20,10 +24,13 @@ interface CredentialsLoginFormValues {
 })
 export class CredentialsLoginComponent extends FormRootController<CredentialsLoginFormValues> {
   errorMessage: string;
+  readonly extensionLoginStorageInstance = this.storageService.getTemporary(TemporaryStorageKey.EXTENSION_LOGIN);
 
   constructor(
     private authorizationHandlerService: AuthorizationHandlerService,
     private router: Router,
+    private storageService: StorageService,
+    private chromeExternalMessageService: ChromeExternalMessageService,
   ) {
     super();
   }
@@ -43,7 +50,23 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
     });
   }
 
-  protected onSuccess(success: any): void {
+  protected onSuccess(jwt: string): void {
+    const extensionId = this.extensionLoginStorageInstance.get();
+    if (extensionId) {
+      this.extensionLoginStorageInstance.remove();
+      this.chromeExternalMessageService.sendMessage(extensionId, ChromeExternalMessageType.AUTHORIZED, {
+        jwt,
+      });
+
+      /**
+       * We should be closing the window here, since we want only to be authorized
+       * However, the Javascript throws an error:
+       * 'Scripts may close only the windows that were opened by it.'
+       */
+      // window.close();
+      // return;
+    }
+
     this.router.navigate(['/my-notes']);
   }
 

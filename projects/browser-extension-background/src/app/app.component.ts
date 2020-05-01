@@ -1,10 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { filter, pluck, switchMap } from 'rxjs/operators';
-import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
-import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
+import { ChromeInternalMessageService } from '@composite-library/lib/chrome/internal-message/chrome-internal-message.service';
+import { ChromeInternalMessageType } from '@composite-library/lib/chrome/internal-message/model/internal-message-type';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { NoteCacheService } from './note-cache.service';
+import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
+import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
+import { StorageKey } from '@composite-library/lib/storage/storage-key';
 import Tab = chrome.tabs.Tab;
 
 @Component({
@@ -14,12 +18,15 @@ import Tab = chrome.tabs.Tab;
   providers: [NoteCacheService],
 })
 export class AppComponent {
+  readonly jwtStorageInstance = this.storageService.get(StorageKey.USER_JWT);
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
     private noteDomainService: NoteDomainService,
-    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
+    private chromeInternalMessageService: ChromeInternalMessageService,
+    private chromeExternalMessageService: ChromeExternalMessageService,
     private noteCacheService: NoteCacheService,
+    private storageService: StorageService,
   ) {
     console.log('Browser Extension Background is running');
     this.noteCacheService.start();
@@ -27,7 +34,7 @@ export class AppComponent {
     this.listenForCacheChange();
     this.listenForActiveTabChange();
     this.listenForUrlChangeOnActiveTab();
-    this.listenForMessagesFromExtension();
+    this.listenForMessages();
   }
 
   private listenForActiveTabChange() {
@@ -47,15 +54,18 @@ export class AppComponent {
       .subscribe(tab => this.updateStatusFor(tab));
   }
 
-  private listenForMessagesFromExtension() {
-    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_CREATED)
+  private listenForMessages() {
+    this.chromeInternalMessageService.listenMessage(ChromeInternalMessageType.NOTE_CREATED)
       .subscribe(payload => this.noteCacheService.addToCache(payload.note));
 
-    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_DELETED)
+    this.chromeInternalMessageService.listenMessage(ChromeInternalMessageType.NOTE_DELETED)
       .subscribe(payload => this.noteCacheService.removeFromCache(payload.note.url));
 
-    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.AUTHORIZED)
+    this.chromeInternalMessageService.listenMessage(ChromeInternalMessageType.AUTHORIZED)
       .subscribe(() => this.noteCacheService.softRefresh());
+
+    this.chromeExternalMessageService.listenMessage(ChromeExternalMessageType.AUTHORIZED)
+      .subscribe(payload => this.jwtStorageInstance.set(payload.jwt));
   }
 
   private listenForCacheChange() {

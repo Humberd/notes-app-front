@@ -21,6 +21,10 @@ export const routes: Routes = [
     canActivateChild: [MustBeAuthorizedGuard],
   },
   {
+    path: 'extension/login',
+    loadChildren: () => import('./views/extension-login/extension-login.module').then(value => value.ExtensionLoginModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
   },

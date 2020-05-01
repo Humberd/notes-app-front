@@ -10,11 +10,15 @@ import Tab = chrome.tabs.Tab;
 export interface ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab>;
 
-  sendTabMessage(tabId: number, message: any): Observable<any>;
-
   sendMessage(message: any): Observable<any>;
 
+  sendTabMessage(tabId: number, message: any): Observable<any>;
+
+  sendExternalMessage(extensionId: string, message: any): Observable<any>;
+
   listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>>;
+
+  listenExternalMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>>
 
   onTabActivated(): Observable<TabActiveInfo>;
 
@@ -25,4 +29,6 @@ export interface ChromeApi {
   setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>
 
   createTab(createProperties: CreateProperties): Promise<Tab>
+
+  getExtensionId(): string
 }
