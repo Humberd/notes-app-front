@@ -1,8 +1,12 @@
 import { Observable, of } from 'rxjs';
 import { ChromeApi } from '../model/chrome-api';
 import { ListenMessageResult } from '../model/listen-message-result';
+import { NgZone } from '@angular/core';
 
-export class NoChromeApiImpl implements ChromeApi {
+export class NoExtensionApiImpl implements ChromeApi {
+  constructor(private ngZone: NgZone) {
+  }
+
   getCurrentTab(): Observable<chrome.tabs.Tab> {
     const tab: chrome.tabs.Tab = {
       index: 0,
@@ -20,12 +24,23 @@ export class NoChromeApiImpl implements ChromeApi {
     return of(tab);
   }
 
+  sendMessage(message: any): Observable<any> {
+    return of();
+  }
+
   sendTabMessage(tabId: number, message: any): Observable<any> {
     return of();
   }
 
-  sendMessage(message: any): Observable<any> {
-    return of();
+  sendExternalMessage(extensionId: string, message: any): Observable<any> {
+    return new Observable<any>(subscriber => {
+      chrome.runtime.sendMessage(extensionId, message, response => {
+        this.ngZone.run(() => {
+          subscriber.next(response);
+          subscriber.complete();
+        });
+      });
+    });
   }
 
   listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {

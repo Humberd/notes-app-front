@@ -3,8 +3,8 @@
 import { Injectable, NgZone } from '@angular/core';
 import { ChromeApi } from './model/chrome-api';
 import { Observable } from 'rxjs';
-import { NoChromeApiImpl } from './impl/no-chrome-api.impl';
-import { ChromeApiImpl } from './impl/chrome-api.impl';
+import { NoExtensionApiImpl } from './impl/no-extension-api.impl';
+import { ExtensionApiImpl } from './impl/extension-api.impl';
 import { ListenMessageResult } from './model/listen-message-result';
 import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 
@@ -16,9 +16,9 @@ export class ChromeApiBridgeService implements ChromeApi {
 
   constructor(ngZone: NgZone) {
     if (typeof chrome.extension === 'undefined') {
-      this.chromeApiImpl = new NoChromeApiImpl();
+      this.chromeApiImpl = new NoExtensionApiImpl(ngZone);
     } else {
-      this.chromeApiImpl = new ChromeApiImpl(ngZone);
+      this.chromeApiImpl = new ExtensionApiImpl(ngZone);
     }
   }
 
@@ -26,12 +26,16 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.getCurrentTab();
   }
 
+  sendMessage(message: any): Observable<any> {
+    return this.chromeApiImpl.sendMessage(message);
+  }
+
   sendTabMessage(tabId: number, message: any): Observable<any> {
     return this.chromeApiImpl.sendTabMessage(tabId, message);
   }
 
-  sendMessage(message: any): Observable<any> {
-    return this.chromeApiImpl.sendMessage(message);
+  sendExternalMessage(extensionId: string, message: any): Observable<any> {
+    return this.chromeApiImpl.sendExternalMessage(extensionId, message);
   }
 
   listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {

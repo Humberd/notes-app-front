@@ -10,9 +10,11 @@ import Tab = chrome.tabs.Tab;
 export interface ChromeApi {
   getCurrentTab(): Observable<chrome.tabs.Tab>;
 
+  sendMessage(message: any): Observable<any>;
+
   sendTabMessage(tabId: number, message: any): Observable<any>;
 
-  sendMessage(message: any): Observable<any>;
+  sendExternalMessage(extensionId: string, message: any): Observable<any>;
 
   listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>>;
 

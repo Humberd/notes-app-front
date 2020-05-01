@@ -4,7 +4,7 @@ import { ListenMessageResult } from '../model/listen-message-result';
 import { NgZone } from '@angular/core';
 import { TabUpdateEvent } from '@composite-library/lib/chrome/bridge/model/tab-update-event';
 
-export class ChromeApiImpl implements ChromeApi {
+export class ExtensionApiImpl implements ChromeApi {
 
   constructor(private ngZone: NgZone) {
   }
@@ -23,6 +23,17 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
+  sendMessage(message: any): Observable<any> {
+    return new Observable<any>(subscriber => {
+      chrome.runtime.sendMessage(message, response => {
+        this.ngZone.run(() => {
+          subscriber.next(response);
+          subscriber.complete();
+        });
+      });
+    });
+  }
+
   sendTabMessage(tabId: number, message: any): Observable<any> {
     return new Observable<any>(subscriber => {
       chrome.tabs.sendMessage(tabId, message, response => {
@@ -34,9 +45,9 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
-  sendMessage(message: any): Observable<any> {
+  sendExternalMessage(extensionId: string, message: any): Observable<any> {
     return new Observable<any>(subscriber => {
-      chrome.runtime.sendMessage(message, response => {
+      chrome.runtime.sendMessage(extensionId, message, response => {
         this.ngZone.run(() => {
           subscriber.next(response);
           subscriber.complete();

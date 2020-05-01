@@ -7,8 +7,8 @@ import { AuthUserStatusType } from '@composite-library/lib/auth/authorized-user'
 import { RouterUtilsService } from '@ng-boost/core';
 import { StorageService } from '@composite-library/lib/storage/storage.service';
 import { StorageKey } from '@composite-library/lib/storage/storage-key';
-
-declare const chrome: any;
+import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
+import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
 
 @Component({
   selector: 'app-extension-login',
@@ -25,6 +25,7 @@ export class ExtensionLoginComponent implements OnInit {
     private router: Router,
     private routerUtilsService: RouterUtilsService,
     private storageService: StorageService,
+    private chromeExternalMessageService: ChromeExternalMessageService
   ) {
   }
 
@@ -57,9 +58,9 @@ export class ExtensionLoginComponent implements OnInit {
   }
 
   private sendMessageToExtension(extensionId: string) {
-    chrome.runtime.sendMessage(extensionId, {[StorageKey.USER_JWT]: this.storageInstance.get()}, () => {
-
-    });
+    this.chromeExternalMessageService.sendMessage(extensionId, ChromeExternalMessageType.AUTHORIZED, {
+      jwt: this.storageInstance.get()
+    })
   }
 
 }
