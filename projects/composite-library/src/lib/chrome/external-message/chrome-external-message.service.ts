@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import {
   ChromeExternalMessageMapping,
   ChromeExternalMessageType,
@@ -24,6 +24,7 @@ export class ChromeExternalMessageService {
     return this.chromeApiBridgeService.listenExternalMessage<{ type: T, body: ChromeExternalMessageMapping[T] }, any>()
       .pipe(
         filter(response => response.message.type === type),
+        tap(response => response.sendResponse('ok')),
         map(response => response.message.body),
       );
   }

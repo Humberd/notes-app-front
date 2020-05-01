@@ -48,6 +48,7 @@ export class ExtensionLoginComponent implements OnInit {
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           this.sendMessageToExtension(extensionId);
+          // window.close()
           // close the tab
         } else {
           console.log('not logged in');

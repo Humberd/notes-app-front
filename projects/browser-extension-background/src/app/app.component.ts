@@ -7,6 +7,8 @@ import { NoteDomainService } from '@domain/entity/note/service/note-domain.servi
 import { NoteCacheService } from './note-cache.service';
 import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
 import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
+import { StorageKey } from '@composite-library/lib/storage/storage-key';
 import Tab = chrome.tabs.Tab;
 
 @Component({
@@ -16,6 +18,7 @@ import Tab = chrome.tabs.Tab;
   providers: [NoteCacheService],
 })
 export class AppComponent {
+  readonly jwtStorageInstance = this.storageService.get(StorageKey.USER_JWT);
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
@@ -23,6 +26,7 @@ export class AppComponent {
     private chromeInternalMessageService: ChromeInternalMessageService,
     private chromeExternalMessageService: ChromeExternalMessageService,
     private noteCacheService: NoteCacheService,
+    private storageService: StorageService,
   ) {
     console.log('Browser Extension Background is running');
     this.noteCacheService.start();
@@ -61,7 +65,7 @@ export class AppComponent {
       .subscribe(() => this.noteCacheService.softRefresh());
 
     this.chromeExternalMessageService.listenMessage(ChromeExternalMessageType.AUTHORIZED)
-      .subscribe(payload => console.log(payload))
+      .subscribe(payload => this.jwtStorageInstance.set(payload.jwt));
   }
 
   private listenForCacheChange() {
