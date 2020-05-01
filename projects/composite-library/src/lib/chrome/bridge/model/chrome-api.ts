@@ -25,4 +25,6 @@ export interface ChromeApi {
   setBadgeBackgroundColor(details: BadgeBackgroundColorDetails): Promise<void>
 
   createTab(createProperties: CreateProperties): Promise<Tab>
+
+  getExtensionId(): string
 }

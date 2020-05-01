@@ -58,4 +58,7 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.createTab(createProperties);
   }
 
+  getExtensionId(): string {
+    return this.chromeApiImpl.getExtensionId();
+  }
 }

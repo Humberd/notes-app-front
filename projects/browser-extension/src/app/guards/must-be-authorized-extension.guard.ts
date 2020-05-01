@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { StorageService } from '@composite-library/lib/storage/storage.service';
 import { StorageKey } from '@composite-library/lib/storage/storage-key';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class MustBeAuthorizedExtensionGuard implements CanLoad {
     }
 
     this.chromeApiBridgeService.createTab({
-      url: 'https://google.com',
+      url: `${environment.webAppUrl}/extension/login?extensionId=${this.chromeApiBridgeService.getExtensionId()}`,
     });
 
     return false;

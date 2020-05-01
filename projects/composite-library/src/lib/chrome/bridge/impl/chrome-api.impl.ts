@@ -117,4 +117,8 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
+  getExtensionId(): string {
+    return chrome.runtime.id;
+  }
+
 }

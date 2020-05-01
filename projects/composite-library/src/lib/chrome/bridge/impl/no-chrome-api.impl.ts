@@ -52,4 +52,7 @@ export class NoChromeApiImpl implements ChromeApi {
     return this.getCurrentTab().toPromise();
   }
 
+  getExtensionId(): string {
+    return 'mock-extension-id';
+  }
 }
