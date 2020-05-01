@@ -60,7 +60,7 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
 
       /**
        * We should be closing the window here, since we want only to be authorized
-       * Howeverm the Javascript throws an error:
+       * However, the Javascript throws an error:
        * 'Scripts may close only the windows that were opened by it.'
        */
       // window.close();
