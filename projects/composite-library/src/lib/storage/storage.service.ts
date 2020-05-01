@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { StorageKey, StorageValues } from '@composite-library/lib/storage/storage-key';
+import { TemporaryStorageKey, TemporaryStorageValues } from '@composite-library/lib/storage/temporary-storage-key';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +11,11 @@ export class StorageService {
   get(key: StorageKey): StorageInstance<StorageValues[typeof key]> {
     return new StorageInstance(`${this.prefix}${key}`, localStorage);
   }
+
+  getTemporary(key: TemporaryStorageKey): StorageInstance<TemporaryStorageValues[typeof key]> {
+    return new StorageInstance(`${this.prefix}${key}`, sessionStorage);
+  }
+
 }
 
 export class StorageInstance<ValueType> {

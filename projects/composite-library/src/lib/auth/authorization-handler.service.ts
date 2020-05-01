@@ -85,7 +85,7 @@ export class AuthorizationHandlerService {
       ;
   }
 
-  login(data: PasswordCredentialsLoginRequest): Observable<void> {
+  login(data: PasswordCredentialsLoginRequest): Observable<string> {
     return this.passwordCredentialsDomainService.login(data)
       .pipe(
         map(response => {
@@ -107,8 +107,9 @@ export class AuthorizationHandlerService {
 
           return {jwtContent, jwt};
         }),
-        switchMap(({jwt, jwtContent}) => this.readUserProfile(jwt, jwtContent)),
-        mapTo(undefined),
+        switchMap(({jwt, jwtContent}) => this.readUserProfile(jwt, jwtContent)
+          .pipe(mapTo(jwt))
+        ),
       );
   }
 

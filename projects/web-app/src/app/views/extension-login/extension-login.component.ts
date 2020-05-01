@@ -9,6 +9,7 @@ import { StorageService } from '@composite-library/lib/storage/storage.service';
 import { StorageKey } from '@composite-library/lib/storage/storage-key';
 import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
 import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
+import { TemporaryStorageKey } from '@composite-library/lib/storage/temporary-storage-key';
 
 @Component({
   selector: 'app-extension-login',
@@ -16,7 +17,8 @@ import { ChromeExternalMessageType } from '@composite-library/lib/chrome/externa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExtensionLoginComponent implements OnInit {
-  readonly storageInstance = this.storageService.get(StorageKey.USER_JWT);
+  readonly jwtStorageInstance = this.storageService.get(StorageKey.USER_JWT);
+  readonly extensionLoginStorageInstance = this.storageService.getTemporary(TemporaryStorageKey.EXTENSION_LOGIN);
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -25,7 +27,7 @@ export class ExtensionLoginComponent implements OnInit {
     private router: Router,
     private routerUtilsService: RouterUtilsService,
     private storageService: StorageService,
-    private chromeExternalMessageService: ChromeExternalMessageService
+    private chromeExternalMessageService: ChromeExternalMessageService,
   ) {
   }
 
@@ -48,20 +50,18 @@ export class ExtensionLoginComponent implements OnInit {
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           this.sendMessageToExtension(extensionId);
-          // window.close()
-          // close the tab
+          window.close()
         } else {
-          console.log('not logged in');
-          // save to storage
-          // redirect
+          this.extensionLoginStorageInstance.set(extensionId)
+          this.router.navigateByUrl(this.loginRoute)
         }
       });
   }
 
   private sendMessageToExtension(extensionId: string) {
     this.chromeExternalMessageService.sendMessage(extensionId, ChromeExternalMessageType.AUTHORIZED, {
-      jwt: this.storageInstance.get()
-    })
+      jwt: this.jwtStorageInstance.get(),
+    });
   }
 
 }
