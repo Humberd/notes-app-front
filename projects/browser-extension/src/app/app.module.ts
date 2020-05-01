@@ -10,7 +10,6 @@ import { APP_BASE_HREF } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { JwtRequestInterceptor } from '@composite-library/lib/auth/jwt-request.interceptor';
 import { environment } from '../environments/environment';
-import { defaultAuthorizedRoute, defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-routes';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -55,15 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       provide: HTTP_INTERCEPTORS,
       multi: true,
       useClass: JwtRequestInterceptor,
-    },
-    {
-      provide: defaultAuthorizedRoute,
-      useValue: '/notes',
-    },
-    {
-      provide: defaultUnauthorizedRoute,
-      useValue: '/authorization',
-    },
+    }
   ],
   bootstrap: [AppComponent],
 })
