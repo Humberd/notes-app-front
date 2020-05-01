@@ -3,8 +3,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { NoteView } from '@domain/entity/note/view/note-view';
-import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
-import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
+import { ChromeInternalMessageService } from '@composite-library/lib/chrome/internal-message/chrome-internal-message.service';
+import { ChromeInternalMessageType } from '@composite-library/lib/chrome/internal-message/model/internal-message-type';
 
 @Component({
   selector: 'brx-note-not-created',
@@ -20,7 +20,7 @@ export class NoteNotCreatedComponent {
     private activatedRoute: ActivatedRoute,
     private noteDomainService: NoteDomainService,
     private chromeApiBridgeService: ChromeApiBridgeService,
-    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
+    private chromeMessageMultiplexerService: ChromeInternalMessageService,
   ) {
   }
 
@@ -33,7 +33,7 @@ export class NoteNotCreatedComponent {
     }).toPromise();
 
     this.noteCreated.emit(newNote);
-    this.chromeMessageMultiplexerService.sendMessage(ChromeMessageType.NOTE_CREATED, {
+    this.chromeMessageMultiplexerService.sendMessage(ChromeInternalMessageType.NOTE_CREATED, {
       note: newNote,
     });
   }

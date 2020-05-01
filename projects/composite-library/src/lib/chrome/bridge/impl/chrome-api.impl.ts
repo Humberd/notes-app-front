@@ -65,6 +65,26 @@ export class ChromeApiImpl implements ChromeApi {
     });
   }
 
+  listenExternalMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
+    return new Observable<ListenMessageResult<Message, Response>>(subscriber => {
+      const handler = (...event) => {
+        this.ngZone.run(() => {
+          subscriber.next({
+            message: event[0],
+            sender: event[1],
+            sendResponse: event[2],
+          });
+        });
+      };
+
+      chrome.runtime.onMessageExternal.addListener(handler);
+
+      return () => {
+        chrome.runtime.onMessageExternal.removeListener(handler);
+      };
+    });
+  }
+
   onTabActivated(): Observable<chrome.tabs.TabActiveInfo> {
     return new Observable<chrome.tabs.TabActiveInfo>(subscriber => {
       const handler = tabInfo => {

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
 import { filter, pluck, switchMap } from 'rxjs/operators';
-import { ChromeMessageMultiplexerService } from '@composite-library/lib/chrome/message-multiplexer/chrome-message-multiplexer.service';
-import { ChromeMessageType } from '@composite-library/lib/chrome/message-multiplexer/model/message-type';
+import { ChromeInternalMessageService } from '@composite-library/lib/chrome/internal-message/chrome-internal-message.service';
+import { ChromeInternalMessageType } from '@composite-library/lib/chrome/internal-message/model/internal-message-type';
 import { NoteDomainService } from '@domain/entity/note/service/note-domain.service';
 import { NoteCacheService } from './note-cache.service';
 import Tab = chrome.tabs.Tab;
@@ -18,7 +18,7 @@ export class AppComponent {
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
     private noteDomainService: NoteDomainService,
-    private chromeMessageMultiplexerService: ChromeMessageMultiplexerService,
+    private chromeMessageMultiplexerService: ChromeInternalMessageService,
     private noteCacheService: NoteCacheService,
   ) {
     console.log('Browser Extension Background is running');
@@ -48,13 +48,13 @@ export class AppComponent {
   }
 
   private listenForMessagesFromExtension() {
-    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_CREATED)
+    this.chromeMessageMultiplexerService.listenMessage(ChromeInternalMessageType.NOTE_CREATED)
       .subscribe(payload => this.noteCacheService.addToCache(payload.note));
 
-    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.NOTE_DELETED)
+    this.chromeMessageMultiplexerService.listenMessage(ChromeInternalMessageType.NOTE_DELETED)
       .subscribe(payload => this.noteCacheService.removeFromCache(payload.note.url));
 
-    this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.AUTHORIZED)
+    this.chromeMessageMultiplexerService.listenMessage(ChromeInternalMessageType.AUTHORIZED)
       .subscribe(() => this.noteCacheService.softRefresh());
 
     chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {

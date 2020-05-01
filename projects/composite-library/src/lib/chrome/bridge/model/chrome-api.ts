@@ -16,6 +16,8 @@ export interface ChromeApi {
 
   listenMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>>;
 
+  listenExternalMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>>
+
   onTabActivated(): Observable<TabActiveInfo>;
 
   onTabUpdated(): Observable<TabUpdateEvent>;

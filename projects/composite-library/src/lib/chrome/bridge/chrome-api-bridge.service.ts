@@ -38,6 +38,10 @@ export class ChromeApiBridgeService implements ChromeApi {
     return this.chromeApiImpl.listenMessage();
   }
 
+  listenExternalMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
+    return this.chromeApiImpl.listenExternalMessage();
+  }
+
   onTabActivated(): Observable<chrome.tabs.TabActiveInfo> {
     return this.chromeApiImpl.onTabActivated();
   }

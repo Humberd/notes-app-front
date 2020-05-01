@@ -32,6 +32,10 @@ export class NoChromeApiImpl implements ChromeApi {
     return of();
   }
 
+  listenExternalMessage<Message, Response>(): Observable<ListenMessageResult<Message, Response>> {
+    return of();
+  }
+
   onTabActivated(): Observable<chrome.tabs.TabActiveInfo> {
     return of();
   }
