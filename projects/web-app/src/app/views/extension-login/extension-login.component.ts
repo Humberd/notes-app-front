@@ -5,6 +5,10 @@ import { defaultUnauthorizedRoute } from '@composite-library/lib/auth/default-ro
 import { filter, map } from 'rxjs/operators';
 import { AuthUserStatusType } from '@composite-library/lib/auth/authorized-user';
 import { RouterUtilsService } from '@ng-boost/core';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
+import { StorageKey } from '@composite-library/lib/storage/storage-key';
+
+declare const chrome: any;
 
 @Component({
   selector: 'app-extension-login',
@@ -12,12 +16,15 @@ import { RouterUtilsService } from '@ng-boost/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ExtensionLoginComponent implements OnInit {
+  readonly storageInstance = this.storageService.get(StorageKey.USER_JWT);
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private authorizationHandlerService: AuthorizationHandlerService,
     @Inject(defaultUnauthorizedRoute) private loginRoute: string,
     private router: Router,
     private routerUtilsService: RouterUtilsService,
+    private storageService: StorageService,
   ) {
   }
 
@@ -30,7 +37,7 @@ export class ExtensionLoginComponent implements OnInit {
       return;
     }
 
-    this.routerUtilsService.updateQueryParams({extensionId: null});
+    // this.routerUtilsService.updateQueryParams({extensionId: null});
 
     this.authorizationHandlerService.authStatus$
       .pipe(
@@ -39,7 +46,8 @@ export class ExtensionLoginComponent implements OnInit {
       )
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
-          this.sendMessageToExtension();
+          this.sendMessageToExtension(extensionId);
+          // close the tab
         } else {
           console.log('not logged in');
           // save to storage
@@ -48,8 +56,10 @@ export class ExtensionLoginComponent implements OnInit {
       });
   }
 
-  private sendMessageToExtension() {
+  private sendMessageToExtension(extensionId: string) {
+    chrome.runtime.sendMessage(extensionId, {[StorageKey.USER_JWT]: this.storageInstance.get()}, () => {
 
+    });
   }
 
 }

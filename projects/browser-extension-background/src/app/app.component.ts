@@ -56,6 +56,10 @@ export class AppComponent {
 
     this.chromeMessageMultiplexerService.listenMessage(ChromeMessageType.AUTHORIZED)
       .subscribe(() => this.noteCacheService.softRefresh());
+
+    chrome.runtime.onMessageExternal.addListener((message, sender, sendResponse) => {
+      console.log({message, sender});
+    });
   }
 
   private listenForCacheChange() {

@@ -11,5 +11,11 @@
   ],
   "background": {
     "page": "background/index.html"
+  },
+  "externally_connectable": {
+    "matches": [
+      "http://localhost:4200/*",
+      "https://notes-app.humberd.pl/*"
+    ]
   }
 }
