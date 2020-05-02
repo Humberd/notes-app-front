@@ -25,6 +25,10 @@ export const routes: Routes = [
     loadChildren: () => import('./views/extension-login/extension-login.module').then(value => value.ExtensionLoginModule),
   },
   {
+    path: 'oauth/providers/login',
+    loadChildren: () => import('./views/oauth-provider/oauth-provider.module').then(value => value.OauthProviderModule),
+  },
+  {
     path: '**',
     redirectTo: '/',
   },

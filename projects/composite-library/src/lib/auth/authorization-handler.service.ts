@@ -10,12 +10,17 @@ import { StorageKey } from '@composite-library/lib/storage/storage-key';
 import { StorageService } from '@composite-library/lib/storage/storage.service';
 import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@composite-library/lib/auth/authorized-user';
 import { JwtContent } from '@composite-library/lib/auth/jwt-content';
+import { UserView } from '@domain/entity/user/view/user-view';
+import { TemporaryStorageKey } from '@composite-library/lib/storage/temporary-storage-key';
+import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
+import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorizationHandlerService {
-  private readonly storage = this.storageService.get(StorageKey.USER_JWT);
+  private readonly jwtStorage = this.storageService.get(StorageKey.USER_JWT);
+  private readonly extensionIdStorage = this.storageService.getTemporary(TemporaryStorageKey.EXTENSION_LOGIN);
   private readonly _authStatus$ = new BehaviorSubject<AuthUserStatus>({type: AuthUserStatusType.NOT_INITIATED});
   authStatus$ = this._authStatus$.asObservable();
 
@@ -34,30 +39,23 @@ export class AuthorizationHandlerService {
     private passwordCredentialsDomainService: PasswordCredentialsDomainService,
     private myDataDomainService: UserDomainService,
     private router: Router,
+    private chromeExternalMessageService: ChromeExternalMessageService,
   ) {
     this.handleInitialTokenFetch();
   }
 
   private handleInitialTokenFetch() {
-    const jwt = this.storage.get();
+    const jwt = this.jwtStorage.get();
     if (!jwt) {
       this.markAsLoggedOut();
       return;
     }
 
-    let jwtContent: JwtContent;
-    try {
-      jwtContent = this.extractJwtContent(jwt);
-    } catch (e) {
-      this.markAsLoggedOut();
-      return;
-    }
-
-    this.readUserProfile(jwt, jwtContent)
+    this.loginViaToken(jwt)
       .subscribe();
   }
 
-  private readUserProfile(jwt: string, jwtContent: JwtContent) {
+  private readUserProfile(jwt: string, jwtContent: JwtContent): Observable<UserView> {
     return this.myDataDomainService.read(jwtContent.sub, jwt)
       .pipe(
         tap({
@@ -70,11 +68,11 @@ export class AuthorizationHandlerService {
                 jwt,
               },
             });
-            this.storage.set(jwt);
+            this.jwtStorage.set(jwt);
           },
           error: (error: HttpErrorResponse) => {
             if (error.status >= 400 || error.status < 500) {
-              this.storage.remove();
+              this.jwtStorage.remove();
             }
             this.markAsLoggedOut();
 
@@ -95,28 +93,46 @@ export class AuthorizationHandlerService {
             throw Error('Header value doesnt start with "Bearer "');
           }
 
-          const jwt = headerValue.replace('Bearer ', '');
-
-          let jwtContent: JwtContent;
-          try {
-            jwtContent = this.extractJwtContent(jwt);
-          } catch (e) {
-            this.markAsLoggedOut();
-            throw e;
-          }
-
-          return {jwtContent, jwt};
+          return headerValue.replace('Bearer ', '');
         }),
-        switchMap(({jwt, jwtContent}) => this.readUserProfile(jwt, jwtContent)
-          .pipe(mapTo(jwt))
+        switchMap(jwt => this.loginViaToken(jwt).pipe(mapTo(jwt))),
+      );
+  }
+
+  loginViaToken(jwt: string): Observable<JwtContent> {
+    return new Observable<JwtContent>(subscriber => {
+      let jwtContent: JwtContent;
+      try {
+        jwtContent = this.extractJwtContent(jwt);
+      } catch (e) {
+        this.markAsLoggedOut();
+        subscriber.error(e);
+
+        return;
+      }
+      subscriber.next(jwtContent);
+    })
+      .pipe(
+        switchMap(jwtContent => this.readUserProfile(jwt, jwtContent).pipe(mapTo(jwtContent))),
+        tap(() => this.handleExtensionLogin(jwt),
         ),
       );
   }
 
   logout() {
     this.markAsLoggedOut();
-    this.storage.remove();
+    this.jwtStorage.remove();
     this.router.navigate(['/']);
+  }
+
+  private handleExtensionLogin(jwt: string) {
+    const extensionId = this.extensionIdStorage.get();
+    if (extensionId) {
+      this.extensionIdStorage.remove();
+      this.chromeExternalMessageService.sendMessage(extensionId, ChromeExternalMessageType.AUTHORIZED, {
+        jwt,
+      });
+    }
   }
 
   private markAsLoggedOut() {
