@@ -9,7 +9,6 @@ import { AuthorizationHandlerService } from '@composite-library/lib/auth/authori
 import { StorageService } from '@composite-library/lib/storage/storage.service';
 import { TemporaryStorageKey } from '@composite-library/lib/storage/temporary-storage-key';
 import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
-import { ChromeExternalMessageType } from '@composite-library/lib/chrome/external-message/model/external-message-type';
 
 interface CredentialsLoginFormValues {
   email: string,
@@ -51,22 +50,6 @@ export class CredentialsLoginComponent extends FormRootController<CredentialsLog
   }
 
   protected onSuccess(jwt: string): void {
-    const extensionId = this.extensionLoginStorageInstance.get();
-    if (extensionId) {
-      this.extensionLoginStorageInstance.remove();
-      this.chromeExternalMessageService.sendMessage(extensionId, ChromeExternalMessageType.AUTHORIZED, {
-        jwt,
-      });
-
-      /**
-       * We should be closing the window here, since we want only to be authorized
-       * However, the Javascript throws an error:
-       * 'Scripts may close only the windows that were opened by it.'
-       */
-      // window.close();
-      // return;
-    }
-
     this.router.navigate(['/my-notes']);
   }
 
