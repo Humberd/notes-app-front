@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+
+header {
+  margin-bottom: var(--space-md);
+}
+
+.login-methods {
+  display: flex;
+
+  .method {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--backgroundColor-tertiary);
+    border-radius: 1px;
+    margin-right: var(--space-sm);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover, &:active {
+      background-color: var(--backgroundColor-tertiary);
+    }
+
+    img.provider {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

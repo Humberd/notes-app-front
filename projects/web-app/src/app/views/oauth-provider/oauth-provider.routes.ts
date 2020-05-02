@@ -5,11 +5,5 @@ export const routes: Routes = [
   {
     path: '',
     component: OauthProviderComponent,
-    children: [
-      {
-        path: 'google',
-        loadChildren: () => import('./views/google/google-oauth-provider.module').then(value => value.GoogleOauthProviderModule),
-      },
-    ],
   },
 ];

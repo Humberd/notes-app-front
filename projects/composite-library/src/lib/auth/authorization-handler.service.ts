@@ -10,6 +10,7 @@ import { StorageKey } from '@composite-library/lib/storage/storage-key';
 import { StorageService } from '@composite-library/lib/storage/storage.service';
 import { AuthorizedUser, AuthUserStatus, AuthUserStatusType, LoggedIn } from '@composite-library/lib/auth/authorized-user';
 import { JwtContent } from '@composite-library/lib/auth/jwt-content';
+import { UserView } from '@domain/entity/user/view/user-view';
 
 @Injectable({
   providedIn: 'root',
@@ -45,19 +46,11 @@ export class AuthorizationHandlerService {
       return;
     }
 
-    let jwtContent: JwtContent;
-    try {
-      jwtContent = this.extractJwtContent(jwt);
-    } catch (e) {
-      this.markAsLoggedOut();
-      return;
-    }
-
-    this.readUserProfile(jwt, jwtContent)
+    this.loginViaToken(jwt)
       .subscribe();
   }
 
-  private readUserProfile(jwt: string, jwtContent: JwtContent) {
+  private readUserProfile(jwt: string, jwtContent: JwtContent): Observable<UserView> {
     return this.myDataDomainService.read(jwtContent.sub, jwt)
       .pipe(
         tap({
@@ -95,21 +88,27 @@ export class AuthorizationHandlerService {
             throw Error('Header value doesnt start with "Bearer "');
           }
 
-          const jwt = headerValue.replace('Bearer ', '');
-
-          let jwtContent: JwtContent;
-          try {
-            jwtContent = this.extractJwtContent(jwt);
-          } catch (e) {
-            this.markAsLoggedOut();
-            throw e;
-          }
-
-          return {jwtContent, jwt};
+          return headerValue.replace('Bearer ', '');
         }),
-        switchMap(({jwt, jwtContent}) => this.readUserProfile(jwt, jwtContent)
-          .pipe(mapTo(jwt))
-        ),
+        switchMap(jwt => this.loginViaToken(jwt).pipe(mapTo(jwt))),
+      );
+  }
+
+  loginViaToken(jwt: string): Observable<JwtContent> {
+    return new Observable<JwtContent>(subscriber => {
+      let jwtContent: JwtContent;
+      try {
+        jwtContent = this.extractJwtContent(jwt);
+      } catch (e) {
+        this.markAsLoggedOut();
+        subscriber.error(e);
+
+        return;
+      }
+      subscriber.next(jwtContent);
+    })
+      .pipe(
+        switchMap(jwtContent => this.readUserProfile(jwt, jwtContent).pipe(mapTo(jwtContent))),
       );
   }
 
