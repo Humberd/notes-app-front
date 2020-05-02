@@ -15,7 +15,10 @@ export class ChromeApiBridgeService implements ChromeApi {
   private readonly chromeApiImpl: ChromeApi;
 
   constructor(ngZone: NgZone) {
-    if (typeof chrome.extension === 'undefined') {
+    if (typeof chrome === 'undefined') {
+      // TODO: firefox app
+      this.chromeApiImpl = new NoExtensionApiImpl(ngZone);
+    } else if (typeof chrome.extension === 'undefined') {
       this.chromeApiImpl = new NoExtensionApiImpl(ngZone);
     } else {
       this.chromeApiImpl = new ExtensionApiImpl(ngZone);
