@@ -2,12 +2,42 @@
   <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
   <mat-icon *ngIf="!loading">done</mat-icon>
   <h3 class="status">
-    <ng-container *ngIf="loading">Saving...</ng-container>
-    <ng-container *ngIf="!loading">Saved</ng-container>
+    {{loading ? 'Saving...' : 'Saved'}}
   </h3>
 </header>
 
-<brx-tags-autocompleter [formControl]="formDefinition.tags"></brx-tags-autocompleter>
+<brx-tags-autocompleter [formControl]="formDefinition.tagNames"></brx-tags-autocompleter>
+
+<section>
+  <button
+    class="toggle"
+    mat-button
+    [title]="contentExpanded? 'Less' : 'More'"
+    (click)="toggleContentExpand()"
+  >
+    {{contentExpanded ? 'Less' : 'More'}}
+
+    <mat-icon *ngIf="!contentExpanded">expand_more</mat-icon>
+    <mat-icon *ngIf="contentExpanded">expand_less</mat-icon>
+  </button>
+</section>
+
+<ng-container *ngIf="contentExpanded">
+  <lib-control-container>
+    <input [formControl]="formDefinition.title" type="text" placeholder="Title" libInput>
+  </lib-control-container>
+
+  <lib-control-container>
+    <mat-select
+      class="workspaces-selector" [formControl]="formDefinition.workspaceIds" placeholder="Add workspaces..." multiple
+    >
+      <mat-option *ngFor="let workspace of allWorkspaces" [value]="workspace.id">{{workspace.name}}</mat-option>
+    </mat-select>
+  </lib-control-container>
+
+</ng-container>
+
+
 <!--<brx-note-not-created-->
 <!--  *ngIf="!note"-->
 <!--  (noteCreated)="note = $event"-->

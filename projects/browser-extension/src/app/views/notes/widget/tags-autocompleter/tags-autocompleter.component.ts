@@ -10,8 +10,8 @@ import { NoteDomainService } from '@domain/entity/note/service/note-domain.servi
   styleUrls: ['./tags-autocompleter.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
-    {provide: NG_VALUE_ACCESSOR, useExisting: TagsAutocompleterComponent, multi: true}
-  ]
+    {provide: NG_VALUE_ACCESSOR, useExisting: TagsAutocompleterComponent, multi: true},
+  ],
 })
 export class TagsAutocompleterComponent extends AbstractControlValueAccessor<string[]> implements OnInit {
   allTags: string[];
@@ -48,13 +48,19 @@ export class TagsAutocompleterComponent extends AbstractControlValueAccessor<str
 
     this.value = [
       ...this.value,
-      newTagName
+      newTagName,
     ];
     this.autocompleteInnerControl.reset();
   }
 
   removeTag(tagName: string) {
-    this.value = this.value.filter(it => it.toLowerCase() !== tagName.toLowerCase())
+    this.value = this.value.filter(it => it.toLowerCase() !== tagName.toLowerCase());
   }
 
+
+  writeValue(obj: any) {
+    super.writeValue(obj);
+
+    this.changeDetectorRef.markForCheck();
+  }
 }
