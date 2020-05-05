@@ -16,7 +16,8 @@ import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
 interface NotesFormsValues {
   tagNames: string[];
   title: string;
-  workspaceIds: string[]
+  workspaceIds: string[];
+  content: string
 }
 
 @Component({
@@ -38,6 +39,7 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
     tagNames: new FormControl([], FormValidators.note.tags),
     title: new FormControl('', FormValidators.note.title),
     workspaceIds: new FormControl([], FormValidators.note.workspaces),
+    content: new FormControl('', FormValidators.note.content),
   };
 
   constructor(
@@ -81,6 +83,7 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
         this.tempForm.tagNames.setValue(note.tags.map(tag => tag.name));
         this.tempForm.title.setValue(note.title);
         this.tempForm.workspaceIds.setValue(note.workspaces.map(workspace => workspace.id));
+        this.tempForm.content.setValue(note.content);
 
         this.changeDetectorRef.markForCheck();
 
@@ -102,9 +105,8 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
             this.note.id,
             {tags: tagNames.map(tagName => ({name: tagName}))},
           ),
-        )
-      )
-      .subscribe();
+        ),
+      ).subscribe();
 
     this.formDefinition.workspaceIds.valueChanges
       .pipe(
@@ -113,9 +115,14 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
             this.note.id,
             {workspaces: workspaceIds.map(workspaceId => ({id: workspaceId}))},
           ),
-        )
-      )
-      .subscribe();
+        ),
+      ).subscribe();
+
+    this.formDefinition.content.valueChanges
+      .pipe(
+        debounceTime(500),
+        switchMap(content => this.noteDomainService.patch(this.note.id, {content})),
+      ).subscribe()
   }
 
   getFormDefinition(): FormControllerConfig<NotesFormsValues> {
