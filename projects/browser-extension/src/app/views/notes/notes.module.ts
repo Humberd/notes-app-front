@@ -15,6 +15,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { notesRoutes } from './notes.routes';
+import { TagsAutocompleterComponent } from './widget/tags-autocompleter/tags-autocompleter.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
@@ -30,8 +32,9 @@ import { notesRoutes } from './notes.routes';
     MatMenuModule,
     MatSelectModule,
     RouterModule.forChild(notesRoutes),
+    MatProgressSpinnerModule,
   ],
-  declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent],
+  declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent, TagsAutocompleterComponent],
 })
 export class NotesModule {
 }

@@ -1,10 +1,20 @@
-<brx-note-not-created
-  *ngIf="!note"
-  (noteCreated)="note = $event"
-></brx-note-not-created>
+<header class="status-panel">
+  <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+  <mat-icon *ngIf="!loading">done</mat-icon>
+  <h3>
+    <ng-container *ngIf="loading">Saving...</ng-container>
+    <ng-container *ngIf="!loading">Saved</ng-container>
+  </h3>
+</header>
 
-<brx-note-created
-  *ngIf="note"
-  [note]="note"
-  (noteDeleted)="note = undefined"
-></brx-note-created>
+<brx-tags-autocompleter [formControl]="formDefinition.tags"></brx-tags-autocompleter>
+<!--<brx-note-not-created-->
+<!--  *ngIf="!note"-->
+<!--  (noteCreated)="note = $event"-->
+<!--&gt;</brx-note-not-created>-->
+
+<!--<brx-note-created-->
+<!--  *ngIf="note"-->
+<!--  [note]="note"-->
+<!--  (noteDeleted)="note = undefined"-->
+<!--&gt;</brx-note-created>-->
