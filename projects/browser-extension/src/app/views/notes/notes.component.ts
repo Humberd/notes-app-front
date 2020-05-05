@@ -13,6 +13,8 @@ import { FormValidators } from '@composite-library/lib/form-validators/form.vali
 import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
 import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
 import { environment } from '../../../environments/environment';
+import { StorageService } from '@composite-library/lib/storage/storage.service';
+import { StorageKey } from '@composite-library/lib/storage/storage-key';
 
 interface NotesFormsValues {
   tagNames: string[];
@@ -37,6 +39,7 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
   contentExpanded: boolean;
   allWorkspaces: WorkspaceView[];
 
+  private readonly expandedNoteIdsStorage = this.storageService.get(StorageKey.EXPANDED_NOTE_IDS);
   private tempForm: FormControllerConfig<NotesFormsValues> = {
     tagNames: new FormControl([], FormValidators.note.tags),
     title: new FormControl('', FormValidators.note.title),
@@ -51,6 +54,7 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
     private workspaceDomainService: WorkspaceDomainService,
     private changeDetectorRef: ChangeDetectorRef,
     private tagsRefresherService: TagsRefresherService,
+    private storageService: StorageService,
   ) {
     super();
   }
@@ -82,6 +86,7 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
       )
       .subscribe(note => {
         this.note = note;
+        this.contentExpanded = this.expandedNoteIdsStorage.getOrElse([]).includes(note.id);
         this.tempForm.tagNames.setValue(note.tags.map(tag => tag.name));
         this.tempForm.title.setValue(note.title);
         this.tempForm.workspaceIds.setValue(note.workspaces.map(workspace => workspace.id));
@@ -133,6 +138,14 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
 
   toggleContentExpand() {
     this.contentExpanded = !this.contentExpanded;
+
+    let currentExpandedNoteIds = this.expandedNoteIdsStorage.getOrElse([]);
+    if (this.contentExpanded) {
+      currentExpandedNoteIds.push(this.note.id);
+    } else {
+      currentExpandedNoteIds = currentExpandedNoteIds.filter(noteId => noteId !== this.note.id);
+    }
+    this.expandedNoteIdsStorage.set(currentExpandedNoteIds);
   }
 
   deleteNote() {
@@ -142,6 +155,7 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
           note: this.note,
         });
 
+        this.expandedNoteIdsStorage.set(this.expandedNoteIdsStorage.getOrElse([]).filter(noteId => noteId !== this.note.id));
         this.isDeleted = true;
         this.changeDetectorRef.markForCheck();
       });
