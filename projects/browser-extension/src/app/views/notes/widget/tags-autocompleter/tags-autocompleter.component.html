@@ -1,0 +1,26 @@
+<form
+  [formGroup]="autocompleteFormGroup"
+  (ngSubmit)="addTag()"
+>
+  <lib-control-container>
+    <lib2-autocomplete-input-form
+      [allValues]="allTags"
+      [ignoredValues]="formControl.value"
+      [formControl]="autocompleteInnerControl"
+    ></lib2-autocomplete-input-form>
+
+    <ol>
+      <lib2-note-tag
+        class="tag"
+        *ngFor="let tag of formControl.value; let index= index"
+        [tag]="{
+           id: tag,
+           name: tag
+        }"
+        [removable]="true"
+        (removed)="removeTag(tag)"
+      ></lib2-note-tag>
+    </ol>
+
+  </lib-control-container>
+</form>

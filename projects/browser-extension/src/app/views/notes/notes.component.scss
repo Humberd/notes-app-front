@@ -1,3 +1,20 @@
 :host {
   display: block;
+  margin: var(--space-sm);
+}
+
+header.status-panel {
+  display: flex;
+
+  .status {
+    margin-left: var(--space-sm);
+  }
+}
+
+.workspaces-selector {
+  background-color: var(--backgroundColor-tertiary);
+}
+
+.options {
+  margin-left: auto;
 }

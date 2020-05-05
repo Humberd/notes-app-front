@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class MustBeAuthorizedExtensionGuard implements CanLoad {
-  readonly storageInstance = this.storageService.get(StorageKey.USER_JWT);
+  readonly jwtInStorage = this.storageService.get(StorageKey.USER_JWT);
 
   constructor(
     private storageService: StorageService,
@@ -22,7 +22,7 @@ export class MustBeAuthorizedExtensionGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[],
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.storageInstance.get()) {
+    if (this.jwtInStorage.get()) {
       return true;
     }
 

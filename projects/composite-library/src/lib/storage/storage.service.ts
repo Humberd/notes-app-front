@@ -8,11 +8,11 @@ import { TemporaryStorageKey, TemporaryStorageValues } from '@composite-library/
 export class StorageService {
   private readonly prefix = 'notes-app:';
 
-  get(key: StorageKey): StorageInstance<StorageValues[typeof key]> {
+  get<T extends StorageKey>(key: T): StorageInstance<StorageValues[T]> {
     return new StorageInstance(`${this.prefix}${key}`, localStorage);
   }
 
-  getTemporary(key: TemporaryStorageKey): StorageInstance<TemporaryStorageValues[typeof key]> {
+  getTemporary<T extends TemporaryStorageKey>(key: T): StorageInstance<TemporaryStorageValues[T]> {
     return new StorageInstance(`${this.prefix}${key}`, sessionStorage);
   }
 
@@ -27,6 +27,15 @@ export class StorageInstance<ValueType> {
 
   get(): ValueType {
     return JSON.parse(this.storage.getItem(this.key));
+  }
+
+  getOrElse(elseValue: ValueType): ValueType {
+    const get = this.get();
+    if (!get) {
+      return elseValue;
+    }
+
+    return get
   }
 
   set(value: ValueType) {

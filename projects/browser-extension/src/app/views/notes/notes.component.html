@@ -1,10 +1,66 @@
-<brx-note-not-created
-  *ngIf="!note"
-  (noteCreated)="note = $event"
-></brx-note-not-created>
+<header class="status-panel">
+  <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
+  <mat-icon *ngIf="!loading">done</mat-icon>
+  <h3 class="status">
+    <ng-container *ngIf="isDeleted">Deleted</ng-container>
+    <ng-container *ngIf="!isDeleted">{{loading ? 'Saving...' : 'Saved'}}</ng-container>
+  </h3>
 
-<brx-note-created
-  *ngIf="note"
-  [note]="note"
-  (noteDeleted)="note = undefined"
-></brx-note-created>
+  <button
+    *ngIf="!isDeleted"
+    type="button"
+    class="options"
+    libIconButton
+    [mat-menu-trigger-for]="optionsRef"
+  >
+    <mat-icon>more_horiz</mat-icon>
+  </button>
+</header>
+
+<mat-menu #optionsRef yPosition="below">
+  <button mat-menu-item (click)="openInApp()">
+    <mat-icon>edit</mat-icon>
+    Edit in Notes App
+  </button>
+  <button mat-menu-item (click)="deleteNote()">
+    <mat-icon color="warn">delete</mat-icon>
+    Delete
+  </button>
+</mat-menu>
+
+<ng-container *ngIf="!isDeleted">
+  <brx-tags-autocompleter [formControl]="formDefinition.tagNames"></brx-tags-autocompleter>
+
+  <section>
+    <button
+      class="toggle"
+      mat-button
+      (click)="toggleContentExpand()"
+    >
+      {{contentExpanded ? 'Less' : 'More'}}
+
+      <mat-icon *ngIf="!contentExpanded">expand_more</mat-icon>
+      <mat-icon *ngIf="contentExpanded">expand_less</mat-icon>
+    </button>
+  </section>
+
+  <ng-container *ngIf="contentExpanded">
+    <lib-control-container>
+      <input [formControl]="formDefinition.title" type="text" placeholder="Title" libInput>
+    </lib-control-container>
+
+    <lib-control-container>
+      <mat-select
+        class="workspaces-selector" [formControl]="formDefinition.workspaceIds" placeholder="Add workspaces..." multiple
+      >
+        <mat-option *ngFor="let workspace of allWorkspaces" [value]="workspace.id">{{workspace.name}}</mat-option>
+      </mat-select>
+    </lib-control-container>
+
+    <lib-control-container>
+      <textarea [formControl]="formDefinition.content" libInput placeholder="Additional content..."></textarea>
+    </lib-control-container>
+
+  </ng-container>
+
+</ng-container>

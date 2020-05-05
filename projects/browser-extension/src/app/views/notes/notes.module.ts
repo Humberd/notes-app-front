@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { NotesRoutingModule } from './notes-routing.module';
 import { NotesComponent } from './notes.component';
-import { NoteCreatedComponent } from './widget/note-created/note-created.component';
-import { NoteNotCreatedComponent } from './widget/note-not-created/note-not-created.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,11 +11,14 @@ import { EditorModule } from 'common-library/lib/editor/editor.module';
 import { ButtonsModule } from 'common-library/lib/buttons/buttons.module';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { RouterModule } from '@angular/router';
+import { notesRoutes } from './notes.routes';
+import { TagsAutocompleterComponent } from './widget/tags-autocompleter/tags-autocompleter.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   imports: [
     CommonModule,
-    NotesRoutingModule,
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule,
@@ -30,8 +29,10 @@ import { MatSelectModule } from '@angular/material/select';
     ButtonsModule,
     MatMenuModule,
     MatSelectModule,
+    RouterModule.forChild(notesRoutes),
+    MatProgressSpinnerModule,
   ],
-  declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent],
+  declarations: [NotesComponent, TagsAutocompleterComponent],
 })
 export class NotesModule {
 }
