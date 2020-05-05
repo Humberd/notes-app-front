@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NotesComponent } from './notes.component';
-import { NoteCreatedComponent } from './widget/note-created/note-created.component';
-import { NoteNotCreatedComponent } from './widget/note-not-created/note-not-created.component';
 import { MatButtonModule } from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
@@ -34,7 +32,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     RouterModule.forChild(notesRoutes),
     MatProgressSpinnerModule,
   ],
-  declarations: [NotesComponent, NoteCreatedComponent, NoteNotCreatedComponent, TagsAutocompleterComponent],
+  declarations: [NotesComponent, TagsAutocompleterComponent],
 })
 export class NotesModule {
 }
