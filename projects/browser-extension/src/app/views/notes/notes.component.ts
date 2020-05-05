@@ -33,6 +33,7 @@ interface NotesFormsValues {
 export class NotesComponent extends FormRootController<NotesFormsValues> implements OnInit {
   note: NoteView;
   loading: boolean;
+  isDeleted: boolean;
   contentExpanded: boolean;
   allWorkspaces: WorkspaceView[];
 
@@ -121,9 +122,9 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
 
     this.formDefinition.content.valueChanges
       .pipe(
-        debounceTime(500),
+        debounceTime(300),
         switchMap(content => this.noteDomainService.patch(this.note.id, {content})),
-      ).subscribe()
+      ).subscribe();
   }
 
   getFormDefinition(): FormControllerConfig<NotesFormsValues> {
@@ -140,6 +141,9 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
         this.chromeInternalMessageService.sendMessage(ChromeInternalMessageType.NOTE_DELETED, {
           note: this.note,
         });
+
+        this.isDeleted = true;
+        this.changeDetectorRef.markForCheck();
       });
   }
 
