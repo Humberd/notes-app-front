@@ -3,10 +3,9 @@
   (ngSubmit)="addTag()"
 >
   <lib-control-container>
-
     <lib2-autocomplete-input-form
       [allValues]="allTags"
-      [ignoredValues]="formControl.valueChanges | async"
+      [ignoredValues]="formControl.value"
       [formControl]="autocompleteInnerControl"
     ></lib2-autocomplete-input-form>
 

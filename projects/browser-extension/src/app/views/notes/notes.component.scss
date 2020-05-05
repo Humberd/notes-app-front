@@ -5,4 +5,8 @@
 
 header.status-panel {
   display: flex;
+
+  .status {
+    margin-left: var(--space-sm);
+  }
 }

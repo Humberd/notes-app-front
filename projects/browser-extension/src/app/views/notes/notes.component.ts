@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ChromeApiBridgeService } from '@composite-library/lib/chrome/bridge/chrome-api-bridge.service';
-import { delay, switchMap } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { NoteView } from '@domain/entity/note/view/note-view';
 import { TagsRefresherService } from './service/tags-refresher.service';
 import { UserDomainService } from '@domain/entity/user/service/user-domain.service';
@@ -28,6 +28,9 @@ interface NotesFormsValues {
 export class NotesComponent extends FormRootController<NotesFormsValues> implements OnInit {
   note: NoteView;
   loading: boolean;
+  private tempForm: FormControllerConfig<NotesFormsValues> = {
+    tags: new FormControl([], FormValidators.note.tags),
+  };
 
   constructor(
     private chromeApiBridgeService: ChromeApiBridgeService,
@@ -43,11 +46,13 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
   ngOnInit(): void {
     super.ngOnInit();
     this.tagsRefresherService.start();
+    this.fetchCurrentNote();
+  }
 
+  private fetchCurrentNote() {
     this.chromeApiBridgeService.getCurrentTab()
       .pipe(
         switchMap(currentTab => this.noteDomainService.readList({url: currentTab.url})),
-        delay(1000),
         switchMap(response => {
           const hasNote = response.data.length > 0;
           if (hasNote) {
@@ -59,19 +64,32 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
       )
       .subscribe(note => {
         this.note = note;
-        this.formDefinition.tags.setValue(note.tags.map(tag => tag.name));
+        this.tempForm.tags.setValue(note.tags.map(tag => tag.name));
         this.changeDetectorRef.markForCheck();
+
+        this.rootForm.valueChanges
+          .subscribe(() => this.submit());
       });
   }
 
   getFormDefinition(): FormControllerConfig<NotesFormsValues> {
-    return {
-      tags: new FormControl([], FormValidators.note.tags),
-    };
+    return this.tempForm;
   }
 
   protected submitAction(values: NotesFormsValues): Observable<any> {
-    return undefined;
+    this.setLoading();
+    return this.noteDomainService.patch(this.note.id, {
+      tags: values.tags.map(tagName => ({name: tagName}))
+    });
+  }
+
+  protected onSuccess(success: any) {
+    this.setSaved()
+  }
+
+  protected onError(err: any) {
+    console.error(err);
+    this.setSaved()
   }
 
   async createNote() {

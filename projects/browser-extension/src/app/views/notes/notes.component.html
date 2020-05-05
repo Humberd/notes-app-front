@@ -1,7 +1,7 @@
 <header class="status-panel">
   <mat-spinner *ngIf="loading" diameter="24"></mat-spinner>
   <mat-icon *ngIf="!loading">done</mat-icon>
-  <h3>
+  <h3 class="status">
     <ng-container *ngIf="loading">Saving...</ng-container>
     <ng-container *ngIf="!loading">Saved</ng-container>
   </h3>
