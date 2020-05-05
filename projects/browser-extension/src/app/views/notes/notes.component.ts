@@ -12,6 +12,7 @@ import { FormControl } from '@angular/forms';
 import { FormValidators } from '@composite-library/lib/form-validators/form.validators';
 import { WorkspaceDomainService } from '@domain/entity/workspace/service/workspace-domain.service';
 import { WorkspaceView } from '@domain/entity/workspace/view/workspace-view';
+import { environment } from '../../../environments/environment';
 
 interface NotesFormsValues {
   tagNames: string[];
@@ -131,6 +132,21 @@ export class NotesComponent extends FormRootController<NotesFormsValues> impleme
 
   toggleContentExpand() {
     this.contentExpanded = !this.contentExpanded;
+  }
+
+  deleteNote() {
+    this.noteDomainService.delete(this.note.id)
+      .subscribe(() => {
+        this.chromeInternalMessageService.sendMessage(ChromeInternalMessageType.NOTE_DELETED, {
+          note: this.note,
+        });
+      });
+  }
+
+  openInApp() {
+    this.chromeApiBridgeService.createTab({
+      url: `${environment.webAppUrl}/my-notes/${this.note.id}`,
+    });
   }
 
   protected submitAction(values: NotesFormsValues): Observable<any> {

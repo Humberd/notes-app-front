@@ -4,7 +4,27 @@
   <h3 class="status">
     {{loading ? 'Saving...' : 'Saved'}}
   </h3>
+
+  <button
+    type="button"
+    class="options"
+    libIconButton
+    [mat-menu-trigger-for]="optionsRef"
+  >
+    <mat-icon>more_horiz</mat-icon>
+  </button>
 </header>
+
+<mat-menu #optionsRef yPosition="above">
+  <button mat-menu-item (click)="openInApp()">
+    <mat-icon>edit</mat-icon>
+    Edit in Notes App
+  </button>
+  <button mat-menu-item (click)="deleteNote()">
+    <mat-icon color="warn">delete</mat-icon>
+    Delete
+  </button>
+</mat-menu>
 
 <brx-tags-autocompleter [formControl]="formDefinition.tagNames"></brx-tags-autocompleter>
 
@@ -40,15 +60,3 @@
   </lib-control-container>
 
 </ng-container>
-
-
-<!--<brx-note-not-created-->
-<!--  *ngIf="!note"-->
-<!--  (noteCreated)="note = $event"-->
-<!--&gt;</brx-note-not-created>-->
-
-<!--<brx-note-created-->
-<!--  *ngIf="note"-->
-<!--  [note]="note"-->
-<!--  (noteDeleted)="note = undefined"-->
-<!--&gt;</brx-note-created>-->
