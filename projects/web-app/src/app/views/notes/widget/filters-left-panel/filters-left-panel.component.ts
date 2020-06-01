@@ -66,13 +66,13 @@ export class FiltersLeftPanelComponent implements OnInit {
   }
 
   async createGroup() {
-    // const dialogRef = await this.dialogService.openCreateWorkspaceDialog();
-    //
-    // dialogRef.afterClosed()
-    //   .pipe(filter(Boolean))
-    //   .subscribe(() => {
-    //     this.workspacesRefresherService.softRefresh();
-    //   });
+    const dialogRef = await this.dialogService.openCreateGroupDialog();
+
+    dialogRef.afterClosed()
+      .pipe(filter(Boolean))
+      .subscribe(() => {
+        this.groupsRefresherService.softRefresh();
+      });
   }
 
   async editGroup(group: GroupView) {

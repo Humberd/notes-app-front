@@ -17,6 +17,7 @@ import { TagModificationDialogData } from '@web-app/app/dialogs/modules/tag-modi
 import { TagModificationDialogOutput } from '@web-app/app/dialogs/modules/tag-modification-dialog/models/tag-modification-dialog-output';
 import { TagView } from '@domain/entity/tag/view/tag-view';
 import { TagDomainService } from '@domain/entity/tag/service/tag-domain.service';
+import { GroupModificationDialogComponent } from '@web-app/app/dialogs/modules/group-modification-dialog/group-modification-dialog.component';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +65,14 @@ export class DialogService {
       await import('../modules/workspace-modification-dialog/workspace-modification-dialog.module');
     return this.matDialog.open<WorkspaceModificationDialogComponent, WorkspaceModificationDialogData, WorkspaceModificationDialogOutput>(
       WorkspaceModificationDialogModule.getDialogClass(),
+    );
+  }
+
+  async openCreateGroupDialog() {
+    const {GroupModificationDialogModule} =
+      await import('../modules/group-modification-dialog/group-modification-dialog.module');
+    return this.matDialog.open<GroupModificationDialogComponent, any, any>(
+      GroupModificationDialogModule.getDialogClass(),
     );
   }
 
