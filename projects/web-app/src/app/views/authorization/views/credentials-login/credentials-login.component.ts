@@ -6,9 +6,6 @@ import { FormValidators } from '@composite-library/lib/form-validators/form.vali
 import { HttpResponseBase } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthorizationHandlerService } from '@composite-library/lib/auth/authorization-handler.service';
-import { StorageService } from '@composite-library/lib/storage/storage.service';
-import { TemporaryStorageKey } from '@composite-library/lib/storage/temporary-storage-key';
-import { ChromeExternalMessageService } from '@composite-library/lib/chrome/external-message/chrome-external-message.service';
 
 interface CredentialsLoginFormValues {
   email: string,
@@ -23,20 +20,17 @@ interface CredentialsLoginFormValues {
 })
 export class CredentialsLoginComponent extends FormRootController<CredentialsLoginFormValues> {
   errorMessage: string;
-  readonly extensionLoginStorageInstance = this.storageService.getTemporary(TemporaryStorageKey.EXTENSION_LOGIN);
 
   constructor(
     private authorizationHandlerService: AuthorizationHandlerService,
     private router: Router,
-    private storageService: StorageService,
-    private chromeExternalMessageService: ChromeExternalMessageService,
   ) {
     super();
   }
 
   getFormDefinition(): FormControllerConfig<CredentialsLoginFormValues> {
     return {
-      email: new FormControl('admin@admin.com', FormValidators.auth.login.login),
+      email: new FormControl('alice@gmail.com', FormValidators.auth.login.login),
       password: new FormControl('admin123', FormValidators.auth.login.password),
     };
   }

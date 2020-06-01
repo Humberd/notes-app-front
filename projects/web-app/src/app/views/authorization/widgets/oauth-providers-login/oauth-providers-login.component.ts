@@ -9,7 +9,6 @@ import { Location } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OauthProvidersLoginComponent {
-
   constructor(
     private location: Location,
   ) {
