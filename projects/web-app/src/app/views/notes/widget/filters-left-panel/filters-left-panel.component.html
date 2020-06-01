@@ -1,14 +1,14 @@
-<section class="group workspaces">
+<section class="group">
   <header>
     <h5>
-      Workspaces
+      Groups
     </h5>
 
     <button
       class="new"
-      title="New Workspace"
+      title="New Group"
       libIconButton
-      (click)="createWorkspace()"
+      (click)="createGroup()"
     >
       <mat-icon class="icon">add</mat-icon>
     </button>
@@ -17,12 +17,12 @@
       class="sort"
       title="Sort"
       libIconButton
-      [mat-menu-trigger-for]="workspaceSortRef"
+      [mat-menu-trigger-for]="groupSortRef"
     >
       <mat-icon class="icon">sort</mat-icon>
     </button>
 
-    <mat-menu #workspaceSortRef xPosition="before">
+    <mat-menu #groupSortRef xPosition="before">
       <button mat-menu-item>
         Sort by name ASC
       </button>
@@ -33,25 +33,14 @@
   </header>
 
   <ul class="list">
-    <li>
+    <li *ngFor="let group of groupsRefresherService.data$ | async; trackBy: trackByGroup">
       <button
         class="entity"
-        [class.selected]="!(notesSearchService.attributes$ | async).workspaceId"
-        (click)="chooseAllWorkspaces()"
+        [class.selected]="(notesSearchService.attributes$ | async).groupId === group.id"
+        (click)="chooseGroup(group)"
       >
 
-        <span class="name" style="font-style: italic; overflow: visible">All</span>
-
-      </button>
-    </li>
-    <li *ngFor="let workspace of workspacesRefresherService.data$ | async; trackBy: trackByWorkspace">
-      <button
-        class="entity"
-        [class.selected]="(notesSearchService.attributes$ | async).workspaceId === workspace.id"
-        (click)="chooseWorkspace(workspace)"
-      >
-
-        <span class="name">{{workspace.name}}</span>
+        <span class="name">{{group.name}}</span>
 
         <button
           class="more-options"
@@ -64,8 +53,8 @@
         </button>
 
         <mat-menu #moreOptionsRef xPosition="before">
-          <button mat-menu-item (click)="editWorkspace(workspace)">Edit</button>
-          <button mat-menu-item (click)="deleteWorkspace(workspace)">Delete</button>
+          <button mat-menu-item (click)="editGroup(group)">Edit</button>
+          <button mat-menu-item (click)="deleteGroup(group)">Delete</button>
         </mat-menu>
 
       </button>

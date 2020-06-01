@@ -9,6 +9,7 @@ export class NotesSearchService {
   private readonly _attributes$ = new BehaviorSubject<SearchAttributes>({
     query: null,
     workspaceId: null,
+    groupId: null,
     tagIds: [],
     sort: null,
   });
@@ -36,6 +37,7 @@ export class NotesSearchService {
           return ({
             query: this.routerUtilsService.getQueryParam('query'),
             workspaceId: this.routerUtilsService.getQueryParam('workspaceId'),
+            groupId: this.routerUtilsService.getQueryParam('groupId'),
             tagIds: this.getAllQueryParams('tagIds') || [],
             sort: sort.by && sort.direction ? sort : null,
           } as SearchAttributes);
@@ -54,6 +56,7 @@ export class NotesSearchService {
     const newState: SearchAttributes = {
       query: attributes.hasOwnProperty('query') ? (attributes.query || null) : this.attributes.query,
       workspaceId: attributes.hasOwnProperty('workspaceId') ? (attributes.workspaceId || null) : this.attributes.workspaceId,
+      groupId: attributes.hasOwnProperty('groupId') ? (attributes.groupId || null) : this.attributes.groupId,
       tagIds: attributes.hasOwnProperty('tagIds') ? (attributes.tagIds || null) : this.attributes.tagIds,
       sort: attributes.hasOwnProperty('sort') ? (attributes.sort || null) : this.attributes.sort,
     };
@@ -69,6 +72,7 @@ export class NotesSearchService {
     this.routerUtilsService.updateQueryParams({
       query: attributes.query || null,
       workspaceId: attributes.workspaceId || null,
+      groupId: attributes.groupId || null,
       tagIds: attributes.tagIds.length === 0 ? null : attributes.tagIds,
       sortBy: attributes.sort?.by || null,
       sortDirection: attributes.sort?.direction || null,
@@ -91,7 +95,11 @@ export class NotesSearchService {
 
 interface SearchAttributes {
   query: string | null;
+  /**
+   * @deprecated no more workspaces
+   */
   workspaceId: string | null;
+  groupId: string | null;
   tagIds: string[],
   sort: Sort | null
 }

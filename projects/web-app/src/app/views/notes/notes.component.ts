@@ -3,6 +3,7 @@ import { TagsRefresherService } from '@web-app/app/views/notes/service/tags-refr
 import { NotesRefresherService } from '@web-app/app/views/notes/service/notes-refresher.service';
 import { WorkspacesRefresherService } from '@web-app/app/views/notes/service/workspaces-refresher.service';
 import { NotesSearchService } from '@web-app/app/views/notes/service/notes-search.service';
+import { GroupsRefresherService } from '@web-app/app/views/notes/service/groups-refresher.service';
 
 @Component({
   selector: 'app-notes',
@@ -14,6 +15,7 @@ import { NotesSearchService } from '@web-app/app/views/notes/service/notes-searc
     NotesRefresherService,
     WorkspacesRefresherService,
     NotesSearchService,
+    GroupsRefresherService
   ],
 })
 export class NotesComponent implements OnInit {
@@ -21,6 +23,7 @@ export class NotesComponent implements OnInit {
     private tagsRefresherService: TagsRefresherService,
     private notesRefresherService: NotesRefresherService,
     private workspacesRefresherService: WorkspacesRefresherService,
+    private groupsRefresherService: GroupsRefresherService
   ) {
   }
 
@@ -28,6 +31,7 @@ export class NotesComponent implements OnInit {
     this.tagsRefresherService.start();
     this.notesRefresherService.start();
     this.workspacesRefresherService.start();
+    this.groupsRefresherService.start()
   }
 
 }
